@@ -40,8 +40,8 @@ public class DriveCommand extends EntechCommandBase {
 
         /* Drive */
         drive.drive(
-            new Translation2d(translationVal, strafeVal).times(RobotConstants.Swerve.maxSpeed), 
-            rotationVal * RobotConstants.Swerve.maxAngularVelocity, 
+            new Translation2d(translationVal, strafeVal).times(RobotConstants.Swerve.MAX_SPEED), 
+            rotationVal * RobotConstants.Swerve.MAX_ANGULAR_VELOCITY, 
             !robotCentricSup.getAsBoolean(), 
             true,
             navx.getYaw()
