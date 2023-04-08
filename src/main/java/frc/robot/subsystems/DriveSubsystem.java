@@ -36,7 +36,7 @@ public class DriveSubsystem extends EntechSubsystem {
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop, double yaw) {
         SwerveModuleState[] swerveModuleStates =
-            RobotConstants.Swerve.swerveKinematics.toSwerveModuleStates(
+            RobotConstants.Swerve.SWERVE_KINEMATICS.toSwerveModuleStates(
                 fieldRelative ? ChassisSpeeds.fromFieldRelativeSpeeds(
                                     translation.getX(), 
                                     translation.getY(), 

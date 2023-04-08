@@ -1,6 +1,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.pose.Odometry;
 
 
 /**
@@ -14,21 +16,28 @@ public class Robot extends TimedRobot {
   private SubsystemInterface si;
   private CommandFactory cf;
   private OperatorInterface oi;
+  private Odometry odometry;
   
   @Override
   public void robotInit() {
     si = new SubsystemInterface();
-    cf = new CommandFactory(si);
+    odometry = new Odometry(si.getNavXSubSys().getYaw(), si.getDriveSubsys().getModulePositions());
+    cf = new CommandFactory(si, odometry::getPose);
     oi = new OperatorInterface(cf);
   }
 
   @Override
   public void autonomousInit() {
+    Command auto = cf.getAutoCommand();
+
+    if (auto != null) {
+      auto.schedule();
+    }
   }
 
   @Override
   public void autonomousPeriodic() {
-    teleopPeriodic();
+    genralPeriodic();
   }
 
   @Override
@@ -38,7 +47,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
-      
+    genralPeriodic();
   }
 
   @Override
@@ -47,5 +56,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
+  }
+
+  public void genralPeriodic() {
+    odometry.updateOdometry(si.getNavXSubSys().getYaw(), si.getDriveSubsys().getModulePositions());
   }
 }

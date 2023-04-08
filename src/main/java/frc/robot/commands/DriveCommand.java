@@ -3,7 +3,8 @@ package frc.robot.commands;
 
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.NavXSubSystem;
+
+import entech.commands.suppliers.YawSupplier;
 
 import java.util.function.BooleanSupplier;
 
@@ -14,14 +15,14 @@ import edu.wpi.first.wpilibj.Joystick;
 
 public class DriveCommand extends EntechCommandBase {    
     private DriveSubsystem drive;
-    private NavXSubSystem navx;
+    private YawSupplier navx;
 
     private Joystick js;
 
     private BooleanSupplier robotCentricSup;
 
-    public DriveCommand(DriveSubsystem drive, NavXSubSystem navx, Joystick js, BooleanSupplier robotCentricSup) {
-        super(drive, navx);
+    public DriveCommand(DriveSubsystem drive, YawSupplier navx, Joystick js, BooleanSupplier robotCentricSup) {
+        super(drive);
 
         this.drive = drive;
         this.navx = navx;

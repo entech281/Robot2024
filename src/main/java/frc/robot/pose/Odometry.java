@@ -11,7 +11,7 @@ public class Odometry {
     private SwerveDriveOdometry swerveOdometry;
 
     public Odometry(double yaw, SwerveModulePosition[] modulePositions) {
-        swerveOdometry = new SwerveDriveOdometry(RobotConstants.Swerve.swerveKinematics, Rotation2d.fromDegrees(yaw), modulePositions);
+        swerveOdometry = new SwerveDriveOdometry(RobotConstants.Swerve.SWERVE_KINEMATICS, Rotation2d.fromDegrees(yaw), modulePositions);
     }
 
     public Pose2d getPose() {
@@ -20,5 +20,9 @@ public class Odometry {
 
     public void resetOdometry(Pose2d pose, double yaw, SwerveModulePosition[] modulePositions) {
         swerveOdometry.resetPosition(Rotation2d.fromDegrees(yaw), modulePositions, pose);
+    }
+
+    public void updateOdometry(double yaw, SwerveModulePosition[] modulePositions) {
+        swerveOdometry.update(Rotation2d.fromDegrees(yaw), modulePositions);
     }
 }

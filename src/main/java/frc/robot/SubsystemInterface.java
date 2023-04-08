@@ -9,6 +9,8 @@ public class SubsystemInterface {
     public void initialize() {
         driveSubsys = new DriveSubsystem();
         navXSubSys = new NavXSubSystem();
+        driveSubsys.initialize();
+        navXSubSys.initialize();
     }
 
     public DriveSubsystem getDriveSubsys() {

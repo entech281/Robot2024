@@ -28,7 +28,7 @@ public final class RobotConstants {
 
         /* Swerve Kinematics 
          * No need to ever change this unless you are not doing a traditional rectangular/square 4 module swerve */
-         public static final SwerveDriveKinematics swerveKinematics = new SwerveDriveKinematics(
+         public static final SwerveDriveKinematics SWERVE_KINEMATICS = new SwerveDriveKinematics(
             new Translation2d(WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
             new Translation2d(WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
             new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
@@ -92,9 +92,9 @@ public final class RobotConstants {
         /* Module Specific Constants */
         /* Front Left Module - Module 0 */
         public static final class Mod0 { //TODO: This must be tuned to specific robot
-            public static final int DRIVE_MOTOR_ID = 1;
-            public static final int ANGLE_MOTOR_ID = 2;
-            public static final int CAN_CODER_ID = 1;
+            public static final int DRIVE_MOTOR_ID = 10;
+            public static final int ANGLE_MOTOR_ID = 11;
+            public static final int CAN_CODER_ID = 12;
             public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(0.0);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(DRIVE_MOTOR_ID, ANGLE_MOTOR_ID, CAN_CODER_ID, ANGLE_OFFSET);
@@ -102,9 +102,9 @@ public final class RobotConstants {
 
         /* Front Right Module - Module 1 */
         public static final class Mod1 { //TODO: This must be tuned to specific robot
-            public static final int DRIVE_MOTOR_ID = 3;
-            public static final int ANGLE_MOTOR_ID = 4;
-            public static final int CAN_CODER_ID = 2;
+            public static final int DRIVE_MOTOR_ID = 20;
+            public static final int ANGLE_MOTOR_ID = 21;
+            public static final int CAN_CODER_ID = 22;
             public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(0.0);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(DRIVE_MOTOR_ID, ANGLE_MOTOR_ID, CAN_CODER_ID, ANGLE_OFFSET);
@@ -112,9 +112,9 @@ public final class RobotConstants {
         
         /* Back Left Module - Module 2 */
         public static final class Mod2 { //TODO: This must be tuned to specific robot
-            public static final int DRIVE_MOTOR_ID = 5;
-            public static final int ANGLE_MOTOR_ID = 6;
-            public static final int CAN_CODER_ID = 3;
+            public static final int DRIVE_MOTOR_ID = 30;
+            public static final int ANGLE_MOTOR_ID = 31;
+            public static final int CAN_CODER_ID = 32;
             public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(0.0);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(DRIVE_MOTOR_ID, ANGLE_MOTOR_ID, CAN_CODER_ID, ANGLE_OFFSET);
@@ -122,9 +122,9 @@ public final class RobotConstants {
 
         /* Back Right Module - Module 3 */
         public static final class Mod3 { //TODO: This must be tuned to specific robot
-            public static final int DRIVE_MOTOR_ID = 7;
-            public static final int ANGLE_MOTOR_ID = 8;
-            public static final int CAN_CODER_ID = 4;
+            public static final int DRIVE_MOTOR_ID = 40;
+            public static final int ANGLE_MOTOR_ID = 41;
+            public static final int CAN_CODER_ID = 42;
             public static final Rotation2d ANGLE_OFFSET = Rotation2d.fromDegrees(0.0);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(DRIVE_MOTOR_ID, ANGLE_MOTOR_ID, CAN_CODER_ID, ANGLE_OFFSET);
@@ -139,10 +139,10 @@ public final class RobotConstants {
     
         public static final double PX_CONTROLLER = 1;
         public static final double PY_CONTROLLER = 1;
-        public static final double PTHETA_CONTROLLER = 1;
+        public static final double P_THETA_CONTROLLER = 1;
     
         /* Constraint for the motion profilied robot angle controller */
-        public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
+        public static final TrapezoidProfile.Constraints THETA_CONTROLLER_CONSTRAINTS =
             new TrapezoidProfile.Constraints(
                 MAX_ANGULAR_SPEED_RADIANS_PER_SECOND, MAX_ANGULAR_SPEED_RADIANS_PER_SECOND_SQUARED);
     }

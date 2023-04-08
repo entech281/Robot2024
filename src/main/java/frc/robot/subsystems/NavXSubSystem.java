@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import entech.subsystems.EntechSubsystem;
 import entech.util.EntechUtils;
+import entech.commands.suppliers.YawSupplier;
 
 /**
  *
@@ -35,7 +36,7 @@ import entech.util.EntechUtils;
  *         |  +---+  |
  *       //+---------+\\
  */
-public class NavXSubSystem extends EntechSubsystem {
+public class NavXSubSystem extends EntechSubsystem implements YawSupplier {
 
     private final AHRS navX = new AHRS(SPI.Port.kMXP);
     private double initialYawAngleForFieldPose = 0.0;
