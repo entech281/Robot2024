@@ -35,9 +35,9 @@ public class DriveCommand extends EntechCommandBase {
     @Override
     public void execute() {
         /* Get Values, Deadband*/
-        double translationVal = MathUtil.applyDeadband(-js.getY(), RobotConstants.stickDeadband);
-        double strafeVal = MathUtil.applyDeadband(js.getX(), RobotConstants.stickDeadband);
-        double rotationVal = MathUtil.applyDeadband(js.getZ(), RobotConstants.stickDeadband);
+        double translationVal = MathUtil.applyDeadband(-js.getY(), RobotConstants.STICKDEADBAND);
+        double strafeVal = MathUtil.applyDeadband(js.getX(), RobotConstants.STICKDEADBAND);
+        double rotationVal = MathUtil.applyDeadband(js.getZ(), RobotConstants.STICKDEADBAND);
 
         /* Drive */
         drive.drive(
