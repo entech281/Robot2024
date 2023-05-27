@@ -13,7 +13,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.util.sendable.SendableBuilder;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSubsystem extends EntechSubsystem {
     private SwerveModule[] mSwerveMods;
@@ -88,15 +87,15 @@ public class DriveSubsystem extends EntechSubsystem {
 
     @Override
     public void periodic() {
-        for(SwerveModule mod : mSwerveMods){
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
-        }
     }
 
     @Override
     public void initSendable(SendableBuilder builder) {
+        for(SwerveModule mod : mSwerveMods){
+            builder.addDoubleProperty("Mod " + mod.moduleNumber + " Cancoder", () -> { return mod.getCanCoder().getDegrees();}, null);
+            builder.addDoubleProperty("Mod " + mod.moduleNumber + " Integrated", () -> { return mod.getPosition().angle.getDegrees();}, null);
+            builder.addDoubleProperty("Mod " + mod.moduleNumber + " Velocity", () -> { return mod.getState().speedMetersPerSecond;}, null);
+        }
     } 
 
     @Override
