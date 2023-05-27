@@ -91,6 +91,7 @@ public class DriveSubsystem extends EntechSubsystem {
 
     @Override
     public void initSendable(SendableBuilder builder) {
+        builder.setSmartDashboardType(getName());
         for(SwerveModule mod : mSwerveMods){
             builder.addDoubleProperty("Mod " + mod.moduleNumber + " Cancoder", () -> { return mod.getCanCoder().getDegrees();}, null);
             builder.addDoubleProperty("Mod " + mod.moduleNumber + " Integrated", () -> { return mod.getPosition().angle.getDegrees();}, null);

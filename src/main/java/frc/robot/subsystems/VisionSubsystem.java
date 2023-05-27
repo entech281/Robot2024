@@ -144,6 +144,7 @@ public class VisionSubsystem extends EntechSubsystem {
 
   @Override
   public void initSendable(SendableBuilder builder) {
+    builder.setSmartDashboardType(getName());
     builder.addDoubleProperty("epX", () -> { return estimatedPose.getX(); }, null);
     builder.addDoubleProperty("epY", () -> { return estimatedPose.getY(); }, null);
     builder.addDoubleProperty("epZ", () -> { return estimatedPose.getZ(); }, null);
