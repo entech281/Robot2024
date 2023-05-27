@@ -16,7 +16,7 @@ public class OperatorInterface {
     }
 
     public void setDefualtCommand(EntechSubsystem subsys) {
-        if (subsys instanceof DriveSubsystem) {
+        if (subsys instanceof DriveSubsystem && subsys.isEnabled()) {
             subsys.setDefaultCommand(commandFactory.driveCommand(joystick.getHID()));
         }
     }

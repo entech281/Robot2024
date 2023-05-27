@@ -18,6 +18,7 @@ import org.photonvision.EstimatedRobotPose;
 
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
@@ -110,21 +111,21 @@ public class VisionSubsystem extends EntechSubsystem {
     return (int) CAMERA_NOT_FOUND;
   }
 
-  private Pose3d getEstimatedPose() {
+  private void updateEstimatedPose() {
     Optional<EstimatedRobotPose> frontLeftEstimate = frontLeftEstimator.update();
     Optional<EstimatedRobotPose> frontRightEstimate = frontRightEstimator.update();
     if (frontLeftEstimate.isPresent() && frontRightEstimate.isPresent()) {
       Pose3d frontLeftPose = frontLeftEstimate.get().estimatedPose;
       Pose3d frontRightPose = frontRightEstimate.get().estimatedPose;
-      return EntechGeometryUtils.averagePose3d(frontLeftPose, frontRightPose);
+      estimatedPose = EntechGeometryUtils.averagePose3d(frontLeftPose, frontRightPose);
     } else {
       if (frontLeftEstimate.isPresent()) {
-        return frontLeftEstimate.get().estimatedPose;
+        estimatedPose = frontLeftEstimate.get().estimatedPose;
       }
       if (frontLeftEstimate.isPresent()) {
-        return frontLeftEstimate.get().estimatedPose;
+        estimatedPose = frontLeftEstimate.get().estimatedPose;
       }
-      return POSE_NOT_FOUND;
+      estimatedPose = POSE_NOT_FOUND;
     }
   }
   
@@ -132,7 +133,7 @@ public class VisionSubsystem extends EntechSubsystem {
   public void periodic() {
 	  if ( Robot.isReal()) {
 		  if (enabled) {
-        estimatedPose = getEstimatedPose();
+        updateEstimatedPose();
 		  }		    
 	  }
   }
@@ -151,5 +152,19 @@ public class VisionSubsystem extends EntechSubsystem {
     builder.addDoubleProperty("epYaw", () -> { return estimatedPose.getRotation().getZ(); }, null);
     builder.addDoubleProperty("Latency", this::getLatency, null);
     builder.addIntegerProperty("Number of tarets", this::getNumberOfTargets, null);
+  }
+
+  public Pose3d getEstimatedPose3d() {
+    if (enabled) {
+      return estimatedPose;
+    }
+    return null;
+  }
+
+  public Pose2d getEstimatedPose2d() {
+    if (enabled) {
+      return estimatedPose.toPose2d();
+    }
+    return null;
   }
 }

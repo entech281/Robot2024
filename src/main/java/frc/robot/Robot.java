@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
+import entech.util.EntechGeometryUtils;
 import frc.robot.pose.Odometry;
 
 
@@ -21,8 +22,21 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     si = new SubsystemInterface();
-    odometry = new Odometry(si.getNavXSubSys().getYaw(), si.getDriveSubsys().getModulePositions());
-    cf = new CommandFactory(si, odometry::getPose);
+
+    if (si.getNavXSubSys().isEnabled() && si.getDriveSubsys().isEnabled()) {
+      odometry = new Odometry(si.getNavXSubSys().getYaw(), si.getDriveSubsys().getModulePositions());
+    }
+
+    if ( si.getVisionSubSys().isEnabled() && odometry != null ) {
+      cf = new CommandFactory(si, () -> { return EntechGeometryUtils.averagePose2d(odometry.getPose(), si.getVisionSubSys().getEstimatedPose2d()); });
+    } else if ( si.getVisionSubSys().isEnabled() ) {
+      cf = new CommandFactory(si, si.getVisionSubSys()::getEstimatedPose2d);
+    } else if ( odometry != null ) {
+      cf = new CommandFactory(si, odometry::getPose);
+    } else {
+      cf = new CommandFactory(si, null);
+    }
+    
     oi = new OperatorInterface(cf);
   }
 
@@ -56,6 +70,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
+    genralPeriodic();
   }
 
   public void genralPeriodic() {
