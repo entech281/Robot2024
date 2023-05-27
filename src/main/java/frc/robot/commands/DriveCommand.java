@@ -3,7 +3,7 @@ package frc.robot.commands;
 
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.DriveSubsystem;
-
+import entech.commands.EntechCommandBase;
 import entech.commands.suppliers.YawSupplier;
 
 import java.util.function.BooleanSupplier;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package frc.robot.commands;
+package entech.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import entech.subsystems.EntechSubsystem;
