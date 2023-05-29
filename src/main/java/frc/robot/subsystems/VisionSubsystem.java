@@ -8,18 +8,21 @@
 package frc.robot.subsystems;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonPipelineResult;
+
 import org.photonvision.EstimatedRobotPose;
 
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 
@@ -30,19 +33,12 @@ import entech.subsystems.EntechSubsystem;
 import entech.util.EntechGeometryUtils;
 
 public class VisionSubsystem extends EntechSubsystem {
-
-  private PhotonCamera frontLeftCamera;
-  private PhotonCamera frontRightCamera;
-
-  private PhotonPoseEstimator frontLeftEstimator;
-  private PhotonPoseEstimator frontRightEstimator;
+  private CameraContainer[] cameras;
 
   private boolean enabled = true;
 
-  private static final Pose3d POSE_NOT_FOUND = new Pose3d(999, 999, 999, new Rotation3d(999, 999, 999));
   private static final double CAMERA_NOT_FOUND = 999;
-
-  private Pose3d estimatedPose = POSE_NOT_FOUND;
+  private Pose3d estimatedPose;
 
   @Override
   public void initialize() {
@@ -55,77 +51,61 @@ public class VisionSubsystem extends EntechSubsystem {
     }
 
     if ( Robot.isReal() && enabled ) {
-      frontRightCamera = new PhotonCamera(RobotConstants.Vision.Cameras.FRONT_RIGHT);
-      frontLeftCamera = new PhotonCamera(RobotConstants.Vision.Cameras.FRONT_LEFT);
-
-      frontLeftEstimator = new PhotonPoseEstimator(
-        photonAprilTagFieldLayout,
-        PoseStrategy.MULTI_TAG_PNP,
-        frontLeftCamera,
-        RobotConstants.Vision.Transforms.FRONT_LEFT
-      );
-      frontRightEstimator = new PhotonPoseEstimator(
-        photonAprilTagFieldLayout, 
-        PoseStrategy.MULTI_TAG_PNP, 
-        frontRightCamera, 
-        RobotConstants.Vision.Transforms.FRONT_RIGHT
-      );
-
-      frontLeftEstimator.setMultiTagFallbackStrategy(PoseStrategy.CLOSEST_TO_LAST_POSE);
-      frontRightEstimator.setMultiTagFallbackStrategy(PoseStrategy.CLOSEST_TO_LAST_POSE);
+      cameras = new CameraContainer[] {
+        new CameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT, RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout),
+        new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT, RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout)
+      };
     }
-  }
-
-  private PhotonPipelineResult getFrontLeftResult() {
-    return frontLeftCamera.getLatestResult();
-  }
-  
-  private PhotonPipelineResult getFrontRightResult() {
-    return frontRightCamera.getLatestResult();
   }
   
   public boolean hasTargets() {
     if (enabled) {
-      boolean frontLeftHas = getFrontLeftResult().hasTargets();
-      boolean frontRightHas = getFrontRightResult().hasTargets();
-      return frontLeftHas || frontRightHas;
+      for (CameraContainer cam : cameras) {
+        if (cam.getLatestResult().hasTargets()) return true;
+      }
     }
     return false;
   }
 
   public double getLatency() {
     if (enabled) {
-      double frontLeftLatency = getFrontLeftResult().getLatencyMillis();
-      double frontRightLatency = getFrontRightResult().getLatencyMillis();
-      return (frontLeftLatency + frontRightLatency) / 2;
+      double latencySum = 0;
+      for (CameraContainer cam : cameras) {
+        latencySum += cam.getLatestResult().getLatencyMillis();
+      }
+      return latencySum / cameras.length;
     }
     return CAMERA_NOT_FOUND;
   }
 
   public int getNumberOfTargets() {
     if (enabled) {
-      int frontLeftTargets = getFrontLeftResult().getTargets().size();
-      int frontRightTargets = getFrontRightResult().getTargets().size();
-      return frontLeftTargets + frontRightTargets;
+      int targetCounter = 0;
+      for (CameraContainer cam : cameras) {
+        targetCounter += cam.getLatestResult().getTargets().size();
+      }
+      return targetCounter;
     }
     return (int) CAMERA_NOT_FOUND;
   }
 
   private void updateEstimatedPose() {
-    Optional<EstimatedRobotPose> frontLeftEstimate = frontLeftEstimator.update();
-    Optional<EstimatedRobotPose> frontRightEstimate = frontRightEstimator.update();
-    if (frontLeftEstimate.isPresent() && frontRightEstimate.isPresent()) {
-      Pose3d frontLeftPose = frontLeftEstimate.get().estimatedPose;
-      Pose3d frontRightPose = frontRightEstimate.get().estimatedPose;
-      estimatedPose = EntechGeometryUtils.averagePose3d(frontLeftPose, frontRightPose);
-    } else {
-      if (frontLeftEstimate.isPresent()) {
-        estimatedPose = frontLeftEstimate.get().estimatedPose;
+    List<Pose3d> estimates = new ArrayList<Pose3d>();
+    for (CameraContainer cam : cameras) {
+      Optional<Pose3d> est = cam.getEstimatedPose();
+      if (est.isPresent()) {
+        estimates.add(est.get());
       }
-      if (frontLeftEstimate.isPresent()) {
-        estimatedPose = frontLeftEstimate.get().estimatedPose;
-      }
-      estimatedPose = POSE_NOT_FOUND;
+    }
+    switch (estimates.size()) {
+      case 0: estimatedPose = null;
+      case 1: estimatedPose = estimates.get(0);
+      default:
+        Pose3d Estimate = null;
+        for (Pose3d est : (Pose3d[]) estimates.toArray()) {
+          if (Estimate == null) { Estimate = est; continue; }
+          Estimate = EntechGeometryUtils.averagePose3d(est, Estimate);
+        }
     }
   }
   
@@ -134,7 +114,7 @@ public class VisionSubsystem extends EntechSubsystem {
 	  if ( Robot.isReal()) {
 		  if (enabled) {
         updateEstimatedPose();
-		  }		    
+		  }
 	  }
   }
 
@@ -166,5 +146,28 @@ public class VisionSubsystem extends EntechSubsystem {
       return estimatedPose.toPose2d();
     }
     return null;
+  }
+
+  private class CameraContainer {
+    private PhotonCamera camera;
+    private PhotonPoseEstimator estimator;
+
+    public CameraContainer(String cameraName, Transform3d robotToCamera, AprilTagFieldLayout fieldLayout) {
+      camera = new PhotonCamera(cameraName);
+      estimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP, camera, robotToCamera);
+      estimator.setMultiTagFallbackStrategy(PoseStrategy.CLOSEST_TO_LAST_POSE);
+    }
+
+    public PhotonPipelineResult getLatestResult() {
+      return camera.getLatestResult();
+    }
+
+    public Optional<Pose3d> getEstimatedPose() {
+      Optional<EstimatedRobotPose> estPose = estimator.update();
+      if (estPose.isPresent()) {
+        return Optional.of(estPose.get().estimatedPose);
+      }
+      return Optional.empty();
+    }
   }
 }
