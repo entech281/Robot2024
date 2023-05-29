@@ -6,7 +6,6 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonPipelineResult;
-
 import org.photonvision.EstimatedRobotPose;
 
 import edu.wpi.first.math.geometry.Transform3d;
@@ -29,4 +28,4 @@ public class CameraContainer {
     public Optional<EstimatedRobotPose> getEstimatedPose() {
       return estimator.update();
     }
-  }
+}

@@ -43,8 +43,6 @@ public class PoseEstimator {
                 latestPose = new Pose2d(visionPose.getX(), visionPose.getY(), Rotation2d.fromDegrees(yaw));
             case VISION:
                 return visionPose;
-            case NULL:
-                latestPose = null;
             default:
                 latestPose = null;
         }
