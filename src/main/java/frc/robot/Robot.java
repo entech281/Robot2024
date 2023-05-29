@@ -2,8 +2,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
-import entech.util.EntechGeometryUtils;
-import frc.robot.pose.Odometry;
+import frc.robot.pose.PoseEstimator;
+import frc.robot.pose.PoseEstimator.PoseStratagy;
 
 
 /**
@@ -17,25 +17,15 @@ public class Robot extends TimedRobot {
   private SubsystemInterface si;
   private CommandFactory cf;
   private OperatorInterface oi;
-  private Odometry odometry;
+  private PoseEstimator poseEstimator;
   
   @Override
   public void robotInit() {
     si = new SubsystemInterface();
 
-    if (si.getNavXSubSys().isEnabled() && si.getDriveSubsys().isEnabled()) {
-      odometry = new Odometry(si.getNavXSubSys().getYaw(), si.getDriveSubsys().getModulePositions());
-    }
+    poseEstimator = new PoseEstimator(PoseStratagy.VISION);
 
-    if ( si.getVisionSubSys().isEnabled() && odometry != null ) {
-      cf = new CommandFactory(si, () -> { return EntechGeometryUtils.averagePose2d(odometry.getPose(), si.getVisionSubSys().getEstimatedPose2d()); });
-    } else if ( si.getVisionSubSys().isEnabled() ) {
-      cf = new CommandFactory(si, si.getVisionSubSys()::getEstimatedPose2d);
-    } else if ( odometry != null ) {
-      cf = new CommandFactory(si, odometry::getPose);
-    } else {
-      cf = new CommandFactory(si, null);
-    }
+    cf = new CommandFactory(si, poseEstimator::getLatestPose);
     
     oi = new OperatorInterface(cf);
   }
@@ -74,6 +64,6 @@ public class Robot extends TimedRobot {
   }
 
   public void genralPeriodic() {
-    odometry.updateOdometry(si.getNavXSubSys().getYaw(), si.getDriveSubsys().getModulePositions());
+    poseEstimator.updateEstimatedPose(si.getNavXSubSys().getYaw(), si.getDriveSubsys().getModulePositions(), si.getVisionSubSys().getEstimatedPose2d());
   }
 }

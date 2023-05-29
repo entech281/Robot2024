@@ -22,7 +22,7 @@ public class Odometry {
         swerveOdometry.resetPosition(Rotation2d.fromDegrees(yaw), modulePositions, pose);
     }
 
-    public void updateOdometry(double yaw, SwerveModulePosition[] modulePositions) {
-        swerveOdometry.update(Rotation2d.fromDegrees(yaw), modulePositions);
+    public Pose2d updateOdometry(double yaw, SwerveModulePosition[] modulePositions) {
+        return swerveOdometry.update(Rotation2d.fromDegrees(yaw), modulePositions);
     }
 }

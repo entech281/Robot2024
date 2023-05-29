@@ -12,33 +12,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.photonvision.PhotonCamera;
-import org.photonvision.PhotonPoseEstimator;
-import org.photonvision.PhotonPoseEstimator.PoseStrategy;
-import org.photonvision.targeting.PhotonPipelineResult;
-
 import org.photonvision.EstimatedRobotPose;
 
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
+import frc.robot.pose.CameraContainer;
 
 import entech.subsystems.EntechSubsystem;
 import entech.util.EntechGeometryUtils;
 
 public class VisionSubsystem extends EntechSubsystem {
-  private CameraContainer[] cameras;
-
-  private boolean enabled = true;
 
   private static final double CAMERA_NOT_FOUND = 999;
+
+  private CameraContainer[] cameras;
+
   private Pose3d estimatedPose;
+
+  private boolean enabled = true;
 
   @Override
   public void initialize() {
@@ -90,21 +87,21 @@ public class VisionSubsystem extends EntechSubsystem {
   }
 
   private void updateEstimatedPose() {
-    List<Pose3d> estimates = new ArrayList<Pose3d>();
+    List<EstimatedRobotPose> estimates = new ArrayList<EstimatedRobotPose>();
     for (CameraContainer cam : cameras) {
-      Optional<Pose3d> est = cam.getEstimatedPose();
+      Optional<EstimatedRobotPose> est = cam.getEstimatedPose();
       if (est.isPresent()) {
         estimates.add(est.get());
       }
     }
     switch (estimates.size()) {
       case 0: estimatedPose = null;
-      case 1: estimatedPose = estimates.get(0);
+      case 1: estimatedPose = estimates.get(0).estimatedPose;
       default:
         Pose3d Estimate = null;
-        for (Pose3d est : (Pose3d[]) estimates.toArray()) {
-          if (Estimate == null) { Estimate = est; continue; }
-          Estimate = EntechGeometryUtils.averagePose3d(est, Estimate);
+        for (EstimatedRobotPose est : estimates) {
+          if (Estimate == null) { Estimate = est.estimatedPose; continue; }
+          Estimate = EntechGeometryUtils.averagePose3d(est.estimatedPose, Estimate);
         }
     }
   }
@@ -135,39 +132,10 @@ public class VisionSubsystem extends EntechSubsystem {
   }
 
   public Pose3d getEstimatedPose3d() {
-    if (enabled) {
-      return estimatedPose;
-    }
-    return null;
+    return enabled ? estimatedPose : null;
   }
 
   public Pose2d getEstimatedPose2d() {
-    if (enabled) {
-      return estimatedPose.toPose2d();
-    }
-    return null;
-  }
-
-  private class CameraContainer {
-    private PhotonCamera camera;
-    private PhotonPoseEstimator estimator;
-
-    public CameraContainer(String cameraName, Transform3d robotToCamera, AprilTagFieldLayout fieldLayout) {
-      camera = new PhotonCamera(cameraName);
-      estimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP, camera, robotToCamera);
-      estimator.setMultiTagFallbackStrategy(PoseStrategy.CLOSEST_TO_LAST_POSE);
-    }
-
-    public PhotonPipelineResult getLatestResult() {
-      return camera.getLatestResult();
-    }
-
-    public Optional<Pose3d> getEstimatedPose() {
-      Optional<EstimatedRobotPose> estPose = estimator.update();
-      if (estPose.isPresent()) {
-        return Optional.of(estPose.get().estimatedPose);
-      }
-      return Optional.empty();
-    }
+    return enabled ? estimatedPose.toPose2d() : null;
   }
 }
