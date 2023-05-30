@@ -37,14 +37,19 @@ public class PoseEstimator {
         switch(stratagy) {
             case COMPLETE:
                 latestPose = EntechGeometryUtils.averagePose2d(odometry.updateOdometry(yaw, modulePositions), visionPose);
+                break;
             case ODOMETRY:
                 latestPose = odometry.updateOdometry(yaw, modulePositions);
+                break;
             case VISION_NAVX:
                 latestPose = new Pose2d(visionPose.getX(), visionPose.getY(), Rotation2d.fromDegrees(yaw));
+                break;
             case VISION:
-                return visionPose;
+                latestPose = visionPose;
+                break;
             default:
                 latestPose = null;
+                break;
         }
         return latestPose;
     }

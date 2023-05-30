@@ -8,11 +8,13 @@
 package frc.robot.subsystems;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
-import org.photonvision.EstimatedRobotPose;
+import entech.subsystems.EntechSubsystem;
+
+import frc.robot.Robot;
+import frc.robot.RobotConstants;
+import frc.robot.pose.CameraContainer;
 
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose3d;
@@ -20,18 +22,11 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 
-import frc.robot.Robot;
-import frc.robot.RobotConstants;
-import frc.robot.pose.CameraContainer;
-
-import entech.subsystems.EntechSubsystem;
-import entech.util.EntechGeometryUtils;
-
 public class VisionSubsystem extends EntechSubsystem {
 
     private static final double CAMERA_NOT_FOUND = 999;
 
-    private CameraContainer[] cameras;
+    private CameraContainer cameras;
 
     private Pose3d estimatedPose;
 
@@ -48,62 +43,26 @@ public class VisionSubsystem extends EntechSubsystem {
         }
 
         if ( Robot.isReal() && enabled ) {
-            cameras = new CameraContainer[] {
-                new CameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT, RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout),
-                new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT, RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout)
-            };
+            CameraContainer frontLeft = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT, RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout, null);
+            this.cameras = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT, RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout, frontLeft);
         }
     }
   
     public boolean hasTargets() {
-        if (enabled) {
-            for (CameraContainer cam : cameras) {
-                if (cam.getLatestResult().hasTargets()) return true;
-            }
-        }
-        return false;
+        return enabled ? cameras.hasTargets() : false;
     }
 
     public double getLatency() {
-        if (enabled) {
-            double latencySum = 0;
-            for (CameraContainer cam : cameras) {
-                latencySum += cam.getLatestResult().getLatencyMillis();
-            }
-            return latencySum / cameras.length;
-        }
-        return CAMERA_NOT_FOUND;
+        return enabled ? cameras.getLatency() : CAMERA_NOT_FOUND;
     }
 
     public int getNumberOfTargets() {
-        if (enabled) {
-            int targetCounter = 0;
-            for (CameraContainer cam : cameras) {
-                targetCounter += cam.getLatestResult().getTargets().size();
-            }
-            return targetCounter;
-        }
-        return (int) CAMERA_NOT_FOUND;
+        return enabled ? cameras.getTargetCount() : (int) CAMERA_NOT_FOUND;
     }
 
     private void updateEstimatedPose() {
-        List<EstimatedRobotPose> estimates = new ArrayList<EstimatedRobotPose>();
-        for (CameraContainer cam : cameras) {
-            Optional<EstimatedRobotPose> est = cam.getEstimatedPose();
-            if (est.isPresent()) {
-                estimates.add(est.get());
-            }
-        }
-        switch (estimates.size()) {
-            case 0: estimatedPose = null;
-            case 1: estimatedPose = estimates.get(0).estimatedPose;
-            default:
-                Pose3d Estimate = null;
-                for (EstimatedRobotPose est : estimates) {
-                    if (Estimate == null) { Estimate = est.estimatedPose; continue; }
-                    Estimate = EntechGeometryUtils.averagePose3d(est.estimatedPose, Estimate);
-                }
-        }
+        Optional<Pose3d> estPose = cameras.getEstimatedPose();
+        estimatedPose = estPose.isPresent() ? estPose.get() : null;
     }
   
     @Override
