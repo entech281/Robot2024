@@ -77,11 +77,11 @@ public class VisionSubsystem extends EntechSubsystem {
 
     public int getNumberOfTargets() {
         if (enabled) {
-        int targetCounter = 0;
-        for (CameraContainer cam : cameras) {
-            targetCounter += cam.getLatestResult().getTargets().size();
-        }
-        return targetCounter;
+            int targetCounter = 0;
+            for (CameraContainer cam : cameras) {
+                targetCounter += cam.getLatestResult().getTargets().size();
+            }
+            return targetCounter;
         }
         return (int) CAMERA_NOT_FOUND;
     }
