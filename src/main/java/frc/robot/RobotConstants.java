@@ -157,6 +157,12 @@ public final class RobotConstants {
             public static final String FRONT_RIGHT = "0.0.0.0";
         }
 
+        public static interface Filters {
+            public static final double MAX_AMBIGUITY = 0.05;
+            public static final double MIN_AREA = 0.75;
+            public static final double MAX_DISTANCE = 2.5;
+        }
+
         public static interface Offsets {
             public static final double FRONT_OFFSET_HEAVE_M = 0.05;
             public static final double FRONT_OFFSET_SWAY_M = 0.3;

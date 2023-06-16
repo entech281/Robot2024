@@ -37,17 +37,20 @@ public class VisionSubsystem extends EntechSubsystem {
 
         AprilTagFieldLayout photonAprilTagFieldLayout;
         try {
-            photonAprilTagFieldLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);		
+            photonAprilTagFieldLayout = AprilTagFieldLayout
+                    .loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
         } catch (IOException e) {
             throw new RuntimeException("Could not load wpilib AprilTagFields");
         }
 
-        if ( Robot.isReal() && enabled ) {
-            CameraContainer frontLeft = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT, RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout, null);
-            this.cameras = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT, RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout, frontLeft);
+        if (Robot.isReal() && enabled) {
+            CameraContainer frontLeft = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT,
+                    RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout, null);
+            this.cameras = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT,
+                    RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout, frontLeft);
         }
     }
-  
+
     public boolean hasTargets() {
         return enabled ? cameras.hasTargets() : false;
     }
@@ -64,10 +67,10 @@ public class VisionSubsystem extends EntechSubsystem {
         Optional<Pose3d> estPose = cameras.getEstimatedPose();
         estimatedPose = estPose.isPresent() ? estPose.get() : null;
     }
-  
+
     @Override
     public void periodic() {
-        if ( Robot.isReal()) {
+        if (Robot.isReal()) {
             if (enabled) {
                 updateEstimatedPose();
             }
@@ -82,10 +85,18 @@ public class VisionSubsystem extends EntechSubsystem {
     @Override
     public void initSendable(SendableBuilder builder) {
         builder.setSmartDashboardType(getName());
-        builder.addDoubleProperty("epX", () -> { return estimatedPose.getX(); }, null);
-        builder.addDoubleProperty("epY", () -> { return estimatedPose.getY(); }, null);
-        builder.addDoubleProperty("epZ", () -> { return estimatedPose.getZ(); }, null);
-        builder.addDoubleProperty("epYaw", () -> { return estimatedPose.getRotation().getZ(); }, null);
+        builder.addDoubleProperty("epX", () -> {
+            return estimatedPose.getX();
+        }, null);
+        builder.addDoubleProperty("epY", () -> {
+            return estimatedPose.getY();
+        }, null);
+        builder.addDoubleProperty("epZ", () -> {
+            return estimatedPose.getZ();
+        }, null);
+        builder.addDoubleProperty("epYaw", () -> {
+            return estimatedPose.getRotation().getZ();
+        }, null);
         builder.addDoubleProperty("Latency", this::getLatency, null);
         builder.addIntegerProperty("Number of tarets", this::getNumberOfTargets, null);
     }
