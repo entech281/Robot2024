@@ -29,9 +29,11 @@ public class VisionNoRio {
             throw new RuntimeException("Could not load wpilib AprilTagFields");
         }
 
-		CameraContainer camera = new CameraContainer("Arducam_OV9281_USB_Camera", new Transform3d(), photonAprilTagFieldLayout, null, nt);
+		CameraContainer camera = new CameraContainer("USB_Camera", new Transform3d(), photonAprilTagFieldLayout, null, nt);
 		
 		while ( true ) {
+			System.out.println("---------");
+			System.out.println("Time Stamp: " + camera.getFilteredResult().getTimestampSeconds());
             System.out.println("Latency: " + camera.getLatency());
 			if ( camera.hasTargets() ) {
                 System.out.println("# of targets: " + camera.getTargetCount());
@@ -42,12 +44,13 @@ public class VisionNoRio {
 				else {
 					System.out.println("No Pose Estimate");
 				}
-				System.out.println("Area: " + camera.getResult().getBestTarget().getArea());
-				System.out.println("Ambiguity: " + camera.getResult().getBestTarget().getPoseAmbiguity());
+				System.out.println("Area: " + camera.getFilteredResult().getBestTarget().getArea());
+				System.out.println("Ambiguity: " + camera.getFilteredResult().getBestTarget().getPoseAmbiguity());
 			}
 			else {
 				System.out.println("No Targets");
 			}
+			System.out.println("---------\n");
 
 			Thread.sleep(1000);
 		}

@@ -38,7 +38,7 @@ public class CameraContainer {
         this.base = base;
     }
 
-    public PhotonPipelineResult getResult() {
+    public PhotonPipelineResult getFilteredResult() {
         PhotonPipelineResult result = camera.getLatestResult();
 
         List<PhotonTrackedTarget> filteredTargets = new ArrayList<PhotonTrackedTarget>();
@@ -51,12 +51,15 @@ public class CameraContainer {
             filteredTargets.add(target);
         }
 
-        return new PhotonPipelineResult(result.getLatencyMillis(), filteredTargets);
+        PhotonPipelineResult fliteredResult =  new PhotonPipelineResult(result.getLatencyMillis(), filteredTargets);
+        fliteredResult.setTimestampSeconds(result.getTimestampSeconds());
+
+        return fliteredResult;
     }
 
     public Optional<Pose3d> getEstimatedPose() {
         List<Pose3d> estPoses = new ArrayList<Pose3d>();
-        Optional<EstimatedRobotPose> thisEstPose = estimator.update();
+        Optional<EstimatedRobotPose> thisEstPose = estimator.update(getFilteredResult());
         if (thisEstPose.isPresent()) estPoses.add(thisEstPose.get().estimatedPose);
         if (base != null) {
             Optional<Pose3d> baseEstPose = base.getEstimatedPose();
@@ -73,17 +76,17 @@ public class CameraContainer {
     }
 
     public double getLatency() {
-        if (base == null) return getResult().getLatencyMillis();
-        return (base.getLatency() + getResult().getLatencyMillis()) / 2;
+        if (base == null) return getFilteredResult().getLatencyMillis();
+        return (base.getLatency() + getFilteredResult().getLatencyMillis()) / 2;
     }
 
     public boolean hasTargets() {
-        if (base == null) return getResult().hasTargets();
-        return (base.hasTargets() || getResult().hasTargets());
+        if (base == null) return getFilteredResult().hasTargets();
+        return (base.hasTargets() || getFilteredResult().hasTargets());
     }
 
     public int getTargetCount() {
-        if (base == null) return getResult().getTargets().size();
-        return (base.getTargetCount() + getResult().getTargets().size());
+        if (base == null) return getFilteredResult().getTargets().size();
+        return (base.getTargetCount() + getFilteredResult().getTargets().size());
     }
 }
