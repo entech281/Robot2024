@@ -1,9 +1,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.pose.PoseEstimator;
-import frc.robot.pose.PoseEstimator.PoseStratagy;
 
 
 /**
@@ -17,26 +14,23 @@ public class Robot extends TimedRobot {
   private SubsystemInterface si;
   private CommandFactory cf;
   private OperatorInterface oi;
-  private PoseEstimator poseEstimator;
   
   @Override
   public void robotInit() {
     si = new SubsystemInterface();
 
-    poseEstimator = new PoseEstimator(PoseStratagy.VISION);
-
-    cf = new CommandFactory(si, poseEstimator::getLatestPose);
+    cf = new CommandFactory(si, null);
     
     oi = new OperatorInterface(cf);
   }
 
   @Override
   public void autonomousInit() {
-    Command auto = cf.getAutoCommand();
+    // Command auto = cf.getAutoCommand();
 
-    if (auto != null) {
-      auto.schedule();
-    }
+    // if (auto != null) {
+    //   auto.schedule();
+    // }
   }
 
   @Override
@@ -46,7 +40,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    oi.setDefualtCommand(si.getDriveSubsys());
+    // oi.setDefualtCommand(si.getDriveSubsys());
   }
 
   @Override
@@ -64,6 +58,10 @@ public class Robot extends TimedRobot {
   }
 
   public void genralPeriodic() {
-    poseEstimator.updateEstimatedPose(si.getNavXSubSys().getYaw(), si.getDriveSubsys().getModulePositions(), si.getVisionSubSys().getEstimatedPose2d());
+    
+  }
+
+  private void addVisionToEstimator() {
+    
   }
 }

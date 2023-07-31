@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class VisionNoRio {
 	
-	@Test
+	// @Test
 	public void testRunningCamera() throws Exception{	
         NetworkTableInstance nt = NetworkTableInstance.create();
         nt.setServer("10.2.81.151");
