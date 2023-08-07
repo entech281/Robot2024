@@ -17,7 +17,6 @@ public class CommandFactory {
     }
 
     public EntechCommandBase driveCommand(CommandJoystick inputJoyStick) {
-        System.out.println(subsystems.getDriveSubsys());
         return new DriveCommand(
             subsystems.getDriveSubsys(), 
             () -> { return inputJoyStick.getY();}, 

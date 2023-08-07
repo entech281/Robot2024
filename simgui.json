@@ -1,33 +1,4 @@
 {
-  "HALProvider": {
-    "Other Devices": {
-      "SPARK MAX [11]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SPARK MAX [12]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SPARK MAX [21]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SPARK MAX [22]": {
-        "header": {
-          "open": true
-        }
-      },
-      "navX-Sensor[0]": {
-        "header": {
-          "open": true
-        }
-      }
-    }
-  },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
@@ -38,9 +9,6 @@
   "NetworkTables": {
     "transitory": {
       "SmartDashboard": {
-        "navX-Sensor[1]": {
-          "open": true
-        },
         "open": true
       }
     }

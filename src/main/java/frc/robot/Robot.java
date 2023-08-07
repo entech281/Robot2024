@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 
 /**
@@ -44,7 +45,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    // oi.setDefualtCommand(si.getDriveSubsys());
+    oi.setDefaults();
   }
 
   @Override
@@ -68,8 +69,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+    CommandScheduler.getInstance().run();
     SmartDashboard.putNumber("X", si.getDriveSubsys().getPose().getX());
     SmartDashboard.putNumber("Y", si.getDriveSubsys().getPose().getY());
+    SmartDashboard.putString("Current Drive Command", si.getDriveSubsys().getCurrentCommand() + "");
+    SmartDashboard.putString("Default Drive Command", si.getDriveSubsys().getDefaultCommand() + "");
   }
 
   // private void addVisionToEstimator() {

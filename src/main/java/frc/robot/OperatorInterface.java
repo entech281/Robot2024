@@ -12,6 +12,10 @@ public class OperatorInterface {
         this.commandFactory = commandFactory;
         this.subs = subs;
 
+        
+    }
+
+    public void setDefaults() {
         this.subs.getDriveSubsys().setDefaultCommand(this.commandFactory.driveCommand(joystick));
     }
 }
