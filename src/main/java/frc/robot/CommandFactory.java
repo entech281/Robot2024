@@ -1,19 +1,30 @@
 package frc.robot;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import entech.commands.EntechCommandBase;
 
 import java.util.function.Supplier;
+import frc.robot.commands.DriveCommand;
 
 public class CommandFactory {
     private SubsystemInterface subsystems;
-    private Supplier<Pose2d> robotPoseSupplier;
+    // private Supplier<Pose2d> robotPoseSupplier;
 
     public CommandFactory(SubsystemInterface subsystems, Supplier<Pose2d> robotPoseSupplier) {
         this.subsystems = subsystems;
-        this.robotPoseSupplier = robotPoseSupplier;
+        // this.robotPoseSupplier = robotPoseSupplier;
     }
 
-    public Command driveCommand(double forward, double left, double rotation) {
-        
+    public EntechCommandBase driveCommand(CommandJoystick inputJoyStick) {
+        System.out.println(subsystems.getDriveSubsys());
+        return new DriveCommand(
+            subsystems.getDriveSubsys(), 
+            () -> { return inputJoyStick.getY();}, 
+            () -> { return inputJoyStick.getX(); }, 
+            () -> { return inputJoyStick.getZ(); },
+            () -> { return true; }, 
+            false
+            );
     }
 }

@@ -295,7 +295,7 @@ public class SparkMaxSwerve extends SwerveMotor
   @Override
   public void setReference(double setpoint, double feedforward)
   {
-    boolean possibleBurnOutIssue = true;
+    // boolean possibleBurnOutIssue = true;
     int pidSlot =
         isDriveMotor ? SparkMAX_slotIdx.Velocity.ordinal() : SparkMAX_slotIdx.Position.ordinal();
     pidSlot = 0;

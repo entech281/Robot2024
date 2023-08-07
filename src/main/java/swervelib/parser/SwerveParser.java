@@ -99,7 +99,7 @@ public class SwerveParser
    * @param file JSON File to open.
    * @return JsonNode of file.
    */
-  private JsonNode openJson(File file)
+  public JsonNode openJson(File file)
   {
     try
     {

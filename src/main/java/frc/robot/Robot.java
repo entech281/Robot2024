@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -19,10 +20,13 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     si = new SubsystemInterface();
 
+    si.initialize();
+
     cf = new CommandFactory(si, null);
     
-    oi = new OperatorInterface(cf);
+    oi = new OperatorInterface(cf, si);
   }
+
 
   @Override
   public void autonomousInit() {
@@ -61,7 +65,14 @@ public class Robot extends TimedRobot {
     
   }
 
-  private void addVisionToEstimator() {
-    
+
+  @Override
+  public void robotPeriodic() {
+    SmartDashboard.putNumber("X", si.getDriveSubsys().getPose().getX());
+    SmartDashboard.putNumber("Y", si.getDriveSubsys().getPose().getY());
   }
+
+  // private void addVisionToEstimator() {
+    
+  // }
 }

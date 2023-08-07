@@ -66,7 +66,7 @@ public class ModuleJson
       String name)
   {
     SwerveMotor           angleMotor = angle.createMotor(false);
-    SwerveAbsoluteEncoder absEncoder = encoder.createEncoder();
+    SwerveAbsoluteEncoder absEncoder = encoder.createEncoder(angleMotor);
 
     // If the absolute encoder is attached.
     if (absEncoder == null)

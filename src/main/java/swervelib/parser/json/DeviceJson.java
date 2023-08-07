@@ -48,7 +48,7 @@ public class DeviceJson
    *
    * @return {@link SwerveAbsoluteEncoder} given.
    */
-  public SwerveAbsoluteEncoder createEncoder()
+  public SwerveAbsoluteEncoder createEncoder(SwerveMotor connected)
   {
     switch (type)
     {
@@ -59,12 +59,10 @@ public class DeviceJson
       case "thrifty":
       case "throughbore":
       case "dutycycle":
-        for (SwerveMotor motor : createdMotors) {
-          if (motor.getID() == id) {
-            return new SparkMaxEncoderSwerve(motor);
-          }
+        if (connected.getID() == id) {
+          return new SparkMaxEncoderSwerve(connected);
         }
-        throw new RuntimeException("Bozo didn't make the motor beforehand!!!!!!!!!!!!!!!!!");
+        throw new RuntimeException("Bozo used wrong motor!!!!!!!!!!!!!!!!!!!");
       case "analog":
         return new AnalogAbsoluteEncoderSwerve(id);
       case "cancoder":
