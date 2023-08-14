@@ -14,8 +14,7 @@ import entech.subsystems.EntechSubsystem;
 
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
-import frc.robot.pose.CameraContainer;
-
+import frc.robot.vision.CameraContainer;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -101,11 +100,11 @@ public class VisionSubsystem extends EntechSubsystem {
         builder.addIntegerProperty("Number of tarets", this::getNumberOfTargets, null);
     }
 
-    public Pose3d getEstimatedPose3d() {
-        return enabled ? estimatedPose : null;
+    public Optional<Pose3d> getEstimatedPose3d() {
+        return enabled ? Optional.of(estimatedPose) : Optional.empty();
     }
 
-    public Pose2d getEstimatedPose2d() {
-        return enabled ? estimatedPose.toPose2d() : null;
+    public Optional<Pose2d> getEstimatedPose2d() {
+        return enabled ? Optional.of(estimatedPose.toPose2d()) : Optional.empty();
     }
 }

@@ -5,8 +5,6 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-import frc.robot.pose.CameraContainer;
-
 import java.io.IOException;
 
 public class VisionRunner {

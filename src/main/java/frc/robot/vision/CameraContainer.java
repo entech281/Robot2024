@@ -1,4 +1,4 @@
-package frc.robot.pose;
+package frc.robot.vision;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,23 +38,30 @@ public class CameraContainer {
         this.base = base;
     }
 
-    public PhotonPipelineResult getFilteredResult() {
+    public FilteredPipelineResult getFilteredResult() {
         PhotonPipelineResult result = camera.getLatestResult();
 
-        List<PhotonTrackedTarget> filteredTargets = new ArrayList<PhotonTrackedTarget>();
+        FilteredPipelineResult filteredResult =  new FilteredPipelineResult(result.getLatencyMillis());
 
         for (PhotonTrackedTarget target : result.getTargets()) {
-            if (target.getPoseAmbiguity() > RobotConstants.Vision.Filters.MAX_AMBIGUITY) continue;
-            if (target.getArea() < RobotConstants.Vision.Filters.MIN_AREA) continue;
-            if (Math.abs(target.getBestCameraToTarget().getX()) > RobotConstants.Vision.Filters.MAX_DISTANCE) continue;
+            if (target.getPoseAmbiguity() > RobotConstants.Vision.Filters.MAX_AMBIGUITY) {
+                filteredResult.setBadPoseAmbiguity(true);
+                continue;
+            }
+            if (target.getArea() < RobotConstants.Vision.Filters.MIN_AREA) {
+                filteredResult.setBadAreaSize(true);
+                continue;
+            }
+            if (Math.abs(target.getBestCameraToTarget().getX()) > RobotConstants.Vision.Filters.MAX_DISTANCE) {
+                filteredResult.setBadDistance(true);
+                continue;
+            }
 
-            filteredTargets.add(target);
+            filteredResult.addedFilteredObject(target);
         }
+        filteredResult.setTimestampSeconds(result.getTimestampSeconds());
 
-        PhotonPipelineResult fliteredResult =  new PhotonPipelineResult(result.getLatencyMillis(), filteredTargets);
-        fliteredResult.setTimestampSeconds(result.getTimestampSeconds());
-
-        return fliteredResult;
+        return filteredResult;
     }
 
     public Optional<Pose3d> getEstimatedPose() {

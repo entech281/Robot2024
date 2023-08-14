@@ -6,7 +6,6 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import frc.robot.pose.CameraContainer;
 
 import java.io.IOException;
 import java.util.Optional;
