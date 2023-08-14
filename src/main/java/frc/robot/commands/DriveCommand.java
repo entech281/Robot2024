@@ -33,7 +33,7 @@ public class DriveCommand extends EntechCommandBase {
    * @param swerve The subsystem used by this command.
    */
   public DriveCommand(DriveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega,
-                     BooleanSupplier driveMode, boolean isOpenLoop) {
+                      BooleanSupplier driveMode, boolean isOpenLoop) {
     super(swerve);
     this.swerve = swerve;
     this.vX = vX;

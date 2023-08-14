@@ -97,7 +97,7 @@ public class VisionSubsystem extends EntechSubsystem {
             return estimatedPose.getRotation().getZ();
         }, null);
         builder.addDoubleProperty("Latency", this::getLatency, null);
-        builder.addIntegerProperty("Number of tarets", this::getNumberOfTargets, null);
+        builder.addIntegerProperty("Number of targets", this::getNumberOfTargets, null);
     }
 
     public Optional<Pose3d> getEstimatedPose3d() {

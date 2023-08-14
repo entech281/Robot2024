@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousPeriodic() {
-    genralPeriodic();
+    generalPeriodic();
   }
 
   @Override
@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
-    genralPeriodic();
+    generalPeriodic();
   }
 
   @Override
@@ -59,10 +59,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    genralPeriodic();
+    generalPeriodic();
   }
 
-  public void genralPeriodic() {
+  public void generalPeriodic() {
     
   }
 

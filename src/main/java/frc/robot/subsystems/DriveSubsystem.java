@@ -60,9 +60,9 @@ public class DriveSubsystem extends EntechSubsystem {
    * the wheel velocities.  Also has field- and robot-relative modes, which affect how the translation vector is used.
    *
    * @param translation   {@link Translation2d} that is the commanded linear velocity of the robot, in meters per
-   *                      second. In robot-relative mode, positive x is torwards the bow (front) and positive y is
-   *                      torwards port (left).  In field-relative mode, positive x is away from the alliance wall
-   *                      (field North) and positive y is torwards the left wall when looking through the driver station
+   *                      second. In robot-relative mode, positive x is towards the bow (front) and positive y is
+   *                      towards port (left).  In field-relative mode, positive x is away from the alliance wall
+   *                      (field North) and positive y is towards the left wall when looking through the driver station
    *                      glass (field West).
    * @param rotation      Robot angular rate, in radians per second. CCW positive.  Unaffected by field/robot
    *                      relativity.
@@ -136,6 +136,14 @@ public class DriveSubsystem extends EntechSubsystem {
     return swerveDrive.getYaw();
   }
 
+  public Rotation2d getRoll() {
+    return swerveDrive.getRoll();
+  }
+
+  public Rotation2d getPitch() {
+    return swerveDrive.getPitch();
+  }
+
   /**
    * Get the chassis speeds based on controller input of 2 joysticks. One for speeds in which direction. The other for
    * the angle of the robot.
@@ -148,7 +156,7 @@ public class DriveSubsystem extends EntechSubsystem {
    * @return {@link ChassisSpeeds} which can be sent to th Swerve Drive.
    */
   public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, double headingX, double headingY,
-                                       double currentHeadingAngleRadians) {
+                                        double currentHeadingAngleRadians) {
     return swerveDrive.swerveController.getTargetSpeeds(xInput, yInput, headingX, headingY, currentHeadingAngleRadians);
   }
 
@@ -193,8 +201,8 @@ public class DriveSubsystem extends EntechSubsystem {
       return true;
   }
 
-  public void addVisionToEstimator(Pose3d visionEstiamte, double timeStamp) {
-    swerveDrive.addVisionMeasurement(visionEstiamte.toPose2d(), timeStamp, true, RobotConstants.Vision.TRUST);
+  public void addVisionToEstimator(Pose3d visionEstimate, double timeStamp) {
+    swerveDrive.addVisionMeasurement(visionEstimate.toPose2d(), timeStamp, true, RobotConstants.Vision.TRUST);
   }
 
   @Override
