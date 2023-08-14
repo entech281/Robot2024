@@ -9,6 +9,8 @@ import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.util.sendable.SendableBuilder;
+
 import java.io.File;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
@@ -193,5 +195,12 @@ public class DriveSubsystem extends EntechSubsystem {
 
   public void addVisionToEstimator(Pose3d visionEstiamte, double timeStamp) {
     swerveDrive.addVisionMeasurement(visionEstiamte.toPose2d(), timeStamp, true, RobotConstants.Vision.TRUST);
+  }
+
+  @Override
+  public void initSendable(SendableBuilder builder) {
+    builder.setSmartDashboardType(getName());
+    swerveDrive.buildDataLogger(builder);
+    super.initSendable(builder);
   }
 }

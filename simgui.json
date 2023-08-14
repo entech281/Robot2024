@@ -35,9 +35,15 @@
   },
   "NetworkTables": {
     "transitory": {
+      "Shuffleboard": {
+        "open": true
+      },
       "SmartDashboard": {
         "open": true
       }
     }
+  },
+  "NetworkTables View": {
+    "visible": false
   }
 }

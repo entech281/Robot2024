@@ -3,6 +3,7 @@ package swervelib;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import swervelib.encoders.SwerveAbsoluteEncoder;
 import swervelib.math.SwerveMath;
@@ -335,5 +336,13 @@ public class SwerveModule
   public SwerveModuleConfiguration getConfiguration()
   {
     return configuration;
+  }
+
+  public void buildDataLogger(SendableBuilder sb) {
+    sb.addDoubleProperty(configuration.name + "encoder angle", absoluteEncoder::getAbsolutePosition, null);
+    sb.addDoubleProperty(configuration.name + "drive motor pose", driveMotor::getPosition, null);
+    sb.addDoubleProperty(configuration.name + "drive motor velocity", driveMotor::getVelocity, null);
+    sb.addDoubleProperty(configuration.name + "angle motor pose", angleMotor::getPosition, null);
+    sb.addDoubleProperty(configuration.name + "angle motor velocity", angleMotor::getVelocity, null);
   }
 }
