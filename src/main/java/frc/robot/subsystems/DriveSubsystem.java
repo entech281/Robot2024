@@ -230,11 +230,8 @@ public class DriveSubsystem extends EntechSubsystem {
     super.setBasicLogs(builder);
     swerveDrive.buildDataLogger(builder);
     SendableTools.sendPose2d(builder, "Pose", this::getPose);
-    SendableTools.sendDouble(builder, "Pose Rot", () -> {
+    SendableTools.sendDouble(builder, "Rotation", () -> {
       return getPose().getRotation().getDegrees();
-    });
-    SendableTools.sendDouble(builder, "Gyro Rot", () -> {
-      return getYaw().getDegrees();
     });
   }
 }

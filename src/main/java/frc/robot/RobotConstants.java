@@ -8,7 +8,7 @@ import edu.wpi.first.math.util.Units;
 // https://github.com/BroncBotz3481/YAGSL-Configs/tree/main/sds/mk4i/neo/swerve
 // CHECK IT OUT
 public final class RobotConstants {
-    public static final double STICKDEADBAND = 0.1;
+    public static final double STICK_DEAD_BAND = 0.1;
 
     public static interface Shuffleboard {
         public static final String DEBUG = "Debug";
