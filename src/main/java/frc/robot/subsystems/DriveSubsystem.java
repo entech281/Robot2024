@@ -4,15 +4,17 @@
 
 package frc.robot.subsystems;
 
+import java.io.File;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.util.sendable.SendableBuilder;
-
-import java.io.File;
+import edu.wpi.first.wpilibj.Filesystem;
 import entech.subsystems.EntechSubsystem;
+import entech.util.SendableTools;
 import frc.robot.RobotConstants;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
@@ -21,7 +23,6 @@ import swervelib.parser.SwerveDriveConfiguration;
 import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
-import edu.wpi.first.wpilibj.Filesystem;
 
 public class DriveSubsystem extends EntechSubsystem {
 
@@ -55,19 +56,29 @@ public class DriveSubsystem extends EntechSubsystem {
   }
 
   /**
-   * The primary method for controlling the drivebase.  Takes a {@link Translation2d} and a rotation rate, and
-   * calculates and commands module states accordingly.  Can use either open-loop or closed-loop velocity control for
-   * the wheel velocities.  Also has field- and robot-relative modes, which affect how the translation vector is used.
+   * The primary method for controlling the drivebase. Takes a
+   * {@link Translation2d} and a rotation rate, and
+   * calculates and commands module states accordingly. Can use either open-loop
+   * or closed-loop velocity control for
+   * the wheel velocities. Also has field- and robot-relative modes, which affect
+   * how the translation vector is used.
    *
-   * @param translation   {@link Translation2d} that is the commanded linear velocity of the robot, in meters per
-   *                      second. In robot-relative mode, positive x is towards the bow (front) and positive y is
-   *                      towards port (left).  In field-relative mode, positive x is away from the alliance wall
-   *                      (field North) and positive y is towards the left wall when looking through the driver station
+   * @param translation   {@link Translation2d} that is the commanded linear
+   *                      velocity of the robot, in meters per
+   *                      second. In robot-relative mode, positive x is towards
+   *                      the bow (front) and positive y is
+   *                      towards port (left). In field-relative mode, positive x
+   *                      is away from the alliance wall
+   *                      (field North) and positive y is towards the left wall
+   *                      when looking through the driver station
    *                      glass (field West).
-   * @param rotation      Robot angular rate, in radians per second. CCW positive.  Unaffected by field/robot
+   * @param rotation      Robot angular rate, in radians per second. CCW positive.
+   *                      Unaffected by field/robot
    *                      relativity.
-   * @param fieldRelative Drive mode.  True for field-relative, false for robot-relative.
-   * @param isOpenLoop    Whether to use closed-loop velocity control.  Set to true to disable closed-loop.
+   * @param fieldRelative Drive mode. True for field-relative, false for
+   *                      robot-relative.
+   * @param isOpenLoop    Whether to use closed-loop velocity control. Set to true
+   *                      to disable closed-loop.
    */
   public void drive(Translation2d translation, double rotation, boolean fieldRelative, boolean isOpenLoop) {
     swerveDrive.drive(translation, rotation, fieldRelative, isOpenLoop);
@@ -83,8 +94,10 @@ public class DriveSubsystem extends EntechSubsystem {
   }
 
   /**
-   * Resets odometry to the given pose. Gyro angle and module positions do not need to be reset when calling this
-   * method.  However, if either gyro angle or module position is reset, this must be called in order for odometry to
+   * Resets odometry to the given pose. Gyro angle and module positions do not
+   * need to be reset when calling this
+   * method. However, if either gyro angle or module position is reset, this must
+   * be called in order for odometry to
    * keep working.
    *
    * @param initialHolonomicPose The pose to set the odometry to
@@ -94,7 +107,8 @@ public class DriveSubsystem extends EntechSubsystem {
   }
 
   /**
-   * Gets the current pose (position and rotation) of the robot, as reported by odometry.
+   * Gets the current pose (position and rotation) of the robot, as reported by
+   * odometry.
    *
    * @return The robot's pose
    */
@@ -112,7 +126,8 @@ public class DriveSubsystem extends EntechSubsystem {
   }
 
   /**
-   * Resets the gyro angle to zero and resets odometry to the same position, but facing toward 0.
+   * Resets the gyro angle to zero and resets odometry to the same position, but
+   * facing toward 0.
    */
   public void zeroGyro() {
     swerveDrive.zeroGyro();
@@ -128,7 +143,8 @@ public class DriveSubsystem extends EntechSubsystem {
   }
 
   /**
-   * Gets the current yaw angle of the robot, as reported by the imu.  CCW positive, not wrapped.
+   * Gets the current yaw angle of the robot, as reported by the imu. CCW
+   * positive, not wrapped.
    *
    * @return The yaw angle
    */
@@ -145,18 +161,23 @@ public class DriveSubsystem extends EntechSubsystem {
   }
 
   /**
-   * Get the chassis speeds based on controller input of 2 joysticks. One for speeds in which direction. The other for
+   * Get the chassis speeds based on controller input of 2 joysticks. One for
+   * speeds in which direction. The other for
    * the angle of the robot.
    *
-   * @param xInput                     X joystick input for the robot to move in the X direction.
-   * @param yInput                     Y joystick input for the robot to move in the Y direction.
-   * @param headingX                   X joystick which controls the angle of the robot.
-   * @param headingY                   Y joystick which controls the angle of the robot.
+   * @param xInput                     X joystick input for the robot to move in
+   *                                   the X direction.
+   * @param yInput                     Y joystick input for the robot to move in
+   *                                   the Y direction.
+   * @param headingX                   X joystick which controls the angle of the
+   *                                   robot.
+   * @param headingY                   Y joystick which controls the angle of the
+   *                                   robot.
    * @param currentHeadingAngleRadians The current robot heading in radians.
    * @return {@link ChassisSpeeds} which can be sent to th Swerve Drive.
    */
   public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, double headingX, double headingY,
-                                        double currentHeadingAngleRadians) {
+      double currentHeadingAngleRadians) {
     return swerveDrive.swerveController.getTargetSpeeds(xInput, yInput, headingX, headingY, currentHeadingAngleRadians);
   }
 
@@ -187,7 +208,6 @@ public class DriveSubsystem extends EntechSubsystem {
     return swerveDrive.swerveDriveConfiguration;
   }
 
-
   public void lock() {
     swerveDrive.lockPose();
   }
@@ -198,7 +218,7 @@ public class DriveSubsystem extends EntechSubsystem {
 
   @Override
   public boolean isEnabled() {
-      return true;
+    return true;
   }
 
   public void addVisionToEstimator(Pose3d visionEstimate, double timeStamp) {
@@ -207,8 +227,14 @@ public class DriveSubsystem extends EntechSubsystem {
 
   @Override
   public void initSendable(SendableBuilder builder) {
-    builder.setSmartDashboardType(getName());
+    super.setBasicLogs(builder);
     swerveDrive.buildDataLogger(builder);
-    super.initSendable(builder);
+    SendableTools.sendPose2d(builder, "Pose", this::getPose);
+    SendableTools.sendDouble(builder, "Pose Rot", () -> {
+      return getPose().getRotation().getDegrees();
+    });
+    SendableTools.sendDouble(builder, "Gyro Rot", () -> {
+      return getYaw().getDegrees();
+    });
   }
 }

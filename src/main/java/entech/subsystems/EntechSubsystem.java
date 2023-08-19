@@ -6,12 +6,28 @@
 /*----------------------------------------------------------------------------*/
 package entech.subsystems;
 
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public abstract class EntechSubsystem extends SubsystemBase {
 
-    public EntechSubsystem() {        
+    public EntechSubsystem() {
     }
-	public abstract void initialize();
-	public abstract boolean isEnabled();
+
+    public abstract void initialize();
+
+    public abstract boolean isEnabled();
+
+    protected void setBasicLogs(SendableBuilder builder) {
+        builder.setSmartDashboardType(getName());
+        builder.addStringProperty("CurrentCommand", () -> {
+            return getCurrentCommand() + "";
+        }, null);
+        builder.addStringProperty("DefaultCommand", () -> {
+            return getDefaultCommand() + "";
+        }, null);
+    }
+
+    @Override
+    public abstract void initSendable(SendableBuilder builder);
 }

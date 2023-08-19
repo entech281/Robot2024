@@ -1,18 +1,17 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import entech.util.EntechJoystick;
 
 public class OperatorInterface {
     private CommandFactory commandFactory;
-    private CommandJoystick joystick;
+    private EntechJoystick joystick;
     private SubsystemInterface subs;
 
     public OperatorInterface(CommandFactory commandFactory, SubsystemInterface subs) {
-        joystick = new CommandJoystick(RobotConstants.JoyStick.PORT);
+        joystick = new EntechJoystick(RobotConstants.JoyStick.PORT);
         this.commandFactory = commandFactory;
         this.subs = subs;
 
-        
     }
 
     public void setDefaults() {
