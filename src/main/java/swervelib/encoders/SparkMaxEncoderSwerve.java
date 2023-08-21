@@ -3,31 +3,30 @@ package swervelib.encoders;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
+
 import swervelib.motors.SwerveMotor;
 
 /**
  * SparkMax absolute encoder, attached through the data port.
  */
-public class SparkMaxEncoderSwerve extends SwerveAbsoluteEncoder
-{
+public class SparkMaxEncoderSwerve extends SwerveAbsoluteEncoder {
 
   /**
-   * The {@link AbsoluteEncoder} representing the duty cycle encoder attached to the SparkMax.
+   * The {@link AbsoluteEncoder} representing the duty cycle encoder attached to
+   * the SparkMax.
    */
   public AbsoluteEncoder encoder;
 
   /**
-   * Create the {@link AbsoluteEncoder} object as a duty cycle. from the {@link CANSparkMax} motor.
+   * Create the {@link AbsoluteEncoder} object as a duty cycle. from the
+   * {@link CANSparkMax} motor.
    *
    * @param motor Motor to create the encoder from.
    */
-  public SparkMaxEncoderSwerve(SwerveMotor motor)
-  {
-    if (motor.getMotor() instanceof CANSparkMax)
-    {
+  public SparkMaxEncoderSwerve(SwerveMotor motor) {
+    if (motor.getMotor() instanceof CANSparkMax) {
       encoder = ((CANSparkMax) motor.getMotor()).getAbsoluteEncoder(Type.kDutyCycle);
-    } else
-    {
+    } else {
       throw new RuntimeException("Motor given to instantiate SparkMaxEncoder is not a CANSparkMax");
     }
   }
@@ -36,8 +35,7 @@ public class SparkMaxEncoderSwerve extends SwerveAbsoluteEncoder
    * Reset the encoder to factory defaults.
    */
   @Override
-  public void factoryDefault()
-  {
+  public void factoryDefault() {
     // Do nothing
   }
 
@@ -45,8 +43,7 @@ public class SparkMaxEncoderSwerve extends SwerveAbsoluteEncoder
    * Clear sticky faults on the encoder.
    */
   @Override
-  public void clearStickyFaults()
-  {
+  public void clearStickyFaults() {
     // Do nothing
   }
 
@@ -56,8 +53,7 @@ public class SparkMaxEncoderSwerve extends SwerveAbsoluteEncoder
    * @param inverted Whether the encoder is inverted.
    */
   @Override
-  public void configure(boolean inverted)
-  {
+  public void configure(boolean inverted) {
     encoder.setInverted(inverted);
   }
 
@@ -67,8 +63,7 @@ public class SparkMaxEncoderSwerve extends SwerveAbsoluteEncoder
    * @return Absolute position in degrees from [0, 360).
    */
   @Override
-  public double getAbsolutePosition()
-  {
+  public double getAbsolutePosition() {
     return encoder.getPosition();
   }
 
@@ -78,8 +73,7 @@ public class SparkMaxEncoderSwerve extends SwerveAbsoluteEncoder
    * @return Absolute encoder object.
    */
   @Override
-  public Object getAbsoluteEncoder()
-  {
+  public Object getAbsoluteEncoder() {
     return encoder;
   }
 }

@@ -1,14 +1,14 @@
 package swervelib.imu;
 
+import java.util.Optional;
+
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
-import java.util.Optional;
 
 /**
  * Swerve IMU abstraction to define a standard interface with a swerve drive.
  */
-public abstract class SwerveIMU
-{
+public abstract class SwerveIMU {
 
   /**
    * Reset IMU to factory default.
@@ -28,7 +28,8 @@ public abstract class SwerveIMU
   public abstract void setOffset(Rotation3d offset);
 
   /**
-   * Fetch the {@link Rotation3d} from the IMU without any zeroing. Robot relative.
+   * Fetch the {@link Rotation3d} from the IMU without any zeroing. Robot
+   * relative.
    *
    * @return {@link Rotation3d} from the IMU.
    */
@@ -42,7 +43,8 @@ public abstract class SwerveIMU
   public abstract Rotation3d getRotation3d();
 
   /**
-   * Fetch the acceleration [x, y, z] from the IMU in meters per second squared. If acceleration isn't supported returns
+   * Fetch the acceleration [x, y, z] from the IMU in meters per second squared.
+   * If acceleration isn't supported returns
    * empty.
    *
    * @return {@link Translation3d} of the acceleration as an {@link Optional}.

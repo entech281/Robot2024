@@ -1,10 +1,11 @@
 package entech.util.structure;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
 public class Container implements Node {
     List<Node> nodes = new ArrayList<Node>();
-    
+
     public void addNode(Node node) {
         nodes.add(node);
     }

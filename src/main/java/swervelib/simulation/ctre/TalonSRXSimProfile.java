@@ -1,20 +1,20 @@
 package swervelib.simulation.ctre;
 
-import static swervelib.simulation.ctre.PhysicsSim.random;
+import static swervelib.simulation.ctre.PhysicsSim.*;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import swervelib.simulation.ctre.PhysicsSim.SimProfile;
 
 /**
  * Holds information about a simulated TalonSRX.
  */
-class TalonSRXSimProfile extends SimProfile
-{
+class TalonSRXSimProfile extends SimProfile {
 
   private final TalonSRX _talon;
-  private final double   _accelToFullTime;
-  private final double   _fullVel;
-  private final boolean  _sensorPhase;
+  private final double _accelToFullTime;
+  private final double _fullVel;
+  private final boolean _sensorPhase;
 
   /** The current position */
   // private double _pos = 0;
@@ -27,7 +27,8 @@ class TalonSRXSimProfile extends SimProfile
    * Creates a new simulation profile for a TalonSRX device.
    *
    * @param talon           The TalonSRX device
-   * @param accelToFullTime The time the motor takes to accelerate from 0 to full, in seconds
+   * @param accelToFullTime The time the motor takes to accelerate from 0 to full,
+   *                        in seconds
    * @param fullVel         The maximum motor velocity, in ticks per 100ms
    * @param sensorPhase     The phase of the TalonSRX sensors
    */
@@ -35,8 +36,7 @@ class TalonSRXSimProfile extends SimProfile
       final TalonSRX talon,
       final double accelToFullTime,
       final double fullVel,
-      final boolean sensorPhase)
-  {
+      final boolean sensorPhase) {
     this._talon = talon;
     this._accelToFullTime = accelToFullTime;
     this._fullVel = fullVel;
@@ -46,33 +46,31 @@ class TalonSRXSimProfile extends SimProfile
   /**
    * Runs the simulation profile.
    *
-   * <p>This uses very rudimentary physics simulation and exists to allow users to test features of
-   * our products in simulation using our examples out of the box. Users may modify this to utilize more accurate
+   * <p>
+   * This uses very rudimentary physics simulation and exists to allow users to
+   * test features of
+   * our products in simulation using our examples out of the box. Users may
+   * modify this to utilize more accurate
    * physics simulation.
    */
-  public void run()
-  {
-    final double period      = getPeriod();
+  public void run() {
+    final double period = getPeriod();
     final double accelAmount = _fullVel / _accelToFullTime * period / 1000;
 
     /// DEVICE SPEED SIMULATION
 
     double outPerc = _talon.getSimCollection().getMotorOutputLeadVoltage() / 12;
-    if (_sensorPhase)
-    {
+    if (_sensorPhase) {
       outPerc *= -1;
     }
     // Calculate theoretical velocity with some randomness
     double theoreticalVel = outPerc * _fullVel * random(0.95, 1);
     // Simulate motor load
-    if (theoreticalVel > _vel + accelAmount)
-    {
+    if (theoreticalVel > _vel + accelAmount) {
       _vel += accelAmount;
-    } else if (theoreticalVel < _vel - accelAmount)
-    {
+    } else if (theoreticalVel < _vel - accelAmount) {
       _vel -= accelAmount;
-    } else
-    {
+    } else {
       _vel += 0.9 * (theoreticalVel - _vel);
     }
     // _pos += _vel * period / 100;

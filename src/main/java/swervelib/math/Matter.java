@@ -5,8 +5,7 @@ import edu.wpi.first.math.geometry.Translation3d;
 /**
  * Object with significant mass that needs to be taken into account.
  */
-public class Matter
-{
+public class Matter {
 
   /**
    * Position in meters from robot center in 3d space.
@@ -15,7 +14,7 @@ public class Matter
   /**
    * Mass in kg of object.
    */
-  public double        mass;
+  public double mass;
 
   /**
    * Construct an object representing some significant matter on the robot.
@@ -23,8 +22,7 @@ public class Matter
    * @param position Position of the matter in meters.
    * @param mass     Mass in kg.
    */
-  public Matter(Translation3d position, double mass)
-  {
+  public Matter(Translation3d position, double mass) {
     this.mass = mass;
     this.position = position;
   }
@@ -34,8 +32,7 @@ public class Matter
    *
    * @return center mass = position * mass
    */
-  public Translation3d massMoment()
-  {
+  public Translation3d massMoment() {
     return position.times(mass);
   }
 }

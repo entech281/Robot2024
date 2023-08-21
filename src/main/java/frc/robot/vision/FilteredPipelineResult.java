@@ -1,8 +1,8 @@
 package frc.robot.vision;
 
-import org.photonvision.targeting.PhotonPipelineResult;
-
 import java.util.ArrayList;
+
+import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 public class FilteredPipelineResult extends PhotonPipelineResult {

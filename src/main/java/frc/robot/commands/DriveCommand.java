@@ -4,12 +4,13 @@
 
 package frc.robot.commands;
 
+import java.util.function.BooleanSupplier;
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.commands.EntechCommandBase;
 import frc.robot.subsystems.DriveSubsystem;
-import java.util.function.BooleanSupplier;
-import java.util.function.DoubleSupplier;
 import swervelib.SwerveController;
 
 /**
@@ -17,15 +18,13 @@ import swervelib.SwerveController;
  */
 public class DriveCommand extends EntechCommandBase {
 
-  private final DriveSubsystem  swerve;
-  private final DoubleSupplier   vX;
-  private final DoubleSupplier   vY;
-  private final DoubleSupplier   omega;
-  private final BooleanSupplier  driveMode;
-  private final boolean          isOpenLoop;
+  private final DriveSubsystem swerve;
+  private final DoubleSupplier vX;
+  private final DoubleSupplier vY;
+  private final DoubleSupplier omega;
+  private final BooleanSupplier driveMode;
+  private final boolean isOpenLoop;
   private final SwerveController controller;
-
-
 
   /**
    * Creates a new ExampleCommand.
@@ -33,7 +32,7 @@ public class DriveCommand extends EntechCommandBase {
    * @param swerve The subsystem used by this command.
    */
   public DriveCommand(DriveSubsystem swerve, DoubleSupplier vX, DoubleSupplier vY, DoubleSupplier omega,
-                      BooleanSupplier driveMode, boolean isOpenLoop) {
+      BooleanSupplier driveMode, boolean isOpenLoop) {
     super(swerve);
     this.swerve = swerve;
     this.vX = vX;
@@ -52,10 +51,11 @@ public class DriveCommand extends EntechCommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double xVelocity   = Math.pow(vX.getAsDouble(), 3) * controller.config.maxSpeed;
-    double yVelocity   = Math.pow(vY.getAsDouble(), 3) * controller.config.maxSpeed;
+    double xVelocity = Math.pow(vX.getAsDouble(), 3) * controller.config.maxSpeed;
+    double yVelocity = Math.pow(vY.getAsDouble(), 3) * controller.config.maxSpeed;
     double angVelocity = Math.pow(omega.getAsDouble(), 3) * controller.config.maxAngularVelocity;
-    // double angNegVelocity = Math.pow(omega.getAsDouble(), 3) * controller.config.maxAngularVelocity;
+    // double angNegVelocity = Math.pow(omega.getAsDouble(), 3) *
+    // controller.config.maxAngularVelocity;
 
     SmartDashboard.putNumber("vX", xVelocity);
     SmartDashboard.putNumber("vY", yVelocity);
@@ -72,14 +72,12 @@ public class DriveCommand extends EntechCommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted)
-  {
+  public void end(boolean interrupted) {
   }
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished()
-  {
+  public boolean isFinished() {
     return false;
   }
 }

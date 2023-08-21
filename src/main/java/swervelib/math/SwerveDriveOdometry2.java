@@ -1,5 +1,7 @@
 package swervelib.math;
 
+import org.ejml.simple.SimpleMatrix;
+
 import edu.wpi.first.math.MathSharedStore;
 import edu.wpi.first.math.MathUsageId;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -9,23 +11,22 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import org.ejml.simple.SimpleMatrix;
 
 /**
- * Clone of {@link SwerveDriveOdometry} except uses gyro pitch and roll to achieve a more accurate estimation.
+ * Clone of {@link SwerveDriveOdometry} except uses gyro pitch and roll to
+ * achieve a more accurate estimation.
  * Originally made by Team 1466.
  */
-public class SwerveDriveOdometry2 extends SwerveDriveOdometry
-{
+public class SwerveDriveOdometry2 extends SwerveDriveOdometry {
 
   /**
    * Swerve drive kinematics.
    */
-  private final SwerveDriveKinematics  m_kinematics;
+  private final SwerveDriveKinematics m_kinematics;
   /**
    * Number of swerve modules.
    */
-  private final int                    m_numModules;
+  private final int m_numModules;
   /**
    * Previous swerve module positions.
    */
@@ -33,19 +34,19 @@ public class SwerveDriveOdometry2 extends SwerveDriveOdometry
   /**
    * Zero module states.
    */
-  private final SwerveModuleState[]    m_zeroModuleStates;
+  private final SwerveModuleState[] m_zeroModuleStates;
   /**
    * Estimated pose.
    */
-  private       Pose2d                 m_poseMeters;
+  private Pose2d m_poseMeters;
   /**
    * Gyro offset.
    */
-  private       Rotation2d             m_gyroOffset;
+  private Rotation2d m_gyroOffset;
   /**
    * Previous gyroscope angle.
    */
-  private       Rotation2d             m_previousAngle;
+  private Rotation2d m_previousAngle;
 
   /**
    * Constructs a SwerveDriveOdometry object.
@@ -59,8 +60,7 @@ public class SwerveDriveOdometry2 extends SwerveDriveOdometry
       SwerveDriveKinematics kinematics,
       Rotation2d gyroAngle,
       SwerveModulePosition[] modulePositions,
-      Pose2d initialPose)
-  {
+      Pose2d initialPose) {
     super(kinematics, gyroAngle, modulePositions, initialPose);
     m_kinematics = kinematics;
     m_poseMeters = initialPose;
@@ -69,11 +69,9 @@ public class SwerveDriveOdometry2 extends SwerveDriveOdometry
     m_numModules = modulePositions.length;
 
     m_previousModulePositions = new SwerveModulePosition[m_numModules];
-    for (int index = 0; index < m_numModules; index++)
-    {
-      m_previousModulePositions[index] =
-          new SwerveModulePosition(
-              modulePositions[index].distanceMeters, modulePositions[index].angle);
+    for (int index = 0; index < m_numModules; index++) {
+      m_previousModulePositions[index] = new SwerveModulePosition(
+          modulePositions[index].distanceMeters, modulePositions[index].angle);
     }
     m_zeroModuleStates = m_kinematics.toSwerveModuleStates(new ChassisSpeeds(1, 0, 0));
 
@@ -90,42 +88,40 @@ public class SwerveDriveOdometry2 extends SwerveDriveOdometry
   public SwerveDriveOdometry2(
       SwerveDriveKinematics kinematics,
       Rotation2d gyroAngle,
-      SwerveModulePosition[] modulePositions)
-  {
+      SwerveModulePosition[] modulePositions) {
     this(kinematics, gyroAngle, modulePositions, new Pose2d());
   }
 
   /**
    * Resets the robot's position on the field.
    *
-   * <p>The gyroscope angle does not need to be reset here on the user's robot code. The library
+   * <p>
+   * The gyroscope angle does not need to be reset here on the user's robot code.
+   * The library
    * automatically takes care of offsetting the gyro angle.
    *
-   * <p>Similarly, module positions do not need to be reset in user code.
+   * <p>
+   * Similarly, module positions do not need to be reset in user code.
    *
    * @param gyroAngle       The angle reported by the gyroscope.
    * @param modulePositions The wheel positions reported by each module.,
    * @param pose            The position on the field that your robot is at.
    */
   public void resetPosition(
-      Rotation2d gyroAngle, SwerveModulePosition[] modulePositions, Pose2d pose)
-  {
+      Rotation2d gyroAngle, SwerveModulePosition[] modulePositions, Pose2d pose) {
     super.resetPosition(gyroAngle, modulePositions, pose);
-    if (modulePositions.length != m_numModules)
-    {
+    if (modulePositions.length != m_numModules) {
       throw new IllegalArgumentException(
           "Number of modules is not consistent with number of wheel locations provided in "
-          + "constructor");
+              + "constructor");
     }
 
     m_poseMeters = pose;
     m_previousAngle = pose.getRotation();
     m_gyroOffset = m_poseMeters.getRotation().minus(gyroAngle);
-    for (int index = 0; index < m_numModules; index++)
-    {
-      m_previousModulePositions[index] =
-          new SwerveModulePosition(
-              modulePositions[index].distanceMeters, modulePositions[index].angle);
+    for (int index = 0; index < m_numModules; index++) {
+      m_previousModulePositions[index] = new SwerveModulePosition(
+          modulePositions[index].distanceMeters, modulePositions[index].angle);
     }
   }
 
@@ -134,22 +130,27 @@ public class SwerveDriveOdometry2 extends SwerveDriveOdometry
    *
    * @return The pose of the robot (x and y are in meters).
    */
-  public Pose2d getPoseMeters()
-  {
+  public Pose2d getPoseMeters() {
     return m_poseMeters;
   }
 
   /**
-   * Updates the robot's position on the field using forward kinematics and integration of the pose over time. This
-   * method automatically calculates the current time to calculate period (difference between two timestamps). The
-   * period is used to calculate the change in distance from a velocity. This also takes in an angle parameter which is
-   * used instead of the angular rate that is calculated from forward kinematics. This also takes in pitch and roll to
-   * allow for more accurate pose estimation on angled surfaces using a rotation matrix.
+   * Updates the robot's position on the field using forward kinematics and
+   * integration of the pose over time. This
+   * method automatically calculates the current time to calculate period
+   * (difference between two timestamps). The
+   * period is used to calculate the change in distance from a velocity. This also
+   * takes in an angle parameter which is
+   * used instead of the angular rate that is calculated from forward kinematics.
+   * This also takes in pitch and roll to
+   * allow for more accurate pose estimation on angled surfaces using a rotation
+   * matrix.
    *
    * @param gyroYaw         The yaw reported by the gyro.
    * @param pitch           The pitch reported by the gyro.
    * @param roll            The roll reported by the gyro.
-   * @param modulePositions The current position of all swerve modules. Please provide the positions in the same order
+   * @param modulePositions The current position of all swerve modules. Please
+   *                        provide the positions in the same order
    *                        in which you instantiated your SwerveDriveKinematics.
    * @return The new pose of the robot.
    */
@@ -157,21 +158,19 @@ public class SwerveDriveOdometry2 extends SwerveDriveOdometry
       Rotation2d gyroYaw,
       Rotation2d pitch,
       Rotation2d roll,
-      SwerveModulePosition[] modulePositions)
-  {
+      SwerveModulePosition[] modulePositions) {
     super.update(gyroYaw, modulePositions);
-    if (modulePositions.length != m_numModules)
-    {
+    if (modulePositions.length != m_numModules) {
       throw new IllegalArgumentException(
           "Number of modules is not consistent with number of wheel locations provided in "
-          + "constructor");
+              + "constructor");
     }
 
     var moduleDeltas = new SwerveModulePosition[m_numModules];
-    var yaw          = gyroYaw.plus(m_gyroOffset);
+    var yaw = gyroYaw.plus(m_gyroOffset);
 
     var rotationMatrix = new SimpleMatrix(3, 3);
-    var gyroZero       = new Rotation2d(); // doing dist calcs robot relative
+    var gyroZero = new Rotation2d(); // doing dist calcs robot relative
     rotationMatrix.setRow(
         0,
         0,
@@ -189,16 +188,13 @@ public class SwerveDriveOdometry2 extends SwerveDriveOdometry
     rotationMatrix.setRow(
         2, 0, -pitch.getSin(), pitch.getCos() * roll.getSin(), pitch.getCos() * roll.getCos());
 
-    for (int index = 0; index < m_numModules; index++)
-    {
-      var current  = modulePositions[index];
+    for (int index = 0; index < m_numModules; index++) {
+      var current = modulePositions[index];
       var previous = m_previousModulePositions[index];
 
       var deltaDistanceInitial = current.distanceMeters - previous.distanceMeters;
-      var changedAngle =
-          current.angle.minus(
-              m_zeroModuleStates[index]
-                  .angle); // does this return (-pi, pi)? shoudln't matter since Twist2d does sin
+      var changedAngle = current.angle.minus(
+          m_zeroModuleStates[index].angle); // does this return (-pi, pi)? shoudln't matter since Twist2d does sin
       // cos
 
       var deltaMatrix = new SimpleMatrix(3, 1);
@@ -210,21 +206,18 @@ public class SwerveDriveOdometry2 extends SwerveDriveOdometry
           0);
 
       var rotatedDeltaMatrix = rotationMatrix.mult(deltaMatrix);
-      var finalDeltaDistance =
-          deltaDistanceInitial >= 0
+      var finalDeltaDistance = deltaDistanceInitial >= 0
           ? Math.sqrt(
               Math.pow(rotatedDeltaMatrix.get(0, 0), 2)
-              + Math.pow(rotatedDeltaMatrix.get(1, 0), 2))
+                  + Math.pow(rotatedDeltaMatrix.get(1, 0), 2))
           : -Math.sqrt(
               Math.pow(rotatedDeltaMatrix.get(0, 0), 2)
-              + Math.pow(rotatedDeltaMatrix.get(1, 0), 2));
+                  + Math.pow(rotatedDeltaMatrix.get(1, 0), 2));
 
-      var deltaDistance =
-          (roll.getDegrees() > 10 || pitch.getDegrees() > 10)
+      var deltaDistance = (roll.getDegrees() > 10 || pitch.getDegrees() > 10)
           ? finalDeltaDistance
           : deltaDistanceInitial;
-      var updatedAngle =
-          (roll.getDegrees() > 10 || pitch.getDegrees() > 10)
+      var updatedAngle = (roll.getDegrees() > 10 || pitch.getDegrees() > 10)
           ? Rotation2d.fromRadians(
               Math.atan2(rotatedDeltaMatrix.get(0, 0), rotatedDeltaMatrix.get(1, 0)))
           : current.angle;

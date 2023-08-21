@@ -4,10 +4,10 @@ import swervelib.encoders.SwerveAbsoluteEncoder;
 import swervelib.parser.PIDFConfig;
 
 /**
- * Swerve motor abstraction which defines a standard interface for motors within a swerve module.
+ * Swerve motor abstraction which defines a standard interface for motors within
+ * a swerve module.
  */
-public abstract class SwerveMotor
-{
+public abstract class SwerveMotor {
 
   protected int id;
 
@@ -39,14 +39,16 @@ public abstract class SwerveMotor
   public abstract SwerveMotor setAbsoluteEncoder(SwerveAbsoluteEncoder encoder);
 
   /**
-   * Configure the integrated encoder for the swerve module. Sets the conversion factors for position and velocity.
+   * Configure the integrated encoder for the swerve module. Sets the conversion
+   * factors for position and velocity.
    *
    * @param positionConversionFactor The conversion factor to apply for position.
    */
   public abstract void configureIntegratedEncoder(double positionConversionFactor);
 
   /**
-   * Configure the PIDF values for the closed loop controller. 0 is disabled or off.
+   * Configure the PIDF values for the closed loop controller. 0 is disabled or
+   * off.
    *
    * @param config Configuration class holding the PIDF values.
    */
@@ -99,7 +101,8 @@ public abstract class SwerveMotor
    *
    * @param setpoint    Setpoint in meters per second or angle in degrees.
    * @param feedforward Feedforward in volt-meter-per-second or kV.
-   * @param position    Only used on the angle motor, the position of the motor in degrees.
+   * @param position    Only used on the angle motor, the position of the motor in
+   *                    degrees.
    */
   public abstract void setReference(double setpoint, double feedforward, double position);
 
@@ -120,7 +123,8 @@ public abstract class SwerveMotor
   /**
    * Set the integrated encoder position.
    *
-   * @param position Integrated encoder position. Should be angle in degrees or meters per second.
+   * @param position Integrated encoder position. Should be angle in degrees or
+   *                 meters per second.
    */
   public abstract void setPosition(double position);
 
@@ -132,8 +136,10 @@ public abstract class SwerveMotor
   public abstract void setVoltageCompensation(double nominalVoltage);
 
   /**
-   * Set the current limit for the swerve drive motor, remember this may cause jumping if used in conjunction with
-   * voltage compensation. This is useful to protect the motor from current spikes.
+   * Set the current limit for the swerve drive motor, remember this may cause
+   * jumping if used in conjunction with
+   * voltage compensation. This is useful to protect the motor from current
+   * spikes.
    *
    * @param currentLimit Current limit in AMPS at free speed.
    */
@@ -154,7 +160,8 @@ public abstract class SwerveMotor
   public abstract Object getMotor();
 
   /**
-   * Queries whether the absolute encoder is directly attached to the motor controller.
+   * Queries whether the absolute encoder is directly attached to the motor
+   * controller.
    *
    * @return connected absolute encoder state.
    */

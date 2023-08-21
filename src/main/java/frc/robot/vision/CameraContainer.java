@@ -24,14 +24,16 @@ public class CameraContainer {
 
     private final CameraContainer base;
 
-    public CameraContainer(String cameraName, Transform3d robotToCamera, AprilTagFieldLayout fieldLayout, CameraContainer base) {
+    public CameraContainer(String cameraName, Transform3d robotToCamera, AprilTagFieldLayout fieldLayout,
+            CameraContainer base) {
         camera = new PhotonCamera(cameraName);
         estimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP, camera, robotToCamera);
         estimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
         this.base = base;
     }
 
-    public CameraContainer(String cameraName, Transform3d robotToCamera, AprilTagFieldLayout fieldLayout, CameraContainer base, NetworkTableInstance ni) {
+    public CameraContainer(String cameraName, Transform3d robotToCamera, AprilTagFieldLayout fieldLayout,
+            CameraContainer base, NetworkTableInstance ni) {
         camera = new PhotonCamera(ni, cameraName);
         estimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP, camera, robotToCamera);
         estimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
@@ -41,7 +43,7 @@ public class CameraContainer {
     public FilteredPipelineResult getFilteredResult() {
         PhotonPipelineResult result = camera.getLatestResult();
 
-        FilteredPipelineResult filteredResult =  new FilteredPipelineResult(result.getLatencyMillis());
+        FilteredPipelineResult filteredResult = new FilteredPipelineResult(result.getLatencyMillis());
 
         for (PhotonTrackedTarget target : result.getTargets()) {
             if (target.getPoseAmbiguity() > RobotConstants.Vision.Filters.MAX_AMBIGUITY) {
@@ -67,10 +69,12 @@ public class CameraContainer {
     public Optional<Pose3d> getEstimatedPose() {
         List<Pose3d> estPoses = new ArrayList<Pose3d>();
         Optional<EstimatedRobotPose> thisEstPose = estimator.update(getFilteredResult());
-        if (thisEstPose.isPresent()) estPoses.add(thisEstPose.get().estimatedPose);
+        if (thisEstPose.isPresent())
+            estPoses.add(thisEstPose.get().estimatedPose);
         if (base != null) {
             Optional<Pose3d> baseEstPose = base.getEstimatedPose();
-            if (baseEstPose.isPresent()) estPoses.add(baseEstPose.get());
+            if (baseEstPose.isPresent())
+                estPoses.add(baseEstPose.get());
         }
         switch (estPoses.size()) {
             case 1:
@@ -83,17 +87,20 @@ public class CameraContainer {
     }
 
     public double getLatency() {
-        if (base == null) return getFilteredResult().getLatencyMillis();
+        if (base == null)
+            return getFilteredResult().getLatencyMillis();
         return (base.getLatency() + getFilteredResult().getLatencyMillis()) / 2;
     }
 
     public boolean hasTargets() {
-        if (base == null) return getFilteredResult().hasTargets();
+        if (base == null)
+            return getFilteredResult().hasTargets();
         return (base.hasTargets() || getFilteredResult().hasTargets());
     }
 
     public int getTargetCount() {
-        if (base == null) return getFilteredResult().getTargets().size();
+        if (base == null)
+            return getFilteredResult().getTargets().size();
         return (base.getTargetCount() + getFilteredResult().getTargets().size());
     }
 }

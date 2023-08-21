@@ -1,39 +1,38 @@
 package swervelib.simulation;
 
+import java.util.Optional;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import java.util.Optional;
 import swervelib.math.SwerveKinematics2;
 import swervelib.math.SwerveModuleState2;
 
 /**
  * Simulation for {@link swervelib.SwerveDrive} IMU.
  */
-public class SwerveIMUSimulation
-{
+public class SwerveIMUSimulation {
 
   /**
    * Main timer to control movement estimations.
    */
-  private final Timer  timer;
+  private final Timer timer;
   /**
    * The last time the timer was read, used to determine position changes.
    */
-  private       double lastTime;
+  private double lastTime;
   /**
    * Heading of the robot.
    */
-  private       double angle;
+  private double angle;
 
   /**
    * Create the swerve drive IMU simulation.
    */
-  public SwerveIMUSimulation()
-  {
+  public SwerveIMUSimulation() {
     timer = new Timer();
     timer.start();
     lastTime = timer.get();
@@ -44,8 +43,7 @@ public class SwerveIMUSimulation
    *
    * @return {@link Rotation2d} estimation of the robot.
    */
-  public Rotation2d getYaw()
-  {
+  public Rotation2d getYaw() {
     return new Rotation2d(angle);
   }
 
@@ -54,8 +52,7 @@ public class SwerveIMUSimulation
    *
    * @return Pitch of the robot as {@link Rotation2d}.
    */
-  public Rotation2d getPitch()
-  {
+  public Rotation2d getPitch() {
     return new Rotation2d();
   }
 
@@ -64,8 +61,7 @@ public class SwerveIMUSimulation
    *
    * @return Roll of the robot as {@link Rotation2d}.
    */
-  public Rotation2d getRoll()
-  {
+  public Rotation2d getRoll() {
     return new Rotation2d();
   }
 
@@ -74,23 +70,23 @@ public class SwerveIMUSimulation
    *
    * @return The heading as a {@link Rotation3d} angle
    */
-  public Rotation3d getGyroRotation3d()
-  {
+  public Rotation3d getGyroRotation3d() {
     return new Rotation3d(0, 0, angle);
   }
 
   /**
-   * Fetch the acceleration [x, y, z] from the IMU in m/s/s. If acceleration isn't supported returns empty.
+   * Fetch the acceleration [x, y, z] from the IMU in m/s/s. If acceleration isn't
+   * supported returns empty.
    *
    * @return {@link Translation3d} of the acceleration as an {@link Optional}.
    */
-  public Optional<Translation3d> getAccel()
-  {
+  public Optional<Translation3d> getAccel() {
     return Optional.empty();
   }
 
   /**
-   * Update the odometry of the simulated {@link swervelib.SwerveDrive} and post the {@link swervelib.SwerveModule}
+   * Update the odometry of the simulated {@link swervelib.SwerveDrive} and post
+   * the {@link swervelib.SwerveModule}
    * states to the {@link Field2d}.
    *
    * @param kinematics  {@link SwerveKinematics2} of the swerve drive.
@@ -102,8 +98,7 @@ public class SwerveIMUSimulation
       SwerveKinematics2 kinematics,
       SwerveModuleState2[] states,
       Pose2d[] modulePoses,
-      Field2d field)
-  {
+      Field2d field) {
     angle += kinematics.toChassisSpeeds(states).omegaRadiansPerSecond * (timer.get() - lastTime);
     lastTime = timer.get();
     field.getObject("XModules").setPoses(modulePoses);
@@ -114,8 +109,7 @@ public class SwerveIMUSimulation
    *
    * @param angle Angle of the robot in radians.
    */
-  public void setAngle(double angle)
-  {
+  public void setAngle(double angle) {
     this.angle = angle;
   }
 }
