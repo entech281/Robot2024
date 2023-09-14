@@ -23,8 +23,8 @@ public class CommandFactory {
                 joystick::getX,
                 joystick::getZ,
                 () -> {
-                    return true;
+                    return false;
                 },
-                false);
+                true);
     }
 }

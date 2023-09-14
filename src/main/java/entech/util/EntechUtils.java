@@ -58,4 +58,10 @@ public final class EntechUtils {
         return angle;
     }
 
+    public static double normalizeAngle2(double angle) {
+        if (angle < 0) {
+            angle += 360.0;
+        }
+        return angle;
+    }
 }

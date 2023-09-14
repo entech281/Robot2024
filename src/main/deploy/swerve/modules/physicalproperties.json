@@ -5,8 +5,8 @@
     "angle": 12.8
   },
   "currentLimit": {
-    "drive": 40,
-    "angle": 20
+    "drive": 5,
+    "angle": 5
   },
   "rampRate": {
     "drive": 0.15,

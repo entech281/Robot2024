@@ -1,7 +1,7 @@
 {
   "drive": {
     "type": "sparkmax",
-    "id": 11,
+    "id": 10,
     "canbus": null
   },
   "angle": {
@@ -10,15 +10,15 @@
     "canbus": null
   },
   "encoder": {
-    "type": "thrifty",
-    "id": 12,
+    "type": "analogPort",
+    "id": 1,
     "canbus": null
   },
   "inverted": {
-    "drive": false,
+    "drive": true,
     "angle": false
   },
-  "absoluteEncoderOffset": 0.0,
+  "absoluteEncoderOffset": 311,
   "location": {
     "x": 12,
     "y": 12

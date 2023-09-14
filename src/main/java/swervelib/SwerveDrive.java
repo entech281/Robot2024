@@ -89,7 +89,7 @@ public class SwerveDrive {
    * 254's
    * correction.
    */
-  public boolean chassisVelocityCorrection = true;
+  public boolean chassisVelocityCorrection = false;
   /**
    * Swerve IMU device for sensing the heading of the robot.
    */

@@ -7,7 +7,9 @@ import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import swervelib.encoders.AnalogAbsoluteEncoderSwerve;
+import swervelib.encoders.AnalogPortEncoder;
 import swervelib.encoders.CANCoderSwerve;
+import swervelib.encoders.SimulatedEncoder;
 import swervelib.encoders.SparkMaxEncoderSwerve;
 import swervelib.encoders.SwerveAbsoluteEncoder;
 import swervelib.imu.ADIS16448Swerve;
@@ -63,8 +65,12 @@ public class DeviceJson {
         throw new RuntimeException("Bozo used wrong motor!!!!!!!!!!!!!!!!!!!");
       case "analog":
         return new AnalogAbsoluteEncoderSwerve(id);
+      case "analogPort":
+        return new AnalogPortEncoder(id);
       case "cancoder":
         return new CANCoderSwerve(id, canbus != null ? canbus : "");
+      case "simulated":
+        return new SimulatedEncoder();
       default:
         throw new RuntimeException(type + " is not a recognized absolute encoder type.");
     }

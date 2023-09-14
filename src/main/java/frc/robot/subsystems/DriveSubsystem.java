@@ -56,7 +56,7 @@ public class DriveSubsystem extends EntechSubsystem {
   }
 
   /**
-   * The primary method for controlling the drivebase. Takes a
+   * The primary method for controlling the drive base. Takes a
    * {@link Translation2d} and a rotation rate, and
    * calculates and commands module states accordingly. Can use either open-loop
    * or closed-loop velocity control for

@@ -2,6 +2,7 @@ package swervelib.encoders;
 
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxAbsoluteEncoder;
 import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 
 import swervelib.motors.SwerveMotor;
@@ -15,7 +16,7 @@ public class SparkMaxEncoderSwerve extends SwerveAbsoluteEncoder {
    * The {@link AbsoluteEncoder} representing the duty cycle encoder attached to
    * the SparkMax.
    */
-  public AbsoluteEncoder encoder;
+  public SparkMaxAbsoluteEncoder encoder;
 
   /**
    * Create the {@link AbsoluteEncoder} object as a duty cycle. from the
