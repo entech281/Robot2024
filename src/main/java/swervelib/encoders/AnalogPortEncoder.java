@@ -41,5 +41,4 @@ public class AnalogPortEncoder extends SwerveAbsoluteEncoder {
         // (Math.PI * 2) - Math.PI);
         return EntechUtils.normalizeAngle2(analogEncoder.get() * (inverted ? -360.0 : 360.0));
     }
-
 }

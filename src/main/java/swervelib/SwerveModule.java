@@ -4,6 +4,7 @@ import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import swervelib.encoders.SwerveAbsoluteEncoder;
 import swervelib.math.SwerveMath;
@@ -102,7 +103,7 @@ public class SwerveModule {
     // Config angle motor/controller
     angleMotor.configureIntegratedEncoder(moduleConfiguration.getPositionEncoderConversion(false));
     angleMotor.configurePIDF(moduleConfiguration.anglePIDF);
-    angleMotor.configurePIDWrapping(0, 360);
+    angleMotor.configurePIDWrapping(-180, 180);
     angleMotor.setInverted(moduleConfiguration.angleMotorInverted);
     angleMotor.setMotorBrake(false);
 
@@ -145,6 +146,7 @@ public class SwerveModule {
    *                     onto the swerve module.
    */
   public void setDesiredState(SwerveModuleState2 desiredState, boolean isOpenLoop, boolean force) {
+    DriverStation.reportWarning("State changed.", null);
     desiredState = SwerveModuleState2.optimize(desiredState,
         Rotation2d.fromDegrees(getAbsolutePosition()),
         lastState,

@@ -49,7 +49,7 @@ public class SwerveController {
   public SwerveController(SwerveControllerConfiguration cfg) {
     config = cfg;
     thetaController = config.headingPIDF.createPIDController();
-    thetaController.enableContinuousInput(0, Math.PI * 2);
+    thetaController.enableContinuousInput(-Math.PI, Math.PI);
     lastAngleScalar = 0;
   }
 
