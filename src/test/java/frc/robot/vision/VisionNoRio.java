@@ -3,8 +3,6 @@ package frc.robot.vision;
 import java.io.IOException;
 import java.util.Optional;
 
-import org.junit.jupiter.api.Test;
-
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -12,7 +10,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class VisionNoRio {
 
-	@Test
+	// @Test
 	public void testRunningCamera() throws Exception {
 		NetworkTableInstance nt = NetworkTableInstance.create();
 		nt.setServer("10.2.81.151");

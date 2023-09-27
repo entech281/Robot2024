@@ -28,7 +28,7 @@ public class VisionSubsystem extends EntechSubsystem {
 
     private Pose3d estimatedPose;
 
-    private boolean enabled = true;
+    private boolean enabled = false;
 
     @Override
     public void initialize() {

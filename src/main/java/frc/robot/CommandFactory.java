@@ -17,9 +17,7 @@ public class CommandFactory {
     }
 
     public Command driveCommand(Joystick js) {
-        return new DriveCommand(subsystems.getDriveSubsys(), subsystems.getNavXSubSys(), js, () -> {
-            return false;
-        });
+        return new DriveCommand(subsystems.getDriveSubsys(), subsystems.getNavXSubSys(), js);
     }
 
     public Command getAutoCommand() {

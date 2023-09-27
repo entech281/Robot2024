@@ -4,6 +4,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
+import frc.robot.swerve.SwerveModuleConfig;
 
 public final class RobotConstants {
     public static final double STICKDEADBAND = 0.1;
@@ -13,7 +14,10 @@ public final class RobotConstants {
     }
 
     public static interface Swerve {
-
+        public static final SwerveModuleConfig FRONT_LEFT = new SwerveModuleConfig("Front Left", 10, 12, 1, 0, 0.001, 0,
+                0, 1);
+        public static final SwerveModuleConfig FRONT_RIGHT = new SwerveModuleConfig("Front Right", 21, 22, 2, 0, 0.001,
+                0, 0, 1);
     }
 
     public static interface Vision {
