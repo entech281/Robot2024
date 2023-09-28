@@ -11,3 +11,5 @@ team 281 2024 robot
 * Advantage scope logging/advantage kit
 * Command factory sub-scoping ( make it easier to find commands for a given subsystem
 * standardize entech subsyste
+* path planning and driving
+* New rev PDB and pneumatics module
