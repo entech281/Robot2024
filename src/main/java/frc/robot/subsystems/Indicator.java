@@ -10,16 +10,15 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import frc.robot.interfaces.ICamera;
 import frc.robot.Ports;
 //import frc.robot.commands.indicator.*;
-
+import frc.robot.interfaces.ICamera;
 
 // see https://docs.wpilib.org/en/latest/docs/software/actuators/addressable-leds.html
 
 /**
- * The {@code Indicator} class contains fields and methods pertaining to the function of the indicator.
+ * The {@code Indicator} class contains fields and methods pertaining to the
+ * function of the indicator.
  */
 public class Indicator extends SubsystemBase {
 	private AddressableLED led;
@@ -28,11 +27,10 @@ public class Indicator extends SubsystemBase {
 
 	// Store what the last hue of the first pixel is
 	private int rainbowFirstPixelHue;
-	
-	public Indicator(ICamera camera_in) 
-	{
+
+	public Indicator(ICamera camera_in) {
 		camera = camera_in;
-		
+
 		led = new AddressableLED(Ports.PWM.LED_STRIP);
 
 		// Reuse buffer
@@ -48,19 +46,20 @@ public class Indicator extends SubsystemBase {
 		led.start();
 	}
 
-	/*@Override
-	public void initDefaultCommand() {  
-		// Set the default command for a subsystem here.
-		setDefaultCommand(new IndicatorIndicateUsingCamera());
-	}*/
+	/*
+	 * @Override
+	 * public void initDefaultCommand() {
+	 * // Set the default command for a subsystem here.
+	 * setDefaultCommand(new IndicatorIndicateUsingCamera());
+	 * }
+	 */
 
 	@Override
 	public void periodic() {
 		// Put code here to be run every loop
 	}
 
-	public void updateRainbow()
-	{
+	public void updateRainbow() {
 		// For every pixel
 		for (var i = 0; i < ledBuffer.getLength(); i++) {
 
@@ -76,14 +75,13 @@ public class Indicator extends SubsystemBase {
 		rainbowFirstPixelHue += 3;
 
 		// Check bounds
-		rainbowFirstPixelHue %= 180; 
+		rainbowFirstPixelHue %= 180;
 
 		// Set the LEDs
 		led.setData(ledBuffer);
 	}
 
-	public void setHue(int hue)
-	{
+	public void setHue(int hue) {
 		// For every pixel
 		for (var i = 0; i < ledBuffer.getLength(); i++) {
 
@@ -95,23 +93,19 @@ public class Indicator extends SubsystemBase {
 		led.setData(ledBuffer);
 	}
 
-	public void setRed()
-	{
+	public void setRed() {
 		setHue(0);
 	}
 
-	public void setYellow()
-	{
-		setHue(20/*45*/);
+	public void setYellow() {
+		setHue(20/* 45 */);
 	}
 
-	public void setGreen()
-	{
+	public void setGreen() {
 		setHue(60);
 	}
 
-	public void setBlue()
-	{
+	public void setBlue() {
 		setHue(120);
 	}
 
@@ -120,14 +114,12 @@ public class Indicator extends SubsystemBase {
 		if (camera != null && camera.getNumberOfTargets() > 0) {
 			if (Math.abs(camera.getAngleToTurnToCompositeTarget()) < 5) { // displays green if in target
 				setGreen();
-			}
-			else if (Math.abs(camera.getAngleToTurnToCompositeTarget()) < 15) { // displays yellow if close to target
+			} else if (Math.abs(camera.getAngleToTurnToCompositeTarget()) < 15) { // displays yellow if close to target
 				setYellow();
-			}
-			else { // displays red if far from target 
+			} else { // displays red if far from target
 				setRed();
 			}
-		} else { // no camera or no target, so arbitrarily displays blue 
+		} else { // no camera or no target, so arbitrarily displays blue
 			setBlue();
 		}
 
