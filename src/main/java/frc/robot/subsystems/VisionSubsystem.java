@@ -10,17 +10,15 @@ package frc.robot.subsystems;
 import java.io.IOException;
 import java.util.Optional;
 
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import entech.subsystems.EntechSubsystem;
-
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
-import frc.robot.pose.CameraContainer;
-
-import edu.wpi.first.apriltag.AprilTagFields;
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.util.sendable.SendableBuilder;
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import frc.robot.vision.CameraContainer;
 
 public class VisionSubsystem extends EntechSubsystem {
 
@@ -45,9 +43,11 @@ public class VisionSubsystem extends EntechSubsystem {
 
         if (Robot.isReal() && enabled) {
             CameraContainer frontLeft = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT,
-                    RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout, null);
+                    RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout,
+                    null);
             this.cameras = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT,
-                    RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout, frontLeft);
+                    RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout,
+                    frontLeft);
         }
     }
 
@@ -98,14 +98,14 @@ public class VisionSubsystem extends EntechSubsystem {
             return estimatedPose.getRotation().getZ();
         }, null);
         builder.addDoubleProperty("Latency", this::getLatency, null);
-        builder.addIntegerProperty("Number of tarets", this::getNumberOfTargets, null);
+        builder.addIntegerProperty("Number of targets", this::getNumberOfTargets, null);
     }
 
-    public Pose3d getEstimatedPose3d() {
-        return enabled ? estimatedPose : null;
+    public Optional<Pose3d> getEstimatedPose3d() {
+        return enabled ? Optional.of(estimatedPose) : Optional.empty();
     }
 
-    public Pose2d getEstimatedPose2d() {
-        return enabled ? estimatedPose.toPose2d() : null;
+    public Optional<Pose2d> getEstimatedPose2d() {
+        return enabled ? Optional.of(estimatedPose.toPose2d()) : Optional.empty();
     }
 }
