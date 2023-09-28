@@ -17,6 +17,7 @@ import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.Robot;
+import frc.robot.RobotConstants;
 import frc.robot.vision.CameraContainer;
 
 public class VisionSubsystem extends EntechSubsystem {
@@ -41,13 +42,12 @@ public class VisionSubsystem extends EntechSubsystem {
         }
 
         if (Robot.isReal() && enabled) {
-            // CameraContainer frontLeft = new
-            // CameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT,
-            // RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout,
-            // null);
-            // this.cameras = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT,
-            // RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout,
-            // frontLeft);
+            CameraContainer frontLeft = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT,
+                    RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout,
+                    null);
+            this.cameras = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT,
+                    RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout,
+                    frontLeft);
         }
     }
 
