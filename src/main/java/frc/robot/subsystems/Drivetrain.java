@@ -23,6 +23,7 @@ import frc.robot.Constants.DrivetrainConstants;
 import frc.utils.SwerveUtils;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Ports;
+import org.littletonrobotics.junction.Logger;
 
 /**
  * The {@code Drivetrain} class contains fields and methods pertaining to the function of the drivetrain.
@@ -109,6 +110,8 @@ public class Drivetrain extends SubsystemBase {
 
 	@Override
 	public void periodic() {
+		//try out advantage scope
+		Logger.getInstance().recordOutput("AV Odometry", m_odometry.getPoseMeters());
 		// Update the odometry in the periodic block
 		m_odometry.update(
 			Rotation2d.fromDegrees(GYRO_ORIENTATION * m_gyro.getAngle()),
