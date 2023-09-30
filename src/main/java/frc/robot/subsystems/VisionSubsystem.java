@@ -15,9 +15,11 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
+import frc.robot.commands.DriveForwardCommand;
 import frc.robot.vision.CameraContainer;
 
 public class VisionSubsystem extends EntechSubsystem {
@@ -51,6 +53,9 @@ public class VisionSubsystem extends EntechSubsystem {
         }
     }
 
+    public  Command driveForward(){
+        return new DriveForwardCommand(this);
+    }
     public boolean hasTargets() {
         return enabled ? cameras.hasTargets() : false;
     }

@@ -26,4 +26,13 @@ public class TestCommandFactories {
         Command c3 = FancyCommandFactoryOption2.combo();
 
     }
+
+    public void testCommandFactoryOption3(){
+        VisionSubsystem vision = new VisionSubsystem();
+        ArmSubsystem arm = new ArmSubsystem();
+        FancyCommandFactoryOption3.init(vision , arm);
+        Command c1 = arm.moveArm();
+        Command c2 = vision.driveForward();
+        Command c3 = FancyCommandFactoryOption2.combo();
+    }
 }
