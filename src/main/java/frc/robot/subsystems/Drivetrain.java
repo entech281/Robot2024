@@ -67,7 +67,7 @@ public class Drivetrain extends SubsystemBase {
 	// Ports.Analog.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER);
 
 	// The gyro sensor
-	private final AHRS m_gyro = new AHRS(Port.kUSB);
+	private final AHRS m_gyro = new AHRS(Port.kMXP);
 
 	// Slew rate filter variables for controlling lateral acceleration
 	private double m_currentRotation = 0.0;
@@ -119,10 +119,30 @@ public class Drivetrain extends SubsystemBase {
 		resetOdometry(initialPose);
 	}
 
+	// Bad look on scope needs to be fixed
+	// public Pose3d createPose3d() {
+	// Pose2d initial = m_odometry.getPoseMeters();
+
+	// return new Pose3d(new Translation3d(initial.getX(), initial.getY(), 0.0),
+	// new Rotation3d(Units.degreesToRadians(m_gyro.getRoll()),
+	// Units.degreesToRadians(m_gyro.getPitch()),
+	// Units.degreesToRadians(m_gyro.getYaw() * -1)));
+	// }
+
 	@Override
 	public void periodic() {
+		Logger logger = Logger.getInstance();
 		// try out advantage scope
-		Logger.getInstance().recordOutput("AV Odometry", m_odometry.getPoseMeters());
+		logger.recordOutput("AV Odometry", m_odometry.getPoseMeters());
+		logger.recordOutput("modules pose angles", new double[] {
+				m_frontLeft.getPosition().angle.getDegrees(),
+				m_frontRight.getPosition().angle.getDegrees()
+		});
+		logger.recordOutput("modules pose meters", new double[] {
+				m_frontLeft.getPosition().distanceMeters,
+				m_frontRight.getPosition().distanceMeters
+		});
+
 		// Update the odometry in the periodic block
 		m_odometry.update(
 				Rotation2d.fromDegrees(GYRO_ORIENTATION * m_gyro.getAngle()),

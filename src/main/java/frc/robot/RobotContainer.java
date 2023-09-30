@@ -187,11 +187,13 @@ public class RobotContainer {
 				// We are also inverting RightX because we want a positive value when we pull to
 				// the left (CCW is positive in mathematics).
 				new RunCommand(
-						() -> drivetrain.drive(
-								-MathUtil.applyDeadband(driverGamepad.getY(), GAMEPAD_AXIS_THRESHOLD),
-								-MathUtil.applyDeadband(driverGamepad.getX(), GAMEPAD_AXIS_THRESHOLD),
-								-MathUtil.applyDeadband(driverGamepad.getZ(), GAMEPAD_AXIS_THRESHOLD),
-								true, true),
+						() -> {
+							drivetrain.drive(
+									-MathUtil.applyDeadband(driverGamepad.getY(), GAMEPAD_AXIS_THRESHOLD),
+									-MathUtil.applyDeadband(driverGamepad.getX(), GAMEPAD_AXIS_THRESHOLD),
+									-MathUtil.applyDeadband(driverGamepad.getZ(), GAMEPAD_AXIS_THRESHOLD),
+									true, true);
+						},
 						drivetrain));
 
 		indicator.setDefaultCommand(new IndicatorScrollRainbow(indicator)); // temp
