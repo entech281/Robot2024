@@ -48,6 +48,13 @@ public class Robot extends LoggedRobot {
 																												// new
 																												// log
 		}
+		Logger logger = Logger.getInstance();
+		logger.recordMetadata("RuntimeType", getRuntimeType().toString());
+		logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
+		logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
+		logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
+		logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
+		logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
 
 		// Logger.getInstance().disableDeterministicTimestamps() // See "Deterministic
 		// Timestamps" in the "Understanding Data Flow" page
