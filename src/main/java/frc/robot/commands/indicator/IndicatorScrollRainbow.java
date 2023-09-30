@@ -2,7 +2,6 @@
 package frc.robot.commands.indicator;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
 import frc.robot.subsystems.Indicator;
 
 /**
@@ -45,6 +44,6 @@ public class IndicatorScrollRainbow extends CommandBase {
 	@Override
 	public void end(boolean interrupted) {
 		System.out.println("IndicatorScrollRainbow: end");
-		//indicator.stop();
+		// indicator.stop();
 	}
 }

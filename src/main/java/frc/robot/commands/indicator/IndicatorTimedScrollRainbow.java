@@ -8,7 +8,6 @@
 package frc.robot.commands.indicator;
 
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-
 import frc.robot.subsystems.Indicator;
 
 /**
@@ -51,7 +50,7 @@ public class IndicatorTimedScrollRainbow extends WaitCommand {
 	@Override
 	public void end(boolean interrupted) {
 		System.out.println("IndicatorTimedScrollRainbow: end");
-		//indicator.stop();
+		// indicator.stop();
 		super.end(interrupted);
 	}
 }

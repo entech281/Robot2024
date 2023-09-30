@@ -9,17 +9,17 @@ public interface ICamera extends Subsystem {
 	public int getNumberOfTargets();
 
 	public boolean acquireTargets(boolean waitForNewInfo);
-	
+
 	public boolean checkForOpening();
 
 	public double getDistanceToCompositeTargetUsingVerticalFov();
-	
+
 	public double getDistanceToCompositeTargetUsingHorizontalFov();
 
 	public double getFilteredDistanceToCompositeTarget();
 
 	public double getAngleToTurnToCompositeTarget();
-	
+
 	public double getPixelDisplacementToCenterToCompositeTarget();
 
 	public double getVerticalOffsetToCompositeTarget();
@@ -34,7 +34,7 @@ public interface ICamera extends Subsystem {
 
 	public double[] getCenterX();
 
-	public double[] getCenterY();	
+	public double[] getCenterY();
 
 	public void setOffsetBetweenCameraAndTarget(double offset);
 
@@ -47,11 +47,11 @@ public interface ICamera extends Subsystem {
 		FORCE_ON
 	}
 
-	//public void setLedMode(LedMode ledMode);
-	
+	// public void setLedMode(LedMode ledMode);
+
 	public void setPipeline(byte pipeline);
 
 	public double pidGet();
-	
+
 	public double pidGet2();
 }

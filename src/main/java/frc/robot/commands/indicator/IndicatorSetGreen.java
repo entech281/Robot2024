@@ -2,7 +2,6 @@
 package frc.robot.commands.indicator;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-
 import frc.robot.subsystems.Indicator;
 
 /**
@@ -26,7 +25,7 @@ public class IndicatorSetGreen extends InstantCommand {
 	// Called once when this command runs
 	@Override
 	public void initialize() {
-		//System.out.println("IndicatorSetGreen: initialize");
+		// System.out.println("IndicatorSetGreen: initialize");
 		indicator.setGreen();
 	}
 
