@@ -22,14 +22,15 @@ import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DrivetrainConstants;
-import frc.robot.Ports;
-import frc.utils.SwerveUtils;
+import frc.robot.RobotConstants;
+import frc.robot.swerve.SwerveModule;
+import frc.robot.swerve.SwerveUtils;
 
 /**
  * The {@code Drivetrain} class contains fields and methods pertaining to the
  * function of the drivetrain.
  */
-public class Drivetrain extends SubsystemBase {
+public class DriveSubsystem extends SubsystemBase {
 
 	public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = -1.653; // adjust as needed so that virtual (turn)
 																			// position of wheel is zero when straight
@@ -47,14 +48,14 @@ public class Drivetrain extends SubsystemBase {
 
 	// Create SwerveModules
 	private final SwerveModule m_frontLeft = new SwerveModule(
-			Ports.CAN.FRONT_LEFT_DRIVING,
-			Ports.CAN.FRONT_LEFT_TURNING,
-			Ports.Analog.FRONT_LEFT_TURNING_ABSOLUTE_ENCODER);
+			RobotConstants.Ports.CAN.FRONT_LEFT_DRIVING,
+			RobotConstants.Ports.CAN.FRONT_LEFT_TURNING,
+			RobotConstants.Ports.ANALOG.FRONT_LEFT_TURNING_ABSOLUTE_ENCODER);
 
 	private final SwerveModule m_frontRight = new SwerveModule(
-			Ports.CAN.FRONT_RIGHT_DRIVING,
-			Ports.CAN.FRONT_RIGHT_TURNING,
-			Ports.Analog.FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER);
+			RobotConstants.Ports.CAN.FRONT_RIGHT_DRIVING,
+			RobotConstants.Ports.CAN.FRONT_RIGHT_TURNING,
+			RobotConstants.Ports.ANALOG.FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER);
 
 	// private final SwerveModule m_rearLeft = new SwerveModule(
 	// Ports.CAN.REAR_LEFT_DRIVING,
@@ -90,7 +91,7 @@ public class Drivetrain extends SubsystemBase {
 			});
 
 	/** Creates a new Drivetrain. */
-	public Drivetrain() {
+	public DriveSubsystem() {
 		m_frontLeft.calibrateVirtualPosition(FRONT_LEFT_VIRTUAL_OFFSET_RADIANS); // set virtual position for absolute
 																					// encoder
 		m_frontRight.calibrateVirtualPosition(FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS);

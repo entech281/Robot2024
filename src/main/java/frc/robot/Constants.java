@@ -8,7 +8,6 @@ import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -109,21 +108,6 @@ public final class Constants {
 
 		public static final int DRIVING_MOTOR_CURRENT_LIMIT_AMPS = 40; // 50; // amps
 		public static final int TURNING_MOTOR_CURRENT_LIMIT_AMPS = 20; // amps
-	}
-
-	public static final class AutoConstants {
-		public static final double MAX_SPEED_METERS_PER_SECOND = 3.0; // 4.42; //3.0;
-		public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3;
-		public static final double MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI;
-		public static final double MAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = Math.PI;
-
-		public static final double X_CONTROLLER_P = 1;
-		public static final double Y_CONTROLLER_P = 1;
-		public static final double THETA_CONTROLLER_P = 1;
-
-		// Constraint for the motion profiled robot angle controller
-		public static final TrapezoidProfile.Constraints THETA_CONTROLLER_CONSTRAINTS = new TrapezoidProfile.Constraints(
-				MAX_ANGULAR_SPEED_RADIANS_PER_SECOND, MAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED);
 	}
 
 	public static final class NeoMotorConstants {
