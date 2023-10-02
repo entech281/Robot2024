@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
 
 /**
- * The {@code ThriftyEncoder} class contains fields and methods pertaining to the function of the absolute encoder.
+ * The {@code ThriftyEncoder} class contains fields and methods pertaining to
+ * the function of the absolute encoder.
  */
-public class ThriftyEncoder
-{
+public class ThriftyEncoder {
 	private AnalogInput analogInput;
 	private boolean inverted;
 	private double positionOffset;
@@ -28,7 +28,8 @@ public class ThriftyEncoder
 	 * @return the current raw position of the absolute encoder in radians.
 	 */
 	public double getPosition() {
-		return (inverted ? -1.0 : 1.0) * ((analogInput.getAverageVoltage() / RobotController.getVoltage5V()) * (Math.PI * 2) - Math.PI);
+		return (inverted ? -1.0 : 1.0)
+				* ((analogInput.getAverageVoltage() / RobotController.getVoltage5V()) * (Math.PI * 2) - Math.PI);
 	}
 
 	/**
@@ -37,7 +38,7 @@ public class ThriftyEncoder
 	 * @param inverted flag indicating if inverted.
 	 */
 	public void setInverted(boolean inverted) {
-		this.inverted = inverted;       
+		this.inverted = inverted;
 	}
 
 	/**
@@ -50,7 +51,8 @@ public class ThriftyEncoder
 	}
 
 	/**
-	 * Returns the position offset between the raw position and the virtual position.
+	 * Returns the position offset between the raw position and the virtual
+	 * position.
 	 *
 	 * @return the position offset in radians.
 	 */
@@ -59,7 +61,8 @@ public class ThriftyEncoder
 	}
 
 	/**
-	 * Returns the virtual position of the absolute encoder (raw position minus offset).
+	 * Returns the virtual position of the absolute encoder (raw position minus
+	 * offset).
 	 *
 	 * @return the virtual position in radians.
 	 */

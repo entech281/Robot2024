@@ -15,8 +15,6 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-//import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-//import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -26,12 +24,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DrivetrainConstants;
-import frc.robot.auton.CustomAuton;
-import frc.robot.commands.indicator.IndicatorScrollRainbow;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Indicator;
+import frc.robot.subsystems.DriveSubsystem;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -103,7 +97,7 @@ public class RobotContainer {
 
 	// motorized devices
 
-	private final Drivetrain drivetrain = new Drivetrain();
+	private final DriveSubsystem drivetrain = new DriveSubsystem();
 
 	// pneumatic devices
 
@@ -111,12 +105,10 @@ public class RobotContainer {
 
 	private final Field2d field = new Field2d(); // a representation of the field
 
-	private final Indicator indicator = new Indicator(null);
-
 	// The driver's controller
 	// CommandXboxController driverGamepad = new
 	// CommandXboxController(Ports.USB.GAMEPAD);
-	Joystick driverGamepad = new Joystick(Ports.USB.RIGHT);
+	Joystick driverGamepad = new Joystick(RobotConstants.Ports.CONTROLLER.JOYSTICK);
 
 	/**
 	 * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -187,14 +179,14 @@ public class RobotContainer {
 				// We are also inverting RightX because we want a positive value when we pull to
 				// the left (CCW is positive in mathematics).
 				new RunCommand(
-						() -> drivetrain.drive(
-								-MathUtil.applyDeadband(driverGamepad.getY(), GAMEPAD_AXIS_THRESHOLD),
-								-MathUtil.applyDeadband(driverGamepad.getX(), GAMEPAD_AXIS_THRESHOLD),
-								-MathUtil.applyDeadband(driverGamepad.getZ(), GAMEPAD_AXIS_THRESHOLD),
-								true, true),
+						() -> {
+							drivetrain.drive(
+									-MathUtil.applyDeadband(driverGamepad.getY(), GAMEPAD_AXIS_THRESHOLD),
+									-MathUtil.applyDeadband(driverGamepad.getX(), GAMEPAD_AXIS_THRESHOLD),
+									-MathUtil.applyDeadband(driverGamepad.getZ(), GAMEPAD_AXIS_THRESHOLD),
+									true, true);
+						},
 						drivetrain));
-
-		indicator.setDefaultCommand(new IndicatorScrollRainbow(indicator)); // temp
 	}
 
 	/**
@@ -256,29 +248,20 @@ public class RobotContainer {
 		switch (autonSelected) {
 			case AUTON_SAMPLE_SWERVE:
 				return createSwerveControllerCommand(createExampleTrajectory(createTrajectoryConfig()));
-			// break;
-
-			case AUTON_CUSTOM:
-				return new CustomAuton(gamePieceSelected, startPosition, mainTarget, cameraOption, sonarOption,
-						autonOption);
-			// break;
 
 			case AUTON_DO_NOTHING:
 				return null;
-			// break;
 
 			default:
-				// nothing
 				return null;
-			// break;
-		} // end switch
+		}
 	}
 
 	public TrajectoryConfig createTrajectoryConfig() {
 		// Create config for trajectory
 		TrajectoryConfig config = new TrajectoryConfig(
-				AutoConstants.MAX_SPEED_METERS_PER_SECOND,
-				AutoConstants.MAX_ACCELERATION_METERS_PER_SECOND_SQUARED)
+				RobotConstants.AUTONOMOUS.MAX_SPEED_METERS_PER_SECOND,
+				RobotConstants.AUTONOMOUS.MAX_ACCELERATION_METERS_PER_SECOND_SQUARED)
 				// Add kinematics to ensure max speed is actually obeyed
 				.setKinematics(DrivetrainConstants.DRIVE_KINEMATICS);
 
@@ -302,7 +285,8 @@ public class RobotContainer {
 	public Command createSwerveControllerCommand(Trajectory trajectory) {
 
 		ProfiledPIDController thetaController = new ProfiledPIDController(
-				AutoConstants.THETA_CONTROLLER_P, 0, 0, AutoConstants.THETA_CONTROLLER_CONSTRAINTS);
+				RobotConstants.AUTONOMOUS.THETA_CONTROLLER_P, 0, 0,
+				RobotConstants.AUTONOMOUS.THETA_CONTROLLER_CONSTRAINTS);
 
 		thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
@@ -310,10 +294,12 @@ public class RobotContainer {
 				trajectory, // trajectory to follow
 				drivetrain::getPose, // Functional interface to feed supplier
 				DrivetrainConstants.DRIVE_KINEMATICS, // kinematics of the drivetrain
-				new PIDController(AutoConstants.X_CONTROLLER_P, 0, 0), // trajectory tracker PID controller for x
-																		// position
-				new PIDController(AutoConstants.Y_CONTROLLER_P, 0, 0), // trajectory tracker PID controller for y
-																		// position
+				new PIDController(RobotConstants.AUTONOMOUS.X_CONTROLLER_P, 0, 0), // trajectory tracker PID controller
+																					// for x
+				// position
+				new PIDController(RobotConstants.AUTONOMOUS.Y_CONTROLLER_P, 0, 0), // trajectory tracker PID controller
+																					// for y
+				// position
 				thetaController, // trajectory tracker PID controller for rotation
 				drivetrain::setModuleStates, // raw output module states from the position controllers
 				drivetrain); // subsystems to require
@@ -331,7 +317,7 @@ public class RobotContainer {
 		return field;
 	}
 
-	public Drivetrain getDrivetrain() {
+	public DriveSubsystem getDrivetrain() {
 		return drivetrain;
 	}
 }
