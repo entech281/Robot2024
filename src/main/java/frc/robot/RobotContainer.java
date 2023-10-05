@@ -7,8 +7,6 @@ package frc.robot;
 import java.util.List;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -22,10 +20,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.VisionSubsystem;
 
 /*
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -93,15 +91,8 @@ public class RobotContainer {
 	private String autonOption;
 	private SendableChooser<String> autonOptionChooser = new SendableChooser<>();
 
-	// sensors
-
-	// motorized devices
-
-	private final DriveSubsystem drivetrain = new DriveSubsystem();
-
-	// pneumatic devices
-
-	// misc
+	private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+	private final VisionSubsystem visionSubsystem = new VisionSubsystem();
 
 	private final Field2d field = new Field2d(); // a representation of the field
 
@@ -114,9 +105,10 @@ public class RobotContainer {
 	 * The container for the robot. Contains subsystems, OI devices, and commands.
 	 */
 	public RobotContainer() {
+		driveSubsystem.initialize();
+		visionSubsystem.initialize();
 
 		// choosers (for auton)
-
 		autonChooser.setDefaultOption("Do Nothing", AUTON_DO_NOTHING);
 		autonChooser.addOption("My Auto", AUTON_CUSTOM);
 		autonChooser.addOption("Sample Swerve", AUTON_SAMPLE_SWERVE);
@@ -168,7 +160,7 @@ public class RobotContainer {
 		configureButtonBindings();
 
 		// Configure default commands
-		drivetrain.setDefaultCommand(
+		driveSubsystem.setDefaultCommand(
 				// The left stick controls translation of the robot.
 				// Turning is controlled by the X axis of the right stick.
 				// We are inverting LeftY because Xbox controllers return negative values when
@@ -180,13 +172,13 @@ public class RobotContainer {
 				// the left (CCW is positive in mathematics).
 				new RunCommand(
 						() -> {
-							drivetrain.drive(
+							driveSubsystem.drive(
 									-MathUtil.applyDeadband(driverGamepad.getY(), GAMEPAD_AXIS_THRESHOLD),
 									-MathUtil.applyDeadband(driverGamepad.getX(), GAMEPAD_AXIS_THRESHOLD),
 									-MathUtil.applyDeadband(driverGamepad.getZ(), GAMEPAD_AXIS_THRESHOLD),
 									true, true);
 						},
-						drivetrain));
+						driveSubsystem));
 	}
 
 	/**
@@ -247,8 +239,9 @@ public class RobotContainer {
 
 		switch (autonSelected) {
 			case AUTON_SAMPLE_SWERVE:
-				return createSwerveControllerCommand(createExampleTrajectory(createTrajectoryConfig()));
-
+				// return
+				// createSwerveControllerCommand(createExampleTrajectory(createTrajectoryConfig()));
+				return null;
 			case AUTON_DO_NOTHING:
 				return null;
 
@@ -282,42 +275,47 @@ public class RobotContainer {
 		return exampleTrajectory;
 	}
 
-	public Command createSwerveControllerCommand(Trajectory trajectory) {
+	// public Command createSwerveControllerCommand(Trajectory trajectory) {
 
-		ProfiledPIDController thetaController = new ProfiledPIDController(
-				RobotConstants.AUTONOMOUS.THETA_CONTROLLER_P, 0, 0,
-				RobotConstants.AUTONOMOUS.THETA_CONTROLLER_CONSTRAINTS);
+	// ProfiledPIDController thetaController = new ProfiledPIDController(
+	// RobotConstants.AUTONOMOUS.THETA_CONTROLLER_P, 0, 0,
+	// RobotConstants.AUTONOMOUS.THETA_CONTROLLER_CONSTRAINTS);
 
-		thetaController.enableContinuousInput(-Math.PI, Math.PI);
+	// thetaController.enableContinuousInput(-Math.PI, Math.PI);
 
-		SwerveControllerCommand swerveControllerCommand = new SwerveControllerCommand(
-				trajectory, // trajectory to follow
-				drivetrain::getPose, // Functional interface to feed supplier
-				DrivetrainConstants.DRIVE_KINEMATICS, // kinematics of the drivetrain
-				new PIDController(RobotConstants.AUTONOMOUS.X_CONTROLLER_P, 0, 0), // trajectory tracker PID controller
-																					// for x
-				// position
-				new PIDController(RobotConstants.AUTONOMOUS.Y_CONTROLLER_P, 0, 0), // trajectory tracker PID controller
-																					// for y
-				// position
-				thetaController, // trajectory tracker PID controller for rotation
-				drivetrain::setModuleStates, // raw output module states from the position controllers
-				drivetrain); // subsystems to require
+	// SwerveControllerCommand swerveControllerCommand = new
+	// SwerveControllerCommand(
+	// trajectory, // trajectory to follow
+	// drivetrain::getPose, // Functional interface to feed supplier
+	// DrivetrainConstants.DRIVE_KINEMATICS, // kinematics of the drivetrain
+	// new PIDController(RobotConstants.AUTONOMOUS.X_CONTROLLER_P, 0, 0), //
+	// trajectory tracker PID controller
+	// for x
+	// position
+	// new PIDController(RobotConstants.AUTONOMOUS.Y_CONTROLLER_P, 0, 0), //
+	// trajectory tracker PID controller
+	// for y
+	// position
+	// thetaController, // trajectory tracker PID controller for rotation
+	// drivetrain::setModuleStates, // raw output module states from the position
+	// controllers
+	// drivetrain); // subsystems to require
 
-		// Reset odometry to the starting pose of the trajectory.
-		drivetrain.resetOdometry(trajectory.getInitialPose());
+	// Reset odometry to the starting pose of the trajectory.
+	// drivetrain.resetOdometry(trajectory.getInitialPose());
 
-		field.getObject("trajectory").setTrajectory(trajectory);
+	// field.getObject("trajectory").setTrajectory(trajectory);
 
-		// Run path following command, then stop at the end.
-		return swerveControllerCommand.andThen(() -> drivetrain.drive(0, 0, 0, false, false));
-	}
+	// Run path following command, then stop at the end.
+	// return swerveControllerCommand.andThen(() -> drivetrain.drive(0, 0, 0, false,
+	// false));
+	// }
 
 	public Field2d getField() {
 		return field;
 	}
 
-	public DriveSubsystem getDrivetrain() {
-		return drivetrain;
+	public DriveSubsystem getDriveSubsystem() {
+		return driveSubsystem;
 	}
 }
