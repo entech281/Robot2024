@@ -10,6 +10,8 @@ package frc.robot.subsystems;
 import java.io.IOException;
 import java.util.Optional;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -21,14 +23,11 @@ import frc.robot.RobotConstants;
 import frc.robot.vision.CameraContainer;
 
 public class VisionSubsystem extends EntechSubsystem {
-
-    private static final double CAMERA_NOT_FOUND = 999;
+    private static final boolean ENABLED = true;
 
     private CameraContainer cameras;
 
     private Pose3d estimatedPose;
-
-    private boolean enabled = true;
 
     @Override
     public void initialize() {
@@ -41,26 +40,23 @@ public class VisionSubsystem extends EntechSubsystem {
             throw new RuntimeException("Could not load wpilib AprilTagFields");
         }
 
-        if (Robot.isReal() && enabled) {
-            CameraContainer frontLeft = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT,
-                    RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout,
-                    null);
+        if (Robot.isReal() && ENABLED) {
             this.cameras = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT,
                     RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout,
-                    frontLeft);
+                    null);
         }
     }
 
-    public boolean hasTargets() {
-        return enabled ? cameras.hasTargets() : false;
+    public Optional<Boolean> hasTargets() {
+        return ENABLED ? Optional.of(cameras.hasTargets()) : Optional.empty();
     }
 
-    public double getLatency() {
-        return enabled ? cameras.getLatency() : CAMERA_NOT_FOUND;
+    public Optional<Double> getLatency() {
+        return ENABLED ? Optional.of(cameras.getLatency()) : Optional.empty();
     }
 
-    public int getNumberOfTargets() {
-        return enabled ? cameras.getTargetCount() : (int) CAMERA_NOT_FOUND;
+    public Optional<Integer> getNumberOfTargets() {
+        return ENABLED ? Optional.of(cameras.getTargetCount()) : Optional.empty();
     }
 
     private void updateEstimatedPose() {
@@ -70,42 +66,61 @@ public class VisionSubsystem extends EntechSubsystem {
 
     @Override
     public void periodic() {
-        if (Robot.isReal()) {
-            if (enabled) {
-                updateEstimatedPose();
-            }
+        if (ENABLED) {
+            updateEstimatedPose();
+
+            Logger logger = Logger.getInstance();
+            Optional<Pose3d> pose = getEstimatedPose3d();
+            if (pose.isPresent())
+                logger.recordOutput("Vision estimated pose", pose.get());
+            Optional<Double> lat = getLatency();
+            if (lat.isPresent())
+                logger.recordOutput("Vision average latency", lat.get());
+            Optional<Integer> num = getNumberOfTargets();
+            if (num.isPresent())
+                logger.recordOutput("Vision number of targets", num.get());
         }
     }
 
     @Override
     public boolean isEnabled() {
-        return enabled;
+        return ENABLED;
     }
 
     @Override
     public void initSendable(SendableBuilder builder) {
         builder.setSmartDashboardType(getName());
-        builder.addDoubleProperty("epX", () -> {
-            return estimatedPose.getX();
-        }, null);
-        builder.addDoubleProperty("epY", () -> {
-            return estimatedPose.getY();
-        }, null);
-        builder.addDoubleProperty("epZ", () -> {
-            return estimatedPose.getZ();
-        }, null);
-        builder.addDoubleProperty("epYaw", () -> {
-            return estimatedPose.getRotation().getZ();
-        }, null);
-        builder.addDoubleProperty("Latency", this::getLatency, null);
-        builder.addIntegerProperty("Number of targets", this::getNumberOfTargets, null);
+        if (ENABLED) {
+            builder.addDoubleProperty("epX", () -> {
+                return estimatedPose.getX();
+            }, null);
+            builder.addDoubleProperty("epY", () -> {
+                return estimatedPose.getY();
+            }, null);
+            builder.addDoubleProperty("epZ", () -> {
+                return estimatedPose.getZ();
+            }, null);
+            builder.addDoubleProperty("epYaw", () -> {
+                return estimatedPose.getRotation().getZ();
+            }, null);
+            builder.addDoubleProperty("Latency", () -> {
+                return this.getLatency().get();
+            }, null);
+            builder.addIntegerProperty("Number of targets", () -> {
+                return this.getNumberOfTargets().get();
+            }, null);
+        }
     }
 
     public Optional<Pose3d> getEstimatedPose3d() {
-        return enabled ? Optional.of(estimatedPose) : Optional.empty();
+        if (estimatedPose == null)
+            return Optional.empty();
+        return ENABLED ? Optional.of(estimatedPose) : Optional.empty();
     }
 
     public Optional<Pose2d> getEstimatedPose2d() {
-        return enabled ? Optional.of(estimatedPose.toPose2d()) : Optional.empty();
+        if (estimatedPose == null)
+            return Optional.empty();
+        return ENABLED ? Optional.of(estimatedPose.toPose2d()) : Optional.empty();
     }
 }

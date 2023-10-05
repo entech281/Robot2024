@@ -10,21 +10,21 @@ public final class RobotConstants {
     public static interface Ports {
         public static class ANALOG {
             public static final int FRONT_LEFT_TURNING_ABSOLUTE_ENCODER = 1;
-            // public static final int REAR_LEFT_TURNING_ABSOLUTE_ENCODER = 2;
+            public static final int REAR_LEFT_TURNING_ABSOLUTE_ENCODER = 2;
             public static final int FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER = 0;
-            // public static final int REAR_RIGHT_TURNING_ABSOLUTE_ENCODER = 3;
+            public static final int REAR_RIGHT_TURNING_ABSOLUTE_ENCODER = 3;
         }
 
         public static class CAN {
             public static final int FRONT_LEFT_DRIVING = 10;
-            // public static final int REAR_LEFT_DRIVING = 6;
+            public static final int REAR_LEFT_DRIVING = 6;
             public static final int FRONT_RIGHT_DRIVING = 21;
-            // public static final int REAR_RIGHT_DRIVING = 4;
+            public static final int REAR_RIGHT_DRIVING = 4;
 
             public static final int FRONT_LEFT_TURNING = 12;
-            // public static final int REAR_LEFT_TURNING = 5;
+            public static final int REAR_LEFT_TURNING = 5;
             public static final int FRONT_RIGHT_TURNING = 22;
-            // public static final int REAR_RIGHT_TURNING = 3;
+            public static final int REAR_RIGHT_TURNING = 3;
         }
 
         public static class CONTROLLER {
@@ -34,8 +34,8 @@ public final class RobotConstants {
 
     public static interface Vision {
         public static interface Cameras {
-            public static final String FRONT_LEFT = "0.0.0.0";
-            public static final String FRONT_RIGHT = "0.0.0.0";
+            public static final String FRONT_LEFT = "";
+            public static final String FRONT_RIGHT = "USB_Camera";
         }
 
         public static interface Filters {
@@ -45,9 +45,9 @@ public final class RobotConstants {
         }
 
         public static interface Offsets {
-            public static final double FRONT_OFFSET_HEAVE_M = 0.05;
-            public static final double FRONT_OFFSET_SWAY_M = 0.3;
-            public static final double FRONT_OFFSET_SURGE_M = 0.3;
+            public static final double FRONT_OFFSET_HEAVE_M = 0.0;
+            public static final double FRONT_OFFSET_SWAY_M = 0.25;
+            public static final double FRONT_OFFSET_SURGE_M = 0.0;
             public static final double FRONT_OFFSET_YAW_DEGREES = 45.0;
             public static final double FRONT_OFFSET_PITCH_DEGREES = 0.0;
             public static final double FRONT_OFFSET_ROLL_DEGREES = 0.0;
