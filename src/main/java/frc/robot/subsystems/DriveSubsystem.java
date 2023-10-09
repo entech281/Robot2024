@@ -22,6 +22,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.RobotConstants;
@@ -33,16 +34,24 @@ import frc.robot.swerve.SwerveUtils;
  * function of the drivetrain.
  */
 public class DriveSubsystem extends EntechSubsystem {
-	private static final boolean enabled = false;
+	private static final boolean enabled = true;
 
-	public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = 0; // adjust as needed so that virtual (turn)
-																		// position of wheel is zero when straight
-	public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = 0; // adjust as needed so that virtual (turn)
-																		// position of wheel is zero when straight
-	public static final double REAR_LEFT_VIRTUAL_OFFSET_RADIANS = 0; // adjust as needed so that virtual (turn)
-																		// position of wheel is zero when straight
-	public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = 0; // adjust as needed so that virtual (turn)
-																		// position of wheel is zero when straight
+	public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = Units.degreesToRadians(135.965); // adjust as needed
+	// so that virtual
+	// (turn)
+	// position of wheel is zero when straight
+	public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = Units.degreesToRadians(101.152); // adjust as needed
+	// so that virtual
+	// (turn)
+	// position of wheel is zero when straight
+	public static final double REAR_LEFT_VIRTUAL_OFFSET_RADIANS = Units.degreesToRadians(-161.83); // adjust as needed
+	// so that virtual
+	// (turn)
+	// position of wheel is zero when straight
+	public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = Units.degreesToRadians(-161.75); // adjust as needed
+	// so that virtual
+	// (turn)
+	// position of wheel is zero when straight
 
 	public static final int GYRO_ORIENTATION = -1; // might be able to merge with kGyroReversed
 
@@ -98,6 +107,12 @@ public class DriveSubsystem extends EntechSubsystem {
 					m_frontLeft.getPosition().distanceMeters,
 					m_frontRight.getPosition().distanceMeters
 			});
+
+			SmartDashboard.putData("NAVX", m_gyro);
+			SmartDashboard.putNumber("Front Left Temp", m_frontLeft.getPosition().angle.getDegrees());
+			SmartDashboard.putNumber("Front Right Temp", m_frontRight.getPosition().angle.getDegrees());
+			SmartDashboard.putNumber("Rear Left Temp", m_rearLeft.getPosition().angle.getDegrees());
+			SmartDashboard.putNumber("Rear Right Temp", m_rearRight.getPosition().angle.getDegrees());
 
 			// Update the odometry in the periodic block
 			m_odometry.update(
@@ -232,9 +247,11 @@ public class DriveSubsystem extends EntechSubsystem {
 	 * Sets the wheels into an X formation to prevent movement.
 	 */
 	public void setX() {
-		if (enabled) {
-			m_frontLeft.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(45)));
-			m_frontRight.setDesiredState(new SwerveModuleState(0, Rotation2d.fromDegrees(-45)));
+		if (false) {
+			m_frontLeft.setDesiredState(new SwerveModuleState(0,
+					Rotation2d.fromDegrees(45)));
+			m_frontRight.setDesiredState(new SwerveModuleState(0,
+					Rotation2d.fromDegrees(-45)));
 			m_rearLeft.setDesiredState(new SwerveModuleState(0,
 					Rotation2d.fromDegrees(-45)));
 			m_rearRight.setDesiredState(new SwerveModuleState(0,
@@ -329,24 +346,26 @@ public class DriveSubsystem extends EntechSubsystem {
 			m_frontLeft = new SwerveModule(
 					RobotConstants.Ports.CAN.FRONT_LEFT_DRIVING,
 					RobotConstants.Ports.CAN.FRONT_LEFT_TURNING,
-					RobotConstants.Ports.ANALOG.FRONT_LEFT_TURNING_ABSOLUTE_ENCODER);
+					RobotConstants.Ports.ANALOG.FRONT_LEFT_TURNING_ABSOLUTE_ENCODER, true);
 
 			m_frontRight = new SwerveModule(
 					RobotConstants.Ports.CAN.FRONT_RIGHT_DRIVING,
 					RobotConstants.Ports.CAN.FRONT_RIGHT_TURNING,
-					RobotConstants.Ports.ANALOG.FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER);
+					RobotConstants.Ports.ANALOG.FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER, true);
 
 			m_rearLeft = new SwerveModule(
 					RobotConstants.Ports.CAN.REAR_LEFT_DRIVING,
 					RobotConstants.Ports.CAN.REAR_LEFT_TURNING,
-					RobotConstants.Ports.ANALOG.REAR_LEFT_TURNING_ABSOLUTE_ENCODER);
+					RobotConstants.Ports.ANALOG.REAR_LEFT_TURNING_ABSOLUTE_ENCODER, true);
 
 			m_rearRight = new SwerveModule(
 					RobotConstants.Ports.CAN.REAR_RIGHT_DRIVING,
 					RobotConstants.Ports.CAN.REAR_RIGHT_TURNING,
-					RobotConstants.Ports.ANALOG.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER);
+					RobotConstants.Ports.ANALOG.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER, true);
 
 			m_gyro = new AHRS(Port.kMXP);
+
+			m_gyro.zeroYaw();
 
 			m_odometry = new SwerveDriveOdometry(
 					DrivetrainConstants.DRIVE_KINEMATICS,
