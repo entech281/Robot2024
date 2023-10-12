@@ -34,7 +34,7 @@ import frc.robot.swerve.SwerveUtils;
  * function of the drivetrain.
  */
 public class DriveSubsystem extends EntechSubsystem {
-	private static final boolean enabled = true;
+	private static final boolean ENABLED = true;
 
 	public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = Units.degreesToRadians(135.965); // adjust as needed
 	// so that virtual
@@ -95,7 +95,7 @@ public class DriveSubsystem extends EntechSubsystem {
 
 	@Override
 	public void periodic() {
-		if (enabled) {
+		if (ENABLED) {
 			Logger logger = Logger.getInstance();
 			// try out advantage scope
 			logger.recordOutput("AV Odometry", m_odometry.getPoseMeters());
@@ -132,7 +132,7 @@ public class DriveSubsystem extends EntechSubsystem {
 	 * @return The pose.
 	 */
 	public Optional<Pose2d> getPose() {
-		return enabled ? Optional.of(m_odometry.getPoseMeters()) : Optional.empty();
+		return ENABLED ? Optional.of(m_odometry.getPoseMeters()) : Optional.empty();
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class DriveSubsystem extends EntechSubsystem {
 	 * @param pose The pose to which to set the odometry.
 	 */
 	public void resetOdometry(Pose2d pose) {
-		if (enabled) {
+		if (ENABLED) {
 			m_odometry.resetPosition(
 					Rotation2d.fromDegrees(GYRO_ORIENTATION * m_gyro.getAngle()),
 					new SwerveModulePosition[] {
@@ -165,7 +165,7 @@ public class DriveSubsystem extends EntechSubsystem {
 	 * @param rateLimit     Whether to enable rate limiting for smoother control.
 	 */
 	public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative, boolean rateLimit) {
-		if (enabled) {
+		if (ENABLED) {
 			double xSpeedCommanded;
 			double ySpeedCommanded;
 
@@ -265,7 +265,7 @@ public class DriveSubsystem extends EntechSubsystem {
 	 * @param desiredStates The desired SwerveModule states.
 	 */
 	public void setModuleStates(SwerveModuleState[] desiredStates) {
-		if (enabled) {
+		if (ENABLED) {
 			SwerveDriveKinematics.desaturateWheelSpeeds(
 					desiredStates, DrivetrainConstants.MAX_SPEED_METERS_PER_SECOND);
 
@@ -281,7 +281,7 @@ public class DriveSubsystem extends EntechSubsystem {
 	 * turn encoders using the absolute encoders.
 	 */
 	public void resetEncoders() {
-		if (enabled) {
+		if (ENABLED) {
 			m_frontLeft.resetEncoders();
 			m_rearLeft.resetEncoders();
 			m_frontRight.resetEncoders();
@@ -291,7 +291,7 @@ public class DriveSubsystem extends EntechSubsystem {
 
 	/** Zeroes the heading of the robot. */
 	public void zeroHeading() {
-		if (enabled)
+		if (ENABLED)
 			m_gyro.reset();
 	}
 
@@ -301,7 +301,7 @@ public class DriveSubsystem extends EntechSubsystem {
 	 * @return the robot's heading in degrees, from -180 to 180
 	 */
 	public Optional<Double> getHeading() {
-		return enabled ? Optional.of(Rotation2d.fromDegrees(GYRO_ORIENTATION * m_gyro.getAngle()).getDegrees())
+		return ENABLED ? Optional.of(Rotation2d.fromDegrees(GYRO_ORIENTATION * m_gyro.getAngle()).getDegrees())
 				: Optional.empty();
 	}
 
@@ -311,38 +311,38 @@ public class DriveSubsystem extends EntechSubsystem {
 	 * @return The turn rate of the robot, in degrees per second
 	 */
 	public Optional<Double> getTurnRate() {
-		return enabled ? Optional.of(m_gyro.getRate() * (DrivetrainConstants.kGyroReversed ? -1.0 : 1.0))
+		return ENABLED ? Optional.of(m_gyro.getRate() * (DrivetrainConstants.kGyroReversed ? -1.0 : 1.0))
 				: Optional.empty();
 	}
 
 	public Optional<SwerveModule> getFrontLeftModule() {
-		return enabled ? Optional.of(m_frontLeft) : Optional.empty();
+		return ENABLED ? Optional.of(m_frontLeft) : Optional.empty();
 	}
 
 	public Optional<SwerveModule> getFrontRightModule() {
-		return enabled ? Optional.of(m_frontRight) : Optional.empty();
+		return ENABLED ? Optional.of(m_frontRight) : Optional.empty();
 	}
 
 	public Optional<SwerveModule> getRearLeftModule() {
-		return enabled ? Optional.of(m_rearLeft) : Optional.empty();
+		return ENABLED ? Optional.of(m_rearLeft) : Optional.empty();
 	}
 
 	public Optional<SwerveModule> getRearRightModule() {
-		return enabled ? Optional.of(m_rearRight) : Optional.empty();
+		return ENABLED ? Optional.of(m_rearRight) : Optional.empty();
 	}
 
 	public Optional<AHRS> getImu() {
-		return enabled ? Optional.of(m_gyro) : Optional.empty();
+		return ENABLED ? Optional.of(m_gyro) : Optional.empty();
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return enabled;
+		return ENABLED;
 	}
 
 	@Override
 	public void initialize() {
-		if (enabled) {
+		if (ENABLED) {
 			m_frontLeft = new SwerveModule(
 					RobotConstants.Ports.CAN.FRONT_LEFT_DRIVING,
 					RobotConstants.Ports.CAN.FRONT_LEFT_TURNING,
