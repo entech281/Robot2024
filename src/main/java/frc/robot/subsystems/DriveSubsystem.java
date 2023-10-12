@@ -24,7 +24,7 @@ import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
-import frc.robot.Constants.DrivetrainConstants;
+import frc.robot.RobotConstants.DrivetrainConstants;
 import frc.robot.RobotConstants;
 import frc.robot.swerve.SwerveModule;
 import frc.robot.swerve.SwerveUtils;
