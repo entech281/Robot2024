@@ -36,7 +36,7 @@ public class SwerveModule {
 	 * Constructs a SwerveModule and configures the driving and turning motor,
 	 * encoder, and PID controller.
 	 */
-	public SwerveModule(int drivingCANId, int turningCANId, int turningAnalogPort) {
+	public SwerveModule(int drivingCANId, int turningCANId, int turningAnalogPort, boolean drivingInverted) {
 		m_drivingSparkMax = new CANSparkMax(drivingCANId, MotorType.kBrushless);
 		m_turningSparkMax = new CANSparkMax(turningCANId, MotorType.kBrushless);
 
@@ -75,6 +75,7 @@ public class SwerveModule {
 		// direction of
 		// the steering motor.
 		m_turningSparkMax.setInverted(true);
+		m_drivingSparkMax.setInverted(drivingInverted);
 
 		// Enable PID wrap around for the turning motor. This will allow the PID
 		// controller to go through 0 to get to the setpoint i.e. going from 350 degrees

@@ -33,7 +33,7 @@ import frc.robot.subsystems.VisionSubsystem;
  */
 public class RobotContainer {
 
-	public static final double GAMEPAD_AXIS_THRESHOLD = 0.05;
+	public static final double GAMEPAD_AXIS_THRESHOLD = 0.2;
 
 	// choosers (for auton)
 
@@ -173,9 +173,12 @@ public class RobotContainer {
 				new RunCommand(
 						() -> {
 							driveSubsystem.drive(
-									-MathUtil.applyDeadband(driverGamepad.getY(), GAMEPAD_AXIS_THRESHOLD),
-									-MathUtil.applyDeadband(driverGamepad.getX(), GAMEPAD_AXIS_THRESHOLD),
-									-MathUtil.applyDeadband(driverGamepad.getZ(), GAMEPAD_AXIS_THRESHOLD),
+									-MathUtil.applyDeadband(Math.min(Math.max(driverGamepad.getY(), -0.25), 0.25),
+											GAMEPAD_AXIS_THRESHOLD),
+									-MathUtil.applyDeadband(Math.min(Math.max(driverGamepad.getX(), -0.25), 0.25),
+											GAMEPAD_AXIS_THRESHOLD),
+									-MathUtil.applyDeadband(Math.min(Math.max(driverGamepad.getZ(), -0.25), 0.25),
+											GAMEPAD_AXIS_THRESHOLD),
 									true, true);
 						},
 						driveSubsystem));
