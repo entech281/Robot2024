@@ -24,8 +24,8 @@ import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
-import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.RobotConstants;
+import frc.robot.RobotConstants.DrivetrainConstants;
 import frc.robot.swerve.SwerveModule;
 import frc.robot.swerve.SwerveUtils;
 
@@ -356,22 +356,22 @@ public class DriveSubsystem extends EntechSubsystem {
             m_frontLeft = new SwerveModule(
                     RobotConstants.Ports.CAN.FRONT_LEFT_DRIVING,
                     RobotConstants.Ports.CAN.FRONT_LEFT_TURNING,
-                    RobotConstants.Ports.ANALOG.FRONT_LEFT_TURNING_ABSOLUTE_ENCODER, true);
+                    RobotConstants.Ports.ANALOG.FRONT_LEFT_TURNING_ABSOLUTE_ENCODER, false);
 
             m_frontRight = new SwerveModule(
                     RobotConstants.Ports.CAN.FRONT_RIGHT_DRIVING,
                     RobotConstants.Ports.CAN.FRONT_RIGHT_TURNING,
-                    RobotConstants.Ports.ANALOG.FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER, true);
+                    RobotConstants.Ports.ANALOG.FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
 
             m_rearLeft = new SwerveModule(
                     RobotConstants.Ports.CAN.REAR_LEFT_DRIVING,
                     RobotConstants.Ports.CAN.REAR_LEFT_TURNING,
-                    RobotConstants.Ports.ANALOG.REAR_LEFT_TURNING_ABSOLUTE_ENCODER, true);
+                    RobotConstants.Ports.ANALOG.REAR_LEFT_TURNING_ABSOLUTE_ENCODER, false);
 
             m_rearRight = new SwerveModule(
                     RobotConstants.Ports.CAN.REAR_RIGHT_DRIVING,
                     RobotConstants.Ports.CAN.REAR_RIGHT_TURNING,
-                    RobotConstants.Ports.ANALOG.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER, true);
+                    RobotConstants.Ports.ANALOG.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
 
             m_gyro = new AHRS(Port.kMXP);
 
