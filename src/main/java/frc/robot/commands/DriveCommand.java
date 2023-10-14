@@ -7,6 +7,8 @@ import frc.robot.RobotConstants;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveCommand extends EntechCommandBase {
+    private static final double MAX_SPEED_PERCENT = 0.8;
+
     private final DriveSubsystem drive;
     private final EntechJoystick joystick;
 
@@ -27,11 +29,12 @@ public class DriveCommand extends EntechCommandBase {
         double yRaw = joystick.getY();
         double rotRaw = joystick.getZ();
 
-        double xConstrained = MathUtil.applyDeadband(Math.min(Math.max(xRaw, -0.75), 0.75),
+        double xConstrained = MathUtil.applyDeadband(Math.min(Math.max(xRaw, -MAX_SPEED_PERCENT), MAX_SPEED_PERCENT),
                 RobotConstants.GAMEPAD.GAMEPAD_AXIS_THRESHOLD);
-        double yConstrained = MathUtil.applyDeadband(Math.min(Math.max(yRaw, -0.75), 0.75),
+        double yConstrained = MathUtil.applyDeadband(Math.min(Math.max(yRaw, -MAX_SPEED_PERCENT), MAX_SPEED_PERCENT),
                 RobotConstants.GAMEPAD.GAMEPAD_AXIS_THRESHOLD);
-        double rotConstrained = MathUtil.applyDeadband(Math.min(Math.max(rotRaw, -0.75), 0.75),
+        double rotConstrained = MathUtil.applyDeadband(
+                Math.min(Math.max(rotRaw, -MAX_SPEED_PERCENT), MAX_SPEED_PERCENT),
                 RobotConstants.GAMEPAD.GAMEPAD_AXIS_THRESHOLD);
 
         double xSquared = Math.copySign(xConstrained * xConstrained, xConstrained);

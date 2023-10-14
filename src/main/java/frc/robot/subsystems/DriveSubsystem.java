@@ -78,6 +78,10 @@ public class DriveSubsystem extends EntechSubsystem {
     // Units.degreesToRadians(m_gyro.getYaw() * -1)));
     // }
 
+    private double getGyroAngle() {
+        return m_gyro.getAngle() + 180;
+    }
+
     @Override
     public void periodic() {
         if (enabled) {
@@ -145,7 +149,7 @@ public class DriveSubsystem extends EntechSubsystem {
     public void resetOdometry(Pose2d pose) {
         if (enabled) {
             m_odometry.resetPosition(
-                    Rotation2d.fromDegrees(GYRO_ORIENTATION * m_gyro.getAngle()),
+                    Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()),
                     new SwerveModulePosition[] {
                             m_frontLeft.getPosition(),
                             m_frontRight.getPosition(),
@@ -229,7 +233,7 @@ public class DriveSubsystem extends EntechSubsystem {
             var swerveModuleStates = DrivetrainConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
                     fieldRelative
                             ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered,
-                                    Rotation2d.fromDegrees(GYRO_ORIENTATION * m_gyro.getAngle()))
+                                    Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()))
                             : new ChassisSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered));
 
             SwerveDriveKinematics.desaturateWheelSpeeds(
@@ -311,7 +315,7 @@ public class DriveSubsystem extends EntechSubsystem {
      * @return the robot's heading in degrees, from -180 to 180
      */
     public Optional<Double> getHeading() {
-        return enabled ? Optional.of(Rotation2d.fromDegrees(GYRO_ORIENTATION * m_gyro.getAngle()).getDegrees())
+        return enabled ? Optional.of(Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()).getDegrees())
                 : Optional.empty();
     }
 
@@ -379,7 +383,7 @@ public class DriveSubsystem extends EntechSubsystem {
 
             m_odometry = new SwerveDriveOdometry(
                     DrivetrainConstants.DRIVE_KINEMATICS,
-                    Rotation2d.fromDegrees(GYRO_ORIENTATION * m_gyro.getAngle()),
+                    Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()),
                     new SwerveModulePosition[] {
                             m_frontLeft.getPosition(),
                             m_frontRight.getPosition(),
