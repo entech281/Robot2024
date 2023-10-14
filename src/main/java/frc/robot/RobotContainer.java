@@ -6,7 +6,6 @@ package frc.robot;
 
 import java.util.List;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -19,9 +18,8 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.Constants.DrivetrainConstants;
+import frc.robot.RobotConstants.DrivetrainConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
@@ -158,30 +156,6 @@ public class RobotContainer {
 
 		// Configure the button bindings
 		configureButtonBindings();
-
-		// Configure default commands
-		driveSubsystem.setDefaultCommand(
-				// The left stick controls translation of the robot.
-				// Turning is controlled by the X axis of the right stick.
-				// We are inverting LeftY because Xbox controllers return negative values when
-				// we push forward.
-				// We are inverting LeftX because we want a positive value when we pull to the
-				// left. Xbox controllers return positive values when you pull to the right by
-				// default.
-				// We are also inverting RightX because we want a positive value when we pull to
-				// the left (CCW is positive in mathematics).
-				new RunCommand(
-						() -> {
-							driveSubsystem.drive(
-									-MathUtil.applyDeadband(Math.min(Math.max(driverGamepad.getY(), -0.25), 0.25),
-											GAMEPAD_AXIS_THRESHOLD),
-									-MathUtil.applyDeadband(Math.min(Math.max(driverGamepad.getX(), -0.25), 0.25),
-											GAMEPAD_AXIS_THRESHOLD),
-									-MathUtil.applyDeadband(Math.min(Math.max(driverGamepad.getZ(), -0.25), 0.25),
-											GAMEPAD_AXIS_THRESHOLD),
-									true, true);
-						},
-						driveSubsystem));
 	}
 
 	/**
