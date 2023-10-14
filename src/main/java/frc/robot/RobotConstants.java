@@ -287,6 +287,15 @@ public final class RobotConstants {
 		public static final int TELESCOPE_MOTOR_ID = 6;
 	}
 
+	public interface PNEUMATICS {
+        public static final int LEFT_GRIPPER_OPEN = 3;
+        public static final int LEFT_GRIPPER_CLOSE = 2;
+        public static final int RIGHT_GRIPPER_OPEN = 4;
+        public static final int RIGHT_GRIPPER_CLOSE = 5;  
+        public static final int BRAKE_SOLENOID = 7;    
+
+    }
+
 	public interface GAMEPAD {
 		public static final double GAMEPAD_AXIS_THRESHOLD = 0.2;
 	}
