@@ -173,11 +173,11 @@ public class RobotContainer {
 				new RunCommand(
 						() -> {
 							driveSubsystem.drive(
-									-MathUtil.applyDeadband(Math.min(Math.max(driverGamepad.getY(), -0.25), 0.25),
+									-MathUtil.applyDeadband(Math.min(Math.max(driverGamepad.getY(), -0.5), 0.5),
 											GAMEPAD_AXIS_THRESHOLD),
-									-MathUtil.applyDeadband(Math.min(Math.max(driverGamepad.getX(), -0.25), 0.25),
+									-MathUtil.applyDeadband(Math.min(Math.max(driverGamepad.getX(), -0.5), 0.5),
 											GAMEPAD_AXIS_THRESHOLD),
-									-MathUtil.applyDeadband(Math.min(Math.max(driverGamepad.getZ(), -0.25), 0.25),
+									-MathUtil.applyDeadband(Math.min(Math.max(driverGamepad.getZ(), -0.5), 0.5),
 											GAMEPAD_AXIS_THRESHOLD),
 									true, true);
 						},
