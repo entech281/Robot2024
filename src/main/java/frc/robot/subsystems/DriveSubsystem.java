@@ -296,6 +296,7 @@ public class DriveSubsystem extends EntechSubsystem {
     public void zeroHeading() {
         if (enabled) {
             m_gyro.reset();
+            m_gyro.setAngleAdjustment(180);
         }
     }
 
