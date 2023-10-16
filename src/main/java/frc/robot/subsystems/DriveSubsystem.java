@@ -37,7 +37,7 @@ public class DriveSubsystem extends EntechSubsystem {
     private static final boolean enabled = true;
 
     public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = 2.3084534854898795;
-    public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = 1.8374120513495882;
+    public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = 1.8754174966340216;
     public static final double REAR_LEFT_VIRTUAL_OFFSET_RADIANS = 2.6789867521760486;
     public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = 2.467314041927964;
 
@@ -79,7 +79,7 @@ public class DriveSubsystem extends EntechSubsystem {
     // }
 
     private double getGyroAngle() {
-        return m_gyro.getAngle() + 180;
+        return m_gyro.getAngle() + 0;
     }
 
     @Override
@@ -149,7 +149,7 @@ public class DriveSubsystem extends EntechSubsystem {
     public void resetOdometry(Pose2d pose) {
         if (enabled) {
             m_odometry.resetPosition(
-                    Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()),
+                    Rotation2d.fromDegrees(GYRO_ORIENTATION * m_gyro.getAngle()),
                     new SwerveModulePosition[] {
                             m_frontLeft.getPosition(),
                             m_frontRight.getPosition(),
@@ -296,7 +296,10 @@ public class DriveSubsystem extends EntechSubsystem {
     public void zeroHeading() {
         if (enabled) {
             m_gyro.reset();
-            m_gyro.setAngleAdjustment(180);
+            Pose2d pose = getPose().get();
+            Pose2d pose2 = new Pose2d(pose.getTranslation(), Rotation2d.fromDegrees(180));
+            resetOdometry(pose2);
+            // m_gyro.setAngleAdjustment(180);
         }
     }
 
@@ -384,7 +387,7 @@ public class DriveSubsystem extends EntechSubsystem {
 
             m_odometry = new SwerveDriveOdometry(
                     DrivetrainConstants.DRIVE_KINEMATICS,
-                    Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()),
+                    Rotation2d.fromDegrees(GYRO_ORIENTATION * m_gyro.getAngle()),
                     new SwerveModulePosition[] {
                             m_frontLeft.getPosition(),
                             m_frontRight.getPosition(),
@@ -404,7 +407,7 @@ public class DriveSubsystem extends EntechSubsystem {
 
             Translation2d initialTranslation = new Translation2d(Units.inchesToMeters(FIELD_LENGTH_INCHES / 2),
                     Units.inchesToMeters(FIELD_WIDTH_INCHES / 2)); // mid field
-            Rotation2d initialRotation = new Rotation2d();
+            Rotation2d initialRotation = Rotation2d.fromDegrees(180);
             Pose2d initialPose = new Pose2d(initialTranslation, initialRotation);
             resetOdometry(initialPose);
         }

@@ -6,6 +6,7 @@ import frc.robot.RobotConstants;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.TwistCommand;
+import frc.robot.commands.XCommand;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class OperatorInterface {
@@ -139,7 +140,8 @@ public class OperatorInterface {
          */
 
         driveJoystick.WhilePressed(1, new TwistCommand());
-        driveJoystick.WhenReleased(11, new GyroReset(driveSubsystem));
+        driveJoystick.WhenPressed(11, new GyroReset(driveSubsystem));
+        driveJoystick.WhenPressed(9, new XCommand());
         driveSubsystem.setDefaultCommand(new DriveCommand(driveSubsystem, driveJoystick));
     }
 }

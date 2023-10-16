@@ -8,7 +8,7 @@ import frc.robot.OI.UserPolicy;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveCommand extends EntechCommandBase {
-    private static final double MAX_SPEED_PERCENT = 0.8;
+    private static final double MAX_SPEED_PERCENT = 1;
 
     private final DriveSubsystem drive;
     private final EntechJoystick joystick;
@@ -41,6 +41,11 @@ public class DriveCommand extends EntechCommandBase {
         double xSquared = Math.copySign(xConstrained * xConstrained, xConstrained);
         double ySquared = Math.copySign(yConstrained * yConstrained, yConstrained);
         double rotSquared = Math.copySign(rotConstrained * rotConstrained, rotConstrained);
+
+        if (UserPolicy.xLocked) {
+            drive.setX();
+            return;
+        }
 
         if (UserPolicy.twistable) {
             drive.drive(-ySquared, -xSquared, -rotSquared, true, true);
