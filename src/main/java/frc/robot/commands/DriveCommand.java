@@ -4,10 +4,11 @@ import edu.wpi.first.math.MathUtil;
 import entech.commands.EntechCommandBase;
 import entech.util.EntechJoystick;
 import frc.robot.RobotConstants;
+import frc.robot.OI.UserPolicy;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveCommand extends EntechCommandBase {
-    private static final double MAX_SPEED_PERCENT = 0.8;
+    private static final double MAX_SPEED_PERCENT = 1;
 
     private final DriveSubsystem drive;
     private final EntechJoystick joystick;
@@ -29,19 +30,28 @@ public class DriveCommand extends EntechCommandBase {
         double yRaw = joystick.getY();
         double rotRaw = joystick.getZ();
 
-        double xConstrained = MathUtil.applyDeadband(Math.min(Math.max(xRaw, -MAX_SPEED_PERCENT), MAX_SPEED_PERCENT),
+        double xConstrained = MathUtil.applyDeadband(MathUtil.clamp(xRaw, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
                 RobotConstants.GAMEPAD.GAMEPAD_AXIS_THRESHOLD);
-        double yConstrained = MathUtil.applyDeadband(Math.min(Math.max(yRaw, -MAX_SPEED_PERCENT), MAX_SPEED_PERCENT),
+        double yConstrained = MathUtil.applyDeadband(MathUtil.clamp(yRaw, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
                 RobotConstants.GAMEPAD.GAMEPAD_AXIS_THRESHOLD);
         double rotConstrained = MathUtil.applyDeadband(
-                Math.min(Math.max(rotRaw, -MAX_SPEED_PERCENT), MAX_SPEED_PERCENT),
+                MathUtil.clamp(rotRaw, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
                 RobotConstants.GAMEPAD.GAMEPAD_AXIS_THRESHOLD);
 
         double xSquared = Math.copySign(xConstrained * xConstrained, xConstrained);
         double ySquared = Math.copySign(yConstrained * yConstrained, yConstrained);
         double rotSquared = Math.copySign(rotConstrained * rotConstrained, rotConstrained);
 
-        drive.drive(-ySquared, -xSquared, -rotSquared, true, true);
+        if (UserPolicy.xLocked) {
+            drive.setX();
+            return;
+        }
+
+        if (UserPolicy.twistable) {
+            drive.drive(-ySquared, -xSquared, -rotSquared, true, true);
+        } else {
+            drive.drive(-ySquared, -xSquared, 0, true, true);
+        }
     }
 
     @Override
