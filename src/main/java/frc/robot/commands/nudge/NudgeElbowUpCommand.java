@@ -10,47 +10,47 @@ import frc.robot.subsystems.ElbowSubsystem;
 /** An example command that uses an example subsystem. */
 public class NudgeElbowUpCommand extends EntechCommandBase {
 
-  private final ElbowSubsystem elbowSubsystem;
-  private boolean waitToComplete = false;
+    private final ElbowSubsystem elbowSubsystem;
+    private boolean waitToComplete = false;
 
-  /**
-   * Creates a new PositionArmCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public NudgeElbowUpCommand(ElbowSubsystem elbowSubsystem, boolean waitToComplete) {
-    super(elbowSubsystem);
-    this.elbowSubsystem = elbowSubsystem;
-    this.waitToComplete = waitToComplete;
-  }
+    /**
+     * Creates a new PositionArmCommand.
+     *
+     * @param subsystem The subsystem used by this command.
+     */
+    public NudgeElbowUpCommand(ElbowSubsystem elbowSubsystem, boolean waitToComplete) {
+        super(elbowSubsystem);
+        this.elbowSubsystem = elbowSubsystem;
+        this.waitToComplete = waitToComplete;
+    }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
 
-  }
+    }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    elbowSubsystem.nudgeElbowUp();
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        elbowSubsystem.nudgeElbowUp();
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    elbowSubsystem.stop();
-  }
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        elbowSubsystem.stop();
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 
-  // Returns true if this command should run when robot is disabled.
-  @Override
-  public boolean runsWhenDisabled() {
-    return false;
-  }
+    // Returns true if this command should run when robot is disabled.
+    @Override
+    public boolean runsWhenDisabled() {
+        return false;
+    }
 }

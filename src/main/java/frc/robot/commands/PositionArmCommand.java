@@ -10,58 +10,58 @@ import frc.robot.subsystems.ArmSubsystem;
 /** An example command that uses an example subsystem. */
 public class PositionArmCommand extends EntechCommandBase {
 
-  private final ArmSubsystem armSubsystem;
-  private final double requestedPosition;
-  private boolean waitToComplete = false;
+    private final ArmSubsystem armSubsystem;
+    private final double requestedPosition;
+    private boolean waitToComplete = false;
 
-  /**
-   * Creates a new PositionArmCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public PositionArmCommand(ArmSubsystem subsystem, double requestedPosition, boolean waitToComplete) {
-    super(subsystem);
-    armSubsystem = subsystem;
-    this.requestedPosition = requestedPosition;
-    this.waitToComplete = waitToComplete;
-  }
-
-  @Override
-  public String getName() {
-    return super.getName() + "@" + requestedPosition + "m";
-  }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    armSubsystem.requestPosition(requestedPosition);
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    if (waitToComplete) {
-      return armSubsystem.isAtRequestedPosition();
-    } else {
-      return true;
+    /**
+     * Creates a new PositionArmCommand.
+     *
+     * @param subsystem The subsystem used by this command.
+     */
+    public PositionArmCommand(ArmSubsystem subsystem, double requestedPosition, boolean waitToComplete) {
+        super(subsystem);
+        armSubsystem = subsystem;
+        this.requestedPosition = requestedPosition;
+        this.waitToComplete = waitToComplete;
     }
-  }
 
-  // Returns true if this command should run when robot is disabled.
-  @Override
-  public boolean runsWhenDisabled() {
-    return false;
-  }
+    @Override
+    public String getName() {
+        return super.getName() + "@" + requestedPosition + "m";
+    }
+
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+        armSubsystem.requestPosition(requestedPosition);
+    }
+
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+
+    }
+
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        if (waitToComplete) {
+            return armSubsystem.isAtRequestedPosition();
+        } else {
+            return true;
+        }
+    }
+
+    // Returns true if this command should run when robot is disabled.
+    @Override
+    public boolean runsWhenDisabled() {
+        return false;
+    }
 }

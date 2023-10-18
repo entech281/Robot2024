@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -64,7 +66,7 @@ public class ElbowSubsystem extends EntechSubsystem {
     @Override
     public void initialize() {
         if (enabled) {
-            elbowMotor = new CANSparkMax(RobotConstants.CAN.ELBOW_MOTOR_ID, MotorType.kBrushless);
+            elbowMotor = new CANSparkMax(RobotConstants.Ports.CAN.ELBOW_MOTOR_ID, MotorType.kBrushless);
             elbowMotor.getPIDController().setP(ELBOW.TUNING.P_GAIN);
             elbowMotor.getPIDController().setI(ELBOW.TUNING.I_GAIN);
             elbowMotor.getPIDController().setD(ELBOW.TUNING.D_GAIN);
@@ -151,6 +153,11 @@ public class ElbowSubsystem extends EntechSubsystem {
     public void periodic() {
         if (enabled) {
             positionController.update();
+
+            Logger logger = Logger.getInstance();
+            logger.recordOutput("Upper Limit", positionController.isAtUpperLimit());
+            logger.recordOutput("Lower Limit", positionController.isAtLowerLimit());
+            logger.recordOutput("Position", positionController.getActualPosition());
         }
     }
 
