@@ -4,24 +4,24 @@
 
 package frc.robot.commands.nudge;
 
-import entech.commands.EntechCommandBase2023;
+import entech.commands.EntechCommandBase;
 import frc.robot.subsystems.ArmSubsystem;
 
-
 /** An example command that uses an example subsystem. */
-public class NudgeArmForwardCommand extends EntechCommandBase2023 {
+public class NudgeArmForwardCommand extends EntechCommandBase {
 
   private final ArmSubsystem armSubsystem;
   private boolean waitToComplete = false;
+
   /**
    * Creates a new PositionArmCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
   public NudgeArmForwardCommand(ArmSubsystem subsystem, boolean waitToComplete) {
-      super(subsystem);
-      armSubsystem = subsystem;
-      this.waitToComplete = waitToComplete;
+    super(subsystem);
+    armSubsystem = subsystem;
+    this.waitToComplete = waitToComplete;
   }
 
   // Called when the command is initially scheduled.
@@ -45,12 +45,12 @@ public class NudgeArmForwardCommand extends EntechCommandBase2023 {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-	  return false;
+    return false;
   }
 
   // Returns true if this command should run when robot is disabled.
   @Override
   public boolean runsWhenDisabled() {
-      return false;
+    return false;
   }
 }

@@ -4,11 +4,11 @@
 
 package frc.robot.commands;
 
+import entech.commands.EntechCommandBase;
 import frc.robot.subsystems.ArmSubsystem;
-import entech.commands.EntechCommandBase2023;
 
 /** An example command that uses an example subsystem. */
-public class SetArmSpeedCommand extends EntechCommandBase2023 {
+public class SetArmSpeedCommand extends EntechCommandBase {
 
   private final ArmSubsystem armSubsystem;
   private final double desiredSpeed;
@@ -19,17 +19,17 @@ public class SetArmSpeedCommand extends EntechCommandBase2023 {
    * @param subsystem The subsystem used by this command.
    */
   public SetArmSpeedCommand(ArmSubsystem subsystem, double desiredSpeed) {
-      super(subsystem);
-      armSubsystem = subsystem;
-      this.desiredSpeed = desiredSpeed;
+    super(subsystem);
+    armSubsystem = subsystem;
+    this.desiredSpeed = desiredSpeed;
   }
 
   @Override
-	public String getName() {
-		return super.getName() + ",s=" + desiredSpeed ;
-	}
+  public String getName() {
+    return super.getName() + ",s=" + desiredSpeed;
+  }
 
-// Called when the command is initially scheduled.
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
 
@@ -50,12 +50,12 @@ public class SetArmSpeedCommand extends EntechCommandBase2023 {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-	  return false;
+    return false;
   }
 
   // Returns true if this command should run when robot is disabled.
   @Override
   public boolean runsWhenDisabled() {
-      return false;
+    return false;
   }
 }

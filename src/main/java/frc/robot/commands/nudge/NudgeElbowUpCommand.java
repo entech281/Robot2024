@@ -4,23 +4,24 @@
 
 package frc.robot.commands.nudge;
 
+import entech.commands.EntechCommandBase;
 import frc.robot.subsystems.ElbowSubsystem;
-import entech.commands.EntechCommandBase2023;
 
 /** An example command that uses an example subsystem. */
-public class NudgeElbowUpCommand extends EntechCommandBase2023 {
+public class NudgeElbowUpCommand extends EntechCommandBase {
 
   private final ElbowSubsystem elbowSubsystem;
   private boolean waitToComplete = false;
+
   /**
    * Creates a new PositionArmCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
   public NudgeElbowUpCommand(ElbowSubsystem elbowSubsystem, boolean waitToComplete) {
-      super(elbowSubsystem);
-      this.elbowSubsystem = elbowSubsystem;
-      this.waitToComplete = waitToComplete;
+    super(elbowSubsystem);
+    this.elbowSubsystem = elbowSubsystem;
+    this.waitToComplete = waitToComplete;
   }
 
   // Called when the command is initially scheduled.
@@ -38,18 +39,18 @@ public class NudgeElbowUpCommand extends EntechCommandBase2023 {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-	  elbowSubsystem.stop();
+    elbowSubsystem.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-		  return false;
+    return false;
   }
 
   // Returns true if this command should run when robot is disabled.
   @Override
   public boolean runsWhenDisabled() {
-      return false;
+    return false;
   }
 }

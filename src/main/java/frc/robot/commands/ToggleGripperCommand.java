@@ -4,12 +4,12 @@
 
 package frc.robot.commands;
 
+import entech.commands.EntechCommandBase;
 import frc.robot.subsystems.GripperSubsystem;
-import entech.commands.EntechCommandBase2023;
 
 /** An example command that uses an example subsystem. */
-public class ToggleGripperCommand extends EntechCommandBase2023 {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+public class ToggleGripperCommand extends EntechCommandBase {
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final GripperSubsystem gripperSubsystem;
 
   /**
@@ -18,8 +18,8 @@ public class ToggleGripperCommand extends EntechCommandBase2023 {
    * @param subsystem The subsystem used by this command.
    */
   public ToggleGripperCommand(GripperSubsystem gripperSubsystem) {
-      super(gripperSubsystem);
-      this.gripperSubsystem = gripperSubsystem;
+    super(gripperSubsystem);
+    this.gripperSubsystem = gripperSubsystem;
   }
 
   // Called when the command is initially scheduled.
@@ -41,12 +41,12 @@ public class ToggleGripperCommand extends EntechCommandBase2023 {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-      return true;
+    return true;
   }
 
   // Returns true if this command should run when robot is disabled.
   @Override
   public boolean runsWhenDisabled() {
-      return false;
+    return false;
   }
 }

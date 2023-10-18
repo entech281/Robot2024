@@ -4,38 +4,39 @@
 
 package frc.robot.commands;
 
+import entech.commands.EntechCommandBase;
 import frc.robot.subsystems.ElbowSubsystem;
-import entech.commands.EntechCommandBase2023;
 
 /** An example command that uses an example subsystem. */
-public class PositionElbowCommand extends EntechCommandBase2023 {
+public class PositionElbowCommand extends EntechCommandBase {
 
   private final ElbowSubsystem elbowSubsystem;
   private final double desiredAngle;
   private boolean waitToComplete = false;
+
   /**
    * Creates a new PositionArmCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
   public PositionElbowCommand(ElbowSubsystem elbowSubsystem, double desiredAngle, boolean waitToComplete) {
-      super(elbowSubsystem);
-      this.elbowSubsystem = elbowSubsystem;
-      this.desiredAngle = desiredAngle;
-      this.waitToComplete = waitToComplete;
+    super(elbowSubsystem);
+    this.elbowSubsystem = elbowSubsystem;
+    this.desiredAngle = desiredAngle;
+    this.waitToComplete = waitToComplete;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-	    elbowSubsystem.requestPosition(desiredAngle);
+    elbowSubsystem.requestPosition(desiredAngle);
   }
 
-  @Override  
+  @Override
   public String getName() {
-	return super.getName() + "@" + desiredAngle + "deg";
-  }  
-  
+    return super.getName() + "@" + desiredAngle + "deg";
+  }
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
@@ -51,17 +52,16 @@ public class PositionElbowCommand extends EntechCommandBase2023 {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-	  if ( waitToComplete) {
-		  return elbowSubsystem.isAtRequestedPosition();
-	  }
-	  else {
-		  return true;
-	  }
+    if (waitToComplete) {
+      return elbowSubsystem.isAtRequestedPosition();
+    } else {
+      return true;
+    }
   }
 
   // Returns true if this command should run when robot is disabled.
   @Override
   public boolean runsWhenDisabled() {
-      return false;
+    return false;
   }
 }

@@ -1,10 +1,10 @@
 package frc.robot.commands;
 
-import entech.commands.EntechCommandBase2023;
+import entech.commands.EntechCommandBase;
 import frc.robot.subsystems.GripperSubsystem;
 
 /** An example command that uses an example subsystem. */
-public class GripperCommand extends EntechCommandBase2023 {
+public class GripperCommand extends EntechCommandBase {
 
   private final GripperSubsystem gripperSubsystem;
   private GripperSubsystem.GripperState state;
@@ -15,18 +15,17 @@ public class GripperCommand extends EntechCommandBase2023 {
    * @param subsystem The subsystem used by this command.
    */
   public GripperCommand(GripperSubsystem subsystem, GripperSubsystem.GripperState state, String name) {
-      super(subsystem);
-      gripperSubsystem = subsystem;
-      this.state = state;
-      this.setName(name);
+    super(subsystem);
+    gripperSubsystem = subsystem;
+    this.state = state;
+    this.setName(name);
   }
- 
-  public GripperCommand(GripperSubsystem subsystem, GripperSubsystem.GripperState state) {
-      super(subsystem);
-      gripperSubsystem = subsystem;
-      this.state = state;
-  }  
 
+  public GripperCommand(GripperSubsystem subsystem, GripperSubsystem.GripperState state) {
+    super(subsystem);
+    gripperSubsystem = subsystem;
+    this.state = state;
+  }
 
   // Called when the command is initially scheduled.
   @Override
@@ -37,7 +36,7 @@ public class GripperCommand extends EntechCommandBase2023 {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // Nothing to do.  Everything is managed in the ArmSubsystem periodic()
+    // Nothing to do. Everything is managed in the ArmSubsystem periodic()
   }
 
   // Called once the command ends or is interrupted.
@@ -48,12 +47,12 @@ public class GripperCommand extends EntechCommandBase2023 {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-      return true;
+    return true;
   }
 
   // Returns true if this command should run when robot is disabled.
   @Override
   public boolean runsWhenDisabled() {
-      return true;
+    return true;
   }
 }

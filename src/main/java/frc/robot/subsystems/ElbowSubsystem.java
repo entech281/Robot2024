@@ -6,195 +6,184 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxLimitSwitch.Type;
 
 import edu.wpi.first.wpilibj.DriverStation;
-
+import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.ELBOW;
 import frc.robot.controllers.PositionControllerConfig;
 import frc.robot.controllers.SparkMaxPositionController;
 
-
-public class ElbowSubsystem extends EntechSubsystem{
+public class ElbowSubsystem extends EntechSubsystem {
 
     private static final double NUDGE_COUNT = 1.5;
-	  private CANSparkMax elbowMotor;
-	  private SparkMaxPositionController positionController;
+    private CANSparkMax elbowMotor;
+    private SparkMaxPositionController positionController;
 
-	  private boolean enabled = true;	
-	  private double position = ELBOW.POSITION_PRESETS.MIN_POSITION_DEGREES;
-	  
-	  public double getPosition() {
-		return position;
-	  }
+    private boolean enabled = true;
+    private double position = ELBOW.POSITION_PRESETS.MIN_POSITION_DEGREES;
 
-	  public void setPosition(double position) {
-		if ( this.positionController  != null) {
-			this.positionController.requestPosition(position);
-		}
-		this.position = position;
-	  }
-	  public void homePosition() {
-			setPosition(ELBOW.POSITION_PRESETS.MIN_POSITION_DEGREES);
-		}
-	  
-	//for unit testing
-	  public ElbowSubsystem( CANSparkMax motor, SparkMaxPositionController controller) {
-		  this.enabled=true;
-		  this.elbowMotor = motor;
-		  this.positionController = controller;
+    public double getPosition() {
+        return position;
+    }
 
-	  }
+    public void setPosition(double position) {
+        if (this.positionController != null) {
+            this.positionController.requestPosition(position);
+        }
+        this.position = position;
+    }
 
-	  //for match
-	  public ElbowSubsystem () {
+    public void homePosition() {
+        setPosition(ELBOW.POSITION_PRESETS.MIN_POSITION_DEGREES);
+    }
 
-	  }
-	  public void clearRequestedPosition() {
-		  positionController.clearRequestedPosition();
-	  }
-	  public boolean isHomed() {
-		  if ( positionController != null) {
-			  return positionController.isHomed();
-		  }
-		  else {
-			  return false;
-		  }
-	  }
-	  @Override
-	  public void initialize() {
-		if ( enabled ) {
-		    elbowMotor = new CANSparkMax(RobotConstants.CAN.ELBOW_MOTOR_ID, MotorType.kBrushless);
-		    elbowMotor.getPIDController().setP(ELBOW.TUNING.P_GAIN);
-		    elbowMotor.getPIDController().setI(ELBOW.TUNING.I_GAIN);
-		    elbowMotor.getPIDController().setD(ELBOW.TUNING.D_GAIN);
-		    elbowMotor.setSmartCurrentLimit(ELBOW.SETTINGS.MAX_SPIKE_CURRENT);
+    // for unit testing
+    public ElbowSubsystem(CANSparkMax motor, SparkMaxPositionController controller) {
+        this.enabled = true;
+        this.elbowMotor = motor;
+        this.positionController = controller;
 
-		    elbowMotor.set(0);
-		    elbowMotor.setIdleMode(IdleMode.kBrake);
-		    elbowMotor.clearFaults();
-		    elbowMotor.setInverted(ELBOW.SETTINGS.MOTOR_REVERSED);
-		    elbowMotor.getEncoder().setPositionConversionFactor(ELBOW.SETTINGS.COUNTS_PER_DEGREE);
-		    elbowMotor.getEncoder().setVelocityConversionFactor(ELBOW.SETTINGS.COUNTS_PER_DEGREE);
-			PositionControllerConfig conf =  new PositionControllerConfig.Builder("ELBOW")
-			    	.withHomingOptions(ELBOW.HOMING.HOMING_SPEED_PERCENT  )
-			    	//.withHomingVelocity(ELBOW.HOMING.HOMING_SPEED_VELOCITY)			    	
-			    	.withPositionTolerance(ELBOW.SETTINGS.MOVE_TOLERANCE_DEGREES)
-			    	.withSoftLimits(ELBOW.POSITION_PRESETS.MIN_POSITION_DEGREES, ELBOW.POSITION_PRESETS.MAX_POSITION_DEGREES)
-			    	.withHomeAtCurrentAmps( ELBOW.HOMING.HOMING_CURRENT_AMPS)			    	
-			    	.withInverted(true)
-			    	.build();
+    }
 
-		    positionController = new SparkMaxPositionController(
-		    		elbowMotor,
-		    		conf,
-		    		elbowMotor.getReverseLimitSwitch(Type.kNormallyOpen),
-		    		elbowMotor.getForwardLimitSwitch(Type.kNormallyOpen),
-		    		elbowMotor.getEncoder()
-		    );
-		}
-	  }
+    // for match
+    public ElbowSubsystem() {
 
-	  public void home() {
-		  positionController.home();
-	  }
+    }
 
+    public void clearRequestedPosition() {
+        positionController.clearRequestedPosition();
+    }
 
-	  public boolean isSafeToExtendArm() {
-		  return this.getActualPosition() > ELBOW.POSITION_PRESETS.SAFE_ANGLE;
-	  }
+    public boolean isHomed() {
+        if (positionController != null) {
+            return positionController.isHomed();
+        } else {
+            return false;
+        }
+    }
 
-	  public void setMotorSpeed(double speed) {
-		  positionController.setMotorSpeed(speed);
-	  }
+    @Override
+    public void initialize() {
+        if (enabled) {
+            elbowMotor = new CANSparkMax(RobotConstants.CAN.ELBOW_MOTOR_ID, MotorType.kBrushless);
+            elbowMotor.getPIDController().setP(ELBOW.TUNING.P_GAIN);
+            elbowMotor.getPIDController().setI(ELBOW.TUNING.I_GAIN);
+            elbowMotor.getPIDController().setD(ELBOW.TUNING.D_GAIN);
+            elbowMotor.setSmartCurrentLimit(ELBOW.SETTINGS.MAX_SPIKE_CURRENT);
 
-	  public double getRequestedPosition() {
-		  if ( isEnabled()) {
-			  return positionController.getRequestedPosition();
-		  }
-		  else {
-			  return RobotConstants.INDICATOR_VALUES.POSITION_UNKNOWN;
-		  }
-	  }
+            elbowMotor.set(0);
+            elbowMotor.setIdleMode(IdleMode.kBrake);
+            elbowMotor.clearFaults();
+            elbowMotor.setInverted(ELBOW.SETTINGS.MOTOR_REVERSED);
+            elbowMotor.getEncoder().setPositionConversionFactor(ELBOW.SETTINGS.COUNTS_PER_DEGREE);
+            elbowMotor.getEncoder().setVelocityConversionFactor(ELBOW.SETTINGS.COUNTS_PER_DEGREE);
+            PositionControllerConfig conf = new PositionControllerConfig.Builder("ELBOW")
+                    .withHomingOptions(ELBOW.HOMING.HOMING_SPEED_PERCENT)
+                    // .withHomingVelocity(ELBOW.HOMING.HOMING_SPEED_VELOCITY)
+                    .withPositionTolerance(ELBOW.SETTINGS.MOVE_TOLERANCE_DEGREES)
+                    .withSoftLimits(ELBOW.POSITION_PRESETS.MIN_POSITION_DEGREES,
+                            ELBOW.POSITION_PRESETS.MAX_POSITION_DEGREES)
+                    .withHomeAtCurrentAmps(ELBOW.HOMING.HOMING_CURRENT_AMPS)
+                    .withInverted(true)
+                    .build();
 
-	  public double getActualPosition() {
-		  if ( isEnabled()) {
-			  return positionController.getActualPosition();
-		  }
-		  else {
-			  return RobotConstants.INDICATOR_VALUES.POSITION_UNKNOWN;
-		  }
-	  }
+            positionController = new SparkMaxPositionController(
+                    elbowMotor,
+                    conf,
+                    elbowMotor.getReverseLimitSwitch(Type.kNormallyOpen),
+                    elbowMotor.getForwardLimitSwitch(Type.kNormallyOpen),
+                    elbowMotor.getEncoder());
+        }
+    }
 
-	  public boolean isEnabled() {
-		  return enabled;
-	  }
+    public void home() {
+        positionController.home();
+    }
 
-	  public SparkMaxPositionController getPositionController() {
-			return positionController;
-	  }
+    public boolean isSafeToExtendArm() {
+        return this.getActualPosition() > ELBOW.POSITION_PRESETS.SAFE_ANGLE;
+    }
 
-	  public void requestPosition(double requestedPosition) {
-		  DriverStation.reportWarning("Elbow Angle Request:" + requestedPosition, false);
-		  positionController.requestPosition(requestedPosition);
-	  }
+    public void setMotorSpeed(double speed) {
+        positionController.setMotorSpeed(speed);
+    }
 
-	  public void restorePosition() {
-		  positionController.setPositionMode();
-	  }
-	  
-	  public void stop() {
-		  positionController.stop();
-	  }
+    public double getRequestedPosition() {
+        if (isEnabled()) {
+            return positionController.getRequestedPosition();
+        } else {
+            return RobotConstants.INDICATOR_VALUES.POSITION_UNKNOWN;
+        }
+    }
 
-	  public boolean isAtRequestedPosition() {
-		  return positionController.isAtRequestedPosition();
-	  }
+    public double getActualPosition() {
+        if (isEnabled()) {
+            return positionController.getActualPosition();
+        } else {
+            return RobotConstants.INDICATOR_VALUES.POSITION_UNKNOWN;
+        }
+    }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	  public void periodic() {
-		  if (enabled ) {
-			  positionController.update();
-		  }
-	  }
+    public SparkMaxPositionController getPositionController() {
+        return positionController;
+    }
 
-//	  @Override
-//	  public void initSendable(SendableBuilder builder) {
-//		  super.initSendable(builder);		  
-//	      builder.setSmartDashboardType(getName());  
-//	      builder.addDoubleProperty("Position", this::getPosition, this::setPosition);	      
-//	      if ( enabled ) {
-//	          //builder.addBooleanProperty("AtSetPoint", this::isAtRequestedPosition, null);
-//	          //builder.addDoubleProperty("RequestedPos", this::getRequestedPosition, null);
-//	          //builder.addDoubleProperty("ActualPos", this::getActualPosition, null);  	  
-//	          //builder.addBooleanProperty("CanExtendArm", this::isSafeToExtendArm, null);
-//	      }
-//	  }
+    public void requestPosition(double requestedPosition) {
+        DriverStation.reportWarning("Elbow Angle Request:" + requestedPosition, false);
+        positionController.requestPosition(requestedPosition);
+    }
 
+    public void restorePosition() {
+        positionController.setPositionMode();
+    }
 
-	  @Override
-	  public void simulationPeriodic() {
+    public void stop() {
+        positionController.stop();
+    }
 
-	  }
+    public boolean isAtRequestedPosition() {
+        return positionController.isAtRequestedPosition();
+    }
 
-	  @Override
-	  public ElbowStatus getStatus() {
-		  if ( enabled) {
-			  return new ElbowStatus(positionController.getActualPosition());
-		  }
-		  else {
-			  return new ElbowStatus(RobotConstants.INDICATOR_VALUES.POSITION_UNKNOWN);
-		  }
-	  }
+    public void periodic() {
+        if (enabled) {
+            positionController.update();
+        }
+    }
 
-	  public void nudgeElbowDown() {
-		positionController.requestPosition(getActualPosition() - NUDGE_COUNT);
-	  }
+    // @Override
+    // public void initSendable(SendableBuilder builder) {
+    // super.initSendable(builder);
+    // builder.setSmartDashboardType(getName());
+    // builder.addDoubleProperty("Position", this::getPosition, this::setPosition);
+    // if ( enabled ) {
+    // //builder.addBooleanProperty("AtSetPoint", this::isAtRequestedPosition,
+    // null);
+    // //builder.addDoubleProperty("RequestedPos", this::getRequestedPosition,
+    // null);
+    // //builder.addDoubleProperty("ActualPos", this::getActualPosition, null);
+    // //builder.addBooleanProperty("CanExtendArm", this::isSafeToExtendArm, null);
+    // }
+    // }
 
-	  public void nudgeElbowUp() {
-		positionController.requestPosition(getActualPosition() + NUDGE_COUNT);
-	  }
+    @Override
+    public void simulationPeriodic() {
 
-	  public void forgetHome() {
-		  positionController.forgetHome();
-	  }	  
-	  
+    }
+
+    public void nudgeElbowDown() {
+        positionController.requestPosition(getActualPosition() - NUDGE_COUNT);
+    }
+
+    public void nudgeElbowUp() {
+        positionController.requestPosition(getActualPosition() + NUDGE_COUNT);
+    }
+
+    public void forgetHome() {
+        positionController.forgetHome();
+    }
+
 }

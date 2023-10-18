@@ -4,13 +4,13 @@
 
 package frc.robot.commands;
 
-import entech.commands.EntechCommandBase2023;
 import edu.wpi.first.wpilibj.DriverStation;
+import entech.commands.EntechCommandBase;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.ElbowSubsystem;
 
 /** An example command that uses an example subsystem. */
-public class ArmEmergencyStopCommand extends EntechCommandBase2023 {
+public class ArmEmergencyStopCommand extends EntechCommandBase {
 
   private final ArmSubsystem armSubsystem;
   private final ElbowSubsystem elbowSubsystem;
@@ -20,19 +20,19 @@ public class ArmEmergencyStopCommand extends EntechCommandBase2023 {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ArmEmergencyStopCommand(ArmSubsystem subsystem,ElbowSubsystem elbowSubsystem) {
-      super(subsystem,elbowSubsystem);
-      this.armSubsystem = subsystem;
-      this.elbowSubsystem = elbowSubsystem;
+  public ArmEmergencyStopCommand(ArmSubsystem subsystem, ElbowSubsystem elbowSubsystem) {
+    super(subsystem, elbowSubsystem);
+    this.armSubsystem = subsystem;
+    this.elbowSubsystem = elbowSubsystem;
   }
 
-
-// Called when the command is initially scheduled.
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-	    armSubsystem.homePosition();
-	    elbowSubsystem.stop();
-	    DriverStation.reportWarning("Detected Arm CRASH We were about to move the arm into the carry position with the arm extended!!!", false);
+    armSubsystem.homePosition();
+    elbowSubsystem.stop();
+    DriverStation.reportWarning(
+        "Detected Arm CRASH We were about to move the arm into the carry position with the arm extended!!!", false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,12 +49,12 @@ public class ArmEmergencyStopCommand extends EntechCommandBase2023 {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-	  return true;
+    return true;
   }
 
   // Returns true if this command should run when robot is disabled.
   @Override
   public boolean runsWhenDisabled() {
-      return false;
+    return false;
   }
 }
