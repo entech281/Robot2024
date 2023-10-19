@@ -8,8 +8,7 @@ import frc.robot.RobotConstants;
 
 public class GripperSubsystem extends EntechSubsystem {
 
-    private DoubleSolenoid leftGripperSolenoid;
-    private DoubleSolenoid rightGripperSolenoid;
+    private DoubleSolenoid gripperSolenoid;
 
     private int gripperSolenoidCounter;
     private GripperState gripperState;
@@ -28,12 +27,9 @@ public class GripperSubsystem extends EntechSubsystem {
     @Override
     public void initialize() {
         if (enabled) {
-            leftGripperSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
-                    RobotConstants.PNEUMATICS.LEFT_GRIPPER_OPEN,
-                    RobotConstants.PNEUMATICS.LEFT_GRIPPER_CLOSE);
-            rightGripperSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
-                    RobotConstants.PNEUMATICS.RIGHT_GRIPPER_OPEN,
-                    RobotConstants.PNEUMATICS.RIGHT_GRIPPER_CLOSE);
+            gripperSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
+                    RobotConstants.PNEUMATICS.GRIPPER_OPEN,
+                    RobotConstants.PNEUMATICS.GRIPPER_CLOSE);
             gripperState = GripperState.kUnknown;
         }
 
@@ -47,8 +43,7 @@ public class GripperSubsystem extends EntechSubsystem {
     }
 
     public void setSolenoids(DoubleSolenoid.Value newValue) {
-        leftGripperSolenoid.set(newValue);
-        rightGripperSolenoid.set(newValue);
+        gripperSolenoid.set(newValue);
     }
 
     public void toggleGripper() {

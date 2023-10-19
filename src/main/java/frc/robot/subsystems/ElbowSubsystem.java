@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxLimitSwitch.Type;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.ELBOW;
@@ -85,7 +86,7 @@ public class ElbowSubsystem extends EntechSubsystem {
                     .withSoftLimits(ELBOW.POSITION_PRESETS.MIN_POSITION_DEGREES,
                             ELBOW.POSITION_PRESETS.MAX_POSITION_DEGREES)
                     .withHomeAtCurrentAmps(ELBOW.HOMING.HOMING_CURRENT_AMPS)
-                    .withInverted(true)
+                    .withInverted(false)
                     .build();
 
             positionController = new SparkMaxPositionController(
@@ -155,9 +156,15 @@ public class ElbowSubsystem extends EntechSubsystem {
             positionController.update();
 
             Logger logger = Logger.getInstance();
-            logger.recordOutput("Upper Limit", positionController.isAtUpperLimit());
-            logger.recordOutput("Lower Limit", positionController.isAtLowerLimit());
-            logger.recordOutput("Position", positionController.getActualPosition());
+            logger.recordOutput("Elbow Upper Limit", positionController.isAtUpperLimit());
+            logger.recordOutput("Elbow Lower Limit", positionController.isAtLowerLimit());
+            logger.recordOutput("Elbow Position", positionController.getActualPosition());
+            logger.recordOutput("Elbow Homed", isHomed());
+            logger.recordOutput("Elbow State", positionController.getStatusString());
+
+            SmartDashboard.putBoolean("Elbow Upper Limit", positionController.isAtUpperLimit());
+            SmartDashboard.putBoolean("Elbow Lower Limit", positionController.isAtLowerLimit());
+            SmartDashboard.putNumber("Elbow Position", positionController.getActualPosition());
         }
     }
 

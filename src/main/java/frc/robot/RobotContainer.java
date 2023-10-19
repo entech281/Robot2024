@@ -16,7 +16,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotConstants.DrivetrainConstants;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ElbowSubsystem;
+import frc.robot.subsystems.GripperSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
 /*
@@ -37,6 +40,9 @@ public class RobotContainer {
 
     private final DriveSubsystem driveSubsystem = new DriveSubsystem();
     private final VisionSubsystem visionSubsystem = new VisionSubsystem();
+    private final ElbowSubsystem elbowSubsystem = new ElbowSubsystem();
+    private final ArmSubsystem armSubsystem = new ArmSubsystem();
+    private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
 
     private final Field2d field = new Field2d(); // a representation of the field
 
@@ -51,6 +57,9 @@ public class RobotContainer {
     public RobotContainer() {
         driveSubsystem.initialize();
         visionSubsystem.initialize();
+        armSubsystem.initialize();
+        elbowSubsystem.initialize();
+        gripperSubsystem.initialize();
 
     }
 
@@ -91,5 +100,13 @@ public class RobotContainer {
 
     public DriveSubsystem getDriveSubsystem() {
         return driveSubsystem;
+    }
+
+    public ArmSubsystem getArmSubsystem() {
+        return armSubsystem;
+    }
+
+    public ElbowSubsystem getElbowSubsystem() {
+        return elbowSubsystem;
     }
 }

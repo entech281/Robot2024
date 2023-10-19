@@ -202,7 +202,7 @@ public final class RobotConstants {
         }
 
         public interface HOMING {
-            public static final double HOMING_SPEED_PERCENT = 0.35;
+            public static final double HOMING_SPEED_PERCENT = -0.2;
             public static final double HOMING_SPEED_VELOCITY = 5.0; // we think this is 'arm meters per minute'
             public static final int HOMING_CURRENT_AMPS = 7;
         }
@@ -247,7 +247,7 @@ public final class RobotConstants {
         }
 
         public interface HOMING {
-            public static final double HOMING_SPEED_PERCENT = 0.2;
+            public static final double HOMING_SPEED_PERCENT = -0.2;
             public static final double HOMING_SPEED_VELOCITY = 5.0; // we think this is 'elbow degrees per minute'
             public static final int HOMING_CURRENT_AMPS = 7;
         }
@@ -282,11 +282,8 @@ public final class RobotConstants {
     }
 
     public interface PNEUMATICS {
-        public static final int LEFT_GRIPPER_OPEN = 3;
-        public static final int LEFT_GRIPPER_CLOSE = 2;
-        public static final int RIGHT_GRIPPER_OPEN = 4;
-        public static final int RIGHT_GRIPPER_CLOSE = 5;
-        public static final int BRAKE_SOLENOID = 7;
+        public static final int GRIPPER_OPEN = 7;
+        public static final int GRIPPER_CLOSE = 5;
 
     }
 

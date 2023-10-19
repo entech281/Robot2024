@@ -59,7 +59,11 @@ public class Robot extends LoggedRobot {
         initAdvantageKit();
 
         m_robotContainer = new RobotContainer();
-        new OperatorInterface(null, m_robotContainer.getDriveSubsystem());
+        new OperatorInterface(null, m_robotContainer.getDriveSubsystem(), m_robotContainer.getArmSubsystem(),
+                m_robotContainer.getElbowSubsystem());
+
+        Compressor c = new Compressor(PneumaticsModuleType.CTREPCM);
+        c.enableDigital();
 
         SmartDashboard.putData("Swerve Odometry", m_robotContainer.getField());
     }
@@ -127,8 +131,6 @@ public class Robot extends LoggedRobot {
 
     @Override
     public void teleopInit() {
-        Compressor c = new Compressor(PneumaticsModuleType.CTREPCM);
-        c.enableDigital();
 
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();

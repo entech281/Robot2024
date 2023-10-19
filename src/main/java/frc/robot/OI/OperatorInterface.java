@@ -5,16 +5,20 @@ import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
+import frc.robot.commands.HomeLimbCommand;
 import frc.robot.commands.TwistCommand;
 import frc.robot.commands.XCommand;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ElbowSubsystem;
 
 public class OperatorInterface {
 
     private final EntechJoystick driveJoystick = new EntechJoystick(RobotConstants.Ports.CONTROLLER.JOYSTICK);
     // private JoystickDriveInputSupplier hidJoystickDriveInputSupplier;
 
-    public OperatorInterface(final CommandFactory cf, DriveSubsystem driveSubsystem) {
+    public OperatorInterface(final CommandFactory cf, DriveSubsystem driveSubsystem, ArmSubsystem armSubsystem,
+            ElbowSubsystem elbowSubsystem) {
         /*
          * this.commandFactory = cf;
          * this.driveStick = new
@@ -142,6 +146,7 @@ public class OperatorInterface {
         driveJoystick.WhilePressed(1, new TwistCommand());
         driveJoystick.WhenPressed(11, new GyroReset(driveSubsystem));
         driveJoystick.WhenPressed(9, new XCommand());
+        driveJoystick.WhenPressed(7, new HomeLimbCommand(elbowSubsystem, armSubsystem));
         driveSubsystem.setDefaultCommand(new DriveCommand(driveSubsystem, driveJoystick));
     }
 }
