@@ -109,4 +109,12 @@ public class RobotContainer {
     public ElbowSubsystem getElbowSubsystem() {
         return elbowSubsystem;
     }
+
+    public GripperSubsystem getGripperSubsystem() {
+        return gripperSubsystem;
+    }
+
+    public VisionSubsystem getVisionSubsystem() {
+        return visionSubsystem;
+    }
 }

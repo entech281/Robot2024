@@ -15,9 +15,11 @@ import frc.robot.subsystems.ElbowSubsystem;
 public class OperatorInterface {
 
     private final EntechJoystick driveJoystick = new EntechJoystick(RobotConstants.Ports.CONTROLLER.JOYSTICK);
+    private final EntechJoystick operatorPanel = new EntechJoystick(RobotConstants.Ports.CONTROLLER.PANEL);
     // private JoystickDriveInputSupplier hidJoystickDriveInputSupplier;
 
-    public OperatorInterface(final CommandFactory cf, DriveSubsystem driveSubsystem, ArmSubsystem armSubsystem,
+    public OperatorInterface(final CommandFactory commandFactory, DriveSubsystem driveSubsystem,
+            ArmSubsystem armSubsystem,
             ElbowSubsystem elbowSubsystem) {
         /*
          * this.commandFactory = cf;
@@ -85,34 +87,36 @@ public class OperatorInterface {
          * .onTrue(commandFactory.nudgeYawRightCommand());
          * 
          * // ******* Operator Panel *******
-         * operatorPanel.button(RobotConstants.OPERATOR_PANEL.GRIPPER)
-         * .onTrue(commandFactory.toggleGripperCommand());
          * 
-         * operatorPanel.button(RobotConstants.OPERATOR_PANEL.PIVOT_UP)
-         * .whileTrue(commandFactory.nudgeElbowUpCommand());
-         * 
-         * operatorPanel.button(RobotConstants.OPERATOR_PANEL.PIVOT_DOWN)
-         * .whileTrue(commandFactory.nudgeElbowDownCommand());
-         * 
-         * operatorPanel.button(RobotConstants.OPERATOR_PANEL.TELESCOPE_IN)
-         * .whileTrue(commandFactory.nudgeArmBackwardCommand());
-         * 
-         * operatorPanel.button(RobotConstants.OPERATOR_PANEL.TELESCOPE_OUT)
-         * .whileTrue(commandFactory.nudgeArmForwardCommand());
-         * 
-         * operatorPanel.button(RobotConstants.OPERATOR_PANEL.ARM_OFF)
-         * .onTrue(commandFactory.dialCarryPosition());
-         * 
-         * operatorPanel.button(RobotConstants.OPERATOR_PANEL.ARM_LOAD)
-         * .onTrue(commandFactory.dialLoadPosition());
-         * 
-         * operatorPanel.button(RobotConstants.OPERATOR_PANEL.ARM_HIGH)
-         * .onTrue(commandFactory.dialHighPosition());
-         * 
-         * 
-         * operatorPanel.button(RobotConstants.OPERATOR_PANEL.ARM_MIDDLE)
-         * .onTrue(commandFactory.dialMiddlePosition());
-         * 
+         */
+        operatorPanel.button(RobotConstants.OPERATOR_PANEL.GRIPPER)
+                .onTrue(commandFactory.toggleGripperCommand());
+
+        operatorPanel.button(RobotConstants.OPERATOR_PANEL.PIVOT_UP)
+                .whileTrue(commandFactory.nudgeElbowUpCommand());
+
+        operatorPanel.button(RobotConstants.OPERATOR_PANEL.PIVOT_DOWN)
+                .whileTrue(commandFactory.nudgeElbowDownCommand());
+
+        operatorPanel.button(RobotConstants.OPERATOR_PANEL.TELESCOPE_IN)
+                .whileTrue(commandFactory.nudgeArmBackwardCommand());
+
+        operatorPanel.button(RobotConstants.OPERATOR_PANEL.TELESCOPE_OUT)
+                .whileTrue(commandFactory.nudgeArmForwardCommand());
+
+        operatorPanel.button(RobotConstants.OPERATOR_PANEL.ARM_OFF)
+                .onTrue(commandFactory.dialCarryPosition());
+
+        operatorPanel.button(RobotConstants.OPERATOR_PANEL.ARM_LOAD)
+                .onTrue(commandFactory.dialLoadPosition());
+
+        operatorPanel.button(RobotConstants.OPERATOR_PANEL.ARM_HIGH)
+                .onTrue(commandFactory.dialHighPosition());
+
+        operatorPanel.button(RobotConstants.OPERATOR_PANEL.ARM_MIDDLE)
+                .onTrue(commandFactory.dialMiddlePosition());
+
+        /*
          * operatorPanel.button(RobotConstants.OPERATOR_PANEL.AUTO)
          * .whileTrue(commandFactory.scoreHighCommand());
          * //.onTrue(commandFactory.armPositionFullExtension())

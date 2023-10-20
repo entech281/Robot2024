@@ -8,6 +8,8 @@ import frc.robot.commands.PositionElbowCommand;
 import frc.robot.commands.ToggleGripperCommand;
 import frc.robot.commands.nudge.NudgeArmBackwardsCommand;
 import frc.robot.commands.nudge.NudgeArmForwardCommand;
+import frc.robot.commands.nudge.NudgeElbowDownCommand;
+import frc.robot.commands.nudge.NudgeElbowUpCommand;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.ElbowSubsystem;
@@ -20,6 +22,14 @@ public class CommandFactory {
     private ArmSubsystem armSubsystem;
     private ElbowSubsystem elbowSubsystem;
     private GripperSubsystem gripperSubsystem;
+
+    public CommandFactory(RobotContainer robotContainer) {
+        this.driveSubsystem = robotContainer.getDriveSubsystem();
+        this.visionSubsystem = robotContainer.getVisionSubsystem();
+        this.armSubsystem = robotContainer.getArmSubsystem();
+        this.elbowSubsystem = robotContainer.getElbowSubsystem();
+        this.gripperSubsystem = robotContainer.getGripperSubsystem();
+    }
 
     // All Gripper only Commands
     public void setDefaultGripperCommand(Command newDefaultCommand) {
@@ -118,5 +128,13 @@ public class CommandFactory {
         return new SequentialCommandGroup(
                 new ConeDeployCommand(elbowSubsystem, gripperSubsystem),
                 dialCarryPosition());
+    }
+
+    public Command nudgeElbowUpCommand() {
+        return new NudgeElbowUpCommand(elbowSubsystem, false);
+    }
+
+    public Command nudgeElbowDownCommand() {
+        return new NudgeElbowDownCommand(elbowSubsystem, false);
     }
 }

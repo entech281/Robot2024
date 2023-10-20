@@ -9,7 +9,6 @@ import com.revrobotics.SparkMaxLimitSwitch.Type;
 import com.revrobotics.SparkMaxPIDController;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.ARM;
@@ -83,7 +82,7 @@ public class ArmSubsystem extends EntechSubsystem {
                     // .withHomingVelocity(ARM.HOMING.HOMING_SPEED_VELOCITY)
                     .withPositionTolerance(ARM.SETTINGS.MOVE_TOLERANCE_METERS)
                     .withHomeAtCurrentAmps(ARM.HOMING.HOMING_CURRENT_AMPS)
-                    .withInverted(false)
+                    .withInverted(true)
                     .build();
 
             positionController = new SparkMaxPositionController(
@@ -167,10 +166,7 @@ public class ArmSubsystem extends EntechSubsystem {
             logger.recordOutput("Arm Position", positionController.getActualPosition());
             logger.recordOutput("Arm Homed", isHomed());
             logger.recordOutput("Arm State", positionController.getStatusString());
-
-            SmartDashboard.putBoolean("Arm Upper Limit", positionController.isAtUpperLimit());
-            SmartDashboard.putBoolean("Arm Lower Limit", positionController.isAtLowerLimit());
-            SmartDashboard.putNumber("Arm Position", positionController.getActualPosition());
+            logger.recordOutput("Arm Req Position", positionController.getRequestedPosition());
         }
     }
 

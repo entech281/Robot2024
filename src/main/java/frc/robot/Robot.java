@@ -59,10 +59,11 @@ public class Robot extends LoggedRobot {
         initAdvantageKit();
 
         m_robotContainer = new RobotContainer();
-        new OperatorInterface(null, m_robotContainer.getDriveSubsystem(), m_robotContainer.getArmSubsystem(),
+        new OperatorInterface(new CommandFactory(m_robotContainer), m_robotContainer.getDriveSubsystem(),
+                m_robotContainer.getArmSubsystem(),
                 m_robotContainer.getElbowSubsystem());
 
-        Compressor c = new Compressor(PneumaticsModuleType.CTREPCM);
+        Compressor c = new Compressor(PneumaticsModuleType.REVPH);
         c.enableDigital();
 
         SmartDashboard.putData("Swerve Odometry", m_robotContainer.getField());

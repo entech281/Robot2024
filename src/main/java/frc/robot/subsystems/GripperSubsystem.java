@@ -17,7 +17,7 @@ public class GripperSubsystem extends EntechSubsystem {
         return gripperState;
     }
 
-    private boolean enabled = false;
+    private boolean enabled = true;
     private final int SOLENOID_HIT_COUNT = 20;
 
     public enum GripperState {
@@ -58,7 +58,7 @@ public class GripperSubsystem extends EntechSubsystem {
     public void initSendable(SendableBuilder builder) {
         if (enabled) {
             builder.setSmartDashboardType(getName());
-            builder.addBooleanProperty("BripperOpen", this::isOpen, this::setOpen);
+            builder.addBooleanProperty("GripperOpen", this::isOpen, this::setOpen);
         }
     }
 
