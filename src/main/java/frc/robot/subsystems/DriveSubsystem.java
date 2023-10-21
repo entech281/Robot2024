@@ -6,8 +6,6 @@ package frc.robot.subsystems;
 
 import java.util.Optional;
 
-import org.littletonrobotics.junction.Logger;
-
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -22,6 +20,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
@@ -34,7 +33,7 @@ import frc.robot.swerve.SwerveUtils;
  * function of the drivetrain.
  */
 public class DriveSubsystem extends EntechSubsystem {
-    private static final boolean enabled = true;
+    private static final boolean ENABLED = true;
 
     public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = 2.3084534854898795;
     public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = 1.8754174966340216;
@@ -84,30 +83,31 @@ public class DriveSubsystem extends EntechSubsystem {
 
     @Override
     public void periodic() {
-        if (enabled) {
-            Logger logger = Logger.getInstance();
-            // try out advantage scope
-            logger.recordOutput("AV Odometry", m_odometry.getPoseMeters());
-            logger.recordOutput("modules pose angles", new double[] {
+        if (ENABLED) {
+            Field2d field = new Field2d();
+            field.setRobotPose(m_odometry.getPoseMeters());
+            SmartDashboard.putData("Odometry Pose Field", field);
+
+            SmartDashboard.putNumberArray("modules pose angles", new double[] {
                     m_frontLeft.getPosition().angle.getDegrees(),
                     m_frontRight.getPosition().angle.getDegrees(),
                     m_rearLeft.getPosition().angle.getDegrees(),
                     m_rearRight.getPosition().angle.getDegrees()
             });
-            logger.recordOutput("modules pose meters", new double[] {
+            SmartDashboard.putNumberArray("modules pose meters", new double[] {
                     m_frontLeft.getPosition().distanceMeters,
                     m_frontRight.getPosition().distanceMeters,
                     m_rearLeft.getPosition().distanceMeters,
                     m_rearRight.getPosition().distanceMeters
             });
 
-            logger.recordOutput("Virtual abs encoders", new double[] {
+            SmartDashboard.putNumberArray("Virtual abs encoders", new double[] {
                     m_frontLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
                     m_frontRight.getTurningAbsoluteEncoder().getVirtualPosition(),
                     m_rearLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
                     m_rearRight.getTurningAbsoluteEncoder().getVirtualPosition()
             });
-            logger.recordOutput("Raw abs encoders", new double[] {
+            SmartDashboard.putNumberArray("Raw abs encoders", new double[] {
                     m_frontLeft.getTurningAbsoluteEncoder().getPosition(),
                     m_frontRight.getTurningAbsoluteEncoder().getPosition(),
                     m_rearLeft.getTurningAbsoluteEncoder().getPosition(),
@@ -115,10 +115,6 @@ public class DriveSubsystem extends EntechSubsystem {
             });
 
             SmartDashboard.putData("NAVX", m_gyro);
-            SmartDashboard.putNumber("Front Left Temp", m_frontLeft.getPosition().angle.getDegrees());
-            SmartDashboard.putNumber("Front Right Temp", m_frontRight.getPosition().angle.getDegrees());
-            SmartDashboard.putNumber("Rear Left Temp", m_rearLeft.getPosition().angle.getDegrees());
-            SmartDashboard.putNumber("Rear Right Temp", m_rearRight.getPosition().angle.getDegrees());
 
             // Update the odometry in the periodic block
             m_odometry.update(
@@ -138,7 +134,7 @@ public class DriveSubsystem extends EntechSubsystem {
      * @return The pose.
      */
     public Optional<Pose2d> getPose() {
-        return enabled ? Optional.of(m_odometry.getPoseMeters()) : Optional.empty();
+        return ENABLED ? Optional.of(m_odometry.getPoseMeters()) : Optional.empty();
     }
 
     /**
@@ -147,7 +143,7 @@ public class DriveSubsystem extends EntechSubsystem {
      * @param pose The pose to which to set the odometry.
      */
     public void resetOdometry(Pose2d pose) {
-        if (enabled) {
+        if (ENABLED) {
             m_odometry.resetPosition(
                     Rotation2d.fromDegrees(GYRO_ORIENTATION * m_gyro.getAngle()),
                     new SwerveModulePosition[] {
@@ -171,7 +167,7 @@ public class DriveSubsystem extends EntechSubsystem {
      * @param rateLimit     Whether to enable rate limiting for smoother control.
      */
     public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative, boolean rateLimit) {
-        if (enabled) {
+        if (ENABLED) {
             double xSpeedCommanded;
             double ySpeedCommanded;
 
@@ -250,7 +246,7 @@ public class DriveSubsystem extends EntechSubsystem {
      * Sets the wheels into an X formation to prevent movement.
      */
     public void setX() {
-        if (enabled) {
+        if (ENABLED) {
             m_frontLeft.setDesiredState(new SwerveModuleState(0,
                     Rotation2d.fromDegrees(45)));
             m_frontRight.setDesiredState(new SwerveModuleState(0,
@@ -268,7 +264,7 @@ public class DriveSubsystem extends EntechSubsystem {
      * @param desiredStates The desired SwerveModule states.
      */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
-        if (enabled) {
+        if (ENABLED) {
             SwerveDriveKinematics.desaturateWheelSpeeds(
                     desiredStates, DrivetrainConstants.MAX_SPEED_METERS_PER_SECOND);
 
@@ -284,7 +280,7 @@ public class DriveSubsystem extends EntechSubsystem {
      * turn encoders using the absolute encoders.
      */
     public void resetEncoders() {
-        if (enabled) {
+        if (ENABLED) {
             m_frontLeft.resetEncoders();
             m_rearLeft.resetEncoders();
             m_frontRight.resetEncoders();
@@ -294,7 +290,7 @@ public class DriveSubsystem extends EntechSubsystem {
 
     /** Zeroes the heading of the robot. */
     public void zeroHeading() {
-        if (enabled) {
+        if (ENABLED) {
             m_gyro.reset();
             Pose2d pose = getPose().get();
             Pose2d pose2 = new Pose2d(pose.getTranslation(), Rotation2d.fromDegrees(180));
@@ -305,7 +301,7 @@ public class DriveSubsystem extends EntechSubsystem {
 
     /** Calibrates the gyro. */
     public void calculateHeading() {
-        if (enabled) {
+        if (ENABLED) {
             m_gyro.calibrate();
             while (!m_gyro.isCalibrating()) {
                 ;
@@ -319,7 +315,7 @@ public class DriveSubsystem extends EntechSubsystem {
      * @return the robot's heading in degrees, from -180 to 180
      */
     public Optional<Double> getHeading() {
-        return enabled ? Optional.of(Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()).getDegrees())
+        return ENABLED ? Optional.of(Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()).getDegrees())
                 : Optional.empty();
     }
 
@@ -329,38 +325,38 @@ public class DriveSubsystem extends EntechSubsystem {
      * @return The turn rate of the robot, in degrees per second
      */
     public Optional<Double> getTurnRate() {
-        return enabled ? Optional.of(m_gyro.getRate() * (DrivetrainConstants.kGyroReversed ? -1.0 : 1.0))
+        return ENABLED ? Optional.of(m_gyro.getRate() * (DrivetrainConstants.kGyroReversed ? -1.0 : 1.0))
                 : Optional.empty();
     }
 
     public Optional<SwerveModule> getFrontLeftModule() {
-        return enabled ? Optional.of(m_frontLeft) : Optional.empty();
+        return ENABLED ? Optional.of(m_frontLeft) : Optional.empty();
     }
 
     public Optional<SwerveModule> getFrontRightModule() {
-        return enabled ? Optional.of(m_frontRight) : Optional.empty();
+        return ENABLED ? Optional.of(m_frontRight) : Optional.empty();
     }
 
     public Optional<SwerveModule> getRearLeftModule() {
-        return enabled ? Optional.of(m_rearLeft) : Optional.empty();
+        return ENABLED ? Optional.of(m_rearLeft) : Optional.empty();
     }
 
     public Optional<SwerveModule> getRearRightModule() {
-        return enabled ? Optional.of(m_rearRight) : Optional.empty();
+        return ENABLED ? Optional.of(m_rearRight) : Optional.empty();
     }
 
     public Optional<AHRS> getImu() {
-        return enabled ? Optional.of(m_gyro) : Optional.empty();
+        return ENABLED ? Optional.of(m_gyro) : Optional.empty();
     }
 
     @Override
     public boolean isEnabled() {
-        return enabled;
+        return ENABLED;
     }
 
     @Override
     public void initialize() {
-        if (enabled) {
+        if (ENABLED) {
             m_frontLeft = new SwerveModule(
                     RobotConstants.Ports.CAN.FRONT_LEFT_DRIVING,
                     RobotConstants.Ports.CAN.FRONT_LEFT_TURNING,

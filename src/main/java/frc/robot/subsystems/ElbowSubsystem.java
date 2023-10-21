@@ -1,13 +1,12 @@
 package frc.robot.subsystems;
 
-import org.littletonrobotics.junction.Logger;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxLimitSwitch.Type;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.ELBOW;
@@ -154,13 +153,13 @@ public class ElbowSubsystem extends EntechSubsystem {
         if (enabled) {
             positionController.update();
 
-            Logger logger = Logger.getInstance();
-            logger.recordOutput("Elbow Upper Limit", positionController.isAtUpperLimit());
-            logger.recordOutput("Elbow Lower Limit", positionController.isAtLowerLimit());
-            logger.recordOutput("Elbow Position", positionController.getActualPosition());
-            logger.recordOutput("Elbow Homed", isHomed());
-            logger.recordOutput("Elbow State", positionController.getStatusString());
-            logger.recordOutput("Elbow Req Position", positionController.getRequestedPosition());
+            SmartDashboard.putBoolean("Elbow Upper Limit", positionController.isAtUpperLimit());
+            SmartDashboard.putBoolean("Elbow Lower Limit", positionController.isAtLowerLimit());
+            SmartDashboard.putNumber("Elbow Position", positionController.getActualPosition());
+            SmartDashboard.putBoolean("Elbow Homed", isHomed());
+            SmartDashboard.putString("Elbow State", positionController.getStatusString());
+            SmartDashboard.putString("Elbow Command", getCurrentCommand().toString());
+            SmartDashboard.putNumber("Elbow Req Position", positionController.getRequestedPosition());
         }
     }
 

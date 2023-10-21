@@ -1,14 +1,12 @@
 package frc.robot.subsystems;
 
-import org.littletonrobotics.junction.Logger;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxLimitSwitch.Type;
 import com.revrobotics.SparkMaxPIDController;
 
-import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.ARM;
@@ -99,7 +97,6 @@ public class ArmSubsystem extends EntechSubsystem {
     }
 
     public void requestPosition(double requestedPosition) {
-        DriverStation.reportWarning("ARm Angle Request:" + requestedPosition, false);
         positionController.requestPosition(requestedPosition);
     }
 
@@ -160,13 +157,13 @@ public class ArmSubsystem extends EntechSubsystem {
         if (enabled) {
             positionController.update();
 
-            Logger logger = Logger.getInstance();
-            logger.recordOutput("Arm Upper Limit", positionController.isAtUpperLimit());
-            logger.recordOutput("Arm Lower Limit", positionController.isAtLowerLimit());
-            logger.recordOutput("Arm Position", positionController.getActualPosition());
-            logger.recordOutput("Arm Homed", isHomed());
-            logger.recordOutput("Arm State", positionController.getStatusString());
-            logger.recordOutput("Arm Req Position", positionController.getRequestedPosition());
+            SmartDashboard.putBoolean("Arm Upper Limit", positionController.isAtUpperLimit());
+            SmartDashboard.putBoolean("Arm Lower Limit", positionController.isAtLowerLimit());
+            SmartDashboard.putNumber("Arm Position", positionController.getActualPosition());
+            SmartDashboard.putBoolean("Arm Homed", isHomed());
+            SmartDashboard.putString("Arm State", positionController.getStatusString());
+            SmartDashboard.putString("Arm Command", getCurrentCommand().toString());
+            SmartDashboard.putNumber("Arm Req Position", positionController.getRequestedPosition());
         }
     }
 

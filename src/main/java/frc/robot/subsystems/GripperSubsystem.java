@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 
@@ -17,7 +18,7 @@ public class GripperSubsystem extends EntechSubsystem {
         return gripperState;
     }
 
-    private boolean enabled = true;
+    private static final boolean ENABLED = true;
     private final int SOLENOID_HIT_COUNT = 20;
 
     public enum GripperState {
@@ -26,8 +27,8 @@ public class GripperSubsystem extends EntechSubsystem {
 
     @Override
     public void initialize() {
-        if (enabled) {
-            gripperSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM,
+        if (ENABLED) {
+            gripperSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH,
                     RobotConstants.PNEUMATICS.GRIPPER_OPEN,
                     RobotConstants.PNEUMATICS.GRIPPER_CLOSE);
             gripperState = GripperState.kUnknown;
@@ -37,8 +38,11 @@ public class GripperSubsystem extends EntechSubsystem {
 
     @Override
     public void periodic() {
-        if (enabled) {
+        if (ENABLED) {
             handleSolenoid();
+
+            SmartDashboard.putString("Gripper Command", getCurrentCommand().toString());
+            SmartDashboard.putString("Gripper State", gripperState.toString());
         }
     }
 
@@ -56,7 +60,7 @@ public class GripperSubsystem extends EntechSubsystem {
 
     @Override
     public void initSendable(SendableBuilder builder) {
-        if (enabled) {
+        if (ENABLED) {
             builder.setSmartDashboardType(getName());
             builder.addBooleanProperty("GripperOpen", this::isOpen, this::setOpen);
         }
@@ -101,6 +105,6 @@ public class GripperSubsystem extends EntechSubsystem {
 
     @Override
     public boolean isEnabled() {
-        return enabled;
+        return ENABLED;
     }
 }

@@ -4,15 +4,9 @@
 
 package frc.robot;
 
-import org.littletonrobotics.junction.LogFileUtil;
-import org.littletonrobotics.junction.LoggedRobot;
-import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.NT4Publisher;
-import org.littletonrobotics.junction.wpilog.WPILOGReader;
-import org.littletonrobotics.junction.wpilog.WPILOGWriter;
-
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -27,37 +21,12 @@ import frc.robot.OI.OperatorInterface;
  * build.gradle file in the
  * project.
  */
-public class Robot extends LoggedRobot {
+public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
-
     private RobotContainer m_robotContainer;
-
-    private void initAdvantageKit() {
-        Logger.getInstance().recordMetadata("ProjectName", "MyProject");
-        if (isReal()) {
-            Logger.getInstance().addDataReceiver(new WPILOGWriter("/media/sda1/"));
-            Logger.getInstance().addDataReceiver(new NT4Publisher());
-        } else {
-            setUseTiming(false);
-            String logPath = LogFileUtil.findReplayLog();
-            Logger.getInstance().setReplaySource(new WPILOGReader(logPath));
-            Logger.getInstance().addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim")));
-        }
-        Logger logger = Logger.getInstance();
-        logger.recordMetadata("RuntimeType", getRuntimeType().toString());
-        logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
-        logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
-        logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
-        logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
-        logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
-
-        Logger.getInstance().start();
-    }
 
     @Override
     public void robotInit() {
-        initAdvantageKit();
-
         m_robotContainer = new RobotContainer();
         new OperatorInterface(new CommandFactory(m_robotContainer), m_robotContainer.getDriveSubsystem(),
                 m_robotContainer.getArmSubsystem(),

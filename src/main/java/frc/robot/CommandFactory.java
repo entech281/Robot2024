@@ -81,7 +81,6 @@ public class CommandFactory {
         return p;
     }
 
-    // All Arm only Commands
     public Command nudgeArmForwardCommand() {
         return new NudgeArmForwardCommand(armSubsystem, false);
     }
@@ -98,7 +97,6 @@ public class CommandFactory {
         return new PositionArmCommand(armSubsystem, RobotConstants.ARM.POSITION_PRESETS.MAX_METERS, true);
     }
 
-    // Dial Position Commands
     public Command dialCarryPosition() {
         return new SequentialCommandGroup(
                 armPositionHome(),
@@ -123,7 +121,6 @@ public class CommandFactory {
                 loadingElbowCommand());
     }
 
-    // Scoreing Commands
     public Command scoreHighCommand() {
         return new SequentialCommandGroup(
                 new ConeDeployCommand(elbowSubsystem, gripperSubsystem),
