@@ -38,6 +38,8 @@ public final class RobotConstants {
     }
 
     public static final class SwerveModuleConstants {
+        public static final double FREE_SPEED_RPM = 5676;
+
         // The MAXSwerve module can be configured with one of three pinion gears: 12T,
         // 13T, or 14T.
         // This changes the drive speed of the module (a pinion gear with more teeth
@@ -51,11 +53,9 @@ public final class RobotConstants {
         public static final boolean kTurningEncoderInverted = true;
 
         // Calculations required for driving motor conversion factors and feed forward
-        public static final double DRIVING_MOTOR_FREE_SPEED_RPS = NeoMotorConstants.FREE_SPEED_RPM / 60;
+        public static final double DRIVING_MOTOR_FREE_SPEED_RPS = FREE_SPEED_RPM / 60;
         public static final double WHEEL_DIAMETER_METERS = 0.1016;
         public static final double WHEEL_CIRCUMFERENCE_METERS = WHEEL_DIAMETER_METERS * Math.PI;
-        // 45 teeth on the wheel's bevel gear, 22 teeth on the first-stage spur gear, 15
-        // teeth on the bevel pinion
         public static final double DRIVING_MOTOR_REDUCTION = (45.0 * 17 * 50) / (kDrivingMotorPinionTeeth * 15 * 27);
         public static final double DRIVE_WHEEL_FREE_SPEED_RPS = (DRIVING_MOTOR_FREE_SPEED_RPS
                 * WHEEL_CIRCUMFERENCE_METERS) / DRIVING_MOTOR_REDUCTION;
@@ -98,10 +98,6 @@ public final class RobotConstants {
         public static final int TURNING_MOTOR_CURRENT_LIMIT_AMPS = 20; // amps
     }
 
-    public static final class NeoMotorConstants {
-        public static final double FREE_SPEED_RPM = 5676;
-    }
-
     public static interface Ports {
         public static class ANALOG {
             public static final int FRONT_LEFT_TURNING_ABSOLUTE_ENCODER = 1;
@@ -126,6 +122,7 @@ public final class RobotConstants {
         }
 
         public static class CONTROLLER {
+            public static final double JOYSTICK_AXIS_THRESHOLD = 0.2;
             public static final int JOYSTICK = 0;
             public static final int PANEL = 1;
         }
@@ -234,15 +231,11 @@ public final class RobotConstants {
             public static final double SCORE_HIGH_METERS = 0.4856;
             public static final double SAFE = 0.1;
             public static final double LOAD = 0.0079;
-            public static final double MAX_METERS = 0.50; // 0.52 max extension
-            // public static final double MIN_ARM_LENGTH_M = 0.87155;
-            // public static final double MAX_ARM_LENGTH_M = 1.45;
+            public static final double MAX_METERS = 0.50;
         }
 
-        public static final double MIN_EXTENSION_METERS = 0.9906; // 39 inches from center of robot to center of claw
-        public static final double MAX_EXTENSION_METERS = 1.4478; // 57 inches from center of robot to center of claw
-        // public static final double ARM_MAX_REACH_METERS = 0.8128; //from center of
-        // robot base!!!
+        public static final double MIN_EXTENSION_METERS = 0.9906;
+        public static final double MAX_EXTENSION_METERS = 1.4478;
     }
 
     public interface ELBOW {
@@ -296,9 +289,5 @@ public final class RobotConstants {
         public static final int GRIPPER_OPEN = 7;
         public static final int GRIPPER_CLOSE = 5;
 
-    }
-
-    public interface GAMEPAD {
-        public static final double GAMEPAD_AXIS_THRESHOLD = 0.2;
     }
 }

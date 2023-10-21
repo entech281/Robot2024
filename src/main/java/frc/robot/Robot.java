@@ -24,13 +24,14 @@ import frc.robot.OI.OperatorInterface;
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
     private RobotContainer m_robotContainer;
+    private CommandFactory m_commandFactory;
+    private OperatorInterface m_operatorInterface;
 
     @Override
     public void robotInit() {
         m_robotContainer = new RobotContainer();
-        new OperatorInterface(new CommandFactory(m_robotContainer), m_robotContainer.getDriveSubsystem(),
-                m_robotContainer.getArmSubsystem(),
-                m_robotContainer.getElbowSubsystem());
+        m_commandFactory = new CommandFactory(m_robotContainer);
+        m_operatorInterface = new OperatorInterface(m_commandFactory);
 
         Compressor c = new Compressor(PneumaticsModuleType.REVPH);
         c.enableDigital();
@@ -95,12 +96,13 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during autonomous. */
     @Override
     public void autonomousPeriodic() {
-
         updateToSmartDash();
     }
 
     @Override
     public void teleopInit() {
+        m_commandFactory.gyroResetCommand();
+        m_commandFactory.homeLimbCommand();
 
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
@@ -110,7 +112,6 @@ public class Robot extends TimedRobot {
     /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
-
         updateToSmartDash();
     }
 

@@ -2,7 +2,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import entech.commands.EntechCommandBase;
 import frc.robot.commands.ConeDeployCommand;
+import frc.robot.commands.GyroReset;
+import frc.robot.commands.HomeLimbCommand;
 import frc.robot.commands.PositionArmCommand;
 import frc.robot.commands.PositionElbowCommand;
 import frc.robot.commands.ToggleGripperCommand;
@@ -31,69 +34,77 @@ public class CommandFactory {
         this.gripperSubsystem = robotContainer.getGripperSubsystem();
     }
 
+    public EntechCommandBase gyroResetCommand() {
+        return new GyroReset(driveSubsystem);
+    }
+
+    public EntechCommandBase homeLimbCommand() {
+        return new HomeLimbCommand(elbowSubsystem, armSubsystem);
+    }
+
     // All Gripper only Commands
-    public void setDefaultGripperCommand(Command newDefaultCommand) {
+    public void setDefaultGripperCommand(EntechCommandBase newDefaultCommand) {
         gripperSubsystem.setDefaultCommand(newDefaultCommand);
     }
 
-    public Command toggleGripperCommand() {
+    public EntechCommandBase toggleGripperCommand() {
         return new ToggleGripperCommand(gripperSubsystem);
     }
 
     // All Elbow only Commands
-    public Command groundRetractedPosition() {
+    public EntechCommandBase groundRetractedPosition() {
         return new PositionElbowCommand(elbowSubsystem, 12, true);
     }
 
-    public Command highScoringElbowCommand() {
+    public EntechCommandBase highScoringElbowCommand() {
         return createNamedElbowPositionCommand(RobotConstants.ELBOW.POSITION_PRESETS.SCORE_HIGH_DEGREES,
                 "highScoringElbowCommand");
     }
 
-    public Command middleScoringElbowCommand() {
+    public EntechCommandBase middleScoringElbowCommand() {
         return createNamedElbowPositionCommand(RobotConstants.ELBOW.POSITION_PRESETS.SCORE_MIDDLE_DEGREES,
                 "middleScoringElbowCommand");
     }
 
-    public Command groundScoringElbowCommand() {
+    public EntechCommandBase groundScoringElbowCommand() {
         return createNamedElbowPositionCommand(RobotConstants.ELBOW.POSITION_PRESETS.SCORE_LOW_DEGREES,
                 "groundScoringElbowCommand");
     }
 
-    public Command loadingElbowCommand() {
+    public EntechCommandBase loadingElbowCommand() {
         return createNamedElbowPositionCommand(RobotConstants.ELBOW.POSITION_PRESETS.LOAD_STATION_DEGREES,
                 "loadingElbowCommand");
     }
 
-    public Command carryElbowCommand() {
+    public EntechCommandBase carryElbowCommand() {
         return createNamedElbowPositionCommand(RobotConstants.ELBOW.POSITION_PRESETS.CARRY_DEGREES,
                 "carryElbowCommand");
     }
 
-    public Command minElbowCommand() {
+    public EntechCommandBase minElbowCommand() {
         return createNamedElbowPositionCommand(RobotConstants.ELBOW.POSITION_PRESETS.MIN_POSITION_DEGREES,
                 "minElbowCommand");
     }
 
-    private Command createNamedElbowPositionCommand(double position, String name) {
-        Command p = new PositionElbowCommand(elbowSubsystem, position, true);
+    private EntechCommandBase createNamedElbowPositionCommand(double position, String name) {
+        EntechCommandBase p = new PositionElbowCommand(elbowSubsystem, position, true);
         p.setName(name);
         return p;
     }
 
-    public Command nudgeArmForwardCommand() {
+    public EntechCommandBase nudgeArmForwardCommand() {
         return new NudgeArmForwardCommand(armSubsystem, false);
     }
 
-    public Command nudgeArmBackwardCommand() {
+    public EntechCommandBase nudgeArmBackwardCommand() {
         return new NudgeArmBackwardsCommand(armSubsystem, false);
     }
 
-    public Command armPositionHome() {
+    public EntechCommandBase armPositionHome() {
         return new PositionArmCommand(armSubsystem, RobotConstants.ARM.POSITION_PRESETS.MIN_METERS, true);
     }
 
-    public Command armPositionFullExtension() {
+    public EntechCommandBase armPositionFullExtension() {
         return new PositionArmCommand(armSubsystem, RobotConstants.ARM.POSITION_PRESETS.MAX_METERS, true);
     }
 
@@ -127,11 +138,11 @@ public class CommandFactory {
                 dialCarryPosition());
     }
 
-    public Command nudgeElbowUpCommand() {
+    public EntechCommandBase nudgeElbowUpCommand() {
         return new NudgeElbowUpCommand(elbowSubsystem, false);
     }
 
-    public Command nudgeElbowDownCommand() {
+    public EntechCommandBase nudgeElbowDownCommand() {
         return new NudgeElbowDownCommand(elbowSubsystem, false);
     }
 }
