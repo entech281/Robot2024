@@ -173,7 +173,6 @@ public class SparkMaxPositionController implements Sendable, PositionController 
 
 	@Override
 	public void requestPosition(double requestedPosition) {
-
 		this.requestedPosition = Optional
 				.of(EntechUtils.capDoubleValue(requestedPosition, config.getMinPosition(), config.getMaxPosition()));
 		speedMode = false;

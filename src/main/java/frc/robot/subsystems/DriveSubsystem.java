@@ -62,6 +62,8 @@ public class DriveSubsystem extends EntechSubsystem {
 
     private SwerveDriveOdometry m_odometry;
 
+    Field2d field = new Field2d();
+
     /** Creates a new Drivetrain. */
     public DriveSubsystem() {
 
@@ -84,7 +86,6 @@ public class DriveSubsystem extends EntechSubsystem {
     @Override
     public void periodic() {
         if (ENABLED) {
-            Field2d field = new Field2d();
             field.setRobotPose(m_odometry.getPoseMeters());
             SmartDashboard.putData("Odometry Pose Field", field);
 
@@ -292,6 +293,7 @@ public class DriveSubsystem extends EntechSubsystem {
     public void zeroHeading() {
         if (ENABLED) {
             m_gyro.reset();
+            m_gyro.setAngleAdjustment(0);
             Pose2d pose = getPose().get();
             Pose2d pose2 = new Pose2d(pose.getTranslation(), Rotation2d.fromDegrees(180));
             resetOdometry(pose2);
@@ -403,10 +405,10 @@ public class DriveSubsystem extends EntechSubsystem {
 
             Translation2d initialTranslation = new Translation2d(Units.inchesToMeters(FIELD_LENGTH_INCHES / 2),
                     Units.inchesToMeters(FIELD_WIDTH_INCHES / 2)); // mid field
-            Rotation2d initialRotation = Rotation2d.fromDegrees(180);
+            Rotation2d initialRotation = Rotation2d.fromDegrees(0);
+            m_gyro.setAngleAdjustment(180);
             Pose2d initialPose = new Pose2d(initialTranslation, initialRotation);
             resetOdometry(initialPose);
         }
     }
-
 }

@@ -31,7 +31,7 @@ public class GripperSubsystem extends EntechSubsystem {
             gripperSolenoid = new DoubleSolenoid(PneumaticsModuleType.REVPH,
                     RobotConstants.PNEUMATICS.GRIPPER_OPEN,
                     RobotConstants.PNEUMATICS.GRIPPER_CLOSE);
-            gripperState = GripperState.kUnknown;
+            gripperState = GripperState.kClose;
         }
 
     }
@@ -41,7 +41,7 @@ public class GripperSubsystem extends EntechSubsystem {
         if (ENABLED) {
             handleSolenoid();
 
-            SmartDashboard.putString("Gripper Command", getCurrentCommand().toString());
+            // SmartDashboard.putString("Gripper Command", getCurrentCommand().toString());
             SmartDashboard.putString("Gripper State", gripperState.toString());
         }
     }

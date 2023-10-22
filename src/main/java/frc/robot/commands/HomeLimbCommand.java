@@ -29,27 +29,25 @@ public class HomeLimbCommand extends EntechCommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        elbowSubsystem.home();
-        armSubsystem.home();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        elbowSubsystem.home();
         armSubsystem.home();
+        if (armSubsystem.isAtLowerLimit())
+            elbowSubsystem.home();
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return elbowSubsystem.isHomed() && armSubsystem.isHomed();
+        return armSubsystem.isAtLowerLimit() && elbowSubsystem.isAtLowerLimit();
     }
 
     // Returns true if this command should run when robot is disabled.

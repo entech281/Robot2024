@@ -162,13 +162,18 @@ public class ArmSubsystem extends EntechSubsystem {
             SmartDashboard.putNumber("Arm Position", positionController.getActualPosition());
             SmartDashboard.putBoolean("Arm Homed", isHomed());
             SmartDashboard.putString("Arm State", positionController.getStatusString());
-            SmartDashboard.putString("Arm Command", getCurrentCommand().toString());
+            // if (getCurrentCommand() != null)
+            // SmartDashboard.putString("Arm Command", getCurrentCommand().toString());
             SmartDashboard.putNumber("Arm Req Position", positionController.getRequestedPosition());
         }
     }
 
     public boolean isArmRetracted() {
         return positionController.getActualPosition() < ARM.POSITION_PRESETS.SAFE;
+    }
+
+    public boolean isAtLowerLimit() {
+        return positionController.isAtLowerLimit();
     }
 
     // @Override

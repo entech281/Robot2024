@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import entech.commands.EntechCommandBase;
 import frc.robot.commands.ConeDeployCommand;
 import frc.robot.commands.GyroReset;
@@ -111,7 +112,7 @@ public class CommandFactory {
     public Command dialCarryPosition() {
         return new SequentialCommandGroup(
                 armPositionHome(),
-                carryElbowCommand());
+                minElbowCommand());
     }
 
     public Command dialHighPosition() {
@@ -144,5 +145,13 @@ public class CommandFactory {
 
     public EntechCommandBase nudgeElbowDownCommand() {
         return new NudgeElbowDownCommand(elbowSubsystem, false);
+    }
+
+    public Command getAutoCommand() {
+        SequentialCommandGroup auto = new SequentialCommandGroup();
+        auto.addCommands(homeLimbCommand());
+        auto.addCommands(new WaitCommand(3));
+        auto.addCommands(dialHighPosition());
+        return auto;
     }
 }

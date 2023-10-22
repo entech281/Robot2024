@@ -96,6 +96,10 @@ public class ElbowSubsystem extends EntechSubsystem {
         }
     }
 
+    public boolean isAtLowerLimit() {
+        return positionController.isAtLowerLimit();
+    }
+
     public void home() {
         positionController.home();
     }
@@ -158,7 +162,8 @@ public class ElbowSubsystem extends EntechSubsystem {
             SmartDashboard.putNumber("Elbow Position", positionController.getActualPosition());
             SmartDashboard.putBoolean("Elbow Homed", isHomed());
             SmartDashboard.putString("Elbow State", positionController.getStatusString());
-            SmartDashboard.putString("Elbow Command", getCurrentCommand().toString());
+            // if (getCurrentCommand() != null)
+            // SmartDashboard.putString("Elbow Command", getCurrentCommand().toString());
             SmartDashboard.putNumber("Elbow Req Position", positionController.getRequestedPosition());
         }
     }

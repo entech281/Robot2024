@@ -242,10 +242,10 @@ public final class RobotConstants {
         public interface SETTINGS {
             public static boolean MOTOR_REVERSED = false;
 
-            public static final double MOVE_TOLERANCE_DEGREES = 1.0;
+            public static final double MOVE_TOLERANCE_DEGREES = 2.0;
             public static final int CURRENT_LIMIT_AMPS = 30;
             public static final int MAX_SPIKE_CURRENT = 50;
-            public static final double COUNTS_PER_DEGREE = 1.95;
+            public static final double COUNTS_PER_DEGREE = (1.95 / 185.8) * 173.6;
             public static final double ELBOW_SLOWDOWN_SPEED = 0.2;
             public static final double MIDDLE_HIGH_CONE_DEPLOY_THRESHOLD = 83.0;
         }
@@ -267,16 +267,16 @@ public final class RobotConstants {
         }
 
         public interface POSITION_PRESETS {
-            public static final double MIN_POSITION_DEGREES = 12.0;
-            public static double CARRY_DEGREES = 13.192891120910645;
+            public static final double MIN_POSITION_DEGREES = 18.0;
+            public static double CARRY_DEGREES = 18.0;
             public static double SAFE_ANGLE = 35.0;
-            public static double SCORE_LOW_DEGREES = 43.0;
-            public static double SCORE_MIDDLE_DEGREES = 68.749;
-            public static double LOAD_STATION_DEGREES = 65.174;
-            public static double SCORE_HIGH_DEGREES = 79;
-            public static double SCORE_HIGH_RELEASE_DEGREES = 80.0;
-            public static double SCORE_MID_RELEASE_DEGREES = 87;
-            public static final double MAX_POSITION_DEGREES = 104.8;
+            public static double SCORE_LOW_DEGREES = 40.0;
+            public static double SCORE_MIDDLE_DEGREES = 70.749;
+            public static double LOAD_STATION_DEGREES = 67.174;
+            public static double SCORE_HIGH_DEGREES = 81;
+            public static double SCORE_HIGH_RELEASE_DEGREES = 77.0;
+            public static double SCORE_MID_RELEASE_DEGREES = 66;
+            public static final double MAX_POSITION_DEGREES = 101.8;
         }
     }
 
@@ -286,8 +286,7 @@ public final class RobotConstants {
     }
 
     public interface PNEUMATICS {
-        public static final int GRIPPER_OPEN = 7;
-        public static final int GRIPPER_CLOSE = 5;
-
+        public static final int GRIPPER_OPEN = 5;
+        public static final int GRIPPER_CLOSE = 7;
     }
 }

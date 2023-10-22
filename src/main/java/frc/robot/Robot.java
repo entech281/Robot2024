@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         m_robotContainer = new RobotContainer();
         m_commandFactory = new CommandFactory(m_robotContainer);
-        m_operatorInterface = new OperatorInterface(m_commandFactory);
+        m_operatorInterface = new OperatorInterface(m_commandFactory, m_robotContainer);
 
         Compressor c = new Compressor(PneumaticsModuleType.REVPH);
         c.enableDigital();
@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+        m_autonomousCommand = m_commandFactory.getAutoCommand();
 
         /*
          * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -101,8 +101,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        m_commandFactory.gyroResetCommand();
-        m_commandFactory.homeLimbCommand();
+        // m_commandFactory.gyroResetCommand().schedule();
+        // m_commandFactory.homeLimbCommand().schedule();
 
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
