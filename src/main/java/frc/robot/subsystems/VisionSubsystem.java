@@ -10,15 +10,12 @@ package frc.robot.subsystems;
 import java.io.IOException;
 import java.util.Optional;
 
-import org.littletonrobotics.junction.Logger;
-
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import entech.subsystems.EntechSubsystem;
-import frc.robot.Robot;
 import frc.robot.RobotConstants;
 import frc.robot.vision.CameraContainer;
 
@@ -40,7 +37,7 @@ public class VisionSubsystem extends EntechSubsystem {
             throw new RuntimeException("Could not load wpilib AprilTagFields");
         }
 
-        if (Robot.isReal() && ENABLED) {
+        if (ENABLED) {
             this.cameras = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT,
                     RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout,
                     null);
@@ -69,16 +66,15 @@ public class VisionSubsystem extends EntechSubsystem {
         if (ENABLED) {
             updateEstimatedPose();
 
-            Logger logger = Logger.getInstance();
-            Optional<Pose3d> pose = getEstimatedPose3d();
-            if (pose.isPresent())
-                logger.recordOutput("Vision estimated pose", pose.get());
-            Optional<Double> lat = getLatency();
-            if (lat.isPresent())
-                logger.recordOutput("Vision average latency", lat.get());
-            Optional<Integer> num = getNumberOfTargets();
-            if (num.isPresent())
-                logger.recordOutput("Vision number of targets", num.get());
+            // Optional<Pose3d> pose = getEstimatedPose3d();
+            // if (pose.isPresent())
+            // logger.recordOutput("Vision estimated pose", pose.get());
+            // Optional<Double> lat = getLatency();
+            // if (lat.isPresent())
+            // logger.recordOutput("Vision average latency", lat.get());
+            // Optional<Integer> num = getNumberOfTargets();
+            // if (num.isPresent())
+            // logger.recordOutput("Vision number of targets", num.get());
         }
     }
 
