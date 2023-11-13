@@ -293,11 +293,10 @@ public class DriveSubsystem extends EntechSubsystem {
     public void zeroHeading() {
         if (ENABLED) {
             m_gyro.reset();
-            m_gyro.setAngleAdjustment(0);
+            m_gyro.setAngleAdjustment(180);
             Pose2d pose = getPose().get();
-            Pose2d pose2 = new Pose2d(pose.getTranslation(), Rotation2d.fromDegrees(180));
+            Pose2d pose2 = new Pose2d(pose.getTranslation(), Rotation2d.fromDegrees(0));
             resetOdometry(pose2);
-            // m_gyro.setAngleAdjustment(180);
         }
     }
 
@@ -380,7 +379,11 @@ public class DriveSubsystem extends EntechSubsystem {
                     RobotConstants.Ports.ANALOG.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
 
             m_gyro = new AHRS(Port.kMXP);
-
+            // m_gyro.calibrate();
+            // while (m_gyro.isCalibrating()) {
+            // ;
+            // }
+            m_gyro.reset();
             m_gyro.zeroYaw();
 
             m_odometry = new SwerveDriveOdometry(
@@ -405,8 +408,8 @@ public class DriveSubsystem extends EntechSubsystem {
 
             Translation2d initialTranslation = new Translation2d(Units.inchesToMeters(FIELD_LENGTH_INCHES / 2),
                     Units.inchesToMeters(FIELD_WIDTH_INCHES / 2)); // mid field
-            Rotation2d initialRotation = Rotation2d.fromDegrees(0);
-            m_gyro.setAngleAdjustment(180);
+            Rotation2d initialRotation = Rotation2d.fromDegrees(180);
+            m_gyro.setAngleAdjustment(0);
             Pose2d initialPose = new Pose2d(initialTranslation, initialRotation);
             resetOdometry(initialPose);
         }
