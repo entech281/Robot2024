@@ -33,6 +33,8 @@ public class Robot extends TimedRobot {
         m_commandFactory = new CommandFactory(m_robotContainer);
         m_operatorInterface = new OperatorInterface(m_commandFactory, m_robotContainer);
 
+        m_robotContainer.getDriveSubsystem().getGyro().reset();
+
         Compressor c = new Compressor(PneumaticsModuleType.REVPH);
         c.enableDigital();
 

@@ -83,6 +83,10 @@ public class DriveSubsystem extends EntechSubsystem {
         return m_gyro.getAngle() + 0;
     }
 
+    public AHRS getGyro() {
+        return m_gyro;
+    }
+
     @Override
     public void periodic() {
         if (ENABLED) {
