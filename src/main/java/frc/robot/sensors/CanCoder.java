@@ -7,13 +7,12 @@ package frc.robot.sensors;
 import com.ctre.phoenix.sensors.CANCoder;
 
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.wpilibj.RobotController;
 
 /**
- * The {@code CanCoder} class contains fields and methods pertaining to the function of the absolute encoder.
+ * The {@code CanCoder} class contains fields and methods pertaining to the
+ * function of the absolute encoder.
  */
-public class CanCoder
-{
+public class CanCoder {
 	private CANCoder _canCoder;
 	private boolean inverted;
 	private double positionOffset;
@@ -30,8 +29,7 @@ public class CanCoder
 	 * @return the current raw position of the absolute encoder in radians.
 	 */
 	public double getPosition() {
-
-		return (inverted ? -1.0 : 1.0) * Units.degreesToRadians(_canCoder.getPosition());
+		return (inverted ? -1.0 : 1.0) * Units.degreesToRadians(_canCoder.getAbsolutePosition());
 	}
 
 	/**
@@ -53,7 +51,8 @@ public class CanCoder
 	}
 
 	/**
-	 * Returns the position offset between the raw position and the virtual position.
+	 * Returns the position offset between the raw position and the virtual
+	 * position.
 	 *
 	 * @return the position offset in radians.
 	 */
@@ -62,7 +61,8 @@ public class CanCoder
 	}
 
 	/**
-	 * Returns the virtual position of the absolute encoder (raw position minus offset).
+	 * Returns the virtual position of the absolute encoder (raw position minus
+	 * offset).
 	 *
 	 * @return the virtual position in radians.
 	 */
