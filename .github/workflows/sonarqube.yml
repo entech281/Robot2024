@@ -28,7 +28,7 @@ name: SonarQube analysis
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "sonarqube" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
