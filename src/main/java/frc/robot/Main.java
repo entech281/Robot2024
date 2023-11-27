@@ -24,13 +24,6 @@ public final class Main {
      * If you change your main robot class, change the parameter type.
      */
     public static void main(String... args) {
-        if (false) {
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-
-            }
-        }
         RobotBase.startRobot(Robot::new);
     }
 }
