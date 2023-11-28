@@ -30,5 +30,15 @@ jobs:
         distribution: 'temurin'
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
-        arguments: test
+        arguments:
+          test
+          jacocoTestReport
+          sonar
+          -Dsonar.projectKey=entech281_Robot2024
+          -Dsonar.organization=entech281
+          -Dsonar.host.url=http://sonarcloud.io
+
