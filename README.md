@@ -8,6 +8,9 @@ A project to experiment switching our drivetrain from tank drive to swerve.
 
 The drivetrain is composed of four MK4i Swerve Modules, each configured with two SPARKS MAX, a NEO as the driving motor, a NEO as the turning motor, and a Thrifty encoder as the absolute turning encoder.
 
+## Quality Gate
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=entech281_Robot2024&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=entech281_Robot2024)
+
 ## Prerequisites
 
 * SPARK MAX Firmware v1.6.2 - Adds features that are required for swerve
