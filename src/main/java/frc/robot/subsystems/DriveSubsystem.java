@@ -35,11 +35,6 @@ import frc.robot.swerve.SwerveUtils;
 public class DriveSubsystem extends EntechSubsystem {
     private static final boolean ENABLED = true;
 
-    public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = 2.3084534854898795;
-    public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = 1.8754174966340216;
-    public static final double REAR_LEFT_VIRTUAL_OFFSET_RADIANS = 2.6789867521760486;
-    public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = 2.467314041927964;
-
     public static final int GYRO_ORIENTATION = 1; // might be able to merge with kGyroReversed
 
     public static final double FIELD_LENGTH_INCHES = 54 * 12 + 1; // 54ft 1in
@@ -396,10 +391,11 @@ public class DriveSubsystem extends EntechSubsystem {
                             m_rearRight.getPosition()
                     });
 
-            m_frontLeft.calibrateVirtualPosition(FRONT_LEFT_VIRTUAL_OFFSET_RADIANS);
-            m_frontRight.calibrateVirtualPosition(FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS);
-            m_rearLeft.calibrateVirtualPosition(REAR_LEFT_VIRTUAL_OFFSET_RADIANS);
-            m_rearRight.calibrateVirtualPosition(REAR_RIGHT_VIRTUAL_OFFSET_RADIANS);
+            m_frontLeft.calibrateVirtualPosition(RobotConstants.DrivetrainConstants.FRONT_LEFT_VIRTUAL_OFFSET_RADIANS);
+            m_frontRight
+                    .calibrateVirtualPosition(RobotConstants.DrivetrainConstants.FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS);
+            m_rearLeft.calibrateVirtualPosition(RobotConstants.DrivetrainConstants.REAR_LEFT_VIRTUAL_OFFSET_RADIANS);
+            m_rearRight.calibrateVirtualPosition(RobotConstants.DrivetrainConstants.REAR_RIGHT_VIRTUAL_OFFSET_RADIANS);
 
             resetEncoders();
 

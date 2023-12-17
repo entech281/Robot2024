@@ -4,8 +4,9 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import java.util.Optional;
+
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,6 +22,7 @@ import frc.robot.OI.OperatorInterface;
  * build.gradle file in the
  * project.
  */
+@SuppressWarnings("unused")
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
     private RobotContainer m_robotContainer;
@@ -32,9 +34,6 @@ public class Robot extends TimedRobot {
         m_robotContainer = new RobotContainer();
         m_commandFactory = new CommandFactory(m_robotContainer);
         m_operatorInterface = new OperatorInterface(m_commandFactory, m_robotContainer);
-
-        Compressor c = new Compressor(PneumaticsModuleType.REVPH);
-        c.enableDigital();
 
         SmartDashboard.putData("Swerve Odometry", m_robotContainer.getField());
     }
@@ -80,20 +79,12 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
         m_autonomousCommand = m_commandFactory.getAutoCommand();
 
-        /*
-         * String autoSelected = SmartDashboard.getString("Auto Selector",
-         * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-         * = new MyAutoCommand(); break; case "Default Auto": default:
-         * autonomousCommand = new ExampleCommand(); break; }
-         */
-
         // schedule the autonomous command (example)
         if (m_autonomousCommand != null) {
             m_autonomousCommand.schedule();
         }
     }
 
-    /** This function is called periodically during autonomous. */
     @Override
     public void autonomousPeriodic() {
         updateToSmartDash();
@@ -101,9 +92,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-        // m_commandFactory.gyroResetCommand().schedule();
-        // m_commandFactory.homeLimbCommand().schedule();
-
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
@@ -116,67 +104,10 @@ public class Robot extends TimedRobot {
     }
 
     public void updateToSmartDash() {
-        // SmartDashboard.putNumber("FrontLeftDrivingEncoderPosition",
-        // m_robotContainer.getDrivetrain().getFrontLeftModule().getDrivingEncoder().getPosition());
-        // SmartDashboard.putNumber("FrontLeftTurningEncoderPosition",
-        // m_robotContainer.getDrivetrain().getFrontLeftModule().getTurningEncoder().getPosition());
-
-        // SmartDashboard.putNumber("RearLeftDrivingEncoderPosition",
-        // m_robotContainer.getDrivetrain().getRearLeftModule().getDrivingEncoder().getPosition());
-        // SmartDashboard.putNumber("RearLeftTurningEncoderPosition",
-        // m_robotContainer.getDrivetrain().getRearLeftModule().getTurningEncoder().getPosition());
-
-        // SmartDashboard.putNumber("FrontRightDrivingEncoderPosition",
-        // m_robotContainer.getDrivetrain().getFrontRightModule().getDrivingEncoder().getPosition());
-        // SmartDashboard.putNumber("FrontRightTurningEncoderPosition",
-        // m_robotContainer.getDrivetrain().getFrontRightModule().getTurningEncoder().getPosition());
-
-        // SmartDashboard.putNumber("RearRightDrivingEncoderPosition",
-        // m_robotContainer.getDrivetrain().getRearRightModule().getDrivingEncoder().getPosition());
-        // SmartDashboard.putNumber("RearRightTurningEncoderPosition",
-        // m_robotContainer.getDrivetrain().getRearRightModule().getTurningEncoder().getPosition());
-
-        // SmartDashboard.putNumber("FrontLeftTurningAbsoluteEncoderPosition",
-        // m_robotContainer.getDrivetrain().getFrontLeftModule().getTurningAbsoluteEncoder().getPosition());
-        // SmartDashboard.putNumber("RearLeftTurningAbsoluteEncoderPosition",
-        // m_robotContainer.getDrivetrain().getRearLeftModule().getTurningAbsoluteEncoder().getPosition());
-        // SmartDashboard.putNumber("FrontRightTurningAbsoluteEncoderPosition",
-        // m_robotContainer.getDrivetrain().getFrontRightModule().getTurningAbsoluteEncoder().getPosition());
-        // SmartDashboard.putNumber("RearRightTurningAbsoluteEncoderPosition",
-        // m_robotContainer.getDrivetrain().getRearRightModule().getTurningAbsoluteEncoder().getPosition());
-
-        // SmartDashboard.putNumber("FrontLeftTurningAbsoluteEncoderVirtualPosition",
-        // m_robotContainer.getDrivetrain().getFrontLeftModule().getTurningAbsoluteEncoder().getVirtualPosition());
-        // SmartDashboard.putNumber("RearLeftTurningAbsoluteEncoderVirtualPosition",
-        // m_robotContainer.getDrivetrain().getRearLeftModule().getTurningAbsoluteEncoder().getVirtualPosition());
-        // SmartDashboard.putNumber("FrontRightTurningAbsoluteEncoderVirtualPosition",
-        // m_robotContainer.getDrivetrain()
-        // .getFrontRightModule().getTurningAbsoluteEncoder().getVirtualPosition());
-        // SmartDashboard.putNumber("RearRightTurningAbsoluteEncoderVirtualPosition",
-        // m_robotContainer.getDrivetrain().getRearRightModule().getTurningAbsoluteEncoder().getVirtualPosition());
-
-        // SmartDashboard.putNumber("FrontLeftTurningDesiredState",
-        // m_robotContainer.getDrivetrain().getFrontLeftModule().getDesiredState().angle.getRadians());
-        // SmartDashboard.putNumber("RearLeftTurningDesiredState",
-        // m_robotContainer.getDrivetrain().getRearLeftModule().getDesiredState().angle.getRadians());
-        // SmartDashboard.putNumber("FrontRightTurningDesiredState",
-        // m_robotContainer.getDrivetrain().getFrontRightModule().getDesiredState().angle.getRadians());
-        // SmartDashboard.putNumber("RearRightTurningDesiredState",
-        // m_robotContainer.getDrivetrain().getRearRightModule().getDesiredState().angle.getRadians());
-
-        /* Display 6-axis Processed Angle Data */
-        // SmartDashboard.putBoolean("IMU_Connected",
-        // m_robotContainer.getDrivetrain().getImu().isConnected());
-        // SmartDashboard.putBoolean("IMU_IsCalibrating",
-        // m_robotContainer.getDrivetrain().getImu().isCalibrating());
-        // SmartDashboard.putNumber("IMU_Yaw",
-        // m_robotContainer.getDrivetrain().getImu().getYaw());
-        // SmartDashboard.putNumber("IMU_Pitch",
-        // m_robotContainer.getDrivetrain().getImu().getPitch());
-        // SmartDashboard.putNumber("IMU_Roll",
-        // m_robotContainer.getDrivetrain().getImu().getRoll());
-
-        // m_robotContainer.getField().setRobotPose(m_robotContainer.getDrivetrain().getPose());
+        Optional<Pose2d> pose = m_robotContainer.getDriveSubsystem().getPose();
+        if (pose.isPresent()) {
+            m_robotContainer.getField().setRobotPose(pose.get());
+        }
     }
 
     @Override
