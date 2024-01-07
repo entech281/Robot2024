@@ -9,6 +9,7 @@ import frc.robot.controllers.SparkMaxPositionController.HomingState;
  * @author davec
  *
  */
+@SuppressWarnings("unused")
 public class MockPositionController implements PositionController{
 
 	public static final double POSITION_UNKNOWN = 999;

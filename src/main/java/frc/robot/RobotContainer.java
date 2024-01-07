@@ -15,10 +15,7 @@ import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import frc.robot.RobotConstants.DrivetrainConstants;
-import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ElbowSubsystem;
-import frc.robot.subsystems.GripperSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
 /*
@@ -27,6 +24,7 @@ import frc.robot.subsystems.VisionSubsystem;
  * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
  * (including subsystems, commands, and button mappings) should be declared here.
  */
+@SuppressWarnings("unused")
 public class RobotContainer {
 
     public static final double GAMEPAD_AXIS_THRESHOLD = 0.2;
@@ -39,9 +37,6 @@ public class RobotContainer {
 
     private final DriveSubsystem driveSubsystem = new DriveSubsystem();
     private final VisionSubsystem visionSubsystem = new VisionSubsystem();
-    private final ElbowSubsystem elbowSubsystem = new ElbowSubsystem();
-    private final ArmSubsystem armSubsystem = new ArmSubsystem();
-    private final GripperSubsystem gripperSubsystem = new GripperSubsystem();
 
     private final Field2d field = new Field2d(); // a representation of the field
 
@@ -56,10 +51,6 @@ public class RobotContainer {
     public RobotContainer() {
         driveSubsystem.initialize();
         visionSubsystem.initialize();
-        armSubsystem.initialize();
-        elbowSubsystem.initialize();
-        gripperSubsystem.initialize();
-
     }
 
     public TrajectoryConfig createTrajectoryConfig() {
@@ -87,18 +78,6 @@ public class RobotContainer {
 
     public DriveSubsystem getDriveSubsystem() {
         return driveSubsystem;
-    }
-
-    public ArmSubsystem getArmSubsystem() {
-        return armSubsystem;
-    }
-
-    public ElbowSubsystem getElbowSubsystem() {
-        return elbowSubsystem;
-    }
-
-    public GripperSubsystem getGripperSubsystem() {
-        return gripperSubsystem;
     }
 
     public VisionSubsystem getVisionSubsystem() {

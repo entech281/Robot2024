@@ -1,13 +1,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
-import entech.commands.EntechCommandBase;
+import entech.commands.EntechCommand;
 import entech.util.EntechJoystick;
 import frc.robot.RobotConstants;
 import frc.robot.OI.UserPolicy;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class DriveCommand extends EntechCommandBase {
+public class DriveCommand extends EntechCommand {
     private static final double MAX_SPEED_PERCENT = 1;
 
     private final DriveSubsystem drive;

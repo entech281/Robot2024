@@ -1,9 +1,9 @@
 package frc.robot.commands;
 
-import entech.commands.EntechCommandBase;
+import entech.commands.EntechCommand;
 import frc.robot.OI.UserPolicy;
 
-public class XCommand extends EntechCommandBase {
+public class XCommand extends EntechCommand {
     public XCommand() {
 
     }
