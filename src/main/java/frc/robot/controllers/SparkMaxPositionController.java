@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxLimitSwitch;
+import com.revrobotics.SparkLimitSwitch;
 
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
@@ -47,14 +47,14 @@ public class SparkMaxPositionController implements Sendable, PositionController 
 
 	private PositionControllerConfig config;
 	private RelativeEncoder encoder;
-	private SparkMaxLimitSwitch lowerLimit;
+	private SparkLimitSwitch lowerLimit;
 	private Optional<Double> requestedPosition = Optional.empty();
-	private SparkMaxLimitSwitch upperLimit;
+	private SparkLimitSwitch upperLimit;
 	private boolean speedMode = false;
 
 	public SparkMaxPositionController(CANSparkMax spark, PositionControllerConfig config,
-			SparkMaxLimitSwitch lowerLimit,
-			SparkMaxLimitSwitch upperLimit, RelativeEncoder encoder) {
+			SparkLimitSwitch lowerLimit,
+			SparkLimitSwitch upperLimit, RelativeEncoder encoder) {
 		this.spark = spark;
 
 		if (config.isInverted()) {

@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -21,6 +19,7 @@ import frc.robot.OI.OperatorInterface;
  * build.gradle file in the
  * project.
  */
+@SuppressWarnings("unused")
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
     private RobotContainer m_robotContainer;
@@ -32,9 +31,6 @@ public class Robot extends TimedRobot {
         m_robotContainer = new RobotContainer();
         m_commandFactory = new CommandFactory(m_robotContainer);
         m_operatorInterface = new OperatorInterface(m_commandFactory, m_robotContainer);
-
-        Compressor c = new Compressor(PneumaticsModuleType.REVPH);
-        c.enableDigital();
 
         SmartDashboard.putData("Swerve Odometry", m_robotContainer.getField());
     }

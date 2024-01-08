@@ -2,7 +2,7 @@ package frc.robot.sensors;
 
 import edu.wpi.first.math.filter.LinearFilter;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
-import edu.wpi.first.wpilibj.interfaces.Accelerometer;
+import edu.wpi.first.wpilibj.BuiltInAccelerometer.Range;
 
 /**
  * The {@code HMAccelerometer} class contains fields and methods pertaining to
@@ -18,7 +18,7 @@ public class HMAccelerometer {
     private LinearFilter filterAR;
 
     public HMAccelerometer() {
-        accel = new BuiltInAccelerometer(Accelerometer.Range.k4G);
+        accel = new BuiltInAccelerometer(Range.k4G);
 
         filterZ = LinearFilter.movingAverage(5); // filter over n iterations
         filterAR = LinearFilter.movingAverage(5); // filter over n iterations

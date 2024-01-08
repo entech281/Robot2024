@@ -10,7 +10,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMaxLimitSwitch;
+import com.revrobotics.SparkLimitSwitch;
 
 import frc.robot.controllers.SparkMaxPositionController.HomingState;
 
@@ -39,8 +39,8 @@ public class TestSparkMaxPositionController {
 
         mockMotor = mock(CANSparkMax.class, Mockito.RETURNS_DEEP_STUBS);
 
-        SparkMaxLimitSwitch lowerLimit = mock(SparkMaxLimitSwitch.class);
-        SparkMaxLimitSwitch upperLimit = mock(SparkMaxLimitSwitch.class);
+        SparkLimitSwitch lowerLimit = mock(SparkLimitSwitch.class);
+        SparkLimitSwitch upperLimit = mock(SparkLimitSwitch.class);
 
         when(lowerLimit.isPressed()).thenAnswer(new Answer<Boolean>() {
 
@@ -73,8 +73,8 @@ public class TestSparkMaxPositionController {
 
         CANSparkMax mockMotor2 = mock(CANSparkMax.class, Mockito.RETURNS_DEEP_STUBS);
 
-        SparkMaxLimitSwitch lowerLimit = mock(SparkMaxLimitSwitch.class);
-        SparkMaxLimitSwitch upperLimit = mock(SparkMaxLimitSwitch.class);
+        SparkLimitSwitch lowerLimit = mock(SparkLimitSwitch.class);
+        SparkLimitSwitch upperLimit = mock(SparkLimitSwitch.class);
 
         when(lowerLimit.isPressed()).thenAnswer(new Answer<Boolean>() {
             @Override

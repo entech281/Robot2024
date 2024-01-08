@@ -1,6 +1,6 @@
 package frc.robot;
 
-import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
@@ -116,9 +116,6 @@ public final class RobotConstants {
             public static final int REAR_LEFT_TURNING = 5;
             public static final int FRONT_RIGHT_TURNING = 22;
             public static final int REAR_RIGHT_TURNING = 3;
-
-            public static final int ELBOW_MOTOR_ID = 50;
-            public static final int TELESCOPE_MOTOR_ID = 51;
         }
 
         public static class CONTROLLER {
@@ -129,16 +126,6 @@ public final class RobotConstants {
     }
 
     public interface OPERATOR_PANEL {
-        public static final int GRIPPER = 1;
-        public static final int PIVOT_UP = 2;
-        public static final int PIVOT_DOWN = 3;
-        public static final int AUTO = 4;
-        public static final int TELESCOPE_OUT = 5;
-        public static final int TELESCOPE_IN = 6;
-        public static final int ARM_OFF = 10;
-        public static final int ARM_LOAD = 8;
-        public static final int ARM_HIGH = 9;
-        public static final int ARM_MIDDLE = 11;
     }
 
     public static interface Vision {
@@ -202,91 +189,8 @@ public final class RobotConstants {
                 MAX_ANGULAR_SPEED_RADIANS_PER_SECOND, MAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED);
     }
 
-    public interface ARM {
-        public interface SETTINGS {
-            public static boolean MOTOR_REVERSED = true;
-            public static final double MOVE_TOLERANCE_METERS = 0.012;
-            public static final int CURRENT_LIMIT_AMPS = 8;
-            public static final int MAX_SPIKE_CURRENT = 12;
-            public static final double COUNTS_PER_METER = 0.004826;
-
-        }
-
-        public interface HOMING {
-            public static final double HOMING_SPEED_PERCENT = 0.2;
-            public static final double HOMING_SPEED_VELOCITY = 5.0; // we think this is 'arm meters per minute'
-            public static final int HOMING_CURRENT_AMPS = 7;
-        }
-
-        public interface TUNING {
-            public static final double P_GAIN = 16.0;
-            public static final double I_GAIN = 0.0;
-            public static final double D_GAIN = 0.0;
-        }
-
-        public interface POSITION_PRESETS {
-            public static final double MIN_METERS = 0.005;
-            public static final double CARRY_METERS = 0.1;
-            public static final double SCORE_MIDDLE_METERS = 0.1657;
-            public static final double SCORE_HIGH_METERS = 0.4856;
-            public static final double SAFE = 0.1;
-            public static final double LOAD = 0.0079;
-            public static final double MAX_METERS = 0.50;
-        }
-
-        public static final double MIN_EXTENSION_METERS = 0.9906;
-        public static final double MAX_EXTENSION_METERS = 1.4478;
-    }
-
-    public interface ELBOW {
-        public interface SETTINGS {
-            public static boolean MOTOR_REVERSED = false;
-
-            public static final double MOVE_TOLERANCE_DEGREES = 2.0;
-            public static final int CURRENT_LIMIT_AMPS = 30;
-            public static final int MAX_SPIKE_CURRENT = 50;
-            public static final double COUNTS_PER_DEGREE = (1.95 / 185.8) * 173.6;
-            public static final double ELBOW_SLOWDOWN_SPEED = 0.2;
-            public static final double MIDDLE_HIGH_CONE_DEPLOY_THRESHOLD = 83.0;
-        }
-
-        public interface HOMING {
-            public static final double HOMING_SPEED_PERCENT = 0.2;
-            public static final double HOMING_SPEED_VELOCITY = 5.0; // we think this is 'elbow degrees per minute'
-            public static final int HOMING_CURRENT_AMPS = 7;
-        }
-
-        public interface TUNING {
-
-            public static final double P_GAIN = 0.04;
-            public static final double FF_GAIN_GOING_UP = 0.00;
-            public static final double FF_GAIN_GOING_DOWN = 0.0;
-            public static final double I_GAIN = 0.000;
-            public static final double D_GAIN = 0.0;
-
-        }
-
-        public interface POSITION_PRESETS {
-            public static final double MIN_POSITION_DEGREES = 18.0;
-            public static double CARRY_DEGREES = 18.0;
-            public static double SAFE_ANGLE = 35.0;
-            public static double SCORE_LOW_DEGREES = 40.0;
-            public static double SCORE_MIDDLE_DEGREES = 70.749;
-            public static double LOAD_STATION_DEGREES = 67.174;
-            public static double SCORE_HIGH_DEGREES = 81;
-            public static double SCORE_HIGH_RELEASE_DEGREES = 77.0;
-            public static double SCORE_MID_RELEASE_DEGREES = 66;
-            public static final double MAX_POSITION_DEGREES = 101.8;
-        }
-    }
-
     public interface INDICATOR_VALUES {
         public static final double POSITION_UNKNOWN = -1.0;
         public static final double POSITION_NOT_SET = -1.1;
-    }
-
-    public interface PNEUMATICS {
-        public static final int GRIPPER_OPEN = 5;
-        public static final int GRIPPER_CLOSE = 7;
     }
 }

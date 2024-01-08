@@ -25,9 +25,5 @@
       }
     },
   ],
-  "java.test.defaultConfig": "WPIlibUnitTests",
-  "java.project.sourcePaths": [
-    "src\\main\\java",
-    "src\\test\\java"
-  ]
+  "java.test.defaultConfig": "WPIlibUnitTests"
 }
