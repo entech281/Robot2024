@@ -1,5 +1,3 @@
-
-
 ## Description
 
 FRC 281, Entech robotics 2024 robot code to compete in the Crescendo game.
