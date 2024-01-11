@@ -52,8 +52,8 @@ public class EntechRelativeEncoder implements RelativeEncoder {
         return encoder.getAverageDepth();
     }
 
-    public REVLibError setMeasurementPeriod(int period_ms) {
-        return encoder.setMeasurementPeriod(period_ms);
+    public REVLibError setMeasurementPeriod(int periodMS) {
+        return encoder.setMeasurementPeriod(periodMS);
     }
 
     public int getMeasurementPeriod() {

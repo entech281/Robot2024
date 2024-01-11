@@ -27,7 +27,7 @@ public class EntechCommand extends Command {
         addRequirements(subsystem1, subsystem2,subsystem3);
     }    
     
-    public EntechCommand(EntechSubsystem subsystem, double timeout) {
+    public EntechCommand(EntechSubsystem subsystem, double DEFAULT_TIMEOUT_SECONDS) {
         addRequirements(subsystem);
     }
 }
