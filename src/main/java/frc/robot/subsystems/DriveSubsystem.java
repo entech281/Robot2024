@@ -296,8 +296,10 @@ public class DriveSubsystem extends EntechSubsystem {
     }
 
     public void addVisionData(VisionDataPacket data) {
-        if (data.getEstimatedPose().isPresent() && data.getTimeStamp().isPresent()) {
-            odometry.addVisionMeasurement(data.getEstimatedPose().get(), data.getTimeStamp().get());
+        Optional<Pose2d> pose = data.getEstimatedPose();
+        Optional<Double> timeStamp = data.getTimeStamp();
+        if (pose.isPresent() && timeStamp.isPresent()) {
+            odometry.addVisionMeasurement(pose.get(), timeStamp.get());
         }
     }
 

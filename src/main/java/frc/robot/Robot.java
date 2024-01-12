@@ -38,11 +38,8 @@ public class Robot extends TimedRobot {
     }
 
     @Override
-    public void disabledInit() {
-    }
-
-    @Override
     public void disabledPeriodic() {
+        subsystemManager.periodic();
     }
 
     @Override
@@ -56,6 +53,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousPeriodic() {
+        subsystemManager.periodic();
     }
 
     @Override
@@ -67,15 +65,12 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
+        subsystemManager.periodic();
     }
 
     @Override
     public void testInit() {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
-    }
-
-    @Override
-    public void testPeriodic() {
     }
 }
