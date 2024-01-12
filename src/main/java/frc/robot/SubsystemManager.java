@@ -33,7 +33,7 @@ public class SubsystemManager {
     public void periodic() {
         Optional<VisionDataPacket> visionData = visionSubsystem.getData();
         if (visionData.isPresent()) {
-            driveSubsystem.addVisionData(visionSubsystem.getData().get());
+            driveSubsystem.addVisionData(visionData.get());
         }
     }
 }
