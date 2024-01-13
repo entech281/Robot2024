@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public abstract class EntechSubsystem extends SubsystemBase {
 
-    public EntechSubsystem() {        
+    protected EntechSubsystem() {        
     }
 	public abstract void initialize();
 	public abstract boolean isEnabled();

@@ -44,20 +44,28 @@ public class CameraContainer {
         PhotonPipelineResult result = camera.getLatestResult();
 
         List<PhotonTrackedTarget> filteredTargets = new ArrayList<PhotonTrackedTarget>();
+        
 
         for (PhotonTrackedTarget target : result.getTargets()) {
-            if (target.getPoseAmbiguity() > RobotConstants.Vision.Filters.MAX_AMBIGUITY)
+            if (target.getPoseAmbiguity() > RobotConstants.Vision.Filters.MAX_AMBIGUITY){
+                System.out.println("too ambiguous");
                 continue;
-            if (target.getArea() < RobotConstants.Vision.Filters.MIN_AREA)
+            }
+            if (target.getArea() < RobotConstants.Vision.Filters.MIN_AREA){
+                System.out.println("small area");
                 continue;
-            if (Math.abs(target.getBestCameraToTarget().getX()) > RobotConstants.Vision.Filters.MAX_DISTANCE)
+            }
+            if (Math.abs(target.getBestCameraToTarget().getX()) > RobotConstants.Vision.Filters.MAX_DISTANCE){
+                System.out.println("bad x");
                 continue;
-
+            }
             filteredTargets.add(target);
         }
 
         PhotonPipelineResult fliteredResult = new PhotonPipelineResult(result.getLatencyMillis(), filteredTargets);
         fliteredResult.setTimestampSeconds(result.getTimestampSeconds());
+
+        System.out.println("camera name: " + this.camera.getName() + " length: " + filteredTargets.size());
 
         return fliteredResult;
     }

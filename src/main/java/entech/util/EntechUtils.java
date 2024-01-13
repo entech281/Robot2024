@@ -12,6 +12,11 @@ public final class EntechUtils {
      * @param limit2 limit value 2
      * @return
      */
+
+    private EntechUtils() {
+        throw new IllegalStateException("utility class");
+    }
+
     public static double capDoubleValue(double value, double limit1, double limit2) {
         return Math.max(Math.min(limit1, limit2), Math.min(Math.max(limit1, limit2), value));
     }

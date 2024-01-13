@@ -163,9 +163,9 @@ public class SwerveModule {
         } else {
             // Command driving and turning SPARKS MAX towards their respective setpoints.
             m_drivingPIDController.setReference(optimizedDesiredState.speedMetersPerSecond,
-                    CANSparkMax.ControlType.kVelocity);
+                    com.revrobotics.CANSparkMax.ControlType.kVelocity);
             m_turningPIDController.setReference(optimizedDesiredState.angle.getRadians(),
-                    CANSparkMax.ControlType.kPosition);
+                    com.revrobotics.CANSparkMax.ControlType.kPosition);
         }
 
         m_desiredState = desiredState;

@@ -12,6 +12,11 @@ public class SwerveUtils {
      * @return The new value for {@code _current} after performing the specified
      *         step towards the specified target.
      */
+
+    private SwerveUtils() {
+        throw new IllegalStateException("utility class");
+    }
+
     public static double StepTowards(double _current, double _target, double _stepsize) {
         if (Math.abs(_current - _target) <= _stepsize) {
             return _target;

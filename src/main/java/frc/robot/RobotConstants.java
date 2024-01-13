@@ -34,10 +34,15 @@ public final class RobotConstants {
                 new Translation2d(-WHEEL_BASE_METERS / 2, TRACK_WIDTH_METERS / 2),
                 new Translation2d(-WHEEL_BASE_METERS / 2, -TRACK_WIDTH_METERS / 2));
 
-        public static final boolean kGyroReversed = false;
+        public static final boolean K_GYRO_REVERSED = false;
     }
 
     public static final class SwerveModuleConstants {
+
+        private SwerveModuleConstants() {
+            throw new IllegalStateException("utility class");
+        }
+
         public static final double FREE_SPEED_RPM = 5676;
 
         // The MAXSwerve module can be configured with one of three pinion gears: 12T,
@@ -45,18 +50,18 @@ public final class RobotConstants {
         // This changes the drive speed of the module (a pinion gear with more teeth
         // will result in a
         // robot that drives faster).
-        public static final int kDrivingMotorPinionTeeth = 14;
+        public static final int K_DRIVING_MOTOR_PINION_TEETH = 14;
 
         // Invert the turning encoder, since the output shaft rotates in the opposite
         // direction of
         // the steering motor in the MAXSwerve Module.
-        public static final boolean kTurningEncoderInverted = true;
+        public static final boolean K_TURNING_ENCODER_INVERTED = true;
 
         // Calculations required for driving motor conversion factors and feed forward
         public static final double DRIVING_MOTOR_FREE_SPEED_RPS = FREE_SPEED_RPM / 60;
         public static final double WHEEL_DIAMETER_METERS = 0.1016;
         public static final double WHEEL_CIRCUMFERENCE_METERS = WHEEL_DIAMETER_METERS * Math.PI;
-        public static final double DRIVING_MOTOR_REDUCTION = (45.0 * 17 * 50) / (kDrivingMotorPinionTeeth * 15 * 27);
+        public static final double DRIVING_MOTOR_REDUCTION = (45.0 * 17 * 50) / (K_DRIVING_MOTOR_PINION_TEETH * 15 * 27);
         public static final double DRIVE_WHEEL_FREE_SPEED_RPS = (DRIVING_MOTOR_FREE_SPEED_RPS
                 * WHEEL_CIRCUMFERENCE_METERS) / DRIVING_MOTOR_REDUCTION;
 
@@ -100,6 +105,11 @@ public final class RobotConstants {
 
     public static interface Ports {
         public static class ANALOG {
+
+            private ANALOG() {
+                throw new IllegalStateException("utility class");
+            }
+
             public static final int FRONT_LEFT_TURNING_ABSOLUTE_ENCODER = 1;
             public static final int REAR_LEFT_TURNING_ABSOLUTE_ENCODER = 2;
             public static final int FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER = 0;
@@ -107,6 +117,11 @@ public final class RobotConstants {
         }
 
         public static class CAN {
+
+            private CAN() {
+                throw new IllegalStateException("utility class");
+            }
+
             public static final int FRONT_LEFT_DRIVING = 10;
             public static final int REAR_LEFT_DRIVING = 6;
             public static final int FRONT_RIGHT_DRIVING = 21;
@@ -122,6 +137,11 @@ public final class RobotConstants {
         }
 
         public static class CONTROLLER {
+
+            private CONTROLLER() {
+                throw new IllegalStateException("utility class");
+            }
+
             public static final double JOYSTICK_AXIS_THRESHOLD = 0.2;
             public static final int JOYSTICK = 0;
             public static final int PANEL = 1;

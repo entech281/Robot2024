@@ -330,7 +330,7 @@ public class DriveSubsystem extends EntechSubsystem {
      * @return The turn rate of the robot, in degrees per second
      */
     public Optional<Double> getTurnRate() {
-        return ENABLED ? Optional.of(m_gyro.getRate() * (DrivetrainConstants.kGyroReversed ? -1.0 : 1.0))
+        return ENABLED ? Optional.of(m_gyro.getRate() * (DrivetrainConstants.K_GYRO_REVERSED ? -1.0 : 1.0))
                 : Optional.empty();
     }
 

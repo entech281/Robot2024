@@ -23,6 +23,10 @@ public final class EntechGeometryUtils {
      * 
      * @return Average Pose
      */
+    private EntechGeometryUtils() {
+        throw new IllegalStateException("utility class");
+    }
+
     public static Pose3d averagePose3d(Pose3d poseA, Pose3d poseB) {
         Rotation3d rotation = new Rotation3d(
             (poseA.getRotation().getX() + poseB.getRotation().getX()) / 2,
