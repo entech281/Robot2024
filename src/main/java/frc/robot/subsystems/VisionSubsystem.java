@@ -31,7 +31,7 @@ public class VisionSubsystem extends EntechSubsystem {
 
     private Pose3d estimatedPose;
     private double timeStamp = -1;
-    private List<PhotonTrackedTarget> targets = new ArrayList<PhotonTrackedTarget>();
+    private List<PhotonTrackedTarget> targets = new ArrayList<>();
 
     @Override
     public void initialize() {
