@@ -53,7 +53,6 @@ public class DriveSubsystem extends EntechSubsystem {
 
     private AHRS gyro;
 
-    private double currentRotation = 0.0;
     private double currentTranslationDir = 0.0;
     private double currentTranslationMag = 0.0;
 
@@ -162,6 +161,7 @@ public class DriveSubsystem extends EntechSubsystem {
         if (ENABLED) {
             double xSpeedCommanded;
             double ySpeedCommanded;
+            double currentRotation;
 
             if (rateLimit) {
                 // Convert XY to polar for rate limiting
