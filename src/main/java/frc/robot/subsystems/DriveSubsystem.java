@@ -130,7 +130,7 @@ public class DriveSubsystem extends EntechSubsystem {
 
     private ChassisSpeeds getChassisSpeeds() {
         double radiansPerSecond = Units.degreesToRadians(gyro.getRate());
-        return ChassisSpeeds.fromFieldRelativeSpeeds((double) gyro.getVelocityX(), (double) gyro.getVelocityY(), radiansPerSecond, gyro.getRotation2d());
+        return ChassisSpeeds.fromFieldRelativeSpeeds(gyro.getVelocityX(), gyro.getVelocityY(), radiansPerSecond, gyro.getRotation2d());
     }
 
     /**
