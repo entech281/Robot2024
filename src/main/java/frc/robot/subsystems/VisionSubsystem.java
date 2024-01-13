@@ -35,13 +35,11 @@ public class VisionSubsystem extends EntechSubsystem {
 
     @Override
     public void initialize() {
-        
-
         if (ENABLED) {
             AprilTagFieldLayout photonAprilTagFieldLayout;
             try {
                 photonAprilTagFieldLayout = AprilTagFieldLayout
-                        .loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
+                        .loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
             } catch (IOException e) {
                 throw new RuntimeException("Could not load wpilib AprilTagFields");
             }
