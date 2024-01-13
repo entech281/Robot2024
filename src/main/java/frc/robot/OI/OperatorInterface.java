@@ -5,6 +5,7 @@ import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.GyroReset;
 import frc.robot.commands.TwistCommand;
 import frc.robot.commands.XCommand;
 
@@ -22,7 +23,7 @@ public final class OperatorInterface {
      */
     public static void create(CommandFactory commandFactory, SubsystemManager subsystemManager) {
         driveJoystick.WhilePressed(1, new TwistCommand());
-        driveJoystick.WhenPressed(11, commandFactory.gyroResetCommand());
+        driveJoystick.WhenPressed(11, new GyroReset(subsystemManager.getDriveSubsystem()));
         driveJoystick.WhenPressed(9, new XCommand());
         subsystemManager.getDriveSubsystem()
                 .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), driveJoystick));
