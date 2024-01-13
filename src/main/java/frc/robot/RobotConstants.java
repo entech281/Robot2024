@@ -188,7 +188,7 @@ public final class RobotConstants {
                 MAX_ANGULAR_SPEED_RADIANS_PER_SECOND, MAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED);
 
         public final class StartingLocations {
-            public static final Pose2d FRONT_OF_SUBWOOFER = new Pose2d(1.32, 5.53, Rotation2d.fromDegrees(180));
+            public static final Pose2d FRONT_OF_SUBWOOFER = new Pose2d(2.3, 5.6, Rotation2d.fromDegrees(180));
         }
     }
 
