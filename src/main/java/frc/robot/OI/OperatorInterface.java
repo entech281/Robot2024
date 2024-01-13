@@ -3,22 +3,32 @@ package frc.robot.OI;
 import entech.util.EntechJoystick;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
-import frc.robot.RobotContainer;
+import frc.robot.SubsystemManager;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.GyroReset;
 import frc.robot.commands.TwistCommand;
 import frc.robot.commands.XCommand;
 
 @SuppressWarnings("unused")
-public class OperatorInterface {
+public final class OperatorInterface {
+    private static final EntechJoystick driveJoystick = new EntechJoystick(RobotConstants.Ports.CONTROLLER.JOYSTICK);
+    private static final EntechJoystick operatorPanel = new EntechJoystick(RobotConstants.Ports.CONTROLLER.PANEL);
 
-        private final EntechJoystick driveJoystick = new EntechJoystick(RobotConstants.Ports.CONTROLLER.JOYSTICK);
-        private final EntechJoystick operatorPanel = new EntechJoystick(RobotConstants.Ports.CONTROLLER.PANEL);
+    /**
+     * Connects commands to operator panel and joystick.
+     * 
+     * 
+     * @param commandFactory
+     * @param subsystemManager
+     */
+    public static void create(CommandFactory commandFactory, SubsystemManager subsystemManager) {
+        driveJoystick.WhilePressed(1, new TwistCommand());
+        driveJoystick.WhenPressed(11, new GyroReset(subsystemManager.getDriveSubsystem()));
+        driveJoystick.WhenPressed(9, new XCommand());
+        subsystemManager.getDriveSubsystem()
+                .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), driveJoystick));
+    }
 
-        public OperatorInterface(CommandFactory commandFactory, RobotContainer robotContainer) {
-                driveJoystick.WhilePressed(1, new TwistCommand());
-                driveJoystick.WhenPressed(11, commandFactory.gyroResetCommand());
-                driveJoystick.WhenPressed(9, new XCommand());
-                robotContainer.getDriveSubsystem()
-                                .setDefaultCommand(new DriveCommand(robotContainer.getDriveSubsystem(), driveJoystick));
-        }
+    private OperatorInterface() {
+    }
 }

@@ -1,5 +1,3 @@
-
-
 ## Description
 
 FRC 281, Entech robotics 2024 robot code to compete in the Crescendo game.
@@ -22,7 +20,7 @@ During the earlier parts of the build season the project architecture should be 
 
 ## Need work?
 
-In the event that you need a task to complete check the issues for any open issues with no current work that can be completed alone without access to the robot or other hardware. If none exist, click on a quality gate tag to go to Sonar Cloud and work on reaching the a passing score on the quality gate.
+In the event that you need a task to complete check the issues for any open issues with no current work that can be completed alone without access to the robot or other hardware. If none exist, click on a quality gate tag to go to Sonar Cloud and work on reaching a better score for the quality quality gate.
 
 # Java Code for CHARGED UP written off-season to experiment with swerve drive and hopefully compete with new robot in Fall 2023
 

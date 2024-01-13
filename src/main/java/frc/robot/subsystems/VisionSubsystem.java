@@ -8,7 +8,11 @@
 package frc.robot.subsystems;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
@@ -18,6 +22,7 @@ import edu.wpi.first.util.sendable.SendableBuilder;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.vision.CameraContainer;
+import frc.robot.vision.VisionDataPacket;
 
 public class VisionSubsystem extends EntechSubsystem {
     private static final boolean ENABLED = false;
@@ -25,56 +30,33 @@ public class VisionSubsystem extends EntechSubsystem {
     private CameraContainer cameras;
 
     private Pose3d estimatedPose;
+    private double timeStamp = -1;
+    private List<PhotonTrackedTarget> targets = new ArrayList<>();
 
     @Override
     public void initialize() {
-
-        AprilTagFieldLayout photonAprilTagFieldLayout;
-        try {
-            photonAprilTagFieldLayout = AprilTagFieldLayout
-                    .loadFromResource(AprilTagFields.k2023ChargedUp.m_resourceFile);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not load wpilib AprilTagFields");
-        }
-
         if (ENABLED) {
+            AprilTagFieldLayout photonAprilTagFieldLayout;
+            try {
+                photonAprilTagFieldLayout = AprilTagFieldLayout
+                        .loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
+            } catch (IOException e) {
+                throw new RuntimeException("Could not load wpilib AprilTagFields");
+            }
+
             this.cameras = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT,
                     RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout,
                     null);
         }
     }
 
-    public Optional<Boolean> hasTargets() {
-        return ENABLED ? Optional.of(cameras.hasTargets()) : Optional.empty();
-    }
-
-    public Optional<Double> getLatency() {
-        return ENABLED ? Optional.of(cameras.getLatency()) : Optional.empty();
-    }
-
-    public Optional<Integer> getNumberOfTargets() {
-        return ENABLED ? Optional.of(cameras.getTargetCount()) : Optional.empty();
-    }
-
-    private void updateEstimatedPose() {
-        Optional<Pose3d> estPose = cameras.getEstimatedPose();
-        estimatedPose = estPose.isPresent() ? estPose.get() : null;
-    }
-
     @Override
     public void periodic() {
         if (ENABLED) {
-            updateEstimatedPose();
-
-            // Optional<Pose3d> pose = getEstimatedPose3d();
-            // if (pose.isPresent())
-            // logger.recordOutput("Vision estimated pose", pose.get());
-            // Optional<Double> lat = getLatency();
-            // if (lat.isPresent())
-            // logger.recordOutput("Vision average latency", lat.get());
-            // Optional<Integer> num = getNumberOfTargets();
-            // if (num.isPresent())
-            // logger.recordOutput("Vision number of targets", num.get());
+            Optional<Pose3d> estPose = cameras.getEstimatedPose();
+            timeStamp = cameras.getFilteredResult().getLatencyMillis();
+            targets = cameras.getFilteredResult().getTargets();
+            estimatedPose = estPose.isPresent() ? estPose.get() : null;
         }
     }
 
@@ -100,23 +82,37 @@ public class VisionSubsystem extends EntechSubsystem {
                 return estimatedPose.getRotation().getZ();
             }, null);
             builder.addDoubleProperty("Latency", () -> {
-                return this.getLatency().get();
+                return this.getData().get().getLatency();
             }, null);
             builder.addIntegerProperty("Number of targets", () -> {
-                return this.getNumberOfTargets().get();
+                return this.getData().get().getNumberOfTarets();
             }, null);
         }
-    }
-
-    public Optional<Pose3d> getEstimatedPose3d() {
-        if (estimatedPose == null)
-            return Optional.empty();
-        return ENABLED ? Optional.of(estimatedPose) : Optional.empty();
     }
 
     public Optional<Pose2d> getEstimatedPose2d() {
         if (estimatedPose == null)
             return Optional.empty();
         return ENABLED ? Optional.of(estimatedPose.toPose2d()) : Optional.empty();
+    }
+
+    public Optional<Double> getTimeStamp() {
+        return !ENABLED || timeStamp == -1 ? Optional.of(timeStamp) : Optional.empty();
+    }
+
+    public Optional<VisionDataPacket> getData() {
+        if (ENABLED) {
+            VisionDataPacket dataPacket = new VisionDataPacket();
+
+            dataPacket.setEstimatedPose(getEstimatedPose2d());
+            dataPacket.setHasTargets(cameras.hasTargets());
+            dataPacket.setLatency(cameras.getLatency());
+            dataPacket.setNumberOfTarets(cameras.getTargetCount());
+            dataPacket.setTimeStamp(getTimeStamp());
+            dataPacket.setTargets(targets);
+
+            return Optional.of(dataPacket);
+        }
+        return Optional.empty();
     }
 }
