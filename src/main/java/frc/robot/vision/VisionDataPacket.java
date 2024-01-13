@@ -1,6 +1,9 @@
 package frc.robot.vision;
 
+import java.util.List;
 import java.util.Optional;
+
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.math.geometry.Pose2d;
 
@@ -10,6 +13,7 @@ public class VisionDataPacket {
     private double latency;
     private int numberOfTarets;
     private boolean hasTargets;
+    private List<PhotonTrackedTarget> targets;
 
 
     public Optional<Double> getTimeStamp() {
@@ -54,5 +58,13 @@ public class VisionDataPacket {
 
     public void setHasTargets(boolean hasTargets) {
         this.hasTargets = hasTargets;
+    }
+
+    public List<PhotonTrackedTarget> getTargets() {
+        return this.targets;
+    }
+
+    public void setTargets(List<PhotonTrackedTarget> targets) {
+        this.targets = targets;
     }
 }

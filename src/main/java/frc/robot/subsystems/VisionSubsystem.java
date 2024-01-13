@@ -8,7 +8,11 @@
 package frc.robot.subsystems;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
@@ -27,6 +31,7 @@ public class VisionSubsystem extends EntechSubsystem {
 
     private Pose3d estimatedPose;
     private double timeStamp = -1;
+    private List<PhotonTrackedTarget> targets = new ArrayList<PhotonTrackedTarget>();
 
     @Override
     public void initialize() {
@@ -45,26 +50,13 @@ public class VisionSubsystem extends EntechSubsystem {
         }
     }
 
-    private void updateEstimatedPose() {
-        Optional<Pose3d> estPose = cameras.getEstimatedPose();
-        timeStamp = cameras.getFilteredResult().getLatencyMillis();
-        estimatedPose = estPose.isPresent() ? estPose.get() : null;
-    }
-
     @Override
     public void periodic() {
         if (ENABLED) {
-            updateEstimatedPose();
-
-            // Optional<Pose3d> pose = getEstimatedPose3d();
-            // if (pose.isPresent())
-            // logger.recordOutput("Vision estimated pose", pose.get());
-            // Optional<Double> lat = getLatency();
-            // if (lat.isPresent())
-            // logger.recordOutput("Vision average latency", lat.get());
-            // Optional<Integer> num = getNumberOfTargets();
-            // if (num.isPresent())
-            // logger.recordOutput("Vision number of targets", num.get());
+            Optional<Pose3d> estPose = cameras.getEstimatedPose();
+            timeStamp = cameras.getFilteredResult().getLatencyMillis();
+            targets = cameras.getFilteredResult().getTargets();
+            estimatedPose = estPose.isPresent() ? estPose.get() : null;
         }
     }
 
@@ -117,6 +109,7 @@ public class VisionSubsystem extends EntechSubsystem {
             dataPacket.setLatency(cameras.getLatency());
             dataPacket.setNumberOfTarets(cameras.getTargetCount());
             dataPacket.setTimeStamp(getTimeStamp());
+            dataPacket.setTargets(targets);
 
             return Optional.of(dataPacket);
         }
