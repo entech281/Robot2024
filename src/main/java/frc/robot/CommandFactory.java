@@ -1,8 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import entech.commands.AutoSequence;
 import frc.robot.subsystems.DriveSubsystem;
@@ -19,9 +16,7 @@ public class CommandFactory {
     }
     
     public AutoSequence getAutoCommand() {
-        Translation2d initialTranslation = new Translation2d(2, 7);
-        Rotation2d initialRotation = Rotation2d.fromDegrees(180);
-        AutoSequence auto = new AutoSequence(new Pose2d(initialTranslation, initialRotation));
+        AutoSequence auto = new AutoSequence(RobotConstants.AUTONOMOUS.StartingLocations.FRONT_OF_SUBWOOFER);
         auto.addCommands(new WaitCommand(3));
         return auto;
     }
