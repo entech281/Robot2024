@@ -18,7 +18,6 @@ import frc.robot.OI.OperatorInterface;
  * build.gradle file in the
  * project.
  */
-@SuppressWarnings("unused")
 public class Robot extends TimedRobot {
     private AutoSequence autonomousCommand;
     private SubsystemManager subsystemManager;
@@ -70,7 +69,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void testInit() {
-        // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll();
     }
 }

@@ -10,13 +10,13 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.vision.VisionDataPacket;
 
+/**
+ * Manages the subsystems and the interactions between them.
+ */
 public class SubsystemManager {
     private final DriveSubsystem driveSubsystem = new DriveSubsystem();
     private final VisionSubsystem visionSubsystem = new VisionSubsystem();
 
-    /**
-     * Manages the subsystems and the interactions between them.
-     */
     public SubsystemManager() {
         driveSubsystem.initialize();
         visionSubsystem.initialize();

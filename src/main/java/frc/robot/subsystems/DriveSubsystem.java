@@ -19,6 +19,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.WPIUtilJNI;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -63,11 +64,6 @@ public class DriveSubsystem extends EntechSubsystem {
     private SwerveDrivePoseEstimator odometry;
 
     Field2d field = new Field2d();
-
-    /** Creates a new Drivetrain. */
-    public DriveSubsystem() {
-
-    }
 
     private double getGyroAngle() {
         return gyro.getAngle() + 0;
@@ -279,9 +275,13 @@ public class DriveSubsystem extends EntechSubsystem {
         if (ENABLED) {
             gyro.reset();
             gyro.setAngleAdjustment(180);
-            Pose2d pose = getPose().get();
-            Pose2d pose2 = new Pose2d(pose.getTranslation(), Rotation2d.fromDegrees(0));
-            resetOdometry(pose2);
+            Optional<Pose2d> pose = getPose();
+            if (pose.isPresent()) {
+                Pose2d pose2 = new Pose2d(pose.get().getTranslation(), Rotation2d.fromDegrees(0));
+                resetOdometry(pose2);
+            } else {
+                DriverStation.reportWarning("Not possible.", false);
+            }
         }
     }
 
