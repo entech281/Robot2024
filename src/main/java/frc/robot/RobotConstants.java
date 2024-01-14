@@ -9,7 +9,6 @@ import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
 public final class RobotConstants {
@@ -28,6 +27,9 @@ public final class RobotConstants {
 
         // Distance between centers of right and left wheels on robot
         public static final double WHEEL_BASE_METERS = Units.inchesToMeters(21.75);
+
+        // Distance to farthest module
+        public static final double DRIVE_BASE_RADIUS_METERS = 0.39;
 
         // Distance between front and back wheels on robot
         public static final SwerveDriveKinematics DRIVE_KINEMATICS = new SwerveDriveKinematics(
@@ -174,18 +176,10 @@ public final class RobotConstants {
     }
 
     public static interface AUTONOMOUS {
-        public static final double MAX_SPEED_METERS_PER_SECOND = 3.0;
-        public static final double MAX_ACCELERATION_METERS_PER_SECOND_SQUARED = 3;
-        public static final double MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = Math.PI;
-        public static final double MAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED = Math.PI;
+        public static final double MAX_MODULE_SPEED_METERS_PER_SECOND = 4.5;
 
-        public static final double X_CONTROLLER_P = 1;
-        public static final double Y_CONTROLLER_P = 1;
-        public static final double THETA_CONTROLLER_P = 1;
-
-        // Constraint for the motion profiled robot angle controller
-        public static final TrapezoidProfile.Constraints THETA_CONTROLLER_CONSTRAINTS = new TrapezoidProfile.Constraints(
-                MAX_ANGULAR_SPEED_RADIANS_PER_SECOND, MAX_ANGULAR_ACCELERATION_RADIANS_PER_SECOND_SQUARED);
+        public static final double TRANSLATION_CONTROLLER_P = 3;
+        public static final double ROTATION_CONTROLLER_P = 5;
 
         public final class StartingLocations {
             public static final Pose2d FRONT_OF_SUBWOOFER = new Pose2d(2.3, 5.6, Rotation2d.fromDegrees(180));
@@ -195,5 +189,8 @@ public final class RobotConstants {
     public interface INDICATOR_VALUES {
         public static final double POSITION_UNKNOWN = -1.0;
         public static final double POSITION_NOT_SET = -1.1;
+    }
+
+    private RobotConstants() {
     }
 }
