@@ -7,6 +7,10 @@ package frc.robot.subsystems;
 import java.util.Optional;
 
 import com.kauailabs.navx.frc.AHRS;
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
+import com.pathplanner.lib.util.PIDConstants;
+import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -44,9 +48,8 @@ public class DriveSubsystem extends EntechSubsystem {
 
     public static final int GYRO_ORIENTATION = 1; // might be able to merge with kGyroReversed
 
-    public static final double FIELD_LENGTH_INCHES = 54 * 12 + 1; // 54ft 1in
-    public static final double FIELD_WIDTH_INCHES = 26 * 12 + 7; // 26ft 7in
-
+    public static final double FIELD_LENGTH_INCHES = 54 * 12 + 3.25;
+    public static final double FIELD_WIDTH_INCHES = 26 * 12 + 11.25;
     private SwerveModule frontLeft;
     private SwerveModule frontRight;
     private SwerveModule rearLeft;
@@ -122,6 +125,11 @@ public class DriveSubsystem extends EntechSubsystem {
      */
     public Optional<Pose2d> getPose() {
         return ENABLED ? Optional.of(odometry.getEstimatedPosition()) : Optional.empty();
+    }
+
+    private ChassisSpeeds getChassisSpeeds() {
+        double radiansPerSecond = Units.degreesToRadians(gyro.getRate());
+        return ChassisSpeeds.fromFieldRelativeSpeeds(gyro.getVelocityX(), gyro.getVelocityY(), radiansPerSecond, gyro.getRotation2d());
     }
 
     /**
@@ -224,6 +232,12 @@ public class DriveSubsystem extends EntechSubsystem {
         }
     }
 
+    private void pathFollowDrive(ChassisSpeeds speeds) {
+        SwerveModuleState[] swerveModuleStates = DrivetrainConstants.DRIVE_KINEMATICS.toSwerveModuleStates(speeds);
+
+        setModuleStates(swerveModuleStates);
+    }
+
     /**
      * Sets the wheels into an X formation to prevent movement.
      */
@@ -274,7 +288,7 @@ public class DriveSubsystem extends EntechSubsystem {
     public void zeroHeading() {
         if (ENABLED) {
             gyro.reset();
-            gyro.setAngleAdjustment(180);
+            gyro.setAngleAdjustment(0);
             Optional<Pose2d> pose = getPose();
             if (pose.isPresent()) {
                 Pose2d pose2 = new Pose2d(pose.get().getTranslation(), Rotation2d.fromDegrees(0));
@@ -357,6 +371,32 @@ public class DriveSubsystem extends EntechSubsystem {
             resetEncoders();
             zeroHeading();
             gyro.setAngleAdjustment(0);
+
+            AutoBuilder.configureHolonomic(
+                odometry::getEstimatedPosition, // Robot pose supplier
+                this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
+                this::getChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+                this::pathFollowDrive,
+                new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
+                        new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0), // Translation PID constants
+                        new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0), // Rotation PID constants
+                        RobotConstants.AUTONOMOUS.MAX_MODULE_SPEED_METERS_PER_SECOND, // Max module speed, in m/s
+                        RobotConstants.DrivetrainConstants.DRIVE_BASE_RADIUS_METERS, // Drive base radius in meters. Distance from robot center to furthest module.
+                        new ReplanningConfig() // Default path replanning config. See the API for the options here
+                ),
+                () -> {
+                    // Boolean supplier that controls when the path will be mirrored for the red alliance
+                    // This will flip the path being followed to the red side of the field.
+                    // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+                    var alliance = DriverStation.getAlliance();
+                    if (alliance.isPresent()) {
+                        return alliance.get() == DriverStation.Alliance.Red;
+                    }
+                    return false;
+                },
+                this // Reference to this subsystem to set requirements
+        );
         }
     }
 }

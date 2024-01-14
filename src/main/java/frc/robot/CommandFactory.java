@@ -1,6 +1,7 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import entech.commands.AutoSequence;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
@@ -14,10 +15,10 @@ public class CommandFactory {
         this.driveSubsystem = subsystemManager.getDriveSubsystem();
         this.visionSubsystem = subsystemManager.getVisionSubsystem();
     }
-    
+
     public AutoSequence getAutoCommand() {
         AutoSequence auto = new AutoSequence(RobotConstants.AUTONOMOUS.StartingLocations.FRONT_OF_SUBWOOFER);
-        auto.addCommands(new WaitCommand(3));
+        auto.addCommands(new PathPlannerAuto("Test"));
         return auto;
     }
 }
