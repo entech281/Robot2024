@@ -378,7 +378,7 @@ public class DriveSubsystem extends EntechSubsystem {
                 this::getChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
                 this::pathFollowDrive,
                 new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                        new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0), // Translation PID constants
+                        new PIDConstants(RobotConstants.AUTONOMOUS.TRANSLATION_CONTROLLER_P, 0.0, 0.0), // Translation PID constants
                         new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0), // Rotation PID constants
                         RobotConstants.AUTONOMOUS.MAX_MODULE_SPEED_METERS_PER_SECOND, // Max module speed, in m/s
                         RobotConstants.DrivetrainConstants.DRIVE_BASE_RADIUS_METERS, // Drive base radius in meters. Distance from robot center to furthest module.

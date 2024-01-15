@@ -5,8 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import entech.commands.AutoSequence;
 import frc.robot.OI.OperatorInterface;
 
 /**
@@ -19,7 +19,7 @@ import frc.robot.OI.OperatorInterface;
  * project.
  */
 public class Robot extends TimedRobot {
-    private AutoSequence autonomousCommand;
+    private Command autonomousCommand;
     private SubsystemManager subsystemManager;
     private CommandFactory commandFactory;
 
@@ -45,7 +45,6 @@ public class Robot extends TimedRobot {
         autonomousCommand = commandFactory.getAutoCommand();
 
         if (autonomousCommand != null) {
-            subsystemManager.getDriveSubsystem().resetOdometry(autonomousCommand.getStartingPose());
             autonomousCommand.schedule();
         }
     }
