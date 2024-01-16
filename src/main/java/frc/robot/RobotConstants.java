@@ -174,7 +174,7 @@ public final class RobotConstants {
     }
 
     public static interface AUTONOMOUS {
-        public static final double MAX_MODULE_SPEED_METERS_PER_SECOND = 4.42;
+        public static final double MAX_MODULE_SPEED_METERS_PER_SECOND = 4.42; //4.42
 
         public static final double TRANSLATION_CONTROLLER_P = 5;
         public static final double ROTATION_CONTROLLER_P = 5;
