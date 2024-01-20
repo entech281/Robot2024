@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.8494139845422553,
-        "y": 5.0135345984977695
+        "x": 1.5,
+        "y": 4.6
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.535251641931856,
-        "y": 6.699372255887369
+        "x": 3.185837657389601,
+        "y": 6.2858376573895995
       },
       "isLocked": false,
       "linkedName": null
@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 3.6378678471642663,
-        "y": 5.145469719510868
+        "x": 3.344678689357379,
+        "y": 5.2187670089625895
       },
       "prevControl": {
-        "x": 3.5923455781064972,
-        "y": 6.177307818153641
+        "x": 1.197819871694609,
+        "y": 4.898340319759191
       },
       "nextControl": {
-        "x": 3.681846220835299,
-        "y": 4.148626582967452
+        "x": 4.326862368010451,
+        "y": 5.365361587866033
       },
       "isLocked": false,
       "linkedName": null
@@ -52,36 +52,42 @@
         "y": 3.679523930476433
       },
       "prevControl": {
-        "x": 4.83385189350353,
-        "y": 3.0233604265252993
+        "x": 4.883921767843536,
+        "y": 3.4156536884502344
       },
       "nextControl": {
-        "x": 2.890235494756704,
-        "y": 4.221923872419174
+        "x": 2.7642589577478525,
+        "y": 3.9176790908413177
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.8494139845422553,
-        "y": 5.0135345984977695
+        "x": 1.5,
+        "y": 4.6
       },
       "prevControl": {
-        "x": 3.1541057367829026,
-        "y": 4.075329293515731
+        "x": 2.8046917522406485,
+        "y": 3.661794695017961
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 2.0,
+      "rotationDegrees": 180.0,
+      "rotateFast": false
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.5,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 3.0,
+    "maxAcceleration": 1.0,
     "maxAngularVelocity": 360.0,
     "maxAngularAcceleration": 180.0
   },
