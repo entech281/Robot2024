@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.littletonrobotics.junction.Logger;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
@@ -25,7 +26,7 @@ import frc.robot.vision.CameraContainer;
 import frc.robot.vision.VisionDataPacket;
 
 public class VisionSubsystem extends EntechSubsystem {
-    private static final boolean ENABLED = false;
+    private static final boolean ENABLED = true;
 
     private CameraContainer cameras;
 
@@ -44,9 +45,11 @@ public class VisionSubsystem extends EntechSubsystem {
                 throw new RuntimeException("Could not load wpilib AprilTagFields");
             }
 
+            CameraContainer cameraAlpha = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT, RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout, null);
+
             this.cameras = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT,
                     RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout,
-                    null);
+                    cameraAlpha);
         }
     }
 
@@ -57,6 +60,19 @@ public class VisionSubsystem extends EntechSubsystem {
             timeStamp = cameras.getFilteredResult().getLatencyMillis();
             targets = cameras.getFilteredResult().getTargets();
             estimatedPose = estPose.isPresent() ? estPose.get() : null;
+
+            if (estimatedPose != null) {
+                Logger.recordOutput("Vision Pose2d", estimatedPose.toPose2d());
+                
+            }
+
+            Optional<VisionDataPacket> data = getData();
+            if (data.isPresent()) {
+                VisionDataPacket packet = data.get();
+                Logger.recordOutput("Latency", packet.getLatency());
+                Logger.recordOutput("Total Targets Counted", packet.getNumberOfTarets());
+                Logger.recordOutput("Has Targets", packet.isHasTargets());
+            }
         }
     }
 

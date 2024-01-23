@@ -132,23 +132,23 @@ public final class RobotConstants {
 
     public static interface Vision {
         public static interface Cameras {
-            public static final String FRONT_LEFT = "";
-            public static final String FRONT_RIGHT = "USB_Camera";
+            public static final String FRONT_LEFT = "Arducam_Bravo";
+            public static final String FRONT_RIGHT = "Arducam_Alpha";
         }
 
         public static interface Filters {
-            public static final double MAX_AMBIGUITY = 0.05;
+            public static final double MAX_AMBIGUITY = 0.75;
             public static final double MIN_AREA = 0.75;
             public static final double MAX_DISTANCE = 2.5;
         }
 
         public static interface Offsets {
-            public static final double FRONT_OFFSET_HEAVE_M = 0.0;
-            public static final double FRONT_OFFSET_SWAY_M = 0.25;
+            public static final double FRONT_OFFSET_HEAVE_M = Units.inchesToMeters(31);
+            public static final double FRONT_OFFSET_SWAY_M = Units.inchesToMeters(2.75);
             public static final double FRONT_OFFSET_SURGE_M = 0.0;
-            public static final double FRONT_OFFSET_YAW_DEGREES = 45.0;
-            public static final double FRONT_OFFSET_PITCH_DEGREES = 0.0;
-            public static final double FRONT_OFFSET_ROLL_DEGREES = 0.0;
+            public static final double FRONT_OFFSET_YAW_DEGREES = 0.0;
+            public static final double FRONT_OFFSET_PITCH_DEGREES = 24.0;
+            public static final double FRONT_OFFSET_ROLL_DEGREES = 90.0;
         }
 
         public static interface Transforms {

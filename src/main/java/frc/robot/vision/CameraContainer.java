@@ -48,8 +48,8 @@ public class CameraContainer {
         for (PhotonTrackedTarget target : result.getTargets()) {
             if (target.getPoseAmbiguity() > RobotConstants.Vision.Filters.MAX_AMBIGUITY)
                 continue;
-            if (target.getArea() < RobotConstants.Vision.Filters.MIN_AREA)
-                continue;
+            // if (target.getArea() < RobotConstants.Vision.Filters.MIN_AREA)
+            //     continue;
             if (Math.abs(target.getBestCameraToTarget().getX()) > RobotConstants.Vision.Filters.MAX_DISTANCE)
                 continue;
 
