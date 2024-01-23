@@ -2,8 +2,6 @@ package frc.robot;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -58,7 +56,7 @@ public final class RobotConstants {
 
         // Calculations required for driving motor conversion factors and feed forward
         public static final double DRIVING_MOTOR_FREE_SPEED_RPS = FREE_SPEED_RPM / 60;
-        public static final double WHEEL_DIAMETER_METERS = 0.1016;
+        public static final double WHEEL_DIAMETER_METERS = 0.0972;
         public static final double WHEEL_CIRCUMFERENCE_METERS = WHEEL_DIAMETER_METERS * Math.PI;
         public static final double DRIVING_MOTOR_REDUCTION = (45.0 * 17 * 50) / (DRIVING_MOTOR_PINION_TEETH * 15 * 27);
         public static final double DRIVE_WHEEL_FREE_SPEED_RPS = (DRIVING_MOTOR_FREE_SPEED_RPS
@@ -134,23 +132,23 @@ public final class RobotConstants {
 
     public static interface Vision {
         public static interface Cameras {
-            public static final String FRONT_LEFT = "";
-            public static final String FRONT_RIGHT = "USB_Camera";
+            public static final String FRONT_LEFT = "Arducam_Bravo";
+            public static final String FRONT_RIGHT = "Arducam_Alpha";
         }
 
         public static interface Filters {
-            public static final double MAX_AMBIGUITY = 0.05;
+            public static final double MAX_AMBIGUITY = 0.75;
             public static final double MIN_AREA = 0.75;
             public static final double MAX_DISTANCE = 2.5;
         }
 
         public static interface Offsets {
-            public static final double FRONT_OFFSET_HEAVE_M = 0.0;
-            public static final double FRONT_OFFSET_SWAY_M = 0.25;
+            public static final double FRONT_OFFSET_HEAVE_M = Units.inchesToMeters(31);
+            public static final double FRONT_OFFSET_SWAY_M = Units.inchesToMeters(2.75);
             public static final double FRONT_OFFSET_SURGE_M = 0.0;
-            public static final double FRONT_OFFSET_YAW_DEGREES = 45.0;
-            public static final double FRONT_OFFSET_PITCH_DEGREES = 0.0;
-            public static final double FRONT_OFFSET_ROLL_DEGREES = 0.0;
+            public static final double FRONT_OFFSET_YAW_DEGREES = 0.0;
+            public static final double FRONT_OFFSET_PITCH_DEGREES = 24.0;
+            public static final double FRONT_OFFSET_ROLL_DEGREES = 90.0;
         }
 
         public static interface Transforms {
@@ -176,14 +174,10 @@ public final class RobotConstants {
     }
 
     public static interface AUTONOMOUS {
-        public static final double MAX_MODULE_SPEED_METERS_PER_SECOND = 4.5;
+        public static final double MAX_MODULE_SPEED_METERS_PER_SECOND = 4.42; //4.42
 
-        public static final double TRANSLATION_CONTROLLER_P = 3;
+        public static final double TRANSLATION_CONTROLLER_P = 5;
         public static final double ROTATION_CONTROLLER_P = 5;
-
-        public final class StartingLocations {
-            public static final Pose2d FRONT_OF_SUBWOOFER = new Pose2d(2.3, 5.6, Rotation2d.fromDegrees(180));
-        }
     }
 
     public interface INDICATOR_VALUES {

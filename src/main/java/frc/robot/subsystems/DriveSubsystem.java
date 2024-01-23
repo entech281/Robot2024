@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import java.util.Optional;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -75,9 +77,6 @@ public class DriveSubsystem extends EntechSubsystem {
     @Override
     public void periodic() {
         if (ENABLED) {
-            field.setRobotPose(odometry.getEstimatedPosition());
-            SmartDashboard.putData("Odometry Pose Field", field);
-
             SmartDashboard.putNumberArray("modules pose angles", new double[] {
                     frontLeft.getPosition().angle.getDegrees(),
                     frontRight.getPosition().angle.getDegrees(),
@@ -115,6 +114,11 @@ public class DriveSubsystem extends EntechSubsystem {
                             rearLeft.getPosition(),
                             rearRight.getPosition()
                     });
+
+            Pose2d pose = odometry.getEstimatedPosition();
+            Logger.recordOutput("Odometry pose2d", pose);
+            field.setRobotPose(pose);
+            SmartDashboard.putData("Odometry Pose Field", field);
         }
     }
 
@@ -378,7 +382,7 @@ public class DriveSubsystem extends EntechSubsystem {
                 this::getChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
                 this::pathFollowDrive,
                 new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                        new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0), // Translation PID constants
+                        new PIDConstants(RobotConstants.AUTONOMOUS.TRANSLATION_CONTROLLER_P, 0.0, 0.0), // Translation PID constants
                         new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0), // Rotation PID constants
                         RobotConstants.AUTONOMOUS.MAX_MODULE_SPEED_METERS_PER_SECOND, // Max module speed, in m/s
                         RobotConstants.DrivetrainConstants.DRIVE_BASE_RADIUS_METERS, // Drive base radius in meters. Distance from robot center to furthest module.
@@ -398,5 +402,6 @@ public class DriveSubsystem extends EntechSubsystem {
                 this // Reference to this subsystem to set requirements
         );
         }
+        resetOdometry(new Pose2d(2.0, 5.56, Rotation2d.fromDegrees(180)));
     }
 }
