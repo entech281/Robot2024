@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import org.littletonrobotics.junction.Logger;
 
-import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
@@ -26,7 +25,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
@@ -57,7 +55,7 @@ public class DriveSubsystem extends EntechSubsystem {
     private SwerveModule rearLeft;
     private SwerveModule rearRight;
 
-    private AHRS gyro;
+    // private AHRS gyro;
 
     private double currentTranslationDir = 0.0;
     private double currentTranslationMag = 0.0;
@@ -71,7 +69,8 @@ public class DriveSubsystem extends EntechSubsystem {
     Field2d field = new Field2d();
 
     private double getGyroAngle() {
-        return gyro.getAngle() + 0;
+        // return gyro.getAngle() + 0;
+        return 0;
     }
 
     @Override
@@ -103,11 +102,11 @@ public class DriveSubsystem extends EntechSubsystem {
                     rearRight.getTurningAbsoluteEncoder().getPosition()
             });
 
-            SmartDashboard.putData("NAVX", gyro);
+            // SmartDashboard.putData("NAVX", gyro);
 
             // Update the odometry in the periodic block
             odometry.update(
-                    Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
+                    new Rotation2d(), // Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
                     new SwerveModulePosition[] {
                             frontLeft.getPosition(),
                             frontRight.getPosition(),
@@ -132,8 +131,9 @@ public class DriveSubsystem extends EntechSubsystem {
     }
 
     private ChassisSpeeds getChassisSpeeds() {
-        double radiansPerSecond = Units.degreesToRadians(gyro.getRate());
-        return ChassisSpeeds.fromFieldRelativeSpeeds(gyro.getVelocityX(), gyro.getVelocityY(), radiansPerSecond, gyro.getRotation2d());
+        // double radiansPerSecond = Units.degreesToRadians(gyro.getRate());
+        // return ChassisSpeeds.fromFieldRelativeSpeeds(gyro.getVelocityX(), gyro.getVelocityY(), radiansPerSecond, gyro.getRotation2d());
+        return new ChassisSpeeds();
     }
 
     /**
@@ -144,7 +144,7 @@ public class DriveSubsystem extends EntechSubsystem {
     public void resetOdometry(Pose2d pose) {
         if (ENABLED) {
             odometry.resetPosition(
-                    Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
+                    new Rotation2d(), // Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
                     new SwerveModulePosition[] {
                             frontLeft.getPosition(),
                             frontRight.getPosition(),
@@ -291,8 +291,8 @@ public class DriveSubsystem extends EntechSubsystem {
     /** Zeroes the heading of the robot. */
     public void zeroHeading() {
         if (ENABLED) {
-            gyro.reset();
-            gyro.setAngleAdjustment(0);
+            // gyro.reset();
+            // gyro.setAngleAdjustment(0);
             Optional<Pose2d> pose = getPose();
             if (pose.isPresent()) {
                 Pose2d pose2 = new Pose2d(pose.get().getTranslation(), Rotation2d.fromDegrees(0));
@@ -349,9 +349,9 @@ public class DriveSubsystem extends EntechSubsystem {
                     RobotConstants.Ports.CAN.REAR_RIGHT_TURNING,
                     RobotConstants.Ports.ANALOG.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
 
-            gyro = new AHRS(Port.kMXP);
-            gyro.reset();
-            gyro.zeroYaw();
+            // gyro = new AHRS(Port.kMXP);
+            // gyro.reset();
+            // gyro.zeroYaw();
 
             Translation2d initialTranslation = new Translation2d(Units.inchesToMeters(FIELD_LENGTH_INCHES / 2),
                     Units.inchesToMeters(FIELD_WIDTH_INCHES / 2)); // mid field
@@ -359,7 +359,7 @@ public class DriveSubsystem extends EntechSubsystem {
 
             odometry = new SwerveDrivePoseEstimator(
                     DrivetrainConstants.DRIVE_KINEMATICS,
-                    Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
+                    new Rotation2d(), // Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
                     new SwerveModulePosition[] {
                             frontLeft.getPosition(),
                             frontRight.getPosition(),
@@ -374,7 +374,7 @@ public class DriveSubsystem extends EntechSubsystem {
 
             resetEncoders();
             zeroHeading();
-            gyro.setAngleAdjustment(0);
+            // gyro.setAngleAdjustment(0);
 
             AutoBuilder.configureHolonomic(
                 odometry::getEstimatedPosition, // Robot pose supplier
