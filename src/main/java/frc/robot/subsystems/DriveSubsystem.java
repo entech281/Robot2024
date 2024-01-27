@@ -8,7 +8,6 @@ import java.util.Optional;
 
 import org.littletonrobotics.junction.Logger;
 
-import edu.wpi.first.wpilibj.SerialPort.Port;
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -27,6 +26,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
@@ -143,6 +143,7 @@ public class DriveSubsystem extends EntechSubsystem {
      */
     public void resetOdometry(Pose2d pose) {
         if (ENABLED) {
+            gyro.setAngleAdjustment(pose.getRotation().getDegrees());
             odometry.resetPosition(
                     Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
                     new SwerveModulePosition[] {
@@ -291,11 +292,11 @@ public class DriveSubsystem extends EntechSubsystem {
     /** Zeroes the heading of the robot. */
     public void zeroHeading() {
         if (ENABLED) {
-//            gyro.reset();
-//            gyro.setAngleAdjustment(0);
+            gyro.reset();
+            gyro.setAngleAdjustment(0);
             Optional<Pose2d> pose = getPose();
             if (pose.isPresent()) {
-                Pose2d pose2 = new Pose2d(pose.get().getTranslation(), Rotation2d.fromDegrees(0));
+                Pose2d pose2 = new Pose2d(pose.get().getTranslation(), Rotation2d.fromDegrees(180));
                 resetOdometry(pose2);
             } else {
                 DriverStation.reportWarning("Not possible.", false);
@@ -402,6 +403,6 @@ public class DriveSubsystem extends EntechSubsystem {
                 this // Reference to this subsystem to set requirements
         );
         }
-        resetOdometry(new Pose2d(2.0, 5.56, Rotation2d.fromDegrees(180)));
+        resetOdometry(new Pose2d(1.38, 5.56, Rotation2d.fromDegrees(180)));
     }
 }

@@ -23,7 +23,7 @@ public class CommandFactory {
         SequentialCommandGroup auto = new SequentialCommandGroup();
         auto.addCommands(new GyroReset(driveSubsystem));
         auto.addCommands(new WaitCommand(2));
-        auto.addCommands(new PathPlannerAuto("Line"));
+        auto.addCommands(new PathPlannerAuto("auto1p1"));
         return auto;
     }
 }

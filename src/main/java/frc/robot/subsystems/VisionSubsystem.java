@@ -26,7 +26,7 @@ import frc.robot.vision.CameraContainer;
 import frc.robot.vision.VisionDataPacket;
 
 public class VisionSubsystem extends EntechSubsystem {
-    private static final boolean ENABLED = false;
+    private static final boolean ENABLED = true;
 
     private CameraContainer cameras;
 
@@ -45,11 +45,10 @@ public class VisionSubsystem extends EntechSubsystem {
                 throw new RuntimeException("Could not load wpilib AprilTagFields");
             }
 
-            CameraContainer cameraAlpha = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT, RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout, null);
-
+            CameraContainer cameraBeta = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT, RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout, null);
             this.cameras = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT,
                     RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout,
-                    cameraAlpha);
+                    cameraBeta);
         }
     }
 
@@ -59,11 +58,9 @@ public class VisionSubsystem extends EntechSubsystem {
             Optional<Pose3d> estPose = cameras.getEstimatedPose();
             timeStamp = cameras.getFilteredResult().getLatencyMillis();
             targets = cameras.getFilteredResult().getTargets();
-            estimatedPose = estPose.isPresent() ? estPose.get() : null;
 
-            if (estimatedPose != null) {
-                Logger.recordOutput("Vision Pose2d", estimatedPose.toPose2d());
-                
+            if (estPose.isPresent()) {
+                Logger.recordOutput("Vision Pose2d", estPose.get().toPose2d());
             }
 
             Optional<VisionDataPacket> data = getData();

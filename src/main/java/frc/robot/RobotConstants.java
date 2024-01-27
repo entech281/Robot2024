@@ -139,37 +139,28 @@ public final class RobotConstants {
         public static interface Filters {
             public static final double MAX_AMBIGUITY = 0.75;
             public static final double MIN_AREA = 0.75;
-            public static final double MAX_DISTANCE = 2.5;
-        }
-
-        public static interface Offsets {
-            public static final double FRONT_OFFSET_HEAVE_M = Units.inchesToMeters(31);
-            public static final double FRONT_OFFSET_SWAY_M = Units.inchesToMeters(2.75);
-            public static final double FRONT_OFFSET_SURGE_M = 0.0;
-            public static final double FRONT_OFFSET_YAW_DEGREES = 0.0;
-            public static final double FRONT_OFFSET_PITCH_DEGREES = 24.0;
-            public static final double FRONT_OFFSET_ROLL_DEGREES = 90.0;
+            public static final double MAX_DISTANCE = 7;
         }
 
         public static interface Transforms {
             public static final Transform3d FRONT_LEFT = new Transform3d(
                     new Translation3d(
-                            Vision.Offsets.FRONT_OFFSET_SURGE_M,
-                            Vision.Offsets.FRONT_OFFSET_SWAY_M,
-                            Vision.Offsets.FRONT_OFFSET_HEAVE_M),
+                            Units.inchesToMeters(15),
+                            Units.inchesToMeters(8.5),
+                            Units.inchesToMeters(42.75)),
                     new Rotation3d(
-                            Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_ROLL_DEGREES),
-                            Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_PITCH_DEGREES),
-                            Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_YAW_DEGREES)));
+                            Units.degreesToRadians(1.5),
+                            Units.degreesToRadians(3),
+                            Units.degreesToRadians(0)));
             public static final Transform3d FRONT_RIGHT = new Transform3d(
                     new Translation3d(
-                            Vision.Offsets.FRONT_OFFSET_SURGE_M,
-                            -Vision.Offsets.FRONT_OFFSET_SWAY_M,
-                            Vision.Offsets.FRONT_OFFSET_HEAVE_M),
+                            Units.inchesToMeters(15),
+                            Units.inchesToMeters(-10.5),
+                            Units.inchesToMeters(42.75)),
                     new Rotation3d(
-                            -Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_ROLL_DEGREES),
-                            Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_PITCH_DEGREES),
-                            -Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_YAW_DEGREES)));
+                            Units.degreesToRadians(-1),
+                            Units.degreesToRadians(4),
+                            Units.degreesToRadians(0)));
         }
     }
 

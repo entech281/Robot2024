@@ -21,4 +21,9 @@ public class GyroReset extends EntechCommand {
     public boolean isFinished() {
         return true;
     }
+
+    @Override
+    public boolean runsWhenDisabled() {
+        return true;
+    }
 }

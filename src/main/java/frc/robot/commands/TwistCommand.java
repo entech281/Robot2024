@@ -13,4 +13,9 @@ public class TwistCommand extends EntechCommand {
     public void end(boolean interrupted) {
         UserPolicy.twistable = false;
     }
+    
+    @Override
+    public boolean runsWhenDisabled() {
+        return true;
+    }
 }
