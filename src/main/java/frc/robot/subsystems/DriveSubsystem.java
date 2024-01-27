@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.littletonrobotics.junction.Logger;
 
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -26,7 +27,6 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
@@ -72,7 +72,7 @@ public class DriveSubsystem extends EntechSubsystem {
 
     private double getGyroAngle() {
         return gyro.getAngle() + 0;
-    }
+     }
 
     @Override
     public void periodic() {
@@ -291,8 +291,8 @@ public class DriveSubsystem extends EntechSubsystem {
     /** Zeroes the heading of the robot. */
     public void zeroHeading() {
         if (ENABLED) {
-            gyro.reset();
-            gyro.setAngleAdjustment(0);
+//            gyro.reset();
+//            gyro.setAngleAdjustment(0);
             Optional<Pose2d> pose = getPose();
             if (pose.isPresent()) {
                 Pose2d pose2 = new Pose2d(pose.get().getTranslation(), Rotation2d.fromDegrees(0));
@@ -308,11 +308,11 @@ public class DriveSubsystem extends EntechSubsystem {
      *
      * @return the robot's heading in degrees, from -180 to 180
      */
-    public Optional<Double> getHeading() {
+/*    public Optional<Double> getHeading() {
         return ENABLED ? Optional.of(Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()).getDegrees())
                 : Optional.empty();
     }
-
+*/
     public void addVisionData(VisionDataPacket data) {
         Optional<Pose2d> pose = data.getEstimatedPose();
         Optional<Double> timeStamp = data.getTimeStamp();
@@ -349,7 +349,7 @@ public class DriveSubsystem extends EntechSubsystem {
                     RobotConstants.Ports.CAN.REAR_RIGHT_TURNING,
                     RobotConstants.Ports.ANALOG.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
 
-            gyro = new AHRS(Port.kMXP);
+            gyro = new AHRS(Port.kUSB1);
             gyro.reset();
             gyro.zeroYaw();
 

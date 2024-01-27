@@ -26,7 +26,7 @@ import frc.robot.vision.CameraContainer;
 import frc.robot.vision.VisionDataPacket;
 
 public class VisionSubsystem extends EntechSubsystem {
-    private static final boolean ENABLED = true;
+    private static final boolean ENABLED = false;
 
     private CameraContainer cameras;
 
