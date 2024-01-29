@@ -21,8 +21,8 @@ public class TestEntechGeometryUtils {
 
         Pose2d result = EntechGeometryUtils.averagePose2d(a, b);
 
-        assertEquals(result.getX(), 0.5);
-        assertEquals(result.getY(), 0.5);
-        assertEquals(result.getRotation().getDegrees(), 180);
+        assertEquals(0.5, result.getX());
+        assertEquals(0.5, result.getY());
+        assertEquals(180, result.getRotation().getDegrees());
     }
 }

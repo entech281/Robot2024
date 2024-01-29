@@ -22,9 +22,9 @@ public final class OperatorInterface {
      * @param subsystemManager
      */
     public static void create(CommandFactory commandFactory, SubsystemManager subsystemManager) {
-        driveJoystick.WhilePressed(1, new TwistCommand());
-        driveJoystick.WhenPressed(11, new GyroReset(subsystemManager.getDriveSubsystem()));
-        driveJoystick.WhenPressed(9, new XCommand());
+        driveJoystick.whilePressed(1, new TwistCommand());
+        driveJoystick.whenPressed(11, new GyroReset(subsystemManager.getDriveSubsystem()));
+        driveJoystick.whenPressed(9, new XCommand());
         subsystemManager.getDriveSubsystem()
                 .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), driveJoystick));
     }
