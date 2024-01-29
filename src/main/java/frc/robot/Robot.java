@@ -31,7 +31,7 @@ public class Robot extends LoggedRobot {
     private SubsystemManager subsystemManager;
     private CommandFactory commandFactory;
 
-    public void LoggerInit() {
+    public void loggerInit() {
         Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
         Logger.recordMetadata("Version", BuildConstants.VERSION);
         Logger.recordMetadata("GITRevision", BuildConstants.GIT_REVISION + "");
@@ -60,6 +60,7 @@ public class Robot extends LoggedRobot {
 
     @Override
     public void robotInit() {
+        loggerInit();
         subsystemManager = new SubsystemManager();
         commandFactory = new CommandFactory(subsystemManager);
         OperatorInterface.create(commandFactory, subsystemManager);
