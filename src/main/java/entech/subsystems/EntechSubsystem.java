@@ -9,9 +9,15 @@ package entech.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public abstract class EntechSubsystem extends SubsystemBase {
+
     protected EntechSubsystem() {
     }
 
 	public abstract void initialize();
+
 	public abstract boolean isEnabled();
+
+    public abstract void subsystemInput();
+
+    public abstract SubsystemOutput subsystemOutput(SubsystemOutput subsystemOutput);
 }
