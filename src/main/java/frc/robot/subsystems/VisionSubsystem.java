@@ -21,6 +21,8 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import entech.subsystems.EntechSubsystem;
+import entech.subsystems.SubsystemInput;
+import entech.subsystems.SubsystemOutput;
 import frc.robot.RobotConstants;
 import frc.robot.vision.CameraContainer;
 import frc.robot.vision.VisionDataPacket;
@@ -33,6 +35,24 @@ public class VisionSubsystem extends EntechSubsystem {
     private Pose3d estimatedPose;
     private double timeStamp = -1;
     private List<PhotonTrackedTarget> targets = new ArrayList<>();
+
+    public class VisionInput implements SubsystemInput {
+
+    }
+
+    @Override
+    public void subsystemInput(SubsystemInput subsystemInput) {
+
+    }
+
+    public class VisionOutput implements SubsystemOutput {
+
+    }
+
+    @Override
+    public SubsystemOutput subsystemOutput() {
+        return null;
+    }
 
     @Override
     public void initialize() {
@@ -63,7 +83,7 @@ public class VisionSubsystem extends EntechSubsystem {
 
             if (estimatedPose != null) {
                 Logger.recordOutput("Vision Pose2d", estimatedPose.toPose2d());
-                
+
             }
 
             Optional<VisionDataPacket> data = getData();
@@ -131,4 +151,5 @@ public class VisionSubsystem extends EntechSubsystem {
         }
         return Optional.empty();
     }
+
 }

@@ -30,6 +30,8 @@ import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
+import entech.subsystems.SubsystemInput;
+import entech.subsystems.SubsystemOutput;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.DrivetrainConstants;
 import frc.robot.swerve.SwerveModule;
@@ -67,6 +69,23 @@ public class DriveSubsystem extends EntechSubsystem {
     private double prevTime = WPIUtilJNI.now() * 1e-6;
 
     private SwerveDrivePoseEstimator odometry;
+
+    public class DriveInput implements SubsystemInput {
+
+    }
+
+    @Override
+    public void subsystemInput(SubsystemInput subsystemInput) {
+    }
+
+    public class DriveOutput implements SubsystemOutput {
+
+    }
+
+    @Override
+    public SubsystemOutput subsystemOutput() {
+        return null;
+    }
 
     Field2d field = new Field2d();
 
