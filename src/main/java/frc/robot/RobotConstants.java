@@ -101,6 +101,7 @@ public final class RobotConstants {
     }
 
     public static interface Ports {
+
         public static class ANALOG {
             public static final int FRONT_LEFT_TURNING_ABSOLUTE_ENCODER = 1;
             public static final int REAR_LEFT_TURNING_ABSOLUTE_ENCODER = 2;
@@ -118,6 +119,11 @@ public final class RobotConstants {
             public static final int REAR_LEFT_TURNING = 5;
             public static final int FRONT_RIGHT_TURNING = 22;
             public static final int REAR_RIGHT_TURNING = 3;
+
+            public static final int SHOOTER_TOP = 21;
+            public static final int SHOOTER_BOTTOM = 22;
+
+            public static final int TRANSFER = 23;
         }
 
         public static class CONTROLLER {
@@ -170,6 +176,24 @@ public final class RobotConstants {
                             -Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_ROLL_DEGREES),
                             Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_PITCH_DEGREES),
                             -Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_YAW_DEGREES)));
+        }
+    }
+
+    public static interface PID {
+
+        public static interface Shooter{
+            public static final double KP = 0.00008;
+            public static final double KI = 0.0;
+            public static final double KD = 0.0;
+            public static final double KFF = 0.0;
+            public static final double MAX_SPEED = 5500;
+        }
+
+        public static interface Transfer{
+            public static final double KP = 0.00008;
+            public static final double KI = 0.0;
+            public static final double KD = 0.0;
+            public static final double KFF = 0.0;
         }
     }
 

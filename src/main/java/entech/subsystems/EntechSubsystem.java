@@ -17,7 +17,7 @@ public abstract class EntechSubsystem extends SubsystemBase {
 
 	public abstract boolean isEnabled();
 
-    public abstract void subsystemInput( SubsystemInput subsystemInput);
+    public abstract void updateInputs( SubsystemInput subsystemInput);
 
-    public abstract SubsystemOutput subsystemOutput();
+    public abstract SubsystemOutput getOutputs();
 }
