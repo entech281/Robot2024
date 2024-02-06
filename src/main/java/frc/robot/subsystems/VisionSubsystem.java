@@ -41,7 +41,7 @@ public class VisionSubsystem extends EntechSubsystem {
     }
 
     @Override
-    public void subsystemInput(SubsystemInput subsystemInput) {
+    public void updateInputs(SubsystemInput subsystemInput) {
 
     }
 
@@ -50,7 +50,7 @@ public class VisionSubsystem extends EntechSubsystem {
     }
 
     @Override
-    public SubsystemOutput subsystemOutput() {
+    public SubsystemOutput getOutputs() {
         return null;
     }
 

@@ -173,6 +173,20 @@ public final class RobotConstants {
         }
     }
 
+    public static interface PIVOT {
+        public static interface TUNING {
+            public static final double KP = 1.0;
+            public static final double KI = 0.0;
+            public static final double KD = 0.0;
+            public static final double KFF = 0.0;
+        }
+
+        public static interface CAN {
+            public static final int PIVOT_LEFT = 144;
+            public static final int PIVOT_RIGHT = 145;
+        }
+    }
+
     public static interface AUTONOMOUS {
         public static final double MAX_MODULE_SPEED_METERS_PER_SECOND = 4.42; //4.42
 

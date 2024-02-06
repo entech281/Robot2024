@@ -75,7 +75,7 @@ public class DriveSubsystem extends EntechSubsystem {
     }
 
     @Override
-    public void subsystemInput(SubsystemInput subsystemInput) {
+    public void updateInputs(SubsystemInput subsystemInput) {
     }
 
     public class DriveOutput implements SubsystemOutput {
@@ -83,7 +83,7 @@ public class DriveSubsystem extends EntechSubsystem {
     }
 
     @Override
-    public SubsystemOutput subsystemOutput() {
+    public SubsystemOutput getOutputs() {
         return null;
     }
 
