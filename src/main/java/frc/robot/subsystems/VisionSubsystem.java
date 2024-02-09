@@ -26,7 +26,7 @@ import frc.robot.vision.MultiCameraContainer;
 import frc.robot.vision.SoloCameraContainer;
 import frc.robot.vision.VisionDataPacket;
 
-public class VisionSubsystem extends EntechSubsystem {
+public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> {
     private static final boolean ENABLED = true;
 
     private CameraContainerI cameras;
@@ -34,6 +34,18 @@ public class VisionSubsystem extends EntechSubsystem {
     private Pose2d estimatedPose;
     private double timeStamp = -1;
     private List<PhotonTrackedTarget> targets = new ArrayList<>();
+
+
+    @Override
+    public  void updateInputs(VisionInput input) {
+
+    }
+
+    @Override
+    public VisionOutput getOutputs() {
+
+        return new VisionOutput();
+    }
 
     @Override
     public void initialize() {
@@ -114,4 +126,5 @@ public class VisionSubsystem extends EntechSubsystem {
         }
         return Optional.empty();
     }
+
 }

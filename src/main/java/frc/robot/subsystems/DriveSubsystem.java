@@ -40,7 +40,7 @@ import frc.robot.vision.VisionDataPacket;
  * The {@code Drivetrain} class contains fields and methods pertaining to the
  * function of the drivetrain.
  */
-public class DriveSubsystem extends EntechSubsystem {
+public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
     private static final boolean ENABLED = true;
 
     public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = 2.3084534854898795;
@@ -67,6 +67,18 @@ public class DriveSubsystem extends EntechSubsystem {
     private double prevTime = WPIUtilJNI.now() * 1e-6;
 
     private SwerveDrivePoseEstimator odometry;
+
+
+
+    @Override
+    public void updateInputs(DriveInput input){
+
+    }
+
+    @Override
+    public DriveOutput getOutputs() {
+        return new DriveOutput();
+    }
 
     Field2d field = new Field2d();
 
@@ -326,6 +338,7 @@ public class DriveSubsystem extends EntechSubsystem {
     public boolean isEnabled() {
         return ENABLED;
     }
+
 
     @Override
     public void initialize() {
