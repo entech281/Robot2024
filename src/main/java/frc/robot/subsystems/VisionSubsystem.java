@@ -13,24 +13,25 @@ import java.util.List;
 import java.util.Optional;
 
 import org.littletonrobotics.junction.Logger;
+import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.util.sendable.SendableBuilder;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
-import frc.robot.vision.CameraContainer;
+import frc.robot.vision.CameraContainerI;
+import frc.robot.vision.MultiCameraContainer;
+import frc.robot.vision.SoloCameraContainer;
 import frc.robot.vision.VisionDataPacket;
 
 public class VisionSubsystem extends EntechSubsystem {
     private static final boolean ENABLED = true;
 
-    private CameraContainer cameras;
+    private CameraContainerI cameras;
 
-    private Pose3d estimatedPose;
+    private Pose2d estimatedPose;
     private double timeStamp = -1;
     private List<PhotonTrackedTarget> targets = new ArrayList<>();
 
@@ -45,23 +46,29 @@ public class VisionSubsystem extends EntechSubsystem {
                 throw new RuntimeException("Could not load wpilib AprilTagFields");
             }
 
-            CameraContainer cameraBeta = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT, RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout, null);
-            this.cameras = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT,
-                    RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout,
-                    cameraBeta);
+            CameraContainerI cameraBeta = new SoloCameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT, RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout);
+            CameraContainerI cameraAlpha = new SoloCameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT,
+                    RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout);
+
+            this.cameras = new MultiCameraContainer(cameraAlpha, cameraBeta);
+        }
+    }
+
+    private void updateVisionData() {
+        Optional<Pose2d> estPose = cameras.getEstimatedPose();
+        if (estPose.isPresent()) {
+            estimatedPose = estPose.get();
+
+            PhotonPipelineResult result = cameras.getFilteredResult();
+            timeStamp = result.getTimestampSeconds();
+            targets = result.getTargets();
         }
     }
 
     @Override
     public void periodic() {
         if (ENABLED) {
-            Optional<Pose3d> estPose = cameras.getEstimatedPose();
-            timeStamp = cameras.getFilteredResult().getLatencyMillis();
-            targets = cameras.getFilteredResult().getTargets();
-
-            if (estPose.isPresent()) {
-                Logger.recordOutput("Vision Pose2d", estPose.get().toPose2d());
-            }
+            updateVisionData();
 
             Optional<VisionDataPacket> data = getData();
             if (data.isPresent()) {
@@ -69,6 +76,10 @@ public class VisionSubsystem extends EntechSubsystem {
                 Logger.recordOutput("Latency", packet.getLatency());
                 Logger.recordOutput("Total Targets Counted", packet.getNumberOfTarets());
                 Logger.recordOutput("Has Targets", packet.isHasTargets());
+
+                if (packet.getEstimatedPose().isPresent()) {
+                    Logger.recordOutput("Vision Pose2d", packet.getEstimatedPose().get());
+                }
             }
         }
     }
@@ -78,49 +89,24 @@ public class VisionSubsystem extends EntechSubsystem {
         return ENABLED;
     }
 
-    @Override
-    public void initSendable(SendableBuilder builder) {
-        builder.setSmartDashboardType(getName());
-        if (ENABLED) {
-            builder.addDoubleProperty("epX", () -> {
-                return estimatedPose.getX();
-            }, null);
-            builder.addDoubleProperty("epY", () -> {
-                return estimatedPose.getY();
-            }, null);
-            builder.addDoubleProperty("epZ", () -> {
-                return estimatedPose.getZ();
-            }, null);
-            builder.addDoubleProperty("epYaw", () -> {
-                return estimatedPose.getRotation().getZ();
-            }, null);
-            builder.addDoubleProperty("Latency", () -> {
-                return this.getData().get().getLatency();
-            }, null);
-            builder.addIntegerProperty("Number of targets", () -> {
-                return this.getData().get().getNumberOfTarets();
-            }, null);
-        }
-    }
-
-    public Optional<Pose2d> getEstimatedPose2d() {
+    public Optional<Pose2d> getEstimatedPose() {
         if (estimatedPose == null)
             return Optional.empty();
-        return ENABLED ? Optional.of(estimatedPose.toPose2d()) : Optional.empty();
+        return ENABLED ? Optional.of(estimatedPose) : Optional.empty();
     }
 
     public Optional<Double> getTimeStamp() {
-        return !ENABLED || timeStamp == -1 ? Optional.of(timeStamp) : Optional.empty();
+        return ENABLED && timeStamp != -1 ? Optional.of(timeStamp) : Optional.empty();
     }
 
     public Optional<VisionDataPacket> getData() {
         if (ENABLED) {
             VisionDataPacket dataPacket = new VisionDataPacket();
 
-            dataPacket.setEstimatedPose(getEstimatedPose2d());
-            dataPacket.setHasTargets(cameras.hasTargets());
+            dataPacket.setEstimatedPose(getEstimatedPose());
+            dataPacket.setHasTargets(!targets.isEmpty());
             dataPacket.setLatency(cameras.getLatency());
-            dataPacket.setNumberOfTarets(cameras.getTargetCount());
+            dataPacket.setNumberOfTarets(targets.size());
             dataPacket.setTimeStamp(getTimeStamp());
             dataPacket.setTargets(targets);
 

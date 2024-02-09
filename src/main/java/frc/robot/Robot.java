@@ -68,12 +68,8 @@ public class Robot extends LoggedRobot {
 
     @Override
     public void robotPeriodic() {
-        CommandScheduler.getInstance().run();
-    }
-
-    @Override
-    public void disabledPeriodic() {
         subsystemManager.periodic();
+        CommandScheduler.getInstance().run();
     }
 
     @Override

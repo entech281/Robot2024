@@ -2,11 +2,15 @@ package frc.robot;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 
 public final class RobotConstants {
@@ -131,6 +135,8 @@ public final class RobotConstants {
     }
 
     public static interface Vision {
+        public static final Matrix<N3, N1> VISION_STD_DEVS = VecBuilder.fill(10, 10, 1000000);
+
         public static interface Cameras {
             public static final String FRONT_LEFT = "Arducam_Bravo";
             public static final String FRONT_RIGHT = "Arducam_Alpha";
@@ -138,7 +144,6 @@ public final class RobotConstants {
 
         public static interface Filters {
             public static final double MAX_AMBIGUITY = 0.75;
-            public static final double MIN_AREA = 0.75;
             public static final double MAX_DISTANCE = 7;
         }
 
@@ -146,20 +151,20 @@ public final class RobotConstants {
             public static final Transform3d FRONT_LEFT = new Transform3d(
                     new Translation3d(
                             Units.inchesToMeters(15),
-                            Units.inchesToMeters(8.5),
-                            Units.inchesToMeters(42.75)),
+                            Units.inchesToMeters(10.5),
+                            Units.inchesToMeters(19.5)),
                     new Rotation3d(
-                            Units.degreesToRadians(1.5),
-                            Units.degreesToRadians(3),
+                            Units.degreesToRadians(0),
+                            Units.degreesToRadians(16.5),
                             Units.degreesToRadians(0)));
             public static final Transform3d FRONT_RIGHT = new Transform3d(
                     new Translation3d(
                             Units.inchesToMeters(15),
-                            Units.inchesToMeters(-10.5),
-                            Units.inchesToMeters(42.75)),
+                            Units.inchesToMeters(-9),
+                            Units.inchesToMeters(19.5)),
                     new Rotation3d(
-                            Units.degreesToRadians(-1),
-                            Units.degreesToRadians(4),
+                            Units.degreesToRadians(0),
+                            Units.degreesToRadians(20),
                             Units.degreesToRadians(0)));
         }
     }

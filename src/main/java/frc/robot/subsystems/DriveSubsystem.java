@@ -26,7 +26,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
@@ -72,11 +72,16 @@ public class DriveSubsystem extends EntechSubsystem {
 
     private double getGyroAngle() {
         return gyro.getAngle() + 0;
-     }
+    }
 
     @Override
     public void periodic() {
         if (ENABLED) {
+            Pose2d pose = odometry.getEstimatedPosition();
+            Logger.recordOutput("Odometry pose2d", pose);
+            field.setRobotPose(pose);
+            SmartDashboard.putData("Odometry Pose Field", field);
+
             SmartDashboard.putNumberArray("modules pose angles", new double[] {
                     frontLeft.getPosition().angle.getDegrees(),
                     frontRight.getPosition().angle.getDegrees(),
@@ -114,11 +119,6 @@ public class DriveSubsystem extends EntechSubsystem {
                             rearLeft.getPosition(),
                             rearRight.getPosition()
                     });
-
-            Pose2d pose = odometry.getEstimatedPosition();
-            Logger.recordOutput("Odometry pose2d", pose);
-            field.setRobotPose(pose);
-            SmartDashboard.putData("Odometry Pose Field", field);
         }
     }
 
@@ -350,7 +350,7 @@ public class DriveSubsystem extends EntechSubsystem {
                     RobotConstants.Ports.CAN.REAR_RIGHT_TURNING,
                     RobotConstants.Ports.ANALOG.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
 
-            gyro = new AHRS(Port.kUSB1);
+            gyro = new AHRS(SPI.Port.kMXP);
             gyro.reset();
             gyro.zeroYaw();
 
@@ -367,6 +367,8 @@ public class DriveSubsystem extends EntechSubsystem {
                             rearLeft.getPosition(),
                             rearRight.getPosition()
                     }, new Pose2d(initialTranslation, initialRotation));
+
+            odometry.setVisionMeasurementStdDevs(RobotConstants.Vision.VISION_STD_DEVS);
 
             frontLeft.calibrateVirtualPosition(FRONT_LEFT_VIRTUAL_OFFSET_RADIANS);
             frontRight.calibrateVirtualPosition(FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS);
@@ -401,8 +403,8 @@ public class DriveSubsystem extends EntechSubsystem {
                     return false;
                 },
                 this // Reference to this subsystem to set requirements
-        );
+            );
+            resetOdometry(new Pose2d(1.38, 5.56, Rotation2d.fromDegrees(180)));
         }
-        resetOdometry(new Pose2d(1.38, 5.56, Rotation2d.fromDegrees(180)));
     }
 }

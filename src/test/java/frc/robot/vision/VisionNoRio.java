@@ -6,7 +6,7 @@ import java.util.Optional;
 // import org.junit.jupiter.api.Test;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
@@ -28,7 +28,7 @@ public class VisionNoRio {
             throw new RuntimeException("Could not load wpilib AprilTagFields");
         }
 
-        CameraContainer camera = new CameraContainer("USB_Camera", new Transform3d(), photonAprilTagFieldLayout, null,
+        CameraContainerI camera = new SoloCameraContainer("USB_Camera", new Transform3d(), photonAprilTagFieldLayout,
                 nt);
 
         while (true) {
@@ -37,7 +37,7 @@ public class VisionNoRio {
             System.out.println("Latency: " + camera.getLatency());
             if (camera.hasTargets()) {
                 System.out.println("# of targets: " + camera.getTargetCount());
-                Optional<Pose3d> estPose = camera.getEstimatedPose();
+                Optional<Pose2d> estPose = camera.getEstimatedPose();
                 if (estPose.isPresent()) {
                     System.out.println(estPose.get());
                 } else {
