@@ -34,7 +34,6 @@ import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.DrivetrainConstants;
 import frc.robot.swerve.SwerveModule;
 import frc.robot.swerve.SwerveUtils;
-import frc.robot.vision.VisionDataPacket;
 
 /**
  * The {@code Drivetrain} class contains fields and methods pertaining to the
@@ -326,7 +325,7 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
                 : Optional.empty();
     }
 */
-    public void addVisionData(VisionDataPacket data) {
+    public void addVisionData(VisionOutput data) {
         Optional<Pose2d> pose = data.getEstimatedPose();
         Optional<Double> timeStamp = data.getTimeStamp();
         if (pose.isPresent() && timeStamp.isPresent()) {

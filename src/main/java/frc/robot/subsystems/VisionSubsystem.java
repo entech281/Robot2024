@@ -24,7 +24,6 @@ import frc.robot.RobotConstants;
 import frc.robot.vision.CameraContainerI;
 import frc.robot.vision.MultiCameraContainer;
 import frc.robot.vision.SoloCameraContainer;
-import frc.robot.vision.VisionDataPacket;
 
 public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> {
     private static final boolean ENABLED = true;
@@ -37,14 +36,22 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
 
 
     @Override
-    public  void updateInputs(VisionInput input) {
+    public void updateInputs(VisionInput input) {
 
     }
 
     @Override
     public VisionOutput getOutputs() {
+        VisionOutput output = new VisionOutput();
 
-        return new VisionOutput();
+        output.setEstimatedPose(getEstimatedPose());
+        output.setHasTargets(!targets.isEmpty());
+        output.setLatency(cameras.getLatency());
+        output.setNumberOfTarets(targets.size());
+        output.setTimeStamp(getTimeStamp());
+        output.setTargets(targets);
+
+        return output;
     }
 
     @Override
@@ -82,16 +89,13 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
         if (ENABLED) {
             updateVisionData();
 
-            Optional<VisionDataPacket> data = getData();
-            if (data.isPresent()) {
-                VisionDataPacket packet = data.get();
-                Logger.recordOutput("Latency", packet.getLatency());
-                Logger.recordOutput("Total Targets Counted", packet.getNumberOfTarets());
-                Logger.recordOutput("Has Targets", packet.isHasTargets());
+            VisionOutput data = getOutputs();
+            Logger.recordOutput("Latency", data.getLatency());
+            Logger.recordOutput("Total Targets Counted", data.getNumberOfTarets());
+            Logger.recordOutput("Has Targets", data.isHasTargets());
 
-                if (packet.getEstimatedPose().isPresent()) {
-                    Logger.recordOutput("Vision Pose2d", packet.getEstimatedPose().get());
-                }
+            if (data.getEstimatedPose().isPresent()) {
+                Logger.recordOutput("Vision Pose2d", data.getEstimatedPose().get());
             }
         }
     }
@@ -110,21 +114,4 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
     public Optional<Double> getTimeStamp() {
         return ENABLED && timeStamp != -1 ? Optional.of(timeStamp) : Optional.empty();
     }
-
-    public Optional<VisionDataPacket> getData() {
-        if (ENABLED) {
-            VisionDataPacket dataPacket = new VisionDataPacket();
-
-            dataPacket.setEstimatedPose(getEstimatedPose());
-            dataPacket.setHasTargets(!targets.isEmpty());
-            dataPacket.setLatency(cameras.getLatency());
-            dataPacket.setNumberOfTarets(targets.size());
-            dataPacket.setTimeStamp(getTimeStamp());
-            dataPacket.setTargets(targets);
-
-            return Optional.of(dataPacket);
-        }
-        return Optional.empty();
-    }
-
 }
