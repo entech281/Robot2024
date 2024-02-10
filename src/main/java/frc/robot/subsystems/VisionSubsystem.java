@@ -75,13 +75,12 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
 
     private void updateVisionData() {
         Optional<Pose2d> estPose = cameras.getEstimatedPose();
+        PhotonPipelineResult result = cameras.getFilteredResult();
         if (estPose.isPresent()) {
             estimatedPose = estPose.get();
-
-            PhotonPipelineResult result = cameras.getFilteredResult();
             timeStamp = result.getTimestampSeconds();
-            targets = result.getTargets();
         }
+        targets = result.getTargets();
     }
 
     @Override

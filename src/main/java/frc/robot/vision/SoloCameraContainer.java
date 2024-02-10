@@ -71,11 +71,11 @@ public class SoloCameraContainer implements CameraContainerI {
 
     @Override
     public boolean hasTargets() {
-        return (getFilteredResult().hasTargets());
+        return getFilteredResult().hasTargets();
     }
 
     @Override
     public int getTargetCount() {
-        return (getFilteredResult().getTargets().size());
+        return getFilteredResult().getTargets().size();
     }
 }
