@@ -1,5 +1,6 @@
 package frc.robot.OI;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import entech.util.EntechJoystick;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
@@ -23,10 +24,16 @@ public final class OperatorInterface {
      */
     public static void create(CommandFactory commandFactory, SubsystemManager subsystemManager) {
         driveJoystick.WhilePressed(1, new TwistCommand());
-        driveJoystick.WhenPressed(11, new GyroReset(subsystemManager.getDriveSubsystem()));
+        driveJoystick.WhenPressed(11, new GyroReset(subsystemManager.getNavXSubsystem(), subsystemManager.getOdometrySubsystem()));
         driveJoystick.WhenPressed(9, new XCommand());
         subsystemManager.getDriveSubsystem()
-                .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), driveJoystick));
+                .setDefaultCommand(
+                    new DriveCommand(
+                        subsystemManager.getDriveSubsystem(),
+                        driveJoystick,
+                        () -> { return Rotation2d.fromDegrees(subsystemManager.getNavXSubsystem().getOutputs().yaw); }
+                    )
+                );
     }
 
     private OperatorInterface() {

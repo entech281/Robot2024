@@ -4,6 +4,8 @@ import com.revrobotics.CANSparkBase.IdleMode;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -41,6 +43,7 @@ public final class RobotConstants {
                 new Translation2d(-WHEEL_BASE_METERS / 2, -TRACK_WIDTH_METERS / 2));
 
         public static final boolean GYRO_REVERSED = false;
+        public static final boolean RATE_LIMITING = true;
     }
 
     public static final class SwerveModuleConstants {
@@ -179,6 +182,17 @@ public final class RobotConstants {
     public interface INDICATOR_VALUES {
         public static final double POSITION_UNKNOWN = -1.0;
         public static final double POSITION_NOT_SET = -1.1;
+    }
+
+    public interface ODOMETRY {
+        public static final double FIELD_LENGTH_INCHES = 54 * 12 + 3.25;
+        public static final double FIELD_WIDTH_INCHES = 26 * 12 + 11.25;
+
+        public static final Translation2d INITIAL_TRANSLATION = new Translation2d(Units.inchesToMeters(FIELD_LENGTH_INCHES / 2),
+                    Units.inchesToMeters(FIELD_WIDTH_INCHES / 2)); // mid field
+        public static final Rotation2d INITIAL_ROTATION = Rotation2d.fromDegrees(180);
+
+        public static final Pose2d INITIAL_POSE = new Pose2d(INITIAL_TRANSLATION, INITIAL_ROTATION);
     }
 
     private RobotConstants() {

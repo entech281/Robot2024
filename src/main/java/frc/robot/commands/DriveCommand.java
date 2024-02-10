@@ -1,10 +1,14 @@
 package frc.robot.commands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Rotation2d;
 import entech.commands.EntechCommand;
 import entech.util.EntechJoystick;
 import frc.robot.RobotConstants;
 import frc.robot.OI.UserPolicy;
+import frc.robot.subsystems.DriveInput;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveCommand extends EntechCommand {
@@ -12,16 +16,25 @@ public class DriveCommand extends EntechCommand {
 
     private final DriveSubsystem drive;
     private final EntechJoystick joystick;
+    private final Supplier<Rotation2d> gyroYaw;
 
-    public DriveCommand(DriveSubsystem drive, EntechJoystick joystick) {
+    public DriveCommand(DriveSubsystem drive, EntechJoystick joystick, Supplier<Rotation2d> gyroYaw) {
         super(drive);
         this.drive = drive;
         this.joystick = joystick;
+        this.gyroYaw = gyroYaw;
     }
 
     @Override
     public void end(boolean interrupted) {
-        drive.drive(0, 0, 0, true, true);
+        DriveInput stop = new DriveInput();
+
+        stop.gyroAngle = gyroYaw.get();
+        stop.rot = 0;
+        stop.xSpeed= 0;
+        stop.ySpeed = 0;
+
+        drive.updateInputs(stop);
     }
 
     @Override
@@ -38,30 +51,37 @@ public class DriveCommand extends EntechCommand {
                 MathUtil.clamp(rotRaw, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
                 RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);
 
-        double xSquared = Math.copySign(xConstrained * xConstrained, xConstrained);
-        double ySquared = Math.copySign(yConstrained * yConstrained, yConstrained);
-        double rotSquared = Math.copySign(rotConstrained * rotConstrained, rotConstrained);
+        DriveInput input = new DriveInput();
+
+        input.xSpeed = -Math.copySign(xConstrained * xConstrained, xConstrained);
+        input.ySpeed = -Math.copySign(yConstrained * yConstrained, yConstrained);
+        input.rot = -Math.copySign(rotConstrained * rotConstrained, rotConstrained);
+        input.gyroAngle = gyroYaw.get();
 
         if (UserPolicy.xLocked) {
             drive.setX();
             return;
         }
 
-        if (UserPolicy.twistable) {
-            drive.drive(-ySquared, -xSquared, -rotSquared, true, true);
-        } else {
-            drive.drive(-ySquared, -xSquared, 0, true, true);
-        }
+        input.rot = UserPolicy.twistable ? -Math.copySign(rotConstrained * rotConstrained, rotConstrained) : 0.0;
+
+        drive.updateInputs(input);
     }
 
     @Override
     public void initialize() {
-        drive.drive(0, 0, 0, true, true);
+        DriveInput initial = new DriveInput();
+
+        initial.gyroAngle = gyroYaw.get();
+        initial.rot = 0;
+        initial.xSpeed= 0;
+        initial.ySpeed = 0;
+
+        drive.updateInputs(initial);
     }
 
     @Override
     public boolean isFinished() {
         return false;
     }
-
 }
