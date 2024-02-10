@@ -21,13 +21,11 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import entech.subsystems.EntechSubsystem;
-import entech.subsystems.SubsystemInput;
-import entech.subsystems.SubsystemOutput;
 import frc.robot.RobotConstants;
 import frc.robot.vision.CameraContainer;
 import frc.robot.vision.VisionDataPacket;
 
-public class VisionSubsystem extends EntechSubsystem {
+public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> {
     private static final boolean ENABLED = true;
 
     private CameraContainer cameras;
@@ -36,22 +34,16 @@ public class VisionSubsystem extends EntechSubsystem {
     private double timeStamp = -1;
     private List<PhotonTrackedTarget> targets = new ArrayList<>();
 
-    public class VisionInput implements SubsystemInput {
+
+    @Override
+    public  void updateInputs(VisionInput input) {
 
     }
 
     @Override
-    public void updateInputs(SubsystemInput subsystemInput) {
+    public VisionOutput getOutputs() {
 
-    }
-
-    public class VisionOutput implements SubsystemOutput {
-
-    }
-
-    @Override
-    public SubsystemOutput getOutputs() {
-        return null;
+        return new VisionOutput();
     }
 
     @Override
@@ -100,6 +92,8 @@ public class VisionSubsystem extends EntechSubsystem {
     public boolean isEnabled() {
         return ENABLED;
     }
+
+
 
     @Override
     public void initSendable(SendableBuilder builder) {

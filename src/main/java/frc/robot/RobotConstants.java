@@ -188,15 +188,13 @@ public final class RobotConstants {
             public static final double KFF = 0.0;
             public static final double MAX_SPEED = 5500;
         }
-
-        public static interface Transfer{
-            public static final double KP = 0.00008;
-            public static final double KI = 0.0;
-            public static final double KD = 0.0;
-            public static final double KFF = 0.0;
-        }
     }
 
+    public static interface TRANSFER {
+        public static final double SHOOTING_SPEED = 1;
+        public static final double TRANSFERING_SPEED = 0.0;
+        public static final double INTAKING_SPEED = 0.0;
+    }
     public static interface AUTONOMOUS {
         public static final double MAX_MODULE_SPEED_METERS_PER_SECOND = 4.42; //4.42
 

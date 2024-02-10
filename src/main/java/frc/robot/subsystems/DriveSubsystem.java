@@ -30,8 +30,6 @@ import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
-import entech.subsystems.SubsystemInput;
-import entech.subsystems.SubsystemOutput;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.DrivetrainConstants;
 import frc.robot.swerve.SwerveModule;
@@ -42,7 +40,7 @@ import frc.robot.vision.VisionDataPacket;
  * The {@code Drivetrain} class contains fields and methods pertaining to the
  * function of the drivetrain.
  */
-public class DriveSubsystem extends EntechSubsystem {
+public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
     private static final boolean ENABLED = true;
 
     public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = 2.3084534854898795;
@@ -70,21 +68,14 @@ public class DriveSubsystem extends EntechSubsystem {
 
     private SwerveDrivePoseEstimator odometry;
 
-    public class DriveInput implements SubsystemInput {
+    @Override
+    public void updateInputs(DriveInput input){
 
     }
 
     @Override
-    public void updateInputs(SubsystemInput subsystemInput) {
-    }
-
-    public class DriveOutput implements SubsystemOutput {
-
-    }
-
-    @Override
-    public SubsystemOutput getOutputs() {
-        return null;
+    public DriveOutput getOutputs() {
+        return new DriveOutput();
     }
 
     Field2d field = new Field2d();
@@ -344,6 +335,7 @@ public class DriveSubsystem extends EntechSubsystem {
     public boolean isEnabled() {
         return ENABLED;
     }
+
 
     @Override
     public void initialize() {

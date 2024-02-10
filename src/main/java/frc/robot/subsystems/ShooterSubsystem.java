@@ -9,26 +9,25 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import entech.subsystems.EntechSubsystem;
-import entech.subsystems.SubsystemInput;
-import entech.subsystems.SubsystemOutput;
 import frc.robot.RobotConstants;
 
-public class ShooterSubsystem extends EntechSubsystem {
+public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutput> {
 
     private CANSparkMax shooterTop;
     private CANSparkMax shooterBottom;
 
-    private boolean shooter = false;
-
     SparkPIDController shooterTopPID = null;
     SparkPIDController shooterBottomPID = null;
 
-    public static double maxSpeed = 5500;
+    private boolean active = false;
+
+    private static double maxSpeed = 5500;
 
     private final boolean ENABLED = true;
 
     @Override
     public void initialize() {
+
         shooterTop = new CANSparkMax(RobotConstants.Ports.CAN.SHOOTER_TOP, MotorType.kBrushless);
         shooterBottom = new CANSparkMax(RobotConstants.Ports.CAN.SHOOTER_BOTTOM, MotorType.kBrushless);
 
@@ -52,11 +51,11 @@ public class ShooterSubsystem extends EntechSubsystem {
     }
 
     public void startShooter() {
-        shooter = true;
+        active = true;
     }
 
     public void stopShooter() {
-        shooter = false;
+        active = false;
     }
 
     public void periodic() {
@@ -67,7 +66,7 @@ public class ShooterSubsystem extends EntechSubsystem {
         SmartDashboard.putNumber("Transfer", shooterTop.getEncoder().getVelocity());
 
         if(ENABLED) {
-            if(shooter) {
+            if(active) {
                 shooterTopPID.setReference(maxSpeed, CANSparkMax.ControlType.kVelocity);
                 shooterBottomPID.setReference(maxSpeed, CANSparkMax.ControlType.kVelocity);
             } else {
@@ -76,18 +75,21 @@ public class ShooterSubsystem extends EntechSubsystem {
             }
         }
     }
+
     @Override
     public boolean isEnabled() {
         return ENABLED;
     }
 
     @Override
-    public void updateInputs(SubsystemInput input) {
+    public void updateInputs(ShooterInput input) {
+        maxSpeed = input.maxSpeed;
+        active = input.shooterStatus;
     }
 
     @Override
-    public SubsystemOutput getOutputs() {
-        return null;
+    public ShooterOutput getOutputs() {
+        return new ShooterOutput();
     }
 
 }
