@@ -7,7 +7,6 @@ import org.photonvision.targeting.PhotonPipelineResult;
 import edu.wpi.first.math.geometry.Pose2d;
 
 public interface CameraContainerI {
-
     PhotonPipelineResult getFilteredResult();
 
     Optional<Pose2d> getEstimatedPose();
@@ -17,5 +16,4 @@ public interface CameraContainerI {
     boolean hasTargets();
 
     int getTargetCount();
-
 }
