@@ -116,15 +116,15 @@ public final class RobotConstants {
         }
 
         public static class CAN {
-            public static final int FRONT_LEFT_DRIVING = 10;
-            public static final int REAR_LEFT_DRIVING = 6;
+            public static final int FRONT_LEFT_DRIVING = 11;
             public static final int FRONT_RIGHT_DRIVING = 21;
-            public static final int REAR_RIGHT_DRIVING = 4;
+            public static final int REAR_LEFT_DRIVING = 31;
+            public static final int REAR_RIGHT_DRIVING = 41;
 
             public static final int FRONT_LEFT_TURNING = 12;
-            public static final int REAR_LEFT_TURNING = 5;
             public static final int FRONT_RIGHT_TURNING = 22;
-            public static final int REAR_RIGHT_TURNING = 3;
+            public static final int REAR_LEFT_TURNING = 32;
+            public static final int REAR_RIGHT_TURNING = 42;
         }
 
         public static class CONTROLLER {

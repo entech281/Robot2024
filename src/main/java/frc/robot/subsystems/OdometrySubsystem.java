@@ -73,7 +73,9 @@ public class OdometrySubsystem extends EntechSubsystem<OdometryInput, OdometryOu
             estimator.update(input.yaw, input.modulePositions);
 
             if (input.visionEstimate.isPresent() && input.visionTimeStamp.isPresent()) {
-                estimator.addVisionMeasurement(input.visionEstimate.get(), input.visionTimeStamp.get());
+                Pose2d visionPose = input.visionEstimate.get();
+                Pose2d fixedVisionPose = new Pose2d(visionPose.getTranslation(), input.yaw);
+                estimator.addVisionMeasurement(fixedVisionPose, input.visionTimeStamp.get());
             }
 
             latestChassisSpeeds = input.chassisSpeeds;
