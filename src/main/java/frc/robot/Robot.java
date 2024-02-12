@@ -10,11 +10,13 @@ import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.OI.OperatorInterface;
+import frc.robot.processors.OdomtryProcessor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,6 +31,7 @@ public class Robot extends LoggedRobot {
     private Command autonomousCommand;
     private SubsystemManager subsystemManager;
     private CommandFactory commandFactory;
+    private OdomtryProcessor odometry;
 
     public void loggerInit() {
         Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
@@ -60,8 +63,13 @@ public class Robot extends LoggedRobot {
     public void robotInit() {
         loggerInit();
         subsystemManager = new SubsystemManager();
-        commandFactory = new CommandFactory(subsystemManager);
-        OperatorInterface.create(commandFactory, subsystemManager);
+        odometry = new OdomtryProcessor();
+        commandFactory = new CommandFactory(subsystemManager, odometry);
+        OperatorInterface.create(commandFactory, subsystemManager, odometry);
+        odometry.createEstimator(
+            RobotOutputs.getInstance().getDriveOutput().modulePositions,
+            Rotation2d.fromDegrees(RobotOutputs.getInstance().getNavXOutput().yaw)
+        );
     }
 
     @Override

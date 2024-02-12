@@ -2,12 +2,11 @@ package frc.robot.commands;
 
 import java.util.function.Supplier;
 
-import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import entech.commands.EntechCommand;
 import entech.util.EntechJoystick;
-import frc.robot.RobotConstants;
-import frc.robot.OI.UserPolicy;
+import frc.robot.processors.DriveInputProcessor;
 import frc.robot.subsystems.DriveInput;
 import frc.robot.subsystems.DriveSubsystem;
 
@@ -17,12 +16,16 @@ public class DriveCommand extends EntechCommand {
     private final DriveSubsystem drive;
     private final EntechJoystick joystick;
     private final Supplier<Rotation2d> gyroYaw;
+    private final Supplier<Pose2d> odometryPose;
+    private final DriveInputProcessor inputProcessor;
 
-    public DriveCommand(DriveSubsystem drive, EntechJoystick joystick, Supplier<Rotation2d> gyroYaw) {
+    public DriveCommand(DriveSubsystem drive, EntechJoystick joystick, Supplier<Rotation2d> gyroYaw, Supplier<Pose2d> odometryPose) {
         super(drive);
         this.drive = drive;
         this.joystick = joystick;
         this.gyroYaw = gyroYaw;
+        this.odometryPose = odometryPose;
+        this.inputProcessor = new DriveInputProcessor();
     }
 
     @Override
@@ -39,31 +42,16 @@ public class DriveCommand extends EntechCommand {
 
     @Override
     public void execute() {
-        double xRaw = joystick.getX();
-        double yRaw = joystick.getY();
-        double rotRaw = joystick.getZ();
-
-        double xConstrained = MathUtil.applyDeadband(MathUtil.clamp(xRaw, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
-                RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);
-        double yConstrained = MathUtil.applyDeadband(MathUtil.clamp(yRaw, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
-                RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);
-        double rotConstrained = MathUtil.applyDeadband(
-                MathUtil.clamp(rotRaw, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
-                RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);
-
         DriveInput input = new DriveInput();
 
-        input.xSpeed = -Math.copySign(xConstrained * xConstrained, xConstrained);
-        input.ySpeed = -Math.copySign(yConstrained * yConstrained, yConstrained);
-        input.rot = -Math.copySign(rotConstrained * rotConstrained, rotConstrained);
+        input.xSpeed = joystick.getX();
+        input.ySpeed = joystick.getY();
+        input.rot = joystick.getZ();
+
         input.gyroAngle = gyroYaw.get();
+        input.pose = odometryPose.get();
 
-        if (UserPolicy.xLocked) {
-            drive.setX();
-            return;
-        }
-
-        input.rot = UserPolicy.twistable ? -Math.copySign(rotConstrained * rotConstrained, rotConstrained) : 0.0;
+        input = inputProcessor.processInput(input);
 
         drive.updateInputs(input);
     }

@@ -6,12 +6,12 @@ import frc.robot.OI.UserPolicy;
 public class TwistCommand extends EntechCommand {
     @Override
     public void initialize() {
-        UserPolicy.twistable = true;
+        UserPolicy.getInstance().setIsTwistable(true);
     }
 
     @Override
     public void end(boolean interrupted) {
-        UserPolicy.twistable = false;
+        UserPolicy.getInstance().setIsTwistable(false);
     }
     
     @Override

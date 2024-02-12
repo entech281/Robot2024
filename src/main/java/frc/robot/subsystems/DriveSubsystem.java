@@ -8,6 +8,7 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -117,7 +118,18 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
 
     @Override
     public DriveOutput getOutputs() {
-        return new DriveOutput();
+        DriveOutput output = new DriveOutput();
+        output.modulePositions = getModulePositions();
+        return output;
+    }
+
+    private SwerveModulePosition[] getModulePositions() {
+        return new SwerveModulePosition[] {
+            frontLeft.getPosition(),
+            frontRight.getPosition(),
+            rearLeft.getPosition(),
+            rearRight.getPosition()
+        };
     }
 
     Field2d field = new Field2d();

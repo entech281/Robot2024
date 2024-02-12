@@ -8,7 +8,7 @@ import frc.robot.SubsystemManager;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.TwistCommand;
-import frc.robot.commands.XCommand;
+import frc.robot.processors.OdomtryProcessor;
 
 @SuppressWarnings("unused")
 public final class OperatorInterface {
@@ -22,16 +22,16 @@ public final class OperatorInterface {
      * @param commandFactory
      * @param subsystemManager
      */
-    public static void create(CommandFactory commandFactory, SubsystemManager subsystemManager) {
+    public static void create(CommandFactory commandFactory, SubsystemManager subsystemManager, OdomtryProcessor odometry) {
         driveJoystick.WhilePressed(1, new TwistCommand());
-        driveJoystick.WhenPressed(11, new GyroReset(subsystemManager.getNavXSubsystem(), subsystemManager.getOdometrySubsystem()));
-        driveJoystick.WhenPressed(9, new XCommand());
+        driveJoystick.WhenPressed(11, new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
         subsystemManager.getDriveSubsystem()
                 .setDefaultCommand(
                     new DriveCommand(
                         subsystemManager.getDriveSubsystem(),
                         driveJoystick,
-                        () -> { return Rotation2d.fromDegrees(subsystemManager.getNavXSubsystem().getOutputs().yaw); }
+                        () -> { return Rotation2d.fromDegrees(subsystemManager.getNavXSubsystem().getOutputs().yaw); },
+                        odometry::getEstimatedPose
                     )
                 );
     }

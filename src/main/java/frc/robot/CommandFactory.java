@@ -11,26 +11,29 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.GyroReset;
+import frc.robot.processors.OdomtryProcessor;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.NavXSubsystem;
-import frc.robot.subsystems.OdometrySubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 
 @SuppressWarnings("unused")
 public class CommandFactory {
-    private DriveSubsystem driveSubsystem;
-    private VisionSubsystem visionSubsystem;
-    private NavXSubsystem navXSubsystem;
-    private OdometrySubsystem odometrySubsystem;
+    private final DriveSubsystem driveSubsystem;
+    private final VisionSubsystem visionSubsystem;
+    private final NavXSubsystem navXSubsystem;
 
-    public CommandFactory(SubsystemManager subsystemManager) {
+    private final OdomtryProcessor odometry;
+
+    public CommandFactory(SubsystemManager subsystemManager, OdomtryProcessor odometry) {
         this.driveSubsystem = subsystemManager.getDriveSubsystem();
         this.visionSubsystem = subsystemManager.getVisionSubsystem();
+        this.navXSubsystem = subsystemManager.getNavXSubsystem();
+        this.odometry = odometry;
 
         AutoBuilder.configureHolonomic(
-                () -> { return odometrySubsystem.getOutputs().pose; }, // Robot pose supplier
-                odometrySubsystem::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
-                () -> { return odometrySubsystem.getOutputs().chassisSpeeds; }, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+                odometry::getEstimatedPose, // Robot pose supplier
+                odometry::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
+                () -> { return navXSubsystem.getOutputs().chassisSpeeds; }, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
                 driveSubsystem::pathFollowDrive,
                 new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
                         new PIDConstants(RobotConstants.AUTONOMOUS.TRANSLATION_CONTROLLER_P, 0.0, 0.0), // Translation PID constants
@@ -56,7 +59,7 @@ public class CommandFactory {
 
     public Command getAutoCommand() {
         SequentialCommandGroup auto = new SequentialCommandGroup();
-        auto.addCommands(new GyroReset(navXSubsystem, odometrySubsystem));
+        auto.addCommands(new GyroReset(navXSubsystem, odometry));
         auto.addCommands(new WaitCommand(2));
         auto.addCommands(new PathPlannerAuto("auto1p1"));
         return auto;
