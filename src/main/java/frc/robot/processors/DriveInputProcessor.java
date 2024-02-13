@@ -6,12 +6,14 @@ import java.util.List;
 import frc.robot.processors.filters.DriveFilterI;
 import frc.robot.processors.filters.MaxConstraintFilter;
 import frc.robot.processors.filters.SquaringFilter;
+import frc.robot.processors.filters.TwistFilter;
 import frc.robot.subsystems.DriveInput;
 
 public class DriveInputProcessor {
     private final List<DriveFilterI> driveFilters = new ArrayList<>();
 
     public DriveInputProcessor() {
+        driveFilters.add(new TwistFilter());
         driveFilters.add(new SquaringFilter());
         driveFilters.add(new MaxConstraintFilter());
     }

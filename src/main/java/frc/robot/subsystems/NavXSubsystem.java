@@ -5,6 +5,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
 
 public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput>{
@@ -36,6 +37,11 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput>{
     private ChassisSpeeds getChassisSpeeds() {
         double radiansPerSecond = Units.degreesToRadians(gyro.getRate());
         return ChassisSpeeds.fromFieldRelativeSpeeds(gyro.getVelocityX(), gyro.getVelocityY(), radiansPerSecond, gyro.getRotation2d());
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putData(gyro);
     }
 
     @Override

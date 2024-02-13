@@ -76,6 +76,12 @@ public class Robot extends LoggedRobot {
     public void robotPeriodic() {
         subsystemManager.periodic();
         CommandScheduler.getInstance().run();
+        odometry.updateInputs(
+            RobotOutputs.getInstance().getDriveOutput().modulePositions,
+            Rotation2d.fromDegrees(RobotOutputs.getInstance().getNavXOutput().yaw)
+        );
+
+        Logger.recordOutput("Odometry", odometry.getEstimatedPose());
     }
 
     @Override

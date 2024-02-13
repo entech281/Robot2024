@@ -11,8 +11,6 @@ import frc.robot.subsystems.DriveInput;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveCommand extends EntechCommand {
-    private static final double MAX_SPEED_PERCENT = 1;
-
     private final DriveSubsystem drive;
     private final EntechJoystick joystick;
     private final Supplier<Rotation2d> gyroYaw;
@@ -44,9 +42,9 @@ public class DriveCommand extends EntechCommand {
     public void execute() {
         DriveInput input = new DriveInput();
 
-        input.xSpeed = joystick.getX();
-        input.ySpeed = joystick.getY();
-        input.rot = joystick.getZ();
+        input.ySpeed = -joystick.getX();
+        input.xSpeed = -joystick.getY();
+        input.rot = -joystick.getZ();
 
         input.gyroAngle = gyroYaw.get();
         input.pose = odometryPose.get();
