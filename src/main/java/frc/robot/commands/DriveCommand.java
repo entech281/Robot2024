@@ -42,8 +42,8 @@ public class DriveCommand extends EntechCommand {
     public void execute() {
         DriveInput input = new DriveInput();
 
-        input.ySpeed = -joystick.getX();
-        input.xSpeed = -joystick.getY();
+        input.ySpeed = joystick.getX();
+        input.xSpeed = joystick.getY();
         input.rot = -joystick.getZ();
 
         input.gyroAngle = gyroYaw.get();
