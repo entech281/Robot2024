@@ -30,10 +30,10 @@ public final class RobotConstants {
 
         // Distance between front and back wheels on robot
         public static final SwerveDriveKinematics DRIVE_KINEMATICS = new SwerveDriveKinematics(
-                new Translation2d(WHEEL_BASE_METERS / 2, TRACK_WIDTH_METERS / 2),
-                new Translation2d(WHEEL_BASE_METERS / 2, -TRACK_WIDTH_METERS / 2),
-                new Translation2d(-WHEEL_BASE_METERS / 2, TRACK_WIDTH_METERS / 2),
-                new Translation2d(-WHEEL_BASE_METERS / 2, -TRACK_WIDTH_METERS / 2));
+            new Translation2d(WHEEL_BASE_METERS / 2, TRACK_WIDTH_METERS / 2),
+            new Translation2d(WHEEL_BASE_METERS / 2, -TRACK_WIDTH_METERS / 2),
+            new Translation2d(-WHEEL_BASE_METERS / 2, TRACK_WIDTH_METERS / 2),
+            new Translation2d(-WHEEL_BASE_METERS / 2, -TRACK_WIDTH_METERS / 2));
 
         public static final boolean GYRO_REVERSED = false;
     }
@@ -59,21 +59,21 @@ public final class RobotConstants {
         public static final double WHEEL_CIRCUMFERENCE_METERS = WHEEL_DIAMETER_METERS * Math.PI;
         public static final double DRIVING_MOTOR_REDUCTION = (45.0 * 17 * 50) / (DRIVING_MOTOR_PINION_TEETH * 15 * 27);
         public static final double DRIVE_WHEEL_FREE_SPEED_RPS = (DRIVING_MOTOR_FREE_SPEED_RPS
-                * WHEEL_CIRCUMFERENCE_METERS) / DRIVING_MOTOR_REDUCTION;
+            * WHEEL_CIRCUMFERENCE_METERS) / DRIVING_MOTOR_REDUCTION;
 
         public static final double DRIVING_ENCODER_POSITION_FACTOR_METERS_PER_ROTATION = (WHEEL_DIAMETER_METERS
-                * Math.PI) / DRIVING_MOTOR_REDUCTION; // meters, per rotation
+            * Math.PI) / DRIVING_MOTOR_REDUCTION; // meters, per rotation
         public static final double DRIVING_ENCODER_VELOCITY_FACTOR_METERS_PER_SECOND_PER_RPM = ((WHEEL_DIAMETER_METERS
-                * Math.PI) / DRIVING_MOTOR_REDUCTION) / 60.0; // meters per second, per RPM
+            * Math.PI) / DRIVING_MOTOR_REDUCTION) / 60.0; // meters per second, per RPM
 
         public static final double TURNING_MOTOR_REDUCTION = 150.0 / 7.0; // ratio between internal relative encoder and
-                                                                          // Through Bore (or Thrifty in our case)
-                                                                          // absolute encoder - 150.0 / 7.0
+        // Through Bore (or Thrifty in our case)
+        // absolute encoder - 150.0 / 7.0
 
         public static final double TURNING_ENCODER_POSITION_FACTOR_RADIANS_PER_ROTATION = (2 * Math.PI)
-                / TURNING_MOTOR_REDUCTION; // radians, per rotation
+            / TURNING_MOTOR_REDUCTION; // radians, per rotation
         public static final double TURNING_ENCODER_VELOCITY_FACTOR_RADIANS_PER_SECOND_PER_RPM = (2 * Math.PI)
-                / TURNING_MOTOR_REDUCTION / 60.0; // radians per second, per RPM
+            / TURNING_MOTOR_REDUCTION / 60.0; // radians per second, per RPM
 
         public static final double TURNING_ENCODER_POSITION_PID_MIN_INPUT_RADIANS = 0; // radians
         public static final double TURNING_ENCODER_POSITION_PID_MAX_INPUT_RADIANS = (2 * Math.PI); // radians
@@ -152,23 +152,23 @@ public final class RobotConstants {
 
         public static interface Transforms {
             public static final Transform3d FRONT_LEFT = new Transform3d(
-                    new Translation3d(
-                            Vision.Offsets.FRONT_OFFSET_SURGE_M,
-                            Vision.Offsets.FRONT_OFFSET_SWAY_M,
-                            Vision.Offsets.FRONT_OFFSET_HEAVE_M),
-                    new Rotation3d(
-                            Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_ROLL_DEGREES),
-                            Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_PITCH_DEGREES),
-                            Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_YAW_DEGREES)));
+                new Translation3d(
+                    Vision.Offsets.FRONT_OFFSET_SURGE_M,
+                    Vision.Offsets.FRONT_OFFSET_SWAY_M,
+                    Vision.Offsets.FRONT_OFFSET_HEAVE_M),
+                new Rotation3d(
+                    Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_ROLL_DEGREES),
+                    Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_PITCH_DEGREES),
+                    Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_YAW_DEGREES)));
             public static final Transform3d FRONT_RIGHT = new Transform3d(
-                    new Translation3d(
-                            Vision.Offsets.FRONT_OFFSET_SURGE_M,
-                            -Vision.Offsets.FRONT_OFFSET_SWAY_M,
-                            Vision.Offsets.FRONT_OFFSET_HEAVE_M),
-                    new Rotation3d(
-                            -Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_ROLL_DEGREES),
-                            Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_PITCH_DEGREES),
-                            -Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_YAW_DEGREES)));
+                new Translation3d(
+                    Vision.Offsets.FRONT_OFFSET_SURGE_M,
+                    -Vision.Offsets.FRONT_OFFSET_SWAY_M,
+                    Vision.Offsets.FRONT_OFFSET_HEAVE_M),
+                new Rotation3d(
+                    -Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_ROLL_DEGREES),
+                    Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_PITCH_DEGREES),
+                    -Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_YAW_DEGREES)));
         }
     }
 

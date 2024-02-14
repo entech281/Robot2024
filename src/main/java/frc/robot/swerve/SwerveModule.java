@@ -58,17 +58,17 @@ public class SwerveModule {
         // native units for position and velocity are rotations and RPM, respectively,
         // but we want meters and meters per second to use with WPILib's swerve APIs.
         m_drivingEncoder
-                .setPositionConversionFactor(SwerveModuleConstants.DRIVING_ENCODER_POSITION_FACTOR_METERS_PER_ROTATION);
+            .setPositionConversionFactor(SwerveModuleConstants.DRIVING_ENCODER_POSITION_FACTOR_METERS_PER_ROTATION);
         m_drivingEncoder.setVelocityConversionFactor(
-                SwerveModuleConstants.DRIVING_ENCODER_VELOCITY_FACTOR_METERS_PER_SECOND_PER_RPM);
+            SwerveModuleConstants.DRIVING_ENCODER_VELOCITY_FACTOR_METERS_PER_SECOND_PER_RPM);
 
         // Apply position and velocity conversion factors for the turning encoder. We
         // want these in radians and radians per second to use with WPILib's swerve
         // APIs.
         m_turningEncoder.setPositionConversionFactor(
-                SwerveModuleConstants.TURNING_ENCODER_POSITION_FACTOR_RADIANS_PER_ROTATION);
+            SwerveModuleConstants.TURNING_ENCODER_POSITION_FACTOR_RADIANS_PER_ROTATION);
         m_turningEncoder.setVelocityConversionFactor(
-                SwerveModuleConstants.TURNING_ENCODER_VELOCITY_FACTOR_RADIANS_PER_SECOND_PER_RPM);
+            SwerveModuleConstants.TURNING_ENCODER_VELOCITY_FACTOR_RADIANS_PER_SECOND_PER_RPM);
 
         // Invert the turning controller, since the output shaft rotates in the opposite
         // direction of
@@ -82,9 +82,9 @@ public class SwerveModule {
         // longer route.
         m_turningPIDController.setPositionPIDWrappingEnabled(true);
         m_turningPIDController
-                .setPositionPIDWrappingMinInput(SwerveModuleConstants.TURNING_ENCODER_POSITION_PID_MIN_INPUT_RADIANS);
+            .setPositionPIDWrappingMinInput(SwerveModuleConstants.TURNING_ENCODER_POSITION_PID_MIN_INPUT_RADIANS);
         m_turningPIDController
-                .setPositionPIDWrappingMaxInput(SwerveModuleConstants.TURNING_ENCODER_POSITION_PID_MAX_INPUT_RADIANS);
+            .setPositionPIDWrappingMaxInput(SwerveModuleConstants.TURNING_ENCODER_POSITION_PID_MAX_INPUT_RADIANS);
 
         // Set the PID gains for the driving motor.
         m_drivingPIDController.setP(SwerveModuleConstants.DRIVING_P);
@@ -92,7 +92,7 @@ public class SwerveModule {
         m_drivingPIDController.setD(SwerveModuleConstants.DRIVING_D);
         m_drivingPIDController.setFF(SwerveModuleConstants.DRIVING_FF);
         m_drivingPIDController.setOutputRange(SwerveModuleConstants.DRIVING_MIN_OUTPUT_NORMALIZED,
-                SwerveModuleConstants.DRIVING_MAX_OUTPUT_NORMALIZED);
+            SwerveModuleConstants.DRIVING_MAX_OUTPUT_NORMALIZED);
 
         // Set the PID gains for the turning motor.
         m_turningPIDController.setP(SwerveModuleConstants.TURNING_P);
@@ -100,7 +100,7 @@ public class SwerveModule {
         m_turningPIDController.setD(SwerveModuleConstants.TURNING_D);
         m_turningPIDController.setFF(SwerveModuleConstants.TURNING_FF);
         m_turningPIDController.setOutputRange(SwerveModuleConstants.TURNING_MIN_OUTPUT_NORMALIZED,
-                SwerveModuleConstants.TURNING_MAX_OUTPUT_NORMALIZED);
+            SwerveModuleConstants.TURNING_MAX_OUTPUT_NORMALIZED);
 
         m_drivingSparkMax.setIdleMode(SwerveModuleConstants.DRIVING_MOTOR_IDLE_MODE);
         m_turningSparkMax.setIdleMode(SwerveModuleConstants.TURNING_MOTOR_IDLE_MODE);
@@ -123,7 +123,7 @@ public class SwerveModule {
      */
     public SwerveModuleState getState() {
         return new SwerveModuleState(m_drivingEncoder.getVelocity(),
-                new Rotation2d(m_turningEncoder.getPosition()));
+            new Rotation2d(m_turningEncoder.getPosition()));
     }
 
     /**
@@ -133,8 +133,8 @@ public class SwerveModule {
      */
     public SwerveModulePosition getPosition() {
         return new SwerveModulePosition(
-                m_drivingEncoder.getPosition(),
-                new Rotation2d(m_turningEncoder.getPosition()));
+            m_drivingEncoder.getPosition(),
+            new Rotation2d(m_turningEncoder.getPosition()));
     }
 
     /**
@@ -150,27 +150,29 @@ public class SwerveModule {
 
         // Optimize the reference state to avoid spinning further than 90 degrees.
         SwerveModuleState optimizedDesiredState = SwerveModuleState.optimize(correctedDesiredState,
-                new Rotation2d(m_turningEncoder.getPosition()));
+            new Rotation2d(m_turningEncoder.getPosition()));
 
         if (Math.abs(optimizedDesiredState.speedMetersPerSecond) < 0.001 // less than 1 mm per sec
-                && Math.abs(optimizedDesiredState.angle.getRadians() - m_turningEncoder.getPosition()) < 0.1) // 10% of
-                                                                                                              // a
-                                                                                                              // radian
+            && Math.abs(optimizedDesiredState.angle.getRadians() - m_turningEncoder.getPosition()) < 0.1) // 10% of
+        // a
+        // radian
         {
             m_drivingSparkMax.set(0); // no point in doing anything
             m_turningSparkMax.set(0);
         } else {
             // Command driving and turning SPARKS MAX towards their respective setpoints.
             m_drivingPIDController.setReference(optimizedDesiredState.speedMetersPerSecond,
-                    CANSparkMax.ControlType.kVelocity);
+                CANSparkMax.ControlType.kVelocity);
             m_turningPIDController.setReference(optimizedDesiredState.angle.getRadians(),
-                    CANSparkMax.ControlType.kPosition);
+                CANSparkMax.ControlType.kPosition);
         }
 
         m_desiredState = desiredState;
     }
 
-    /** Zeroes all the SwerveModule relative encoders. */
+    /**
+     * Zeroes all the SwerveModule relative encoders.
+     */
     public void resetEncoders() {
 
         m_drivingEncoder.setPosition(0); // arbitrarily set driving encoder to zero
@@ -183,7 +185,7 @@ public class SwerveModule {
         m_turningSparkMax.set(0); // no moving during reset of relative turning encoder
 
         m_turningEncoder.setPosition(m_turningAbsoluteEncoder.getVirtualPosition()); // set relative position based on
-                                                                                     // virtual absolute position
+        // virtual absolute position
     }
 
     /**

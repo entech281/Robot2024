@@ -33,12 +33,12 @@ public class DriveCommand extends EntechCommand {
         double rotRaw = driveInput.rotation;
 
         double xConstrained = MathUtil.applyDeadband(MathUtil.clamp(xRaw, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
-                RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);
+            RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);
         double yConstrained = MathUtil.applyDeadband(MathUtil.clamp(yRaw, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
-                RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);
+            RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);
         double rotConstrained = MathUtil.applyDeadband(
-                MathUtil.clamp(rotRaw, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
-                RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);
+            MathUtil.clamp(rotRaw, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
+            RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);
 
         double xSquared = Math.copySign(xConstrained * xConstrained, xConstrained);
         double ySquared = Math.copySign(yConstrained * yConstrained, yConstrained);

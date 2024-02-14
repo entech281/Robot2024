@@ -35,7 +35,7 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
 
 
     @Override
-    public  void updateInputs(VisionInput input) {
+    public void updateInputs(VisionInput input) {
 
     }
 
@@ -51,7 +51,7 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
             AprilTagFieldLayout photonAprilTagFieldLayout;
             try {
                 photonAprilTagFieldLayout = AprilTagFieldLayout
-                        .loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
+                    .loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
             } catch (IOException e) {
                 throw new RuntimeException("Could not load wpilib AprilTagFields");
             }
@@ -59,8 +59,8 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
             CameraContainer cameraAlpha = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT, RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout, null);
 
             this.cameras = new CameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT,
-                    RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout,
-                    cameraAlpha);
+                RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout,
+                cameraAlpha);
         }
     }
 
@@ -91,7 +91,6 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
     public boolean isEnabled() {
         return ENABLED;
     }
-
 
 
     @Override

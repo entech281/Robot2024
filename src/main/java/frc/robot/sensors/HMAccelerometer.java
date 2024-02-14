@@ -42,12 +42,12 @@ public class HMAccelerometer {
 
     public double getTilt() {
         return Math.toDegrees(Math.acos(Math.min(getAccelZ(), 1.0) / 1.0)); // assumes getAccelZ() returns 1.0 when
-                                                                            // straight
+        // straight
     }
 
     public double getFilteredTilt() {
         return Math.toDegrees(Math.acos(Math.min(getFilteredAccelZ(), 1.0) / 1.0)); // assumes getAccelZ() returns 1.0
-                                                                                    // when straight
+        // when straight
     }
 
     public double getAccurateTilt() {
@@ -55,7 +55,7 @@ public class HMAccelerometer {
         // https://www.analog.com/en/app-notes/an-1057.html
         try {
             return Math
-                    .toDegrees(Math.atan(Math.sqrt(Math.pow(getAccelX(), 2) + Math.pow(getAccelY(), 2)) / getAccelZ()));
+                .toDegrees(Math.atan(Math.sqrt(Math.pow(getAccelX(), 2) + Math.pow(getAccelY(), 2)) / getAccelZ()));
         } catch (ArithmeticException e) {
             return 90; // if accelz is zero, we are dead
         }
@@ -66,7 +66,7 @@ public class HMAccelerometer {
         // https://www.analog.com/en/app-notes/an-1057.html
         try {
             return Math
-                    .toDegrees(Math.atan(getAccelX() / Math.sqrt(Math.pow(getAccelY(), 2) + Math.pow(getAccelZ(), 2))));
+                .toDegrees(Math.atan(getAccelX() / Math.sqrt(Math.pow(getAccelY(), 2) + Math.pow(getAccelZ(), 2))));
         } catch (ArithmeticException e) {
             return 90; // if denominator is zero, we are dead
         }
@@ -77,7 +77,7 @@ public class HMAccelerometer {
         // https://www.analog.com/en/app-notes/an-1057.html
         try {
             return Math
-                    .toDegrees(Math.atan(getAccelY() / Math.sqrt(Math.pow(getAccelX(), 2) + Math.pow(getAccelZ(), 2))));
+                .toDegrees(Math.atan(getAccelY() / Math.sqrt(Math.pow(getAccelX(), 2) + Math.pow(getAccelZ(), 2))));
         } catch (ArithmeticException e) {
             return 90; // if denominator is zero, we are dead
         }
@@ -89,9 +89,9 @@ public class HMAccelerometer {
 
     /**
      * Indicates if the support onto which the accelerometer is attached is flat
-     * 
+     *
      * @return true if the support onto which the accelerometer is attached is flat,
-     *         false otherwise
+     * false otherwise
      */
     public boolean isFlat() {
         return getAccurateTilt() < FLAT_TILT_THRESH_DEGREES;
@@ -100,9 +100,9 @@ public class HMAccelerometer {
     /**
      * Indicates if the support onto which the accelerometer is attached is super
      * flat
-     * 
+     *
      * @return true if the support onto which the accelerometer is attached is super
-     *         flat, false otherwise
+     * flat, false otherwise
      */
     public boolean isSuperFlat() {
         return getAccurateTilt() < SUPER_FLAT_TILT_THRESH_DEGREES;

@@ -7,20 +7,16 @@ import edu.wpi.first.math.geometry.Rotation3d;
 
 /**
  * Tools for arimetic of wpilib geometry
- * 
- * 
+ *
  * @author ahietkamp
  */
 public final class EntechGeometryUtils {
-    
+
     /**
-     * 
-     * 
      * Averages two Pose3d objests
-     * 
+     *
      * @param poseA
      * @param poseB
-     * 
      * @return Average Pose
      */
     public static Pose3d averagePose3d(Pose3d poseA, Pose3d poseB) {

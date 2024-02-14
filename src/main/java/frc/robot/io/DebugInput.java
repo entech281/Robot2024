@@ -9,7 +9,7 @@ import org.littletonrobotics.junction.inputs.LoggableInputs;
 //https://github.com/Mechanical-Advantage/AdvantageKit/blob/main/junction/autolog/src/org/littletonrobotics/junction/AutoLogAnnotationProcessor.java
 public class DebugInput implements LoggableInputs {
 
-    public static final String SHOOTER_SPEED="shooterSpeed";
+    public static final String SHOOTER_SPEED = "shooterSpeed";
     public double shooterSpeed = 0.0;
 
     @Override
@@ -19,6 +19,6 @@ public class DebugInput implements LoggableInputs {
 
     @Override
     public void fromLog(LogTable table) {
-        shooterSpeed = table.get(SHOOTER_SPEED,shooterSpeed);
+        shooterSpeed = table.get(SHOOTER_SPEED, shooterSpeed);
     }
 }

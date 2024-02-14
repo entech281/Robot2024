@@ -24,7 +24,7 @@ public class CameraContainer {
     private final CameraContainer base;
 
     public CameraContainer(String cameraName, Transform3d robotToCamera, AprilTagFieldLayout fieldLayout,
-            CameraContainer base) {
+                           CameraContainer base) {
         camera = new PhotonCamera(cameraName);
         estimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera, robotToCamera);
         estimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
@@ -32,7 +32,7 @@ public class CameraContainer {
     }
 
     public CameraContainer(String cameraName, Transform3d robotToCamera, AprilTagFieldLayout fieldLayout,
-            CameraContainer base, NetworkTableInstance ni) {
+                           CameraContainer base, NetworkTableInstance ni) {
         camera = new PhotonCamera(ni, cameraName);
         estimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera, robotToCamera);
         estimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);

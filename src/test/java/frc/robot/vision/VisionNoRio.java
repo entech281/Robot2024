@@ -1,14 +1,12 @@
 package frc.robot.vision;
 
-import java.io.IOException;
-import java.util.Optional;
-
-// import org.junit.jupiter.api.Test;
-
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.networktables.NetworkTableInstance;
+
+import java.io.IOException;
+import java.util.Optional;
 
 public class VisionNoRio {
 
@@ -29,7 +27,7 @@ public class VisionNoRio {
         }
 
         CameraContainer camera = new CameraContainer("USB_Camera", new Transform3d(), photonAprilTagFieldLayout, null,
-                nt);
+            nt);
 
         while (true) {
             System.out.println("---------");

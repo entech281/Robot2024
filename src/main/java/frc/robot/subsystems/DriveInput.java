@@ -6,16 +6,14 @@ import org.littletonrobotics.junction.LogTable;
 import java.util.Objects;
 
 /**
- *
- *
  * @author aheitkamp
  */
 
-public class DriveInput implements SubsystemInput{
+public class DriveInput implements SubsystemInput {
 
-    public static final String FORWARD_KEY ="forward";
-    public static final String RIGHT_KEY ="right";
-    public static final String ROTATION_KEY ="rotation";
+    public static final String FORWARD_KEY = "forward";
+    public static final String RIGHT_KEY = "right";
+    public static final String ROTATION_KEY = "rotation";
     public static final String YAW_ANGLE_DEGREES_KEY = "yawAngleDegrees";
 
     public double forward;
@@ -31,7 +29,7 @@ public class DriveInput implements SubsystemInput{
     }
 
     public DriveInput(double forward, double right, double rotation, double yawAngleDegrees) {
-        this(forward,right,rotation);
+        this(forward, right, rotation);
         this.yawAngleDegrees = yawAngleDegrees;
     }
 
@@ -64,12 +62,12 @@ public class DriveInput implements SubsystemInput{
         }
         DriveInput driveInput = (DriveInput) o;
         return forward == driveInput.forward && right == driveInput.right && rotation == driveInput.rotation
-                && yawAngleDegrees == driveInput.yawAngleDegrees;
+            && yawAngleDegrees == driveInput.yawAngleDegrees;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(forward, right, rotation,yawAngleDegrees);
+        return Objects.hash(forward, right, rotation, yawAngleDegrees);
     }
 
     @Override

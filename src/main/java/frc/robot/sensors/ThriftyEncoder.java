@@ -29,12 +29,12 @@ public class ThriftyEncoder {
      */
     public double getPosition() {
         return (inverted ? -1.0 : 1.0)
-                * ((analogInput.getAverageVoltage() / RobotController.getVoltage5V()) * (Math.PI * 2) - Math.PI);
+            * ((analogInput.getAverageVoltage() / RobotController.getVoltage5V()) * (Math.PI * 2) - Math.PI);
     }
 
     /**
      * Inverts the absolute encoder.
-     * 
+     *
      * @param inverted flag indicating if inverted.
      */
     public void setInverted(boolean inverted) {
@@ -43,7 +43,7 @@ public class ThriftyEncoder {
 
     /**
      * Sets the position offset between the raw position and the virtual position.
-     * 
+     *
      * @param offset offset in radians
      */
     public void setPositionOffset(double offset) {

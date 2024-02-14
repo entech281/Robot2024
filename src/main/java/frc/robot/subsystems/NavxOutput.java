@@ -11,8 +11,8 @@ public class NavxOutput implements SubsystemOutput {
 
     @Override
     public void log() {
-        Logger.recordOutput(getLogName("yawAngle"),yawAngle);
-        Logger.recordOutput(getLogName("pitchAngle"),pitchAngle);
-        Logger.recordOutput(getLogName("rollAngle"),rollAngle);
+        Logger.recordOutput(getLogName("yawAngle"), yawAngle);
+        Logger.recordOutput(getLogName("pitchAngle"), pitchAngle);
+        Logger.recordOutput(getLogName("rollAngle"), rollAngle);
     }
 }

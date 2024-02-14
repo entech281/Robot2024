@@ -38,7 +38,7 @@ import java.util.Optional;
  * The {@code Drivetrain} class contains fields and methods pertaining to the
  * function of the drivetrain.
  */
-public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
+public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
     private static final boolean ENABLED = true;
 
     public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = 2.3084534854898795;
@@ -67,9 +67,8 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
     private SwerveDrivePoseEstimator odometry;
 
 
-
     @Override
-    public void updateInputs(DriveInput input){
+    public void updateInputs(DriveInput input) {
 
     }
 
@@ -87,43 +86,43 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
     @Override
     public void periodic() {
         if (ENABLED) {
-            SmartDashboard.putNumberArray("modules pose angles", new double[] {
-                    frontLeft.getPosition().angle.getDegrees(),
-                    frontRight.getPosition().angle.getDegrees(),
-                    rearLeft.getPosition().angle.getDegrees(),
-                    rearRight.getPosition().angle.getDegrees()
+            SmartDashboard.putNumberArray("modules pose angles", new double[]{
+                frontLeft.getPosition().angle.getDegrees(),
+                frontRight.getPosition().angle.getDegrees(),
+                rearLeft.getPosition().angle.getDegrees(),
+                rearRight.getPosition().angle.getDegrees()
             });
-            SmartDashboard.putNumberArray("modules pose meters", new double[] {
-                    frontLeft.getPosition().distanceMeters,
-                    frontRight.getPosition().distanceMeters,
-                    rearLeft.getPosition().distanceMeters,
-                    rearRight.getPosition().distanceMeters
+            SmartDashboard.putNumberArray("modules pose meters", new double[]{
+                frontLeft.getPosition().distanceMeters,
+                frontRight.getPosition().distanceMeters,
+                rearLeft.getPosition().distanceMeters,
+                rearRight.getPosition().distanceMeters
             });
 
-            SmartDashboard.putNumberArray("Virtual abs encoders", new double[] {
-                    frontLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
-                    frontRight.getTurningAbsoluteEncoder().getVirtualPosition(),
-                    rearLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
-                    rearRight.getTurningAbsoluteEncoder().getVirtualPosition()
+            SmartDashboard.putNumberArray("Virtual abs encoders", new double[]{
+                frontLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
+                frontRight.getTurningAbsoluteEncoder().getVirtualPosition(),
+                rearLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
+                rearRight.getTurningAbsoluteEncoder().getVirtualPosition()
             });
-            SmartDashboard.putNumberArray("Raw abs encoders", new double[] {
-                    frontLeft.getTurningAbsoluteEncoder().getPosition(),
-                    frontRight.getTurningAbsoluteEncoder().getPosition(),
-                    rearLeft.getTurningAbsoluteEncoder().getPosition(),
-                    rearRight.getTurningAbsoluteEncoder().getPosition()
+            SmartDashboard.putNumberArray("Raw abs encoders", new double[]{
+                frontLeft.getTurningAbsoluteEncoder().getPosition(),
+                frontRight.getTurningAbsoluteEncoder().getPosition(),
+                rearLeft.getTurningAbsoluteEncoder().getPosition(),
+                rearRight.getTurningAbsoluteEncoder().getPosition()
             });
 
             SmartDashboard.putData("NAVX", gyro);
 
             // Update the odometry in the periodic block
             odometry.update(
-                    Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
-                    new SwerveModulePosition[] {
-                            frontLeft.getPosition(),
-                            frontRight.getPosition(),
-                            rearLeft.getPosition(),
-                            rearRight.getPosition()
-                    });
+                Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
+                new SwerveModulePosition[]{
+                    frontLeft.getPosition(),
+                    frontRight.getPosition(),
+                    rearLeft.getPosition(),
+                    rearRight.getPosition()
+                });
 
             Pose2d pose = odometry.getEstimatedPosition();
             Logger.recordOutput("Odometry pose2d", pose);
@@ -154,14 +153,14 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
     public void resetOdometry(Pose2d pose) {
         if (ENABLED) {
             odometry.resetPosition(
-                    Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
-                    new SwerveModulePosition[] {
-                            frontLeft.getPosition(),
-                            frontRight.getPosition(),
-                            rearLeft.getPosition(),
-                            rearRight.getPosition()
-                    },
-                    pose);
+                Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
+                new SwerveModulePosition[]{
+                    frontLeft.getPosition(),
+                    frontRight.getPosition(),
+                    rearLeft.getPosition(),
+                    rearRight.getPosition()
+                },
+                pose);
         }
     }
 
@@ -202,8 +201,8 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
 
                 if (angleDif < 0.45 * Math.PI) {
                     currentTranslationDir = SwerveUtils.StepTowardsCircular(currentTranslationDir,
-                            inputTranslationDir,
-                            directionSlewRate * elapsedTime);
+                        inputTranslationDir,
+                        directionSlewRate * elapsedTime);
                     currentTranslationMag = magLimiter.calculate(inputTranslationMag);
                 } else if (angleDif > 0.85 * Math.PI) {
                     if (currentTranslationMag > 1e-4) {
@@ -214,8 +213,8 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
                     }
                 } else {
                     currentTranslationDir = SwerveUtils.StepTowardsCircular(currentTranslationDir,
-                            inputTranslationDir,
-                            directionSlewRate * elapsedTime);
+                        inputTranslationDir,
+                        directionSlewRate * elapsedTime);
                     currentTranslationMag = magLimiter.calculate(0.0);
                 }
 
@@ -237,10 +236,10 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
             double rotDelivered = currentRotation * DrivetrainConstants.MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
 
             SwerveModuleState[] swerveModuleStates = DrivetrainConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
-                    fieldRelative
-                            ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered,
-                                    Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()))
-                            : new ChassisSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered));
+                fieldRelative
+                    ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered,
+                    Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()))
+                    : new ChassisSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered));
 
             setModuleStates(swerveModuleStates);
         }
@@ -258,13 +257,13 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
     public void setX() {
         if (ENABLED) {
             frontLeft.setDesiredState(new SwerveModuleState(0,
-                    Rotation2d.fromDegrees(45)));
+                Rotation2d.fromDegrees(45)));
             frontRight.setDesiredState(new SwerveModuleState(0,
-                    Rotation2d.fromDegrees(-45)));
+                Rotation2d.fromDegrees(-45)));
             rearLeft.setDesiredState(new SwerveModuleState(0,
-                    Rotation2d.fromDegrees(-45)));
+                Rotation2d.fromDegrees(-45)));
             rearRight.setDesiredState(new SwerveModuleState(0,
-                    Rotation2d.fromDegrees(45)));
+                Rotation2d.fromDegrees(45)));
         }
     }
 
@@ -276,7 +275,7 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         if (ENABLED) {
             SwerveDriveKinematics.desaturateWheelSpeeds(
-                    desiredStates, DrivetrainConstants.MAX_SPEED_METERS_PER_SECOND);
+                desiredStates, DrivetrainConstants.MAX_SPEED_METERS_PER_SECOND);
 
             frontLeft.setDesiredState(desiredStates[0]);
             frontRight.setDesiredState(desiredStates[1]);
@@ -298,7 +297,9 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
         }
     }
 
-    /** Zeroes the heading of the robot. */
+    /**
+     * Zeroes the heading of the robot.
+     */
     public void zeroHeading() {
         if (ENABLED) {
             gyro.reset();
@@ -320,7 +321,7 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
      */
     public Optional<Double> getHeading() {
         return ENABLED ? Optional.of(Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()).getDegrees())
-                : Optional.empty();
+            : Optional.empty();
     }
 
     public void addVisionData(VisionDataPacket data) {
@@ -341,42 +342,42 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
     public void initialize() {
         if (ENABLED) {
             frontLeft = new SwerveModule(
-                    RobotConstants.Ports.CAN.FRONT_LEFT_DRIVING,
-                    RobotConstants.Ports.CAN.FRONT_LEFT_TURNING,
-                    RobotConstants.Ports.ANALOG.FRONT_LEFT_TURNING_ABSOLUTE_ENCODER, false);
+                RobotConstants.Ports.CAN.FRONT_LEFT_DRIVING,
+                RobotConstants.Ports.CAN.FRONT_LEFT_TURNING,
+                RobotConstants.Ports.ANALOG.FRONT_LEFT_TURNING_ABSOLUTE_ENCODER, false);
 
             frontRight = new SwerveModule(
-                    RobotConstants.Ports.CAN.FRONT_RIGHT_DRIVING,
-                    RobotConstants.Ports.CAN.FRONT_RIGHT_TURNING,
-                    RobotConstants.Ports.ANALOG.FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
+                RobotConstants.Ports.CAN.FRONT_RIGHT_DRIVING,
+                RobotConstants.Ports.CAN.FRONT_RIGHT_TURNING,
+                RobotConstants.Ports.ANALOG.FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
 
             rearLeft = new SwerveModule(
-                    RobotConstants.Ports.CAN.REAR_LEFT_DRIVING,
-                    RobotConstants.Ports.CAN.REAR_LEFT_TURNING,
-                    RobotConstants.Ports.ANALOG.REAR_LEFT_TURNING_ABSOLUTE_ENCODER, false);
+                RobotConstants.Ports.CAN.REAR_LEFT_DRIVING,
+                RobotConstants.Ports.CAN.REAR_LEFT_TURNING,
+                RobotConstants.Ports.ANALOG.REAR_LEFT_TURNING_ABSOLUTE_ENCODER, false);
 
             rearRight = new SwerveModule(
-                    RobotConstants.Ports.CAN.REAR_RIGHT_DRIVING,
-                    RobotConstants.Ports.CAN.REAR_RIGHT_TURNING,
-                    RobotConstants.Ports.ANALOG.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
+                RobotConstants.Ports.CAN.REAR_RIGHT_DRIVING,
+                RobotConstants.Ports.CAN.REAR_RIGHT_TURNING,
+                RobotConstants.Ports.ANALOG.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
 
             gyro = new AHRS(Port.kMXP);
             gyro.reset();
             gyro.zeroYaw();
 
             Translation2d initialTranslation = new Translation2d(Units.inchesToMeters(FIELD_LENGTH_INCHES / 2),
-                    Units.inchesToMeters(FIELD_WIDTH_INCHES / 2)); // mid field
+                Units.inchesToMeters(FIELD_WIDTH_INCHES / 2)); // mid field
             Rotation2d initialRotation = Rotation2d.fromDegrees(180);
 
             odometry = new SwerveDrivePoseEstimator(
-                    DrivetrainConstants.DRIVE_KINEMATICS,
-                    Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
-                    new SwerveModulePosition[] {
-                            frontLeft.getPosition(),
-                            frontRight.getPosition(),
-                            rearLeft.getPosition(),
-                            rearRight.getPosition()
-                    }, new Pose2d(initialTranslation, initialRotation));
+                DrivetrainConstants.DRIVE_KINEMATICS,
+                Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
+                new SwerveModulePosition[]{
+                    frontLeft.getPosition(),
+                    frontRight.getPosition(),
+                    rearLeft.getPosition(),
+                    rearRight.getPosition()
+                }, new Pose2d(initialTranslation, initialRotation));
 
             frontLeft.calibrateVirtualPosition(FRONT_LEFT_VIRTUAL_OFFSET_RADIANS);
             frontRight.calibrateVirtualPosition(FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS);
@@ -393,11 +394,11 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
                 this::getChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
                 this::pathFollowDrive,
                 new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                        new PIDConstants(RobotConstants.AUTONOMOUS.TRANSLATION_CONTROLLER_P, 0.0, 0.0), // Translation PID constants
-                        new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0), // Rotation PID constants
-                        RobotConstants.AUTONOMOUS.MAX_MODULE_SPEED_METERS_PER_SECOND, // Max module speed, in m/s
-                        RobotConstants.DrivetrainConstants.DRIVE_BASE_RADIUS_METERS, // Drive base radius in meters. Distance from robot center to furthest module.
-                        new ReplanningConfig() // Default path replanning config. See the API for the options here
+                    new PIDConstants(RobotConstants.AUTONOMOUS.TRANSLATION_CONTROLLER_P, 0.0, 0.0), // Translation PID constants
+                    new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0), // Rotation PID constants
+                    RobotConstants.AUTONOMOUS.MAX_MODULE_SPEED_METERS_PER_SECOND, // Max module speed, in m/s
+                    RobotConstants.DrivetrainConstants.DRIVE_BASE_RADIUS_METERS, // Drive base radius in meters. Distance from robot center to furthest module.
+                    new ReplanningConfig() // Default path replanning config. See the API for the options here
                 ),
                 () -> {
                     // Boolean supplier that controls when the path will be mirrored for the red alliance
@@ -411,7 +412,7 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
                     return false;
                 },
                 this // Reference to this subsystem to set requirements
-        );
+            );
         }
         resetOdometry(new Pose2d(2.0, 5.56, Rotation2d.fromDegrees(180)));
     }

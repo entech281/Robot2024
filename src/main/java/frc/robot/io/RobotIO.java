@@ -11,32 +11,36 @@ public class RobotIO {
     public static RobotIO state = new RobotIO();
 
 
-    public static void processInput(LoggableInputs in){
-        Logger.processInputs(in.getClass().getName(),in);
+    public static void processInput(LoggableInputs in) {
+        Logger.processInputs(in.getClass().getName(), in);
     }
 
-    private RobotIO(){}
+    private RobotIO() {
+    }
 
-    public VisionOutput getLatestVisionOutput(){
+    public VisionOutput getLatestVisionOutput() {
         return latestVisionOutput;
     }
 
-    public DriveOutput getLatestDriveOutput(){
+    public DriveOutput getLatestDriveOutput() {
         return latestDriveOutput;
     }
-    public NavxOutput getLatestNavxOutput(){
+
+    public NavxOutput getLatestNavxOutput() {
         return latestNavxOutput;
     }
 
-    public void updateVision(VisionOutput vo){
+    public void updateVision(VisionOutput vo) {
         latestVisionOutput = vo;
         vo.log();
     }
-    public void updateNavx(NavxOutput no){
+
+    public void updateNavx(NavxOutput no) {
         latestNavxOutput = no;
         no.log();
     }
-    public void updateDrive ( DriveOutput dro){
+
+    public void updateDrive(DriveOutput dro) {
         latestDriveOutput = dro;
         dro.log();
     }

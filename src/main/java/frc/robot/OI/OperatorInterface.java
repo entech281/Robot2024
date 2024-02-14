@@ -24,7 +24,7 @@ public final class OperatorInterface implements DriveInputSupplier, DebugInputSu
         driveJoystick.WhenPressed(9, new XCommand());
 
         subsystemManager.getDriveSubsystem()
-                .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), _instance));
+            .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), _instance));
 
     }
 
@@ -37,21 +37,21 @@ public final class OperatorInterface implements DriveInputSupplier, DebugInputSu
      */
     @Override
     public DebugInput getDebugInput() {
-        DebugInput di =  new DebugInput();
+        DebugInput di = new DebugInput();
         RobotIO.processInput(di);
         return di;
     }
 
     @Override
     public DriveInput getDriveInput() {
-        DriveInput di =  new DriveInput(driveJoystick.getX(), driveJoystick.getY(), driveJoystick.getZ());
+        DriveInput di = new DriveInput(driveJoystick.getX(), driveJoystick.getY(), driveJoystick.getZ());
         RobotIO.processInput(di);
         return di;
     }
 
     @Override
     public OperatorInput getOperatorInput() {
-        OperatorInput oi =  new OperatorInput();
+        OperatorInput oi = new OperatorInput();
         RobotIO.processInput(oi);
         return oi;
     }
