@@ -1,9 +1,7 @@
 package frc.robot.subsystems;
 
 import entech.subsystems.SubsystemInput;
-import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.LogTable;
-import org.littletonrobotics.junction.inputs.LoggableInputs;
 
 import java.util.Objects;
 
@@ -15,10 +13,10 @@ import java.util.Objects;
 
 public class DriveInput implements SubsystemInput{
 
-    public static final String FORWARD="forward";
-    public static final String RIGHT="right";
-    public static final String ROTATION="rotation";
-    public static final String YAW_ANGLE_DEGREES = "yawAngleDegrees";
+    public static final String FORWARD_KEY ="forward";
+    public static final String RIGHT_KEY ="right";
+    public static final String ROTATION_KEY ="rotation";
+    public static final String YAW_ANGLE_DEGREES_KEY = "yawAngleDegrees";
 
     public double forward;
     public double right;
@@ -76,17 +74,17 @@ public class DriveInput implements SubsystemInput{
 
     @Override
     public void toLog(LogTable table) {
-        table.put(FORWARD, forward);
-        table.put(RIGHT, right);
-        table.put(ROTATION, rotation);
-        table.put(YAW_ANGLE_DEGREES, yawAngleDegrees);
+        table.put(FORWARD_KEY, forward);
+        table.put(RIGHT_KEY, right);
+        table.put(ROTATION_KEY, rotation);
+        table.put(YAW_ANGLE_DEGREES_KEY, yawAngleDegrees);
     }
 
     @Override
     public void fromLog(LogTable table) {
-        forward = table.get(FORWARD, forward);
-        right = table.get(RIGHT, right);
-        rotation = table.get(ROTATION, rotation);
-        yawAngleDegrees = table.get(YAW_ANGLE_DEGREES, yawAngleDegrees);
+        forward = table.get(FORWARD_KEY, forward);
+        right = table.get(RIGHT_KEY, right);
+        rotation = table.get(ROTATION_KEY, rotation);
+        yawAngleDegrees = table.get(YAW_ANGLE_DEGREES_KEY, yawAngleDegrees);
     }
 }

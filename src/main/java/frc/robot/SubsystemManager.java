@@ -4,12 +4,12 @@
 
 package frc.robot;
 
-import java.util.Optional;
-
 import frc.robot.io.RobotIO;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.vision.VisionDataPacket;
+
+import java.util.Optional;
 
 
 /**

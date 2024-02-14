@@ -3,7 +3,6 @@ package frc.robot.OI;
 import entech.util.EntechJoystick;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
-import frc.robot.io.RobotIO;
 import frc.robot.SubsystemManager;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;

@@ -4,16 +4,11 @@
 
 package frc.robot.subsystems;
 
-import java.util.Optional;
-
-import org.littletonrobotics.junction.Logger;
-
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
-
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -35,6 +30,9 @@ import frc.robot.RobotConstants.DrivetrainConstants;
 import frc.robot.swerve.SwerveModule;
 import frc.robot.swerve.SwerveUtils;
 import frc.robot.vision.VisionDataPacket;
+import org.littletonrobotics.junction.Logger;
+
+import java.util.Optional;
 
 /**
  * The {@code Drivetrain} class contains fields and methods pertaining to the

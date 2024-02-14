@@ -1,7 +1,6 @@
 package frc.robot.subsystems;
 
 import entech.subsystems.SubsystemInput;
-import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.LogTable;
 
 

@@ -2,9 +2,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
 import entech.commands.EntechCommand;
-import entech.util.EntechJoystick;
-import frc.robot.RobotConstants;
 import frc.robot.OI.UserPolicy;
+import frc.robot.RobotConstants;
 import frc.robot.io.DriveInputSupplier;
 import frc.robot.subsystems.DriveInput;
 import frc.robot.subsystems.DriveSubsystem;

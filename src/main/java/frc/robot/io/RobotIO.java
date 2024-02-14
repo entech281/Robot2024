@@ -3,7 +3,6 @@ package frc.robot.io;
 import frc.robot.subsystems.DriveOutput;
 import frc.robot.subsystems.NavxOutput;
 import frc.robot.subsystems.VisionOutput;
-import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 
