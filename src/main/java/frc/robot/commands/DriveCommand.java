@@ -5,18 +5,20 @@ import entech.commands.EntechCommand;
 import entech.util.EntechJoystick;
 import frc.robot.RobotConstants;
 import frc.robot.OI.UserPolicy;
+import frc.robot.io.DriveInputSupplier;
+import frc.robot.subsystems.DriveInput;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveCommand extends EntechCommand {
     private static final double MAX_SPEED_PERCENT = 1;
 
     private final DriveSubsystem drive;
-    private final EntechJoystick joystick;
+    private final DriveInputSupplier driveInputSource;
 
-    public DriveCommand(DriveSubsystem drive, EntechJoystick joystick) {
+    public DriveCommand(DriveSubsystem drive, DriveInputSupplier driveInputSource) {
         super(drive);
         this.drive = drive;
-        this.joystick = joystick;
+        this.driveInputSource = driveInputSource;
     }
 
     @Override
@@ -26,9 +28,10 @@ public class DriveCommand extends EntechCommand {
 
     @Override
     public void execute() {
-        double xRaw = joystick.getX();
-        double yRaw = joystick.getY();
-        double rotRaw = joystick.getZ();
+        DriveInput driveInput = driveInputSource.getDriveInput();
+        double xRaw = driveInput.forward;
+        double yRaw = driveInput.right;
+        double rotRaw = driveInput.rotation;
 
         double xConstrained = MathUtil.applyDeadband(MathUtil.clamp(xRaw, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
                 RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);

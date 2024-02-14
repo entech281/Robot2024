@@ -1,11 +1,11 @@
-package frc.robot.subsystems;
+package frc.robot.io;
 
-import entech.subsystems.SubsystemInput;
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.LogTable;
+import org.littletonrobotics.junction.inputs.LoggableInputs;
 
 
-public class VisionInput implements SubsystemInput {
+public class OperatorInput implements LoggableInputs {
     @Override
     public void toLog(LogTable table) {
 

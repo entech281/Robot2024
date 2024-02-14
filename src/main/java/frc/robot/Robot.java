@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import frc.robot.io.RobotIO;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -69,11 +70,13 @@ public class Robot extends LoggedRobot {
     @Override
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
+        subsystemManager.periodic();
+
     }
 
     @Override
     public void disabledPeriodic() {
-        subsystemManager.periodic();
+
     }
 
     @Override
@@ -87,7 +90,7 @@ public class Robot extends LoggedRobot {
 
     @Override
     public void autonomousPeriodic() {
-        subsystemManager.periodic();
+
     }
 
     @Override
@@ -99,7 +102,7 @@ public class Robot extends LoggedRobot {
 
     @Override
     public void teleopPeriodic() {
-        subsystemManager.periodic();
+
     }
 
     @Override
