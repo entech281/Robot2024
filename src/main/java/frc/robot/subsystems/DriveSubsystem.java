@@ -49,6 +49,7 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
     @Override
     public void updateInputs(DriveInput input){
         if (ENABLED) {
+            SmartDashboard.putNumberArray("Input Data", new Double[] {input.xSpeed, input.ySpeed, input.rot});
             double xSpeedCommanded;
             double ySpeedCommanded;
             double currentRotation;
