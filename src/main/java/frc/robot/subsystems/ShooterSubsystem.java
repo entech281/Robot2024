@@ -13,41 +13,42 @@ import frc.robot.RobotConstants;
 
 public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutput> {
 
-    private CANSparkMax shooterTop;
-    private CANSparkMax shooterBottom;
+    private CANSparkMax shooterA;
+    private CANSparkMax shooterB;
 
-    SparkPIDController shooterTopPID = null;
-    SparkPIDController shooterBottomPID = null;
+    SparkPIDController shooterAPID = null;
+    SparkPIDController shooterBPID = null;
 
     private boolean active = false;
+    private boolean coastModeEnabled;
 
-    private static double maxSpeed = 5500;
+    static double maxSpeed = 5500;
 
     private final boolean ENABLED = true;
 
     @Override
     public void initialize() {
 
-        shooterTop = new CANSparkMax(RobotConstants.Ports.CAN.SHOOTER_TOP, MotorType.kBrushless);
-        shooterBottom = new CANSparkMax(RobotConstants.Ports.CAN.SHOOTER_BOTTOM, MotorType.kBrushless);
+        shooterA = new CANSparkMax(RobotConstants.Ports.CAN.SHOOTER_A, MotorType.kBrushless);
+        shooterB = new CANSparkMax(RobotConstants.Ports.CAN.SHOOTER_B, MotorType.kBrushless);
 
-        shooterTop.setIdleMode(IdleMode.kCoast);
-        shooterBottom.setIdleMode(IdleMode.kCoast);
+        shooterA.setIdleMode(IdleMode.kBrake);
+        shooterB.setIdleMode(IdleMode.kBrake);
 
-        shooterTop.setInverted(true);
-        shooterBottom.setInverted(true);
+        shooterA.setInverted(true);
+        shooterB.setInverted(true);
 
-        shooterTopPID = shooterTop.getPIDController();
-        shooterTopPID.setP(RobotConstants.PID.Shooter.KP);
-        shooterTopPID.setD(RobotConstants.PID.Shooter.KD);
-        shooterTopPID.setI(RobotConstants.PID.Shooter.KI);
-        shooterTopPID.setFF(RobotConstants.PID.Shooter.KFF);
+        shooterAPID = shooterA.getPIDController();
+        shooterAPID.setP(RobotConstants.PID.Shooter.KP);
+        shooterAPID.setD(RobotConstants.PID.Shooter.KD);
+        shooterAPID.setI(RobotConstants.PID.Shooter.KI);
+        shooterAPID.setFF(RobotConstants.PID.Shooter.KFF);
 
-        shooterBottomPID = shooterBottom.getPIDController();
-        shooterBottomPID.setP(RobotConstants.PID.Shooter.KP);
-        shooterBottomPID.setD(RobotConstants.PID.Shooter.KD);
-        shooterBottomPID.setI(RobotConstants.PID.Shooter.KI);
-        shooterBottomPID.setFF(RobotConstants.PID.Shooter.KFF);
+        shooterBPID = shooterB.getPIDController();
+        shooterBPID.setP(RobotConstants.PID.Shooter.KP);
+        shooterBPID.setD(RobotConstants.PID.Shooter.KD);
+        shooterBPID.setI(RobotConstants.PID.Shooter.KI);
+        shooterBPID.setFF(RobotConstants.PID.Shooter.KFF);
     }
 
     public void startShooter() {
@@ -61,18 +62,26 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     public void periodic() {
 
         SmartDashboard.putNumber("Shooter Target", maxSpeed);
-        SmartDashboard.putNumber("Shooter Top", shooterTop.getEncoder().getVelocity());
-        SmartDashboard.putNumber("Shooter Bottom", shooterTop.getEncoder().getVelocity());
-        SmartDashboard.putNumber("Transfer", shooterTop.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Shooter Top", shooterA.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Shooter Bottom", shooterA.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Transfer", shooterA.getEncoder().getVelocity());
 
         if(ENABLED) {
             if(active) {
-                shooterTopPID.setReference(maxSpeed, CANSparkMax.ControlType.kVelocity);
-                shooterBottomPID.setReference(maxSpeed, CANSparkMax.ControlType.kVelocity);
+                shooterAPID.setReference(maxSpeed, CANSparkMax.ControlType.kVelocity);
+                shooterBPID.setReference(maxSpeed, CANSparkMax.ControlType.kVelocity);
             } else {
-                shooterTopPID.setReference(0, CANSparkMax.ControlType.kVelocity);
-                shooterBottomPID.setReference(0, CANSparkMax.ControlType.kVelocity);
+                shooterAPID.setReference(0, CANSparkMax.ControlType.kVelocity);
+                shooterBPID.setReference(0, CANSparkMax.ControlType.kVelocity);
             }
+        }
+
+        if (coastModeEnabled) {
+            shooterA.setIdleMode(IdleMode.kCoast);
+            shooterB.setIdleMode(IdleMode.kCoast);
+        } else {
+            shooterA.setIdleMode(IdleMode.kBrake);
+            shooterB.setIdleMode(IdleMode.kBrake);
         }
     }
 
@@ -84,7 +93,8 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     @Override
     public void updateInputs(ShooterInput input) {
         maxSpeed = input.maxSpeed;
-        active = input.shooterStatus;
+        active = input.active;
+        coastModeEnabled = input.coastModeEnabled;
     }
 
     @Override

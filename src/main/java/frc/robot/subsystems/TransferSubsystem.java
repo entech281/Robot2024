@@ -29,12 +29,6 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
         transferMotor = new CANSparkMax(RobotConstants.Ports.CAN.TRANSFER, MotorType.kBrushless);
 
         transferMotor.setInverted(false);
-
-        if(coastModeEnabled) {
-            transferMotor.setIdleMode(IdleMode.kCoast);
-        } else {
-            transferMotor.setIdleMode(IdleMode.kBrake);
-        }
     }
 
     public void periodic() {
@@ -50,11 +44,13 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
             } else {
                 transferMotor.set(0.0);
             }
-        }
-    }
 
-    public void setMode(TransferStatus mode) {
-        currentMode = mode;
+            if (coastModeEnabled) {
+                transferMotor.setIdleMode(IdleMode.kCoast);
+            } else {
+                transferMotor.setIdleMode(IdleMode.kBrake);
+            }
+        }
     }
 
     @Override
@@ -64,6 +60,9 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
     @Override
     public void updateInputs(TransferInput input) {
+        active = input.active;
+        coastModeEnabled = input.coastModeEnabled;
+        currentMode = input.mode;
     }
 
     @Override
