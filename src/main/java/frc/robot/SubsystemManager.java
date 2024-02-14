@@ -4,11 +4,13 @@
 
 package frc.robot;
 
-import java.util.Optional;
-
+import frc.robot.io.RobotIO;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.VisionSubsystem;
 import frc.robot.vision.VisionDataPacket;
+
+import java.util.Optional;
+
 
 /**
  * Manages the subsystems and the interactions between them.
@@ -31,6 +33,12 @@ public class SubsystemManager {
     }
 
     public void periodic() {
+
+
+        RobotIO.state.updateDrive(driveSubsystem.getOutputs());
+        RobotIO.state.updateVision(visionSubsystem.getOutputs());
+        //RobotIO.state.updateNavx(navxSubsystem.getOutputs());
+
         Optional<VisionDataPacket> visionData = visionSubsystem.getData();
         if (visionData.isPresent()) {
             driveSubsystem.addVisionData(visionData.get());

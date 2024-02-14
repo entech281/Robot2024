@@ -1,9 +1,11 @@
 package frc.robot.vision;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import entech.util.EntechGeometryUtils;
+import frc.robot.RobotConstants;
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
@@ -11,12 +13,9 @@ import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import entech.util.EntechGeometryUtils;
-import frc.robot.RobotConstants;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class CameraContainer {
     private final PhotonCamera camera;

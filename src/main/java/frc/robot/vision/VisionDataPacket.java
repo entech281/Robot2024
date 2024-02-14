@@ -1,11 +1,10 @@
 package frc.robot.vision;
 
-import java.util.List;
-import java.util.Optional;
-
+import edu.wpi.first.math.geometry.Pose2d;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-import edu.wpi.first.math.geometry.Pose2d;
+import java.util.List;
+import java.util.Optional;
 
 public class VisionDataPacket {
     private Optional<Double> timeStamp;
