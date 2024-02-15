@@ -7,14 +7,6 @@
 
 package frc.robot.subsystems;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import org.littletonrobotics.junction.Logger;
-import org.photonvision.targeting.PhotonTrackedTarget;
-
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -24,6 +16,13 @@ import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.vision.CameraContainer;
 import frc.robot.vision.VisionDataPacket;
+import org.littletonrobotics.junction.Logger;
+import org.photonvision.targeting.PhotonTrackedTarget;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> {
     private static final boolean ENABLED = true;

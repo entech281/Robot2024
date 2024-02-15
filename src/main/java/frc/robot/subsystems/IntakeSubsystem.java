@@ -10,8 +10,8 @@ import frc.robot.RobotConstants;
 public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> {
 
     private boolean ENABLED = true;
-    private boolean coastModeEnabled;
-    private boolean active = false;
+
+    IntakeInput intakeInput = new IntakeInput();
 
     CANSparkMax intakeMotor;
 
@@ -24,16 +24,16 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
     }
 
     public void periodic() {
-        if (active) {
+        if (intakeInput.activate) {
             intakeMotor.set(RobotConstants.INTAKE.INTAKE_SPEED);
         } else {
             intakeMotor.set(0);
         }
 
-        if(coastModeEnabled) {
-            intakeMotor.setIdleMode(IdleMode.kCoast);
-        } else {
+        if(intakeInput.brakeModeEnabled) {
             intakeMotor.setIdleMode(IdleMode.kBrake);
+        } else {
+            intakeMotor.setIdleMode(IdleMode.kCoast);
         }
     }
 
@@ -44,13 +44,15 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
 
     @Override
     public void updateInputs(IntakeInput input) {
-        active = input.active;
-        coastModeEnabled = input.coastModeEnabled;
+        this.intakeInput = input;
     }
 
     @Override
     public IntakeOutput getOutputs() {
-        return new IntakeOutput();
+        IntakeOutput intakeOutput = new IntakeOutput();
+        intakeOutput.active = intakeMotor.getEncoder().getVelocity() != 0;
+        intakeOutput.brakeModeEnabled = IdleMode.kBrake == intakeMotor.getIdleMode();
+        return intakeOutput;
     }
 
 }

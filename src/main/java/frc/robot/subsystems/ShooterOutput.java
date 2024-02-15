@@ -8,4 +8,8 @@ public class ShooterOutput implements SubsystemOutput {
     public boolean active;
     public boolean brakeModeEnabled;
 
+    @Override
+    public void log() {
+    }
+
 }

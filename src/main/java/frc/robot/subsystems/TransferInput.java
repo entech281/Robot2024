@@ -6,9 +6,9 @@ import entech.subsystems.SubsystemInput;
 
 public class TransferInput implements SubsystemInput {
 
-    public boolean active;
-    public boolean coastModeEnabled;
-    public TransferSubsystem.TransferStatus mode;
+    public boolean activate = false;
+    public boolean brakeModeEnabled = false;
+    public TransferSubsystem.TransferStatus currentMode = TransferSubsystem.TransferStatus.Off;
     @Override
     public void toLog(LogTable table) {
     }

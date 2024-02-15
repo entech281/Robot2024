@@ -5,7 +5,11 @@ import entech.subsystems.SubsystemOutput;
 public class TransferOutput implements SubsystemOutput {
 
     public boolean active;
-    public boolean coastModeEnabled;
-    public TransferSubsystem.TransferStatus mode;
+    public boolean brakeModeEnabled;
+    public TransferSubsystem.TransferStatus currentMode;
+
+    @Override
+    public void log() {
+    }
 
 }

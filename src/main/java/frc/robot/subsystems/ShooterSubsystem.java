@@ -19,10 +19,7 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     SparkPIDController shooterAPID = null;
     SparkPIDController shooterBPID = null;
 
-    private boolean active = false;
-    private boolean coastModeEnabled;
-
-    static double maxSpeed = 5500;
+    private ShooterInput shooterInput = new ShooterInput();
 
     private final boolean ENABLED = true;
 
@@ -51,37 +48,29 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
         shooterBPID.setFF(RobotConstants.PID.Shooter.KFF);
     }
 
-    public void startShooter() {
-        active = true;
-    }
-
-    public void stopShooter() {
-        active = false;
-    }
-
     public void periodic() {
 
-        SmartDashboard.putNumber("Shooter Target", maxSpeed);
+        SmartDashboard.putNumber("Shooter Target", shooterInput.speed);
         SmartDashboard.putNumber("Shooter Top", shooterA.getEncoder().getVelocity());
         SmartDashboard.putNumber("Shooter Bottom", shooterA.getEncoder().getVelocity());
         SmartDashboard.putNumber("Transfer", shooterA.getEncoder().getVelocity());
 
         if(ENABLED) {
-            if(active) {
-                shooterAPID.setReference(maxSpeed, CANSparkMax.ControlType.kVelocity);
-                shooterBPID.setReference(maxSpeed, CANSparkMax.ControlType.kVelocity);
+            if(shooterInput.activate) {
+                shooterAPID.setReference(shooterInput.speed, CANSparkMax.ControlType.kVelocity);
+                shooterBPID.setReference(shooterInput.speed, CANSparkMax.ControlType.kVelocity);
             } else {
                 shooterAPID.setReference(0, CANSparkMax.ControlType.kVelocity);
                 shooterBPID.setReference(0, CANSparkMax.ControlType.kVelocity);
             }
         }
 
-        if (coastModeEnabled) {
-            shooterA.setIdleMode(IdleMode.kCoast);
-            shooterB.setIdleMode(IdleMode.kCoast);
-        } else {
+        if (shooterInput.brakeModeEnabled) {
             shooterA.setIdleMode(IdleMode.kBrake);
             shooterB.setIdleMode(IdleMode.kBrake);
+        } else {
+            shooterA.setIdleMode(IdleMode.kCoast);
+            shooterB.setIdleMode(IdleMode.kCoast);
         }
     }
 
@@ -92,14 +81,16 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
 
     @Override
     public void updateInputs(ShooterInput input) {
-        maxSpeed = input.maxSpeed;
-        active = input.active;
-        coastModeEnabled = input.coastModeEnabled;
+        this.shooterInput = input;
     }
 
     @Override
     public ShooterOutput getOutputs() {
-        return new ShooterOutput();
+        ShooterOutput shooterOutput = new ShooterOutput();
+        shooterOutput.speed = (shooterA.getEncoder().getVelocity() + shooterB.getEncoder().getVelocity()) / 2;
+        shooterOutput.active = shooterOutput.speed != 0;
+        shooterOutput.brakeModeEnabled = IdleMode.kBrake == shooterA.getIdleMode();
+        return shooterOutput;
     }
 
 }

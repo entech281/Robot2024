@@ -11,15 +11,11 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
     private final boolean ENABLED = true;
 
-    public boolean active = false;
-
-    private TransferStatus currentMode = TransferStatus.Off;
-
     public enum TransferStatus{
         Shooting, Transfering, Intaking, Off
     }
 
-    private boolean coastModeEnabled = true;
+    private TransferInput transferInput = new TransferInput();
 
     private CANSparkMax transferMotor;
 
@@ -33,22 +29,22 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
     public void periodic() {
         if(ENABLED) {
-            if(active) {
-                if(currentMode == TransferStatus.Shooting) {
+            if(transferInput.activate) {
+                if(transferInput.currentMode == TransferStatus.Shooting) {
                     transferMotor.set(RobotConstants.TRANSFER.SHOOTING_SPEED);
-                } else if (currentMode == TransferStatus.Transfering) {
+                } else if (transferInput.currentMode == TransferStatus.Transfering) {
                     transferMotor.set(RobotConstants.TRANSFER.TRANSFERING_SPEED);
-                } else if (currentMode == TransferStatus.Intaking) {
+                } else if (transferInput.currentMode == TransferStatus.Intaking) {
                     transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED);
                 }
             } else {
                 transferMotor.set(0.0);
             }
 
-            if (coastModeEnabled) {
-                transferMotor.setIdleMode(IdleMode.kCoast);
-            } else {
+            if (transferInput.brakeModeEnabled) {
                 transferMotor.setIdleMode(IdleMode.kBrake);
+            } else {
+                transferMotor.setIdleMode(IdleMode.kCoast);
             }
         }
     }
@@ -60,14 +56,16 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
     @Override
     public void updateInputs(TransferInput input) {
-        active = input.active;
-        coastModeEnabled = input.coastModeEnabled;
-        currentMode = input.mode;
+        this.transferInput = input;
     }
 
     @Override
     public TransferOutput getOutputs() {
-        return new TransferOutput();
+        TransferOutput transferOutput = new TransferOutput();
+        transferOutput.active = transferMotor.getEncoder().getVelocity() != 0;
+        transferOutput.brakeModeEnabled = IdleMode.kBrake == transferMotor.getIdleMode();
+        transferOutput.currentMode = transferInput.currentMode;
+        return transferOutput;
     }
 
 }

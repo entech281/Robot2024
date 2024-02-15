@@ -6,8 +6,8 @@ import entech.subsystems.SubsystemInput;
 
 public class IntakeInput implements SubsystemInput {
 
-    public boolean active;
-    public boolean coastModeEnabled;
+    public boolean activate;
+    public boolean brakeModeEnabled;
     @Override
     public void toLog(LogTable table) {
     }

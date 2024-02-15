@@ -6,9 +6,10 @@ import entech.subsystems.SubsystemInput;
 
 public class ShooterInput implements SubsystemInput {
 
-    public boolean active;
-    public double maxSpeed;
-    public boolean coastModeEnabled;
+    public boolean activate = false;
+    public double speed = 0;
+    public boolean brakeModeEnabled = false;
+
     @Override
     public void toLog(LogTable table) {
     }
