@@ -21,7 +21,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
@@ -67,7 +67,7 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
     private SwerveDrivePoseEstimator odometry;
 
     @Override
-    public void updateInputs(DriveInput input){
+    public void updateInputs(DriveInput input) {
 
     }
 
@@ -85,26 +85,26 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
     @Override
     public void periodic() {
         if (ENABLED) {
-            SmartDashboard.putNumberArray("modules pose angles", new double[] {
+            SmartDashboard.putNumberArray("modules pose angles", new double[]{
                     frontLeft.getPosition().angle.getDegrees(),
                     frontRight.getPosition().angle.getDegrees(),
                     rearLeft.getPosition().angle.getDegrees(),
                     rearRight.getPosition().angle.getDegrees()
             });
-            SmartDashboard.putNumberArray("modules pose meters", new double[] {
+            SmartDashboard.putNumberArray("modules pose meters", new double[]{
                     frontLeft.getPosition().distanceMeters,
                     frontRight.getPosition().distanceMeters,
                     rearLeft.getPosition().distanceMeters,
                     rearRight.getPosition().distanceMeters
             });
 
-            SmartDashboard.putNumberArray("Virtual abs encoders", new double[] {
+            SmartDashboard.putNumberArray("Virtual abs encoders", new double[]{
                     frontLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
                     frontRight.getTurningAbsoluteEncoder().getVirtualPosition(),
                     rearLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
                     rearRight.getTurningAbsoluteEncoder().getVirtualPosition()
             });
-            SmartDashboard.putNumberArray("Raw abs encoders", new double[] {
+            SmartDashboard.putNumberArray("Raw abs encoders", new double[]{
                     frontLeft.getTurningAbsoluteEncoder().getPosition(),
                     frontRight.getTurningAbsoluteEncoder().getPosition(),
                     rearLeft.getTurningAbsoluteEncoder().getPosition(),
@@ -116,7 +116,7 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
             // Update the odometry in the periodic block
             odometry.update(
                     Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
-                    new SwerveModulePosition[] {
+                    new SwerveModulePosition[]{
                             frontLeft.getPosition(),
                             frontRight.getPosition(),
                             rearLeft.getPosition(),
@@ -136,7 +136,7 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
      * @return The pose.
      */
     public Optional<Pose2d> getPose() {
-        return ENABLED ? Optional.of(odometry.getEstimatedPosition()) : Optional.empty();
+        return ENABLED ? Optional.of(odometry.getEstimatedPosition()):Optional.empty();
     }
 
     private ChassisSpeeds getChassisSpeeds() {
@@ -153,7 +153,7 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
         if (ENABLED) {
             odometry.resetPosition(
                     Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
-                    new SwerveModulePosition[] {
+                    new SwerveModulePosition[]{
                             frontLeft.getPosition(),
                             frontRight.getPosition(),
                             rearLeft.getPosition(),
@@ -188,7 +188,7 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
                 // acceleration
                 double directionSlewRate;
 
-                if (currentTranslationMag != 0.0) {
+                if (currentTranslationMag!=0.0) {
                     directionSlewRate = Math.abs(DrivetrainConstants.DIRECTION_SLEW_RATE / currentTranslationMag);
                 } else {
                     directionSlewRate = 500.0; // some high number that means the slew rate is effectively instantaneous
@@ -237,8 +237,8 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
             SwerveModuleState[] swerveModuleStates = DrivetrainConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
                     fieldRelative
                             ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered,
-                                    Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()))
-                            : new ChassisSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered));
+                            Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()))
+                            :new ChassisSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered));
 
             setModuleStates(swerveModuleStates);
         }
@@ -296,7 +296,9 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
         }
     }
 
-    /** Zeroes the heading of the robot. */
+    /**
+     * Zeroes the heading of the robot.
+     */
     public void zeroHeading() {
         if (ENABLED) {
             gyro.reset();
@@ -318,7 +320,7 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
      */
     public Optional<Double> getHeading() {
         return ENABLED ? Optional.of(Rotation2d.fromDegrees(GYRO_ORIENTATION * getGyroAngle()).getDegrees())
-                : Optional.empty();
+                :Optional.empty();
     }
 
     public void addVisionData(VisionDataPacket data) {
@@ -358,7 +360,7 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
                     RobotConstants.Ports.CAN.REAR_RIGHT_TURNING,
                     RobotConstants.Ports.ANALOG.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
 
-            gyro = new AHRS(Port.kMXP);
+            gyro = new AHRS(SPI.Port.kMXP);
             gyro.reset();
             gyro.zeroYaw();
 
@@ -369,7 +371,7 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
             odometry = new SwerveDrivePoseEstimator(
                     DrivetrainConstants.DRIVE_KINEMATICS,
                     Rotation2d.fromDegrees(GYRO_ORIENTATION * gyro.getAngle()),
-                    new SwerveModulePosition[] {
+                    new SwerveModulePosition[]{
                             frontLeft.getPosition(),
                             frontRight.getPosition(),
                             rearLeft.getPosition(),
@@ -386,30 +388,30 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
             gyro.setAngleAdjustment(0);
 
             AutoBuilder.configureHolonomic(
-                odometry::getEstimatedPosition, // Robot pose supplier
-                this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
-                this::getChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-                this::pathFollowDrive,
-                new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                        new PIDConstants(RobotConstants.AUTONOMOUS.TRANSLATION_CONTROLLER_P, 0.0, 0.0), // Translation PID constants
-                        new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0), // Rotation PID constants
-                        RobotConstants.AUTONOMOUS.MAX_MODULE_SPEED_METERS_PER_SECOND, // Max module speed, in m/s
-                        RobotConstants.DrivetrainConstants.DRIVE_BASE_RADIUS_METERS, // Drive base radius in meters. Distance from robot center to furthest module.
-                        new ReplanningConfig() // Default path replanning config. See the API for the options here
-                ),
-                () -> {
-                    // Boolean supplier that controls when the path will be mirrored for the red alliance
-                    // This will flip the path being followed to the red side of the field.
-                    // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+                    odometry::getEstimatedPosition, // Robot pose supplier
+                    this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
+                    this::getChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+                    this::pathFollowDrive,
+                    new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
+                            new PIDConstants(RobotConstants.AUTONOMOUS.TRANSLATION_CONTROLLER_P, 0.0, 0.0), // Translation PID constants
+                            new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0), // Rotation PID constants
+                            RobotConstants.AUTONOMOUS.MAX_MODULE_SPEED_METERS_PER_SECOND, // Max module speed, in m/s
+                            RobotConstants.DrivetrainConstants.DRIVE_BASE_RADIUS_METERS, // Drive base radius in meters. Distance from robot center to furthest module.
+                            new ReplanningConfig() // Default path replanning config. See the API for the options here
+                    ),
+                    () -> {
+                        // Boolean supplier that controls when the path will be mirrored for the red alliance
+                        // This will flip the path being followed to the red side of the field.
+                        // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
 
-                    var alliance = DriverStation.getAlliance();
-                    if (alliance.isPresent()) {
-                        return alliance.get() == DriverStation.Alliance.Red;
-                    }
-                    return false;
-                },
-                this // Reference to this subsystem to set requirements
-        );
+                        var alliance = DriverStation.getAlliance();
+                        if (alliance.isPresent()) {
+                            return alliance.get()==DriverStation.Alliance.Red;
+                        }
+                        return false;
+                    },
+                    this // Reference to this subsystem to set requirements
+            );
         }
         resetOdometry(new Pose2d(2.0, 5.56, Rotation2d.fromDegrees(180)));
     }
