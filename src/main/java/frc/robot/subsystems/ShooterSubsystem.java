@@ -13,6 +13,8 @@ import frc.robot.RobotConstants;
 
 public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutput> {
 
+    private final boolean ENABLED = false;
+
     private CANSparkMax shooterA;
     private CANSparkMax shooterB;
 
@@ -20,8 +22,6 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     SparkPIDController shooterBPID = null;
 
     private ShooterInput shooterInput = new ShooterInput();
-
-    private final boolean ENABLED = true;
 
     @Override
     public void initialize() {

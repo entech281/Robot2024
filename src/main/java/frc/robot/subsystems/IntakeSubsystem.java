@@ -9,7 +9,7 @@ import frc.robot.RobotConstants;
 
 public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> {
 
-    private boolean ENABLED = true;
+    private boolean ENABLED = false;
 
     IntakeInput intakeInput = new IntakeInput();
 
