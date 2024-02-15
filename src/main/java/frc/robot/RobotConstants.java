@@ -100,6 +100,7 @@ public final class RobotConstants {
     }
 
     public static interface Ports {
+
         public static class ANALOG {
             public static final int FRONT_LEFT_TURNING_ABSOLUTE_ENCODER = 1;
             public static final int REAR_LEFT_TURNING_ABSOLUTE_ENCODER = 2;
@@ -108,15 +109,28 @@ public final class RobotConstants {
         }
 
         public static class CAN {
-            public static final int FRONT_LEFT_DRIVING = 10;
-            public static final int REAR_LEFT_DRIVING = 6;
-            public static final int FRONT_RIGHT_DRIVING = 21;
-            public static final int REAR_RIGHT_DRIVING = 4;
+            public static final int FRONT_LEFT_DRIVING = 12;
+            public static final int REAR_LEFT_DRIVING = 32;
+            public static final int FRONT_RIGHT_DRIVING = 22;
+            public static final int REAR_RIGHT_DRIVING = 42;
 
-            public static final int FRONT_LEFT_TURNING = 12;
-            public static final int REAR_LEFT_TURNING = 5;
-            public static final int FRONT_RIGHT_TURNING = 22;
-            public static final int REAR_RIGHT_TURNING = 3;
+            public static final int FRONT_LEFT_TURNING = 11;
+            public static final int REAR_LEFT_TURNING = 31;
+            public static final int FRONT_RIGHT_TURNING = 21;
+            public static final int REAR_RIGHT_TURNING = 41;
+
+            public static final int SHOOTER_B = 9;
+            public static final int SHOOTER_A = 8;
+
+            public static final int TRANSFER = 7;
+
+            public static final int INTAKE = 6;
+
+            public static final int PIVOT_B = 5;
+            public static final int PIVOT_A = 4;
+
+            public static final int CLIMB_B = 3;
+            private static final int CLIMB_A = 2;
         }
 
         public static class CONTROLLER {
@@ -172,6 +186,26 @@ public final class RobotConstants {
         }
     }
 
+    public static interface PID {
+
+        public static interface Shooter{
+            public static final double KP = 0.00008;
+            public static final double KI = 0.0;
+            public static final double KD = 0.0;
+            public static final double KFF = 0.0;
+            public static final double MAX_SPEED = 5500;
+        }
+    }
+
+    public static interface TRANSFER {
+        public static final double SHOOTING_SPEED = 1;
+        public static final double TRANSFERING_SPEED = 0.0;
+        public static final double INTAKING_SPEED = 0.0;
+    }
+
+    public static interface INTAKE{
+        public static final double INTAKE_SPEED = 0.0;
+    }
     public static interface AUTONOMOUS {
         public static final double MAX_MODULE_SPEED_METERS_PER_SECOND = 4.42; //4.42
 

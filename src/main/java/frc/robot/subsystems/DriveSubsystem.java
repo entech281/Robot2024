@@ -38,7 +38,7 @@ import java.util.Optional;
  * The {@code Drivetrain} class contains fields and methods pertaining to the
  * function of the drivetrain.
  */
-public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
+public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
     private static final boolean ENABLED = true;
 
     public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = 2.3084534854898795;
@@ -65,8 +65,6 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
     private double prevTime = WPIUtilJNI.now() * 1e-6;
 
     private SwerveDrivePoseEstimator odometry;
-
-
 
     @Override
     public void updateInputs(DriveInput input){
