@@ -9,7 +9,7 @@ import frc.robot.RobotConstants;
 
 public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOutput>{
 
-    private final boolean ENABLED = true;
+    private final boolean ENABLED = false;
 
     public enum TransferStatus{
         Shooting, Transfering, Intaking, Off
