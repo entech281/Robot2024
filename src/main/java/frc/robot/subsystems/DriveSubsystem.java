@@ -21,7 +21,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
@@ -358,7 +358,7 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
                     RobotConstants.Ports.CAN.REAR_RIGHT_TURNING,
                     RobotConstants.Ports.ANALOG.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
 
-            gyro = new AHRS(Port.kMXP);
+            gyro = new AHRS(SPI.Port.kMXP);
             gyro.reset();
             gyro.zeroYaw();
 
