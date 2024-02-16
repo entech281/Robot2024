@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -26,10 +28,10 @@ import frc.robot.swerve.SwerveUtils;
 public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
     private static final boolean ENABLED = true;
 
-    public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = 2.3084534854898795;
-    public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = 1.8754174966340216;
-    public static final double REAR_LEFT_VIRTUAL_OFFSET_RADIANS = 2.6789867521760486;
-    public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = 2.467314041927964;
+    public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = -0.6493782167825488;
+    public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = -0.44890044829984976;
+    public static final double REAR_LEFT_VIRTUAL_OFFSET_RADIANS = -1.3180966246712007;
+    public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = -0.832907157277369;
 
     public static final int GYRO_ORIENTATION = 1; // might be able to merge with kGyroReversed
 
@@ -162,6 +164,13 @@ public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
                     frontRight.getTurningAbsoluteEncoder().getPosition(),
                     rearLeft.getTurningAbsoluteEncoder().getPosition(),
                     rearRight.getTurningAbsoluteEncoder().getPosition()
+            });
+
+            Logger.recordOutput("moduleStates", new SwerveModuleState[] {
+                frontLeft.getState(),
+                frontRight.getState(),
+                rearLeft.getState(),
+                rearRight.getState()
             });
         }
     }

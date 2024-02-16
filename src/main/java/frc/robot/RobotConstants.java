@@ -109,10 +109,10 @@ public final class RobotConstants {
 
     public static interface Ports {
         public static class ANALOG {
-            public static final int FRONT_LEFT_TURNING_ABSOLUTE_ENCODER = 1;
-            public static final int REAR_LEFT_TURNING_ABSOLUTE_ENCODER = 2;
-            public static final int FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER = 0;
-            public static final int REAR_RIGHT_TURNING_ABSOLUTE_ENCODER = 3;
+            public static final int FRONT_LEFT_TURNING_ABSOLUTE_ENCODER = 3;
+            public static final int REAR_LEFT_TURNING_ABSOLUTE_ENCODER = 0;
+            public static final int FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER = 2;
+            public static final int REAR_RIGHT_TURNING_ABSOLUTE_ENCODER = 1;
         }
 
         public static class CAN {
@@ -153,22 +153,22 @@ public final class RobotConstants {
         public static interface Transforms {
             public static final Transform3d FRONT_LEFT = new Transform3d(
                     new Translation3d(
-                            Units.inchesToMeters(15),
-                            Units.inchesToMeters(10.5),
+                            Units.inchesToMeters(17.875),
+                            Units.inchesToMeters(4.25),
                             Units.inchesToMeters(19.5)),
                     new Rotation3d(
                             Units.degreesToRadians(0),
-                            Units.degreesToRadians(16.5),
-                            Units.degreesToRadians(0)));
+                            Units.degreesToRadians(10),
+                            Units.degreesToRadians(-15)));
             public static final Transform3d FRONT_RIGHT = new Transform3d(
                     new Translation3d(
-                            Units.inchesToMeters(15),
-                            Units.inchesToMeters(-9),
+                            Units.inchesToMeters(17.875),
+                            Units.inchesToMeters(-4.25),
                             Units.inchesToMeters(19.5)),
                     new Rotation3d(
                             Units.degreesToRadians(0),
-                            Units.degreesToRadians(20),
-                            Units.degreesToRadians(0)));
+                            Units.degreesToRadians(10),
+                            Units.degreesToRadians(15)));
         }
     }
 
@@ -190,7 +190,7 @@ public final class RobotConstants {
 
         public static final Translation2d INITIAL_TRANSLATION = new Translation2d(Units.inchesToMeters(FIELD_LENGTH_INCHES / 2),
                     Units.inchesToMeters(FIELD_WIDTH_INCHES / 2)); // mid field
-        public static final Rotation2d INITIAL_ROTATION = Rotation2d.fromDegrees(180);
+        public static final Rotation2d INITIAL_ROTATION = Rotation2d.fromDegrees(0);
 
         public static final Pose2d INITIAL_POSE = new Pose2d(INITIAL_TRANSLATION, INITIAL_ROTATION);
     }
