@@ -35,6 +35,7 @@ public class Robot extends LoggedRobot {
     private SubsystemManager subsystemManager;
     private CommandFactory commandFactory;
     private OdomtryProcessor odometry;
+    private OperatorInterface operatorInterface;
 
     public void loggerInit() {
         Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
@@ -68,7 +69,8 @@ public class Robot extends LoggedRobot {
         subsystemManager = new SubsystemManager();
         odometry = new OdomtryProcessor();
         commandFactory = new CommandFactory(subsystemManager, odometry);
-        OperatorInterface.create(commandFactory, subsystemManager, odometry);
+        operatorInterface = new OperatorInterface(commandFactory, subsystemManager, odometry);
+        operatorInterface.create();
         odometry.createEstimator(
             RobotOutputs.getInstance().getDriveOutput().modulePositions,
             Rotation2d.fromDegrees(RobotOutputs.getInstance().getNavXOutput().yaw)
@@ -84,8 +86,8 @@ public class Robot extends LoggedRobot {
             Rotation2d.fromDegrees(RobotOutputs.getInstance().getNavXOutput().yaw)
         );
 
-        Optional<Pose2d> visionPose = RobotOutputs.getInstance().getVisionOutput().getEstimatedPose();
-        Optional<Double> visionTimeStamp = RobotOutputs.getInstance().getVisionOutput().getTimeStamp();
+        Optional<Pose2d> visionPose = RobotOutputs.getInstance().getVisionOutput().estimatedPose;
+        Optional<Double> visionTimeStamp = RobotOutputs.getInstance().getVisionOutput().timeStamp;
 
         if (visionPose.isPresent() && visionTimeStamp.isPresent()) {
             odometry.addVisionEstimatedPose(visionPose.get(), visionTimeStamp.get(), odometry.getEstimatedPose().getRotation());

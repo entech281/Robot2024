@@ -1,10 +1,11 @@
 package frc.robot.io;
 
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.inputs.LoggableInputs;
+
 import frc.robot.subsystems.DriveOutput;
 import frc.robot.subsystems.NavxOutput;
 import frc.robot.subsystems.VisionOutput;
-import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.inputs.LoggableInputs;
 
 public class RobotIO {
 
