@@ -11,7 +11,7 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
 
     private boolean ENABLED = false;
 
-    IntakeInput intakeInput = new IntakeInput();
+    IntakeInput currentInput = new IntakeInput();
 
     CANSparkMax intakeMotor;
 
@@ -24,13 +24,13 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
     }
 
     public void periodic() {
-        if (intakeInput.activate) {
+        if (currentInput.activate) {
             intakeMotor.set(RobotConstants.INTAKE.INTAKE_SPEED);
         } else {
             intakeMotor.set(0);
         }
 
-        if(intakeInput.brakeModeEnabled) {
+        if(currentInput.brakeModeEnabled) {
             intakeMotor.setIdleMode(IdleMode.kBrake);
         } else {
             intakeMotor.setIdleMode(IdleMode.kCoast);
@@ -44,7 +44,7 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
 
     @Override
     public void updateInputs(IntakeInput input) {
-        this.intakeInput = input;
+        this.currentInput = input;
     }
 
     @Override

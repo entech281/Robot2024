@@ -15,7 +15,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
         Shooting, Transfering, Intaking, Off
     }
 
-    private TransferInput transferInput = new TransferInput();
+    private TransferInput currentInput = new TransferInput();
 
     private CANSparkMax transferMotor;
 
@@ -29,19 +29,19 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
     public void periodic() {
         if(ENABLED) {
-            if(transferInput.activate) {
-                if(transferInput.currentMode == TransferStatus.Shooting) {
+            if(currentInput.activate) {
+                if(currentInput.currentMode == TransferStatus.Shooting) {
                     transferMotor.set(RobotConstants.TRANSFER.SHOOTING_SPEED);
-                } else if (transferInput.currentMode == TransferStatus.Transfering) {
+                } else if (currentInput.currentMode == TransferStatus.Transfering) {
                     transferMotor.set(RobotConstants.TRANSFER.TRANSFERING_SPEED);
-                } else if (transferInput.currentMode == TransferStatus.Intaking) {
+                } else if (currentInput.currentMode == TransferStatus.Intaking) {
                     transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED);
                 }
             } else {
                 transferMotor.set(0.0);
             }
 
-            if (transferInput.brakeModeEnabled) {
+            if (currentInput.brakeModeEnabled) {
                 transferMotor.setIdleMode(IdleMode.kBrake);
             } else {
                 transferMotor.setIdleMode(IdleMode.kCoast);
@@ -56,7 +56,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
     @Override
     public void updateInputs(TransferInput input) {
-        this.transferInput = input;
+        this.currentInput = input;
     }
 
     @Override
@@ -64,7 +64,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
         TransferOutput transferOutput = new TransferOutput();
         transferOutput.active = transferMotor.getEncoder().getVelocity() != 0;
         transferOutput.brakeModeEnabled = IdleMode.kBrake == transferMotor.getIdleMode();
-        transferOutput.currentMode = transferInput.currentMode;
+        transferOutput.currentMode = currentInput.currentMode;
         return transferOutput;
     }
 

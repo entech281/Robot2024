@@ -11,6 +11,7 @@ public class PivotInput implements SubsystemInput{
 
     @Override
     public void toLog(LogTable table) {
+        table.put("Requested position", requestedPosition);
     }
 
     @Override
