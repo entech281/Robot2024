@@ -8,7 +8,7 @@ public class SquaringFilter implements DriveFilterI {
         DriveInput processedInput = new DriveInput();
 
         processedInput.gyroAngle = input.gyroAngle;
-        processedInput.pose = input.pose;
+        processedInput.latestOdometryPose = input.latestOdometryPose;
 
         processedInput.xSpeed = Math.copySign(input.xSpeed * input.xSpeed, input.xSpeed);
         processedInput.ySpeed = Math.copySign(input.ySpeed * input.ySpeed, input.ySpeed);

@@ -23,52 +23,54 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
 
     @Override
     public void initialize() {
+        if (ENABLED) {
+            shooterA = new CANSparkMax(RobotConstants.Ports.CAN.SHOOTER_A, MotorType.kBrushless);
+            shooterB = new CANSparkMax(RobotConstants.Ports.CAN.SHOOTER_B, MotorType.kBrushless);
 
-        shooterA = new CANSparkMax(RobotConstants.Ports.CAN.SHOOTER_A, MotorType.kBrushless);
-        shooterB = new CANSparkMax(RobotConstants.Ports.CAN.SHOOTER_B, MotorType.kBrushless);
+            shooterA.setIdleMode(IdleMode.kBrake);
+            shooterB.setIdleMode(IdleMode.kBrake);
 
-        shooterA.setIdleMode(IdleMode.kBrake);
-        shooterB.setIdleMode(IdleMode.kBrake);
+            shooterA.setInverted(true);
+            shooterB.setInverted(true);
 
-        shooterA.setInverted(true);
-        shooterB.setInverted(true);
+            shooterAPID = shooterA.getPIDController();
+            shooterAPID.setP(RobotConstants.PID.Shooter.KP);
+            shooterAPID.setD(RobotConstants.PID.Shooter.KD);
+            shooterAPID.setI(RobotConstants.PID.Shooter.KI);
+            shooterAPID.setFF(RobotConstants.PID.Shooter.KFF);
 
-        shooterAPID = shooterA.getPIDController();
-        shooterAPID.setP(RobotConstants.PID.Shooter.KP);
-        shooterAPID.setD(RobotConstants.PID.Shooter.KD);
-        shooterAPID.setI(RobotConstants.PID.Shooter.KI);
-        shooterAPID.setFF(RobotConstants.PID.Shooter.KFF);
-
-        shooterBPID = shooterB.getPIDController();
-        shooterBPID.setP(RobotConstants.PID.Shooter.KP);
-        shooterBPID.setD(RobotConstants.PID.Shooter.KD);
-        shooterBPID.setI(RobotConstants.PID.Shooter.KI);
-        shooterBPID.setFF(RobotConstants.PID.Shooter.KFF);
+            shooterBPID = shooterB.getPIDController();
+            shooterBPID.setP(RobotConstants.PID.Shooter.KP);
+            shooterBPID.setD(RobotConstants.PID.Shooter.KD);
+            shooterBPID.setI(RobotConstants.PID.Shooter.KI);
+            shooterBPID.setFF(RobotConstants.PID.Shooter.KFF);
+        }
     }
 
     public void periodic() {
+        if (ENABLED) {
+            SmartDashboard.putNumber("Shooter Target", shooterInput.speed);
+            SmartDashboard.putNumber("Shooter Top", shooterA.getEncoder().getVelocity());
+            SmartDashboard.putNumber("Shooter Bottom", shooterA.getEncoder().getVelocity());
+            SmartDashboard.putNumber("Transfer", shooterA.getEncoder().getVelocity());
 
-        SmartDashboard.putNumber("Shooter Target", shooterInput.speed);
-        SmartDashboard.putNumber("Shooter Top", shooterA.getEncoder().getVelocity());
-        SmartDashboard.putNumber("Shooter Bottom", shooterA.getEncoder().getVelocity());
-        SmartDashboard.putNumber("Transfer", shooterA.getEncoder().getVelocity());
-
-        if(ENABLED) {
-            if(shooterInput.activate) {
-                shooterAPID.setReference(shooterInput.speed, CANSparkMax.ControlType.kVelocity);
-                shooterBPID.setReference(shooterInput.speed, CANSparkMax.ControlType.kVelocity);
-            } else {
-                shooterAPID.setReference(0, CANSparkMax.ControlType.kVelocity);
-                shooterBPID.setReference(0, CANSparkMax.ControlType.kVelocity);
+            if(ENABLED) {
+                if(shooterInput.activate) {
+                    shooterAPID.setReference(shooterInput.speed, CANSparkMax.ControlType.kVelocity);
+                    shooterBPID.setReference(shooterInput.speed, CANSparkMax.ControlType.kVelocity);
+                } else {
+                    shooterAPID.setReference(0, CANSparkMax.ControlType.kVelocity);
+                    shooterBPID.setReference(0, CANSparkMax.ControlType.kVelocity);
+                }
             }
-        }
 
-        if (shooterInput.brakeModeEnabled) {
-            shooterA.setIdleMode(IdleMode.kBrake);
-            shooterB.setIdleMode(IdleMode.kBrake);
-        } else {
-            shooterA.setIdleMode(IdleMode.kCoast);
-            shooterB.setIdleMode(IdleMode.kCoast);
+            if (shooterInput.brakeModeEnabled) {
+                shooterA.setIdleMode(IdleMode.kBrake);
+                shooterB.setIdleMode(IdleMode.kBrake);
+            } else {
+                shooterA.setIdleMode(IdleMode.kCoast);
+                shooterB.setIdleMode(IdleMode.kCoast);
+            }
         }
     }
 

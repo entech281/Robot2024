@@ -21,13 +21,13 @@ public class VisionOutput implements SubsystemOutput {
     @Override
     public void log() {
         if (timeStamp.isPresent() && estimatedPose.isPresent()) {
-            Logger.recordOutput("visionOutput/", timeStamp.get());
-            Logger.recordOutput("visionOutput/", estimatedPose.get());
+            Logger.recordOutput("visionOutput/timeStamp", timeStamp.get());
+            Logger.recordOutput("visionOutput/estimatedPose", estimatedPose.get());
         }
 
-        Logger.recordOutput("visionOutput/", latency);
-        Logger.recordOutput("visionOutput/", numberOfTargets);
-        Logger.recordOutput("visionOutput/", hasTargets);
+        Logger.recordOutput("visionOutput/latency", latency);
+        Logger.recordOutput("visionOutput/numberOfTargets", numberOfTargets);
+        Logger.recordOutput("visionOutput/hasTargets", hasTargets);
         for (int i = 0; i < numberOfTargets; i++) {
             Logger.recordOutput("visionOutput/target" + i, targets.get(i));
         }

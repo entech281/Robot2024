@@ -12,7 +12,7 @@ public class DriveInput implements SubsystemInput {
     public double ySpeed;
     public double rot;
     public Rotation2d gyroAngle;
-    public Pose2d pose;
+    public Pose2d latestOdometryPose;
     public String key = "driveInput";
 
     @Override
@@ -21,7 +21,7 @@ public class DriveInput implements SubsystemInput {
         ySpeed = table.get(key + "/ySpeed", 0.0);
         rot = table.get(key + "/rot", 0.0);
         gyroAngle = table.get(key + "/gyroAngle", Rotation2d.fromDegrees(0));
-        pose = table.get(key + "/pose", RobotConstants.ODOMETRY.INITIAL_POSE);
+        latestOdometryPose = table.get(key + "/pose", RobotConstants.ODOMETRY.INITIAL_POSE);
     }
 
     @Override
@@ -30,6 +30,6 @@ public class DriveInput implements SubsystemInput {
         table.put(key + "/ySpeed", ySpeed);
         table.put(key + "/rot", rot);
         table.put(key + "/gyroAngle", gyroAngle);
-        table.put(key + "/pose", pose);
+        table.put(key + "/pose", latestOdometryPose);
     }
 }

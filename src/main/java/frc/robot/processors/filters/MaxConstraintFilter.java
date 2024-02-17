@@ -12,7 +12,7 @@ public class MaxConstraintFilter implements DriveFilterI {
         DriveInput processedInput = new DriveInput();
 
         processedInput.gyroAngle = input.gyroAngle;
-        processedInput.pose = input.pose;
+        processedInput.latestOdometryPose = input.latestOdometryPose;
 
         processedInput.xSpeed = MathUtil.applyDeadband(MathUtil.clamp(input.xSpeed, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
                 RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);

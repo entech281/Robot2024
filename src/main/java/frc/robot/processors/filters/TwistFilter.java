@@ -8,7 +8,7 @@ public class TwistFilter implements DriveFilterI {
     public DriveInput process(DriveInput input) {
         DriveInput processedInput = new DriveInput();
         processedInput.gyroAngle = input.gyroAngle;
-        processedInput.pose = input.pose;
+        processedInput.latestOdometryPose = input.latestOdometryPose;
         processedInput.xSpeed = input.xSpeed;
         processedInput.ySpeed = input.ySpeed;
 

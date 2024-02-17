@@ -21,10 +21,10 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
     @Override
     public void initialize() {
-
-        transferMotor = new CANSparkMax(RobotConstants.Ports.CAN.TRANSFER, MotorType.kBrushless);
-
-        transferMotor.setInverted(false);
+        if (ENABLED) {
+            transferMotor = new CANSparkMax(RobotConstants.Ports.CAN.TRANSFER, MotorType.kBrushless);
+            transferMotor.setInverted(false);
+        }
     }
 
     public void periodic() {

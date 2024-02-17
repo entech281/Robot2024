@@ -56,11 +56,11 @@ public class OperatorInterface implements DriveInputSupplier, DebugInputSupplier
     public DriveInput getDriveInput() {
         DriveInput di =  new DriveInput();
 
-        di.xSpeed = driveJoystick.getY();
-        di.ySpeed = driveJoystick.getX();
-        di.rot = driveJoystick.getX();
+        di.xSpeed = -driveJoystick.getY();
+        di.ySpeed = -driveJoystick.getX();
+        di.rot = -driveJoystick.getZ();
         di.gyroAngle = Rotation2d.fromDegrees(RobotIO.getInstance().getNavXOutput().yaw);
-        di.pose = odometry.getEstimatedPose();
+        di.latestOdometryPose = odometry.getEstimatedPose();
         di.key = "initialRaw";
 
         RobotIO.processInput(di);
