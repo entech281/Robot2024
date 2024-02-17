@@ -1,10 +1,9 @@
 package frc.robot.vision;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
-import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import entech.util.EntechGeometryUtils;
 import frc.robot.RobotConstants;
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
@@ -17,28 +16,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CameraContainer {
+public class SoloCameraContainer implements CameraContainerI {
     private final PhotonCamera camera;
     private final PhotonPoseEstimator estimator;
 
-    private final CameraContainer base;
-
-    public CameraContainer(String cameraName, Transform3d robotToCamera, AprilTagFieldLayout fieldLayout,
-            CameraContainer base) {
+    public SoloCameraContainer(String cameraName, Transform3d robotToCamera, AprilTagFieldLayout fieldLayout) {
         camera = new PhotonCamera(cameraName);
         estimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera, robotToCamera);
         estimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
-        this.base = base;
     }
 
-    public CameraContainer(String cameraName, Transform3d robotToCamera, AprilTagFieldLayout fieldLayout,
-            CameraContainer base, NetworkTableInstance ni) {
+    public SoloCameraContainer(String cameraName, Transform3d robotToCamera, AprilTagFieldLayout fieldLayout, NetworkTableInstance ni) {
         camera = new PhotonCamera(ni, cameraName);
         estimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera, robotToCamera);
         estimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
-        this.base = base;
     }
 
+    @Override
     public PhotonPipelineResult getFilteredResult() {
         PhotonPipelineResult result = camera.getLatestResult();
 
@@ -47,8 +41,6 @@ public class CameraContainer {
         for (PhotonTrackedTarget target : result.getTargets()) {
             if (target.getPoseAmbiguity() > RobotConstants.Vision.Filters.MAX_AMBIGUITY)
                 continue;
-            // if (target.getArea() < RobotConstants.Vision.Filters.MIN_AREA)
-            //     continue;
             if (Math.abs(target.getBestCameraToTarget().getX()) > RobotConstants.Vision.Filters.MAX_DISTANCE)
                 continue;
 
@@ -61,41 +53,28 @@ public class CameraContainer {
         return fliteredResult;
     }
 
-    public Optional<Pose3d> getEstimatedPose() {
-        List<Pose3d> estPoses = new ArrayList<Pose3d>();
-        Optional<EstimatedRobotPose> thisEstPose = estimator.update(getFilteredResult());
-        if (thisEstPose.isPresent())
-            estPoses.add(thisEstPose.get().estimatedPose);
-        if (base != null) {
-            Optional<Pose3d> baseEstPose = base.getEstimatedPose();
-            if (baseEstPose.isPresent())
-                estPoses.add(baseEstPose.get());
-        }
-        switch (estPoses.size()) {
-            case 1:
-                return Optional.of(estPoses.get(0));
-            case 2:
-                return Optional.of(EntechGeometryUtils.averagePose3d(estPoses.get(0), estPoses.get(1)));
-            default:
-                return Optional.empty();
+    @Override
+    public Optional<Pose2d> getEstimatedPose() {
+        Optional<EstimatedRobotPose> estimatedPose = estimator.update(getFilteredResult());
+        if (estimatedPose.isPresent()) {
+            return Optional.of(estimatedPose.get().estimatedPose.toPose2d());
+        } else {
+            return Optional.empty();
         }
     }
 
+    @Override
     public double getLatency() {
-        if (base == null)
-            return getFilteredResult().getLatencyMillis();
-        return (base.getLatency() + getFilteredResult().getLatencyMillis()) / 2;
+        return getFilteredResult().getLatencyMillis();
     }
 
+    @Override
     public boolean hasTargets() {
-        if (base == null)
-            return getFilteredResult().hasTargets();
-        return (base.hasTargets() || getFilteredResult().hasTargets());
+        return getFilteredResult().hasTargets();
     }
 
+    @Override
     public int getTargetCount() {
-        if (base == null)
-            return getFilteredResult().getTargets().size();
-        return (base.getTargetCount() + getFilteredResult().getTargets().size());
+        return getFilteredResult().getTargets().size();
     }
 }

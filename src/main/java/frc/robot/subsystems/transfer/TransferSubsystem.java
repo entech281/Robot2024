@@ -1,8 +1,8 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.transfer;
 
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
 
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
@@ -21,10 +21,10 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
     @Override
     public void initialize() {
-
-        transferMotor = new CANSparkMax(RobotConstants.Ports.CAN.TRANSFER, MotorType.kBrushless);
-
-        transferMotor.setInverted(false);
+        if (ENABLED) {
+            transferMotor = new CANSparkMax(RobotConstants.Ports.CAN.TRANSFER, MotorType.kBrushless);
+            transferMotor.setInverted(false);
+        }
     }
 
     public void periodic() {
