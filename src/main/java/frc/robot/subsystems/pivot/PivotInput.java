@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.pivot;
 
 import org.littletonrobotics.junction.LogTable;
 
@@ -11,6 +11,7 @@ public class PivotInput implements SubsystemInput{
 
     @Override
     public void toLog(LogTable table) {
+        table.put("Requested position", requestedPosition);
     }
 
     @Override
