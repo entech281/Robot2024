@@ -20,9 +20,6 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
-import frc.robot.vision.CameraContainerI;
-import frc.robot.vision.MultiCameraContainer;
-import frc.robot.vision.SoloCameraContainer;
 
 public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> {
     private static final boolean ENABLED = true;

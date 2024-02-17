@@ -9,6 +9,8 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.subsystems.vision.CameraContainerI;
+import frc.robot.subsystems.vision.SoloCameraContainer;
 
 public class VisionNoRio {
 

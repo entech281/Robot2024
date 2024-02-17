@@ -16,8 +16,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.DrivetrainConstants;
-import frc.robot.swerve.SwerveModule;
-import frc.robot.swerve.SwerveUtils;
 
 /**
  * The {@code Drivetrain} class contains fields and methods pertaining to the
