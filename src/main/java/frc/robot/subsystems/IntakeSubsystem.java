@@ -52,6 +52,7 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
         IntakeOutput intakeOutput = new IntakeOutput();
         intakeOutput.active = intakeMotor.getEncoder().getVelocity() != 0;
         intakeOutput.brakeModeEnabled = IdleMode.kBrake == intakeMotor.getIdleMode();
+        intakeOutput.currentSpeed = intakeMotor.getEncoder().getVelocity();
         return intakeOutput;
     }
 

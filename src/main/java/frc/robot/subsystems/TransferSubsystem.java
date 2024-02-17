@@ -65,6 +65,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
         transferOutput.active = transferMotor.getEncoder().getVelocity() != 0;
         transferOutput.brakeModeEnabled = IdleMode.kBrake == transferMotor.getIdleMode();
         transferOutput.currentMode = currentInput.currentMode;
+        transferOutput.currentSpeed = transferMotor.getEncoder().getVelocity();
         return transferOutput;
     }
 
