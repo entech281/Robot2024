@@ -25,7 +25,7 @@ import frc.robot.swerve.SwerveUtils;
  * The {@code Drivetrain} class contains fields and methods pertaining to the
  * function of the drivetrain.
  */
-public class DriveSubsystem  extends EntechSubsystem<DriveInput, DriveOutput> {
+public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
     private static final boolean ENABLED = true;
 
     public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = -0.6493782167825488;

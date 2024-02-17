@@ -1,28 +1,20 @@
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import entech.commands.EntechCommand;
-import entech.util.EntechJoystick;
+import frc.robot.io.DriveInputSupplier;
 import frc.robot.processors.DriveInputProcessor;
 import frc.robot.subsystems.DriveInput;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveCommand extends EntechCommand {
     private final DriveSubsystem drive;
-    private final EntechJoystick joystick;
-    private final Supplier<Rotation2d> gyroYaw;
-    private final Supplier<Pose2d> odometryPose;
     private final DriveInputProcessor inputProcessor;
+    private final DriveInputSupplier driveInputSource;
 
-    public DriveCommand(DriveSubsystem drive, EntechJoystick joystick, Supplier<Rotation2d> gyroYaw, Supplier<Pose2d> odometryPose) {
+    public DriveCommand(DriveSubsystem drive, DriveInputSupplier driveInputSource) {
         super(drive);
         this.drive = drive;
-        this.joystick = joystick;
-        this.gyroYaw = gyroYaw;
-        this.odometryPose = odometryPose;
+        this.driveInputSource = driveInputSource;
         this.inputProcessor = new DriveInputProcessor();
     }
 
@@ -30,7 +22,7 @@ public class DriveCommand extends EntechCommand {
     public void end(boolean interrupted) {
         DriveInput stop = new DriveInput();
 
-        stop.gyroAngle = gyroYaw.get();
+        stop.gyroAngle = driveInputSource.getDriveInput().gyroAngle;
         stop.rot = 0;
         stop.xSpeed= 0;
         stop.ySpeed = 0;
@@ -40,30 +32,21 @@ public class DriveCommand extends EntechCommand {
 
     @Override
     public void execute() {
-        DriveInput input = new DriveInput();
-
-        input.ySpeed = -joystick.getX();
-        input.xSpeed = -joystick.getY();
-        input.rot = -joystick.getZ();
-
-        input.gyroAngle = gyroYaw.get();
-        input.pose = odometryPose.get();
-
-        input = inputProcessor.processInput(input);
+        DriveInput input = inputProcessor.processInput(driveInputSource.getDriveInput());
 
         drive.updateInputs(input);
     }
 
     @Override
     public void initialize() {
-        DriveInput initial = new DriveInput();
+        DriveInput stop = new DriveInput();
 
-        initial.gyroAngle = gyroYaw.get();
-        initial.rot = 0;
-        initial.xSpeed= 0;
-        initial.ySpeed = 0;
+        stop.gyroAngle = driveInputSource.getDriveInput().gyroAngle;
+        stop.rot = 0;
+        stop.xSpeed= 0;
+        stop.ySpeed = 0;
 
-        drive.updateInputs(initial);
+        drive.updateInputs(stop);
     }
 
     @Override

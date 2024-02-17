@@ -44,12 +44,12 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
     public VisionOutput getOutputs() {
         VisionOutput output = new VisionOutput();
 
-        output.setEstimatedPose(getEstimatedPose());
-        output.setHasTargets(!targets.isEmpty());
-        output.setLatency(cameras.getLatency());
-        output.setNumberOfTarets(targets.size());
-        output.setTimeStamp(getTimeStamp());
-        output.setTargets(targets);
+        output.estimatedPose = getEstimatedPose();
+        output.hasTargets = !targets.isEmpty();
+        output.latency = cameras.getLatency();
+        output.numberOfTarets = targets.size();
+        output.timeStamp = getTimeStamp();
+        output.targets = targets;
 
         return output;
     }
@@ -89,12 +89,12 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
             updateVisionData();
 
             VisionOutput data = getOutputs();
-            Logger.recordOutput("Latency", data.getLatency());
-            Logger.recordOutput("Total Targets Counted", data.getNumberOfTarets());
-            Logger.recordOutput("Has Targets", data.isHasTargets());
+            Logger.recordOutput("Latency", data.latency);
+            Logger.recordOutput("Total Targets Counted", data.numberOfTarets);
+            Logger.recordOutput("Has Targets", data.hasTargets);
 
-            if (data.getEstimatedPose().isPresent()) {
-                Logger.recordOutput("Vision Pose2d", data.getEstimatedPose().get());
+            if (data.estimatedPose.isPresent()) {
+                Logger.recordOutput("Vision Pose2d", data.estimatedPose.get());
             }
         }
     }

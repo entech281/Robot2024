@@ -105,7 +105,7 @@ public class Robot extends LoggedRobot {
 
     @Override
     public void autonomousPeriodic() {
-        subsystemManager.periodic();
+        //for things that only happen in auto
     }
 
     @Override
@@ -117,7 +117,7 @@ public class Robot extends LoggedRobot {
 
     @Override
     public void teleopPeriodic() {
-        subsystemManager.periodic();
+        //for things that only happen in teleop
     }
 
     @Override
