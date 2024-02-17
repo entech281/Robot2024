@@ -14,7 +14,7 @@ import frc.robot.io.DriveInputSupplier;
 import frc.robot.io.OperatorInput;
 import frc.robot.io.OperatorInputSupplier;
 import frc.robot.io.RobotIO;
-import frc.robot.processors.OdomtryProcessor;
+import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.drive.DriveInput;
 
 
@@ -24,9 +24,9 @@ public class OperatorInterface implements DriveInputSupplier, DebugInputSupplier
 
     private final CommandFactory commandFactory;
     private final SubsystemManager subsystemManager;
-    private final OdomtryProcessor odometry;
+    private final OdometryProcessor odometry;
 
-    public OperatorInterface(CommandFactory commandFactory, SubsystemManager subsystemManager, OdomtryProcessor odometry) {
+    public OperatorInterface(CommandFactory commandFactory, SubsystemManager subsystemManager, OdometryProcessor odometry) {
         this.commandFactory = commandFactory;
         this.subsystemManager = subsystemManager;
         this.odometry = odometry;

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.GyroReset;
-import frc.robot.processors.OdomtryProcessor;
+import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.navx.NavXSubsystem;
 import frc.robot.subsystems.vision.VisionSubsystem;
@@ -22,9 +22,9 @@ public class CommandFactory {
     private final VisionSubsystem visionSubsystem;
     private final NavXSubsystem navXSubsystem;
 
-    private final OdomtryProcessor odometry;
+    private final OdometryProcessor odometry;
 
-    public CommandFactory(SubsystemManager subsystemManager, OdomtryProcessor odometry) {
+    public CommandFactory(SubsystemManager subsystemManager, OdometryProcessor odometry) {
         this.driveSubsystem = subsystemManager.getDriveSubsystem();
         this.visionSubsystem = subsystemManager.getVisionSubsystem();
         this.navXSubsystem = subsystemManager.getNavXSubsystem();

@@ -173,7 +173,7 @@ public final class RobotConstants {
                     new Rotation3d(
                             Units.degreesToRadians(0),
                             Units.degreesToRadians(10),
-                            Units.degreesToRadians(-15)));
+                            Units.degreesToRadians(-90)));
             public static final Transform3d FRONT_RIGHT = new Transform3d(
                     new Translation3d(
                             Units.inchesToMeters(17.875),
@@ -182,7 +182,7 @@ public final class RobotConstants {
                     new Rotation3d(
                             Units.degreesToRadians(0),
                             Units.degreesToRadians(10),
-                            Units.degreesToRadians(15)));
+                            Units.degreesToRadians(90)));
         }
     }
 

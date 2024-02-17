@@ -8,7 +8,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
 
-public class OdomtryProcessor {
+public class OdometryProcessor {
     private SwerveDrivePoseEstimator estimator;
 
     public Pose2d getEstimatedPose() {
