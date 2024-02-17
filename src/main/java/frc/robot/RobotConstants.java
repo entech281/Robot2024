@@ -138,7 +138,7 @@ public final class RobotConstants {
             public static final int PIVOT_A = 4;
 
             public static final int CLIMB_B = 3;
-            private static final int CLIMB_A = 2;
+            public static final int CLIMB_A = 2;
         }
 
         public static class CONTROLLER {
