@@ -25,7 +25,7 @@ public class AutoYawFilter implements DriveFilterI {
 
 
     private Rotation2d calculateTargetAngle(Pose2d currentPose) {
-        
+        double xDist = Math.abs()
 
         return Rotation2d.fromDegrees(0);
     }

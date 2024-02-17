@@ -1,9 +1,12 @@
 package frc.robot.OI;
 
+import edu.wpi.first.math.geometry.Pose2d;
+
 public class UserPolicy {
     private static UserPolicy instance = new UserPolicy();
 
     private boolean twistable = false;
+    private Pose2d pose
 
     private UserPolicy() {
     }
