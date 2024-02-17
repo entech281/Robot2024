@@ -1,5 +1,6 @@
 package frc.robot.OI;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import entech.util.EntechJoystick;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
@@ -7,28 +8,37 @@ import frc.robot.SubsystemManager;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.TwistCommand;
-import frc.robot.commands.XCommand;
-import frc.robot.io.*;
-import frc.robot.subsystems.DriveInput;
+import frc.robot.io.DebugInput;
+import frc.robot.io.DebugInputSupplier;
+import frc.robot.io.DriveInputSupplier;
+import frc.robot.io.OperatorInput;
+import frc.robot.io.OperatorInputSupplier;
+import frc.robot.io.RobotIO;
+import frc.robot.processors.OdometryProcessor;
+import frc.robot.subsystems.drive.DriveInput;
 
 
-public final class OperatorInterface implements DriveInputSupplier, DebugInputSupplier, OperatorInputSupplier {
-    private static final OperatorInterface _instance = new OperatorInterface();
-    private static final EntechJoystick driveJoystick = new EntechJoystick(RobotConstants.Ports.CONTROLLER.JOYSTICK);
-    private static final EntechJoystick operatorPanel = new EntechJoystick(RobotConstants.Ports.CONTROLLER.PANEL);
+public class OperatorInterface implements DriveInputSupplier, DebugInputSupplier, OperatorInputSupplier {
+    private final EntechJoystick driveJoystick = new EntechJoystick(RobotConstants.Ports.CONTROLLER.JOYSTICK);
+    private final EntechJoystick operatorPanel = new EntechJoystick(RobotConstants.Ports.CONTROLLER.PANEL);
 
+    private final CommandFactory commandFactory;
+    private final SubsystemManager subsystemManager;
+    private final OdometryProcessor odometry;
 
-    public static void create(CommandFactory commandFactory, SubsystemManager subsystemManager) {
-        driveJoystick.WhilePressed(1, new TwistCommand());
-        driveJoystick.WhenPressed(11, new GyroReset(subsystemManager.getDriveSubsystem()));
-        driveJoystick.WhenPressed(9, new XCommand());
-
-        subsystemManager.getDriveSubsystem()
-                .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), _instance));
-
+    public OperatorInterface(CommandFactory commandFactory, SubsystemManager subsystemManager, OdometryProcessor odometry) {
+        this.commandFactory = commandFactory;
+        this.subsystemManager = subsystemManager;
+        this.odometry = odometry;
     }
 
-    private OperatorInterface() {
+    public void create() {
+        driveJoystick.WhilePressed(1, new TwistCommand());
+        driveJoystick.WhenPressed(11, new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
+
+        subsystemManager.getDriveSubsystem()
+                .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
+
     }
 
     /*
@@ -44,7 +54,15 @@ public final class OperatorInterface implements DriveInputSupplier, DebugInputSu
 
     @Override
     public DriveInput getDriveInput() {
-        DriveInput di =  new DriveInput(driveJoystick.getX(), driveJoystick.getY(), driveJoystick.getZ());
+        DriveInput di =  new DriveInput();
+
+        di.xSpeed = -driveJoystick.getY();
+        di.ySpeed = -driveJoystick.getX();
+        di.rot = -driveJoystick.getZ();
+        di.gyroAngle = Rotation2d.fromDegrees(RobotIO.getInstance().getNavXOutput().yaw);
+        di.latestOdometryPose = odometry.getEstimatedPose();
+        di.key = "initialRaw";
+
         RobotIO.processInput(di);
         return di;
     }

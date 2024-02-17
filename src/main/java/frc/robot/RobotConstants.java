@@ -1,11 +1,18 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkBase.IdleMode;
+
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 
 public final class RobotConstants {
@@ -36,6 +43,7 @@ public final class RobotConstants {
                 new Translation2d(-WHEEL_BASE_METERS / 2, -TRACK_WIDTH_METERS / 2));
 
         public static final boolean GYRO_REVERSED = false;
+        public static final boolean RATE_LIMITING = true;
     }
 
     public static final class SwerveModuleConstants {
@@ -55,7 +63,7 @@ public final class RobotConstants {
 
         // Calculations required for driving motor conversion factors and feed forward
         public static final double DRIVING_MOTOR_FREE_SPEED_RPS = FREE_SPEED_RPM / 60;
-        public static final double WHEEL_DIAMETER_METERS = 0.0972;
+        public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(4.125); //0.0972;
         public static final double WHEEL_CIRCUMFERENCE_METERS = WHEEL_DIAMETER_METERS * Math.PI;
         public static final double DRIVING_MOTOR_REDUCTION = (45.0 * 17 * 50) / (DRIVING_MOTOR_PINION_TEETH * 15 * 27);
         public static final double DRIVE_WHEEL_FREE_SPEED_RPS = (DRIVING_MOTOR_FREE_SPEED_RPS
@@ -102,21 +110,21 @@ public final class RobotConstants {
     public static interface Ports {
 
         public static class ANALOG {
-            public static final int FRONT_LEFT_TURNING_ABSOLUTE_ENCODER = 1;
-            public static final int REAR_LEFT_TURNING_ABSOLUTE_ENCODER = 2;
-            public static final int FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER = 0;
-            public static final int REAR_RIGHT_TURNING_ABSOLUTE_ENCODER = 3;
+            public static final int FRONT_LEFT_TURNING_ABSOLUTE_ENCODER = 3;
+            public static final int REAR_LEFT_TURNING_ABSOLUTE_ENCODER = 0;
+            public static final int FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER = 2;
+            public static final int REAR_RIGHT_TURNING_ABSOLUTE_ENCODER = 1;
         }
 
         public static class CAN {
             public static final int FRONT_LEFT_DRIVING = 12;
-            public static final int REAR_LEFT_DRIVING = 32;
             public static final int FRONT_RIGHT_DRIVING = 22;
+            public static final int REAR_LEFT_DRIVING = 32;
             public static final int REAR_RIGHT_DRIVING = 42;
 
             public static final int FRONT_LEFT_TURNING = 11;
-            public static final int REAR_LEFT_TURNING = 31;
             public static final int FRONT_RIGHT_TURNING = 21;
+            public static final int REAR_LEFT_TURNING = 31;
             public static final int REAR_RIGHT_TURNING = 41;
 
             public static final int SHOOTER_B = 9;
@@ -144,45 +152,37 @@ public final class RobotConstants {
     }
 
     public static interface Vision {
+        public static final Matrix<N3, N1> VISION_STD_DEVS = VecBuilder.fill(10, 10, 1000000);
+
         public static interface Cameras {
             public static final String FRONT_LEFT = "Arducam_Bravo";
             public static final String FRONT_RIGHT = "Arducam_Alpha";
         }
 
         public static interface Filters {
-            public static final double MAX_AMBIGUITY = 0.75;
-            public static final double MIN_AREA = 0.75;
-            public static final double MAX_DISTANCE = 2.5;
-        }
-
-        public static interface Offsets {
-            public static final double FRONT_OFFSET_HEAVE_M = Units.inchesToMeters(31);
-            public static final double FRONT_OFFSET_SWAY_M = Units.inchesToMeters(2.75);
-            public static final double FRONT_OFFSET_SURGE_M = 0.0;
-            public static final double FRONT_OFFSET_YAW_DEGREES = 0.0;
-            public static final double FRONT_OFFSET_PITCH_DEGREES = 24.0;
-            public static final double FRONT_OFFSET_ROLL_DEGREES = 90.0;
+            public static final double MAX_AMBIGUITY = 0.4;
+            public static final double MAX_DISTANCE = 3;
         }
 
         public static interface Transforms {
             public static final Transform3d FRONT_LEFT = new Transform3d(
                     new Translation3d(
-                            Vision.Offsets.FRONT_OFFSET_SURGE_M,
-                            Vision.Offsets.FRONT_OFFSET_SWAY_M,
-                            Vision.Offsets.FRONT_OFFSET_HEAVE_M),
+                            Units.inchesToMeters(17.875),
+                            Units.inchesToMeters(4.25),
+                            Units.inchesToMeters(19.5)),
                     new Rotation3d(
-                            Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_ROLL_DEGREES),
-                            Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_PITCH_DEGREES),
-                            Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_YAW_DEGREES)));
+                            Units.degreesToRadians(0),
+                            Units.degreesToRadians(10),
+                            Units.degreesToRadians(-90)));
             public static final Transform3d FRONT_RIGHT = new Transform3d(
                     new Translation3d(
-                            Vision.Offsets.FRONT_OFFSET_SURGE_M,
-                            -Vision.Offsets.FRONT_OFFSET_SWAY_M,
-                            Vision.Offsets.FRONT_OFFSET_HEAVE_M),
+                            Units.inchesToMeters(17.875),
+                            Units.inchesToMeters(-4.25),
+                            Units.inchesToMeters(19.5)),
                     new Rotation3d(
-                            -Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_ROLL_DEGREES),
-                            Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_PITCH_DEGREES),
-                            -Units.degreesToRadians(Vision.Offsets.FRONT_OFFSET_YAW_DEGREES)));
+                            Units.degreesToRadians(0),
+                            Units.degreesToRadians(10),
+                            Units.degreesToRadians(90)));
         }
     }
 
@@ -216,6 +216,17 @@ public final class RobotConstants {
     public interface INDICATOR_VALUES {
         public static final double POSITION_UNKNOWN = -1.0;
         public static final double POSITION_NOT_SET = -1.1;
+    }
+
+    public interface ODOMETRY {
+        public static final double FIELD_LENGTH_INCHES = 54 * 12 + 3.25;
+        public static final double FIELD_WIDTH_INCHES = 26 * 12 + 11.25;
+
+        public static final Translation2d INITIAL_TRANSLATION = new Translation2d(Units.inchesToMeters(FIELD_LENGTH_INCHES / 2),
+                    Units.inchesToMeters(FIELD_WIDTH_INCHES / 2)); // mid field
+        public static final Rotation2d INITIAL_ROTATION = Rotation2d.fromDegrees(0);
+
+        public static final Pose2d INITIAL_POSE = new Pose2d(INITIAL_TRANSLATION, INITIAL_ROTATION);
     }
 
     private RobotConstants() {

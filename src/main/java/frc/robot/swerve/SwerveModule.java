@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -180,6 +181,10 @@ public class SwerveModule {
         // the reading and setting of the calibrated absolute turning encoder values is
         // done in the Drivetrain's constructor
 
+        resetTurningEncoder();
+    }
+
+    public void resetTurningEncoder() {
         m_turningSparkMax.set(0); // no moving during reset of relative turning encoder
 
         m_turningEncoder.setPosition(m_turningAbsoluteEncoder.getVirtualPosition()); // set relative position based on

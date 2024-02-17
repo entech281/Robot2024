@@ -1,15 +1,13 @@
-package frc.robot.subsystems;
+package frc.robot.subsystems.intake;
 
 import org.littletonrobotics.junction.LogTable;
 
 import entech.subsystems.SubsystemInput;
 
-public class ShooterInput implements SubsystemInput {
+public class IntakeInput implements SubsystemInput {
 
-    public boolean activate = false;
-    public double speed = 0;
-    public boolean brakeModeEnabled = false;
-
+    public boolean activate;
+    public boolean brakeModeEnabled;
     @Override
     public void toLog(LogTable table) {
     }

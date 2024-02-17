@@ -5,11 +5,12 @@
 package frc.robot;
 
 import frc.robot.io.RobotIO;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.VisionSubsystem;
-import frc.robot.vision.VisionDataPacket;
-
-import java.util.Optional;
+import frc.robot.subsystems.drive.DriveSubsystem;
+import frc.robot.subsystems.intake.IntakeSubsystem;
+import frc.robot.subsystems.navx.NavXSubsystem;
+import frc.robot.subsystems.shooter.ShooterSubsystem;
+import frc.robot.subsystems.transfer.TransferSubsystem;
+import frc.robot.subsystems.vision.VisionSubsystem;
 
 
 /**
@@ -18,10 +19,20 @@ import java.util.Optional;
 public class SubsystemManager {
     private final DriveSubsystem driveSubsystem = new DriveSubsystem();
     private final VisionSubsystem visionSubsystem = new VisionSubsystem();
+    private final NavXSubsystem navXSubsystem = new NavXSubsystem();
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+    private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
+    private final TransferSubsystem transferSubsystem = new TransferSubsystem();
 
     public SubsystemManager() {
+        navXSubsystem.initialize();
         driveSubsystem.initialize();
         visionSubsystem.initialize();
+        intakeSubsystem.initialize();
+        shooterSubsystem.initialize();
+        transferSubsystem.initialize();
+
+        periodic();
     }
 
     public DriveSubsystem getDriveSubsystem() {
@@ -32,16 +43,46 @@ public class SubsystemManager {
         return visionSubsystem;
     }
 
+    public NavXSubsystem getNavXSubsystem() {
+        return navXSubsystem;
+    }
+
+    public IntakeSubsystem getIntakeSubsystem() {
+        return intakeSubsystem;
+    }
+
+    public ShooterSubsystem getShooterSubsystem() {
+        return shooterSubsystem;
+    }
+
+    public TransferSubsystem getTransferSubsystem() {
+        return transferSubsystem;
+    }
+
     public void periodic() {
+        RobotIO outputs = RobotIO.getInstance();
+        if (visionSubsystem.isEnabled()) {
+            outputs.updateVision(visionSubsystem.getOutputs());
+        }
 
+        if (driveSubsystem.isEnabled()) {
+            outputs.updateDrive(driveSubsystem.getOutputs());
+        }
 
-        RobotIO.state.updateDrive(driveSubsystem.getOutputs());
-        RobotIO.state.updateVision(visionSubsystem.getOutputs());
-        //RobotIO.state.updateNavx(navxSubsystem.getOutputs());
+        if (navXSubsystem.isEnabled()) {
+            outputs.updateNavx(navXSubsystem.getOutputs());
+        }
+        
+        if (transferSubsystem.isEnabled()) {
+            outputs.updateTransfer(transferSubsystem.getOutputs());
+        }
 
-        Optional<VisionDataPacket> visionData = visionSubsystem.getData();
-        if (visionData.isPresent()) {
-            driveSubsystem.addVisionData(visionData.get());
+        if (intakeSubsystem.isEnabled()) {
+            outputs.updateIntake(intakeSubsystem.getOutputs());
+        }
+
+        if (shooterSubsystem.isEnabled()) {
+            outputs.updateShooter(shooterSubsystem.getOutputs());
         }
     }
 }

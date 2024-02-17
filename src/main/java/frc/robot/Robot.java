@@ -4,17 +4,19 @@
 
 package frc.robot;
 
+import org.littletonrobotics.junction.LogFileUtil;
+import org.littletonrobotics.junction.LoggedRobot;
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.NT4Publisher;
+import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.OI.OperatorInterface;
-import org.littletonrobotics.junction.LogFileUtil;
-import org.littletonrobotics.junction.LoggedRobot;
-import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.NT4Publisher;
-import org.littletonrobotics.junction.wpilog.WPILOGReader;
-import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+import frc.robot.commands.ResetTurningEncoderCommand;
+import frc.robot.processors.OdometryProcessor;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,6 +31,8 @@ public class Robot extends LoggedRobot {
     private Command autonomousCommand;
     private SubsystemManager subsystemManager;
     private CommandFactory commandFactory;
+    private OdometryProcessor odometry;
+    private OperatorInterface operatorInterface;
 
     public void loggerInit() {
         Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
@@ -43,13 +47,12 @@ public class Robot extends LoggedRobot {
 
 
         if (isReal()) {
-            Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
+            // Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
             Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
             new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
         } else {
             setUseTiming(false); // Run as fast as possible
             String logPath = LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or prompt the user)
-            Logger.setReplaySource(new WPILOGReader(logPath)); // Read replay log
             Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save outputs to a new log
         }
 
@@ -61,20 +64,18 @@ public class Robot extends LoggedRobot {
     public void robotInit() {
         loggerInit();
         subsystemManager = new SubsystemManager();
-        commandFactory = new CommandFactory(subsystemManager);
-        OperatorInterface.create(commandFactory, subsystemManager);
+        odometry = new OdometryProcessor();
+        commandFactory = new CommandFactory(subsystemManager, odometry);
+        operatorInterface = new OperatorInterface(commandFactory, subsystemManager, odometry);
+        operatorInterface.create();
+        odometry.createEstimator();
     }
 
     @Override
     public void robotPeriodic() {
-        CommandScheduler.getInstance().run();
         subsystemManager.periodic();
-
-    }
-
-    @Override
-    public void disabledPeriodic() {
-        //for things that only happen in disabled
+        CommandScheduler.getInstance().run();
+        odometry.update();
     }
 
     @Override
@@ -87,8 +88,8 @@ public class Robot extends LoggedRobot {
     }
 
     @Override
-    public void autonomousPeriodic() {
-        //for things that only happen in auto
+    public void disabledExit() {
+        new ResetTurningEncoderCommand(subsystemManager.getDriveSubsystem()).schedule();
     }
 
     @Override
