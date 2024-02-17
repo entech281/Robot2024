@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.littletonrobotics.junction.Logger;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
@@ -87,15 +86,6 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
     public void periodic() {
         if (ENABLED) {
             updateVisionData();
-
-            VisionOutput data = getOutputs();
-            Logger.recordOutput("Latency", data.latency);
-            Logger.recordOutput("Total Targets Counted", data.numberOfTargets);
-            Logger.recordOutput("Has Targets", data.hasTargets);
-
-            if (data.estimatedPose.isPresent()) {
-                Logger.recordOutput("Vision Pose2d", data.estimatedPose.get());
-            }
         }
     }
 

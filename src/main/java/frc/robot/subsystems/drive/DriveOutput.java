@@ -10,9 +10,13 @@ import entech.subsystems.SubsystemOutput;
 @AutoLog
 public class DriveOutput implements SubsystemOutput {
     public SwerveModulePosition[] modulePositions;
+    public double[] rawAbsoluteEncoders;
+    public double[] virtualAbsoluteEncoders;
 
     @Override
     public void log() {
         Logger.recordOutput("driveOutput", modulePositions);
+        Logger.recordOutput("rawAbsoluteEncoders", rawAbsoluteEncoders);
+        Logger.recordOutput("virtualAbsoluteEncoders", virtualAbsoluteEncoders);
     }
 }

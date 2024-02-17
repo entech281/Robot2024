@@ -3,6 +3,7 @@ package frc.robot.io;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import frc.robot.subsystems.drive.DriveOutput;
 import frc.robot.subsystems.intake.IntakeOutput;
 import frc.robot.subsystems.navx.NavXOutput;
@@ -47,6 +48,10 @@ public class RobotIO {
         return latestTransferOutput;
     }
 
+    public Pose2d getOdometryPose() {
+        return latestOdometryPose;
+    }
+
     public void updateVision(VisionOutput vo) {
         latestVisionOutput = vo;
         vo.log();
@@ -55,24 +60,29 @@ public class RobotIO {
         latestNavXOutput = no;
         no.log();
     }
-    public void updateDrive ( DriveOutput dro) {
+    public void updateDrive( DriveOutput dro) {
         latestDriveOutput = dro;
         dro.log();
     }
 
-    public void updateTransfer (TransferOutput tro) {
+    public void updateTransfer(TransferOutput tro) {
         latestTransferOutput = tro;
         tro.log();
     }
 
-    public void updateShooter (ShooterOutput sho) {
+    public void updateShooter(ShooterOutput sho) {
         latestShooterOutput = sho;
         sho.log();
     }
 
-    public void updateIntake (IntakeOutput ito) {
+    public void updateIntake(IntakeOutput ito) {
         latestIntakeOutput = ito;
         ito.log();
+    }
+
+    public void updateOdometryPose(Pose2d pose) {
+        latestOdometryPose = pose;
+        Logger.recordOutput("OdometryPose", pose);
     }
 
     private VisionOutput latestVisionOutput;
@@ -81,4 +91,5 @@ public class RobotIO {
     private IntakeOutput latestIntakeOutput;
     private TransferOutput latestTransferOutput;
     private ShooterOutput latestShooterOutput;
+    private Pose2d latestOdometryPose;
 }

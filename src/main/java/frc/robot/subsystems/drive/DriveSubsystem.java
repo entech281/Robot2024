@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems.drive;
 
-import org.littletonrobotics.junction.Logger;
-
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -123,6 +121,18 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
     public DriveOutput getOutputs() {
         DriveOutput output = new DriveOutput();
         output.modulePositions = getModulePositions();
+        output.rawAbsoluteEncoders = new double[] {
+            frontLeft.getTurningAbsoluteEncoder().getPosition(),
+            frontRight.getTurningAbsoluteEncoder().getPosition(),
+            rearLeft.getTurningAbsoluteEncoder().getPosition(),
+            rearRight.getTurningAbsoluteEncoder().getPosition(),
+        };
+        output.virtualAbsoluteEncoders = new double[] {
+            frontLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
+            frontRight.getTurningAbsoluteEncoder().getVirtualPosition(),
+            rearLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
+            rearRight.getTurningAbsoluteEncoder().getVirtualPosition(),
+        };
         return output;
     }
 
@@ -140,38 +150,6 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
     @Override
     public void periodic() {
         if (ENABLED) {
-            SmartDashboard.putNumberArray("modules pose angles", new double[] {
-                    frontLeft.getPosition().angle.getDegrees(),
-                    frontRight.getPosition().angle.getDegrees(),
-                    rearLeft.getPosition().angle.getDegrees(),
-                    rearRight.getPosition().angle.getDegrees()
-            });
-            SmartDashboard.putNumberArray("modules pose meters", new double[] {
-                    frontLeft.getPosition().distanceMeters,
-                    frontRight.getPosition().distanceMeters,
-                    rearLeft.getPosition().distanceMeters,
-                    rearRight.getPosition().distanceMeters
-            });
-
-            SmartDashboard.putNumberArray("Virtual abs encoders", new double[] {
-                    frontLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
-                    frontRight.getTurningAbsoluteEncoder().getVirtualPosition(),
-                    rearLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
-                    rearRight.getTurningAbsoluteEncoder().getVirtualPosition()
-            });
-            SmartDashboard.putNumberArray("Raw abs encoders", new double[] {
-                    frontLeft.getTurningAbsoluteEncoder().getPosition(),
-                    frontRight.getTurningAbsoluteEncoder().getPosition(),
-                    rearLeft.getTurningAbsoluteEncoder().getPosition(),
-                    rearRight.getTurningAbsoluteEncoder().getPosition()
-            });
-
-            Logger.recordOutput("moduleStates", new SwerveModuleState[] {
-                frontLeft.getState(),
-                frontRight.getState(),
-                rearLeft.getState(),
-                rearRight.getState()
-            });
         }
     }
 
@@ -227,11 +205,19 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
         }
     }
 
+    public void resetTurningEncoders() {
+        if (ENABLED) {
+            frontLeft.resetTurningEncoder();
+            rearLeft.resetTurningEncoder();
+            frontRight.resetTurningEncoder();
+            rearRight.resetTurningEncoder();
+        }
+    }
+
     @Override
     public boolean isEnabled() {
         return ENABLED;
     }
-
 
     @Override
     public void initialize() {

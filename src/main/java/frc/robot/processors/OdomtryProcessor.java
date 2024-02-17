@@ -38,6 +38,8 @@ public class OdomtryProcessor {
         if (visionPose.isPresent() && visionTimeStamp.isPresent()) {
             addVisionEstimatedPose(visionPose.get(), visionTimeStamp.get(), getEstimatedPose().getRotation());
         }
+
+        RobotIO.getInstance().updateOdometryPose(getEstimatedPose());
     }
 
     public void addVisionEstimatedPose(Pose2d visionPose, double timeStamp, Rotation2d yaw) {
