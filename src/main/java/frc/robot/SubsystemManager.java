@@ -8,6 +8,7 @@ import frc.robot.io.RobotIO;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.navx.NavXSubsystem;
+import frc.robot.subsystems.pivot.PivotSubsystem;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 import frc.robot.subsystems.vision.VisionSubsystem;
@@ -23,6 +24,7 @@ public class SubsystemManager {
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
     private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
     private final TransferSubsystem transferSubsystem = new TransferSubsystem();
+    private final PivotSubsystem pivotSubsystem = new PivotSubsystem();
 
     public SubsystemManager() {
         navXSubsystem.initialize();
@@ -31,6 +33,7 @@ public class SubsystemManager {
         intakeSubsystem.initialize();
         shooterSubsystem.initialize();
         transferSubsystem.initialize();
+        pivotSubsystem.initialize();
 
         periodic();
     }
@@ -59,6 +62,10 @@ public class SubsystemManager {
         return transferSubsystem;
     }
 
+    public PivotSubsystem getPivotSubsystem() {
+        return pivotSubsystem;
+    }
+
     public void periodic() {
         RobotIO outputs = RobotIO.getInstance();
         if (visionSubsystem.isEnabled()) {
@@ -72,7 +79,7 @@ public class SubsystemManager {
         if (navXSubsystem.isEnabled()) {
             outputs.updateNavx(navXSubsystem.getOutputs());
         }
-        
+
         if (transferSubsystem.isEnabled()) {
             outputs.updateTransfer(transferSubsystem.getOutputs());
         }
@@ -83,6 +90,10 @@ public class SubsystemManager {
 
         if (shooterSubsystem.isEnabled()) {
             outputs.updateShooter(shooterSubsystem.getOutputs());
+        }
+
+        if (pivotSubsystem.isEnabled()) {
+            outputs.updatePivot(pivotSubsystem.getOutputs());
         }
     }
 }

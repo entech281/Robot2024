@@ -9,6 +9,8 @@ import frc.robot.subsystems.intake.IntakeOutput;
 import frc.robot.subsystems.navx.NavXOutput;
 import frc.robot.subsystems.shooter.ShooterOutput;
 import frc.robot.subsystems.transfer.TransferOutput;
+import frc.robot.subsystems.pivot.PivotSubsystem;
+import frc.robot.subsystems.pivot.PivotOutput;
 import frc.robot.subsystems.vision.VisionOutput;
 
 public class RobotIO {
@@ -48,6 +50,10 @@ public class RobotIO {
         return latestTransferOutput;
     }
 
+    public PivotOutput getPivotSubsystem() {
+        return latestPivotOutput;
+    }
+
     public Pose2d getOdometryPose() {
         return latestOdometryPose;
     }
@@ -80,6 +86,11 @@ public class RobotIO {
         ito.log();
     }
 
+    public void updatePivot(PivotOutput pio) {
+        latestPivotOutput = pio;
+        pio.log();
+    }
+
     public void updateOdometryPose(Pose2d pose) {
         latestOdometryPose = pose;
         Logger.recordOutput("OdometryPose", pose);
@@ -91,5 +102,6 @@ public class RobotIO {
     private IntakeOutput latestIntakeOutput;
     private TransferOutput latestTransferOutput;
     private ShooterOutput latestShooterOutput;
+    private PivotOutput latestPivotOutput;
     private Pose2d latestOdometryPose;
 }
