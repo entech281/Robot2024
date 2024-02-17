@@ -3,8 +3,6 @@ package frc.robot.subsystems.shooter;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -56,11 +54,6 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     }
 
     public void periodic() {
-
-        SmartDashboard.putNumber("Shooter Target", currentInput.speed);
-        SmartDashboard.putNumber("Shooter Top", shooterTop.getEncoder().getVelocity());
-        SmartDashboard.putNumber("Shooter Bottom", shooterTop.getEncoder().getVelocity());
-        SmartDashboard.putNumber("Transfer", shooterTop.getEncoder().getVelocity());
 
         if(ENABLED) {
             if(currentInput.activate) {
