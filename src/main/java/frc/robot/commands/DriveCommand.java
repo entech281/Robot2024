@@ -3,8 +3,8 @@ package frc.robot.commands;
 import entech.commands.EntechCommand;
 import frc.robot.io.DriveInputSupplier;
 import frc.robot.processors.DriveInputProcessor;
-import frc.robot.subsystems.DriveInput;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.drive.DriveInput;
+import frc.robot.subsystems.drive.DriveSubsystem;
 
 public class DriveCommand extends EntechCommand {
     private final DriveSubsystem drive;

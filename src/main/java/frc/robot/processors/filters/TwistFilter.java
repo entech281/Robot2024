@@ -1,7 +1,7 @@
 package frc.robot.processors.filters;
 
 import frc.robot.OI.UserPolicy;
-import frc.robot.subsystems.DriveInput;
+import frc.robot.subsystems.drive.DriveInput;
 
 public class TwistFilter implements DriveFilterI {
     @Override
@@ -13,6 +13,7 @@ public class TwistFilter implements DriveFilterI {
         processedInput.ySpeed = input.ySpeed;
 
         processedInput.rot = UserPolicy.getInstance().isTwistable() ? input.rot : 0.0;
+
         return processedInput;
     }
 }

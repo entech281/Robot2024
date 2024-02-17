@@ -1,40 +1,43 @@
 package frc.robot.processors;
 
+import java.util.Optional;
+
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import frc.robot.RobotConstants;
+import frc.robot.io.RobotIO;
 
 public class OdomtryProcessor {
     private SwerveDrivePoseEstimator estimator;
-
-    private Rotation2d latestGyroAngle;
-    private SwerveModulePosition[] latestSwerveModulesPositions;
 
     public Pose2d getEstimatedPose() {
         return estimator.getEstimatedPosition();
     }
 
-    public void createEstimator(SwerveModulePosition[] modulePositions, Rotation2d yaw) {
+    public void createEstimator() {
         estimator = new SwerveDrivePoseEstimator(
             RobotConstants.DrivetrainConstants.DRIVE_KINEMATICS,
-            yaw,
-            modulePositions,
+            Rotation2d.fromDegrees(RobotIO.getInstance().getNavXOutput().yaw),
+            RobotIO.getInstance().getDriveOutput().modulePositions,
             RobotConstants.ODOMETRY.INITIAL_POSE
         );
-
-        latestGyroAngle = yaw;
-        latestSwerveModulesPositions = modulePositions;
 
         estimator.setVisionMeasurementStdDevs(RobotConstants.Vision.VISION_STD_DEVS);
     }
 
-    public void updateInputs(SwerveModulePosition[] modulePositions, Rotation2d yaw) {
-        estimator.update(yaw, modulePositions);
+    public void update() {
+        estimator.update(
+            Rotation2d.fromDegrees(RobotIO.getInstance().getNavXOutput().yaw),
+            RobotIO.getInstance().getDriveOutput().modulePositions
+        );
 
-        latestGyroAngle = yaw;
-        latestSwerveModulesPositions = modulePositions;
+        Optional<Pose2d> visionPose = RobotIO.getInstance().getVisionOutput().estimatedPose;
+        Optional<Double> visionTimeStamp = RobotIO.getInstance().getVisionOutput().timeStamp;
+
+        if (visionPose.isPresent() && visionTimeStamp.isPresent()) {
+            addVisionEstimatedPose(visionPose.get(), visionTimeStamp.get(), getEstimatedPose().getRotation());
+        }
     }
 
     public void addVisionEstimatedPose(Pose2d visionPose, double timeStamp, Rotation2d yaw) {
@@ -49,8 +52,8 @@ public class OdomtryProcessor {
      */
     public void resetOdometry(Pose2d pose) {
         estimator.resetPosition(
-                latestGyroAngle,
-                latestSwerveModulesPositions,
+                Rotation2d.fromDegrees(RobotIO.getInstance().getNavXOutput().yaw),
+                RobotIO.getInstance().getDriveOutput().modulePositions,
                 pose);
     }
 
@@ -63,9 +66,8 @@ public class OdomtryProcessor {
     public void resetOdometry(Pose2d pose, Rotation2d gyroAngle) {
         estimator.resetPosition(
             gyroAngle,
-            latestSwerveModulesPositions,
+            RobotIO.getInstance().getDriveOutput().modulePositions,
             pose
         );
-        latestGyroAngle = gyroAngle;
     }
 }

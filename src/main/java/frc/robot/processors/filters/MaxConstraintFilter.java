@@ -2,7 +2,7 @@ package frc.robot.processors.filters;
 
 import edu.wpi.first.math.MathUtil;
 import frc.robot.RobotConstants;
-import frc.robot.subsystems.DriveInput;
+import frc.robot.subsystems.drive.DriveInput;
 
 public class MaxConstraintFilter implements DriveFilterI {
     private static final double MAX_SPEED_PERCENT = 1;

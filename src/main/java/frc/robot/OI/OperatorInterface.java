@@ -4,7 +4,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import entech.util.EntechJoystick;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
-import frc.robot.RobotOutputs;
 import frc.robot.SubsystemManager;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
@@ -16,7 +15,7 @@ import frc.robot.io.OperatorInput;
 import frc.robot.io.OperatorInputSupplier;
 import frc.robot.io.RobotIO;
 import frc.robot.processors.OdomtryProcessor;
-import frc.robot.subsystems.DriveInput;
+import frc.robot.subsystems.drive.DriveInput;
 
 
 public class OperatorInterface implements DriveInputSupplier, DebugInputSupplier, OperatorInputSupplier {
@@ -60,7 +59,9 @@ public class OperatorInterface implements DriveInputSupplier, DebugInputSupplier
         di.xSpeed = driveJoystick.getY();
         di.ySpeed = driveJoystick.getX();
         di.rot = driveJoystick.getX();
-        di.gyroAngle = Rotation2d.fromDegrees(RobotOutputs.getInstance().getNavXOutput().yaw);
+        di.gyroAngle = Rotation2d.fromDegrees(RobotIO.getInstance().getNavXOutput().yaw);
+        di.pose = odometry.getEstimatedPose();
+        di.key = "initialRaw";
 
         RobotIO.processInput(di);
         return di;

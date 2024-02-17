@@ -4,16 +4,12 @@
 
 package frc.robot;
 
-import java.util.Optional;
-
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -71,29 +67,14 @@ public class Robot extends LoggedRobot {
         commandFactory = new CommandFactory(subsystemManager, odometry);
         operatorInterface = new OperatorInterface(commandFactory, subsystemManager, odometry);
         operatorInterface.create();
-        odometry.createEstimator(
-            RobotOutputs.getInstance().getDriveOutput().modulePositions,
-            Rotation2d.fromDegrees(RobotOutputs.getInstance().getNavXOutput().yaw)
-        );
+        odometry.createEstimator();
     }
 
     @Override
     public void robotPeriodic() {
         subsystemManager.periodic();
         CommandScheduler.getInstance().run();
-        odometry.updateInputs(
-            RobotOutputs.getInstance().getDriveOutput().modulePositions,
-            Rotation2d.fromDegrees(RobotOutputs.getInstance().getNavXOutput().yaw)
-        );
-
-        Optional<Pose2d> visionPose = RobotOutputs.getInstance().getVisionOutput().estimatedPose;
-        Optional<Double> visionTimeStamp = RobotOutputs.getInstance().getVisionOutput().timeStamp;
-
-        if (visionPose.isPresent() && visionTimeStamp.isPresent()) {
-            odometry.addVisionEstimatedPose(visionPose.get(), visionTimeStamp.get(), odometry.getEstimatedPose().getRotation());
-        }
-
-        Logger.recordOutput("Odometry", odometry.getEstimatedPose());
+        odometry.update();
     }
 
     @Override

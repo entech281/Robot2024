@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.vision;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
         output.estimatedPose = getEstimatedPose();
         output.hasTargets = !targets.isEmpty();
         output.latency = cameras.getLatency();
-        output.numberOfTarets = targets.size();
+        output.numberOfTargets = targets.size();
         output.timeStamp = getTimeStamp();
         output.targets = targets;
 
@@ -90,7 +90,7 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
 
             VisionOutput data = getOutputs();
             Logger.recordOutput("Latency", data.latency);
-            Logger.recordOutput("Total Targets Counted", data.numberOfTarets);
+            Logger.recordOutput("Total Targets Counted", data.numberOfTargets);
             Logger.recordOutput("Has Targets", data.hasTargets);
 
             if (data.estimatedPose.isPresent()) {

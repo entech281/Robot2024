@@ -4,7 +4,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import entech.commands.EntechCommand;
 import frc.robot.processors.OdomtryProcessor;
-import frc.robot.subsystems.NavXSubsystem;
+import frc.robot.subsystems.navx.NavXSubsystem;
 
 public class GyroReset extends EntechCommand {
     private final Runnable reset;
@@ -14,7 +14,7 @@ public class GyroReset extends EntechCommand {
         reset = navx::zeroYaw;
         correctOdomtry = () -> {
             Pose2d pose = new Pose2d(odometry.getEstimatedPose().getTranslation(), Rotation2d.fromDegrees(0));
-            odometry.resetOdometry(pose, Rotation2d.fromDegrees(navx.getOutputs().yaw));
+            odometry.resetOdometry(pose);
         };
     }
 

@@ -1,6 +1,6 @@
 package frc.robot.processors.filters;
 
-import frc.robot.subsystems.DriveInput;
+import frc.robot.subsystems.drive.DriveInput;
 
 public class SquaringFilter implements DriveFilterI {
     @Override
