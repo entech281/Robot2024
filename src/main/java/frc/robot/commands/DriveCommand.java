@@ -7,50 +7,50 @@ import frc.robot.subsystems.drive.DriveInput;
 import frc.robot.subsystems.drive.DriveSubsystem;
 
 public class DriveCommand extends EntechCommand {
-    private final DriveSubsystem drive;
-    private final DriveInputProcessor inputProcessor;
-    private final DriveInputSupplier driveInputSource;
+  private final DriveSubsystem drive;
+  private final DriveInputProcessor inputProcessor;
+  private final DriveInputSupplier driveInputSource;
 
-    public DriveCommand(DriveSubsystem drive, DriveInputSupplier driveInputSource) {
-        super(drive);
-        this.drive = drive;
-        this.driveInputSource = driveInputSource;
-        this.inputProcessor = new DriveInputProcessor();
-    }
+  public DriveCommand(DriveSubsystem drive, DriveInputSupplier driveInputSource) {
+    super(drive);
+    this.drive = drive;
+    this.driveInputSource = driveInputSource;
+    this.inputProcessor = new DriveInputProcessor();
+  }
 
-    @Override
-    public void end(boolean interrupted) {
-        DriveInput stop = new DriveInput();
+  @Override
+  public void end(boolean interrupted) {
+    DriveInput stop = new DriveInput();
 
-        stop.gyroAngle = driveInputSource.getDriveInput().gyroAngle;
-        stop.rot = 0;
-        stop.xSpeed= 0;
-        stop.ySpeed = 0;
+    stop.gyroAngle = driveInputSource.getDriveInput().gyroAngle;
+    stop.rot = 0;
+    stop.xSpeed = 0;
+    stop.ySpeed = 0;
 
-        drive.updateInputs(stop);
-    }
+    drive.updateInputs(stop);
+  }
 
-    @Override
-    public void execute() {
-        DriveInput input = inputProcessor.processInput(driveInputSource.getDriveInput());
+  @Override
+  public void execute() {
+    DriveInput input = inputProcessor.processInput(driveInputSource.getDriveInput());
 
-        drive.updateInputs(input);
-    }
+    drive.updateInputs(input);
+  }
 
-    @Override
-    public void initialize() {
-        DriveInput stop = new DriveInput();
+  @Override
+  public void initialize() {
+    DriveInput stop = new DriveInput();
 
-        stop.gyroAngle = driveInputSource.getDriveInput().gyroAngle;
-        stop.rot = 0;
-        stop.xSpeed= 0;
-        stop.ySpeed = 0;
+    stop.gyroAngle = driveInputSource.getDriveInput().gyroAngle;
+    stop.rot = 0;
+    stop.xSpeed = 0;
+    stop.ySpeed = 0;
 
-        drive.updateInputs(stop);
-    }
+    drive.updateInputs(stop);
+  }
 
-    @Override
-    public boolean isFinished() {
-        return false;
-    }
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
 }
