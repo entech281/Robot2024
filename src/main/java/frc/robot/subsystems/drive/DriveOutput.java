@@ -15,8 +15,8 @@ public class DriveOutput implements SubsystemOutput {
 
     @Override
     public void log() {
-        Logger.recordOutput("driveOutput", modulePositions);
-        Logger.recordOutput("rawAbsoluteEncoders", rawAbsoluteEncoders);
-        Logger.recordOutput("virtualAbsoluteEncoders", virtualAbsoluteEncoders);
+        Logger.recordOutput("driveOutput/modulePositions", modulePositions);
+        Logger.recordOutput("driveOutput/rawAbsoluteEncoders", rawAbsoluteEncoders);
+        Logger.recordOutput("driveOutput/virtualAbsoluteEncoders", virtualAbsoluteEncoders);
     }
 }
