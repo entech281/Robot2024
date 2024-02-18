@@ -14,8 +14,7 @@ public class PivotInput implements SubsystemInput {
   }
 
   @Override
-  public void fromLog(LogTable table) {
-  }
+  public void fromLog(LogTable table) {}
 
 
 

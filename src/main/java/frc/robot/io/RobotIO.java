@@ -22,8 +22,7 @@ public class RobotIO {
     Logger.processInputs(in.getClass().getSimpleName(), in);
   }
 
-  private RobotIO() {
-  }
+  private RobotIO() {}
 
   public VisionOutput getVisionOutput() {
     return latestVisionOutput;

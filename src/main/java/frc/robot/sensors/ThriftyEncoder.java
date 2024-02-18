@@ -28,9 +28,9 @@ public class ThriftyEncoder {
    * @return the current raw position of the absolute encoder in radians.
    */
   public double getPosition() {
-    return (inverted ?
-        -1.0 :
-        1.0) * ((analogInput.getAverageVoltage() / RobotController.getVoltage5V()) * (Math.PI * 2) - Math.PI);
+    return (inverted ? -1.0 : 1.0)
+        * ((analogInput.getAverageVoltage() / RobotController.getVoltage5V()) * (Math.PI * 2)
+            - Math.PI);
   }
 
   /**

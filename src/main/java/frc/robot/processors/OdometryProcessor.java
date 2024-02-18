@@ -57,7 +57,7 @@ public class OdometryProcessor {
   /**
    * Resets the odometry to the specified pose.
    *
-   * @param pose      The pose to which to set the odometry.
+   * @param pose The pose to which to set the odometry.
    * @param gyroAngle the latest gyro angle.
    */
   public void resetOdometry(Pose2d pose, Rotation2d gyroAngle) {

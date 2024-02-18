@@ -1,8 +1,8 @@
 /*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* Copyright (c) 2018 FIRST. All Rights Reserved. */
+/* Open Source Software - may be modified and shared by FRC teams. The code */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
+/* the project. */
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.subsystems.vision;
@@ -97,12 +97,12 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
   }
 
   public Optional<Pose2d> getEstimatedPose() {
-    if (estimatedPose==null)
+    if (estimatedPose == null)
       return Optional.empty();
     return ENABLED ? Optional.of(estimatedPose) : Optional.empty();
   }
 
   public Optional<Double> getTimeStamp() {
-    return ENABLED && timeStamp!=-1 ? Optional.of(timeStamp) : Optional.empty();
+    return ENABLED && timeStamp != -1 ? Optional.of(timeStamp) : Optional.empty();
   }
 }

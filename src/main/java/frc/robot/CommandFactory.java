@@ -46,7 +46,7 @@ public class CommandFactory {
             RobotConstants.DrivetrainConstants.DRIVE_BASE_RADIUS_METERS,
             // Drive base radius in meters. Distance from robot center to furthest module.
             new ReplanningConfig()
-            // Default path replanning config. See the API for the options here
+        // Default path replanning config. See the API for the options here
         ), () -> {
           // Boolean supplier that controls when the path will be mirrored for the red alliance
           // This will flip the path being followed to the red side of the field.
@@ -54,7 +54,7 @@ public class CommandFactory {
 
           var alliance = DriverStation.getAlliance();
           if (alliance.isPresent()) {
-            return alliance.get()==DriverStation.Alliance.Red;
+            return alliance.get() == DriverStation.Alliance.Red;
           }
           return false;
         }, driveSubsystem);

@@ -10,7 +10,6 @@ public class PivotOutput implements SubsystemOutput {
   public double currentPosition = 0.0;
 
   @Override
-  public void log() {
-  }
+  public void log() {}
 
 }

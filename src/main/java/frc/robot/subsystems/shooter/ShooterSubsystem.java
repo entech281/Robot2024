@@ -88,8 +88,8 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     ShooterOutput shooterOutput = new ShooterOutput();
     shooterOutput.speed =
         (shooterTop.getEncoder().getVelocity() + shooterBottom.getEncoder().getVelocity()) / 2;
-    shooterOutput.active = shooterOutput.speed!=0;
-    shooterOutput.brakeModeEnabled = IdleMode.kBrake==shooterTop.getIdleMode();
+    shooterOutput.active = shooterOutput.speed != 0;
+    shooterOutput.brakeModeEnabled = IdleMode.kBrake == shooterTop.getIdleMode();
     return shooterOutput;
   }
 

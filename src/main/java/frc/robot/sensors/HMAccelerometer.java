@@ -41,14 +41,15 @@ public class HMAccelerometer {
   }
 
   public double getTilt() {
-    return Math.toDegrees(
-        Math.acos(Math.min(getAccelZ(), 1.0) / 1.0)); // assumes getAccelZ() returns 1.0 when
+    return Math.toDegrees(Math.acos(Math.min(getAccelZ(), 1.0) / 1.0)); // assumes getAccelZ()
+                                                                        // returns 1.0 when
     // straight
   }
 
   public double getFilteredTilt() {
-    return Math.toDegrees(
-        Math.acos(Math.min(getFilteredAccelZ(), 1.0) / 1.0)); // assumes getAccelZ() returns 1.0
+    return Math.toDegrees(Math.acos(Math.min(getFilteredAccelZ(), 1.0) / 1.0)); // assumes
+                                                                                // getAccelZ()
+                                                                                // returns 1.0
     // when straight
   }
 
@@ -102,7 +103,7 @@ public class HMAccelerometer {
    * Indicates if the support onto which the accelerometer is attached is super flat
    *
    * @return true if the support onto which the accelerometer is attached is super flat, false
-   * otherwise
+   *         otherwise
    */
   public boolean isSuperFlat() {
     return getAccurateTilt() < SUPER_FLAT_TILT_THRESH_DEGREES;

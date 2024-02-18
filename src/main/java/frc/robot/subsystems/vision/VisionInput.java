@@ -6,10 +6,8 @@ import org.littletonrobotics.junction.LogTable;
 
 public class VisionInput implements SubsystemInput {
   @Override
-  public void toLog(LogTable table) {
-  }
+  public void toLog(LogTable table) {}
 
   @Override
-  public void fromLog(LogTable table) {
-  }
+  public void fromLog(LogTable table) {}
 }

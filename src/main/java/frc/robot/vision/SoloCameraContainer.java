@@ -23,18 +23,16 @@ public class SoloCameraContainer implements CameraContainerI {
   public SoloCameraContainer(String cameraName, Transform3d robotToCamera,
       AprilTagFieldLayout fieldLayout) {
     camera = new PhotonCamera(cameraName);
-    estimator =
-        new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera,
-            robotToCamera);
+    estimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
+        camera, robotToCamera);
     estimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
   }
 
   public SoloCameraContainer(String cameraName, Transform3d robotToCamera,
       AprilTagFieldLayout fieldLayout, NetworkTableInstance ni) {
     camera = new PhotonCamera(ni, cameraName);
-    estimator =
-        new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camera,
-            robotToCamera);
+    estimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
+        camera, robotToCamera);
     estimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
   }
 
@@ -47,8 +45,8 @@ public class SoloCameraContainer implements CameraContainerI {
     for (PhotonTrackedTarget target : result.getTargets()) {
       if (target.getPoseAmbiguity() > RobotConstants.Vision.Filters.MAX_AMBIGUITY)
         continue;
-      if (Math.abs(
-          target.getBestCameraToTarget().getX()) > RobotConstants.Vision.Filters.MAX_DISTANCE)
+      if (Math
+          .abs(target.getBestCameraToTarget().getX()) > RobotConstants.Vision.Filters.MAX_DISTANCE)
         continue;
 
       filteredTargets.add(target);

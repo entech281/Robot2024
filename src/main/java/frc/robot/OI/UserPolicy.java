@@ -5,8 +5,7 @@ public class UserPolicy {
 
   private boolean twistable = false;
 
-  private UserPolicy() {
-  }
+  private UserPolicy() {}
 
   public static UserPolicy getInstance() {
     return instance;

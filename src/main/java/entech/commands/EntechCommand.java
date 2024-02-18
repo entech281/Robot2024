@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * To change this license header, choose License Headers in Project Properties. To change this
+ * template file, choose Tools | Templates and open the template in the editor.
  */
 package entech.commands;
 
@@ -11,8 +10,7 @@ import entech.subsystems.EntechSubsystem;
 public class EntechCommand extends Command {
   public static final double DEFAULT_TIMEOUT_SECONDS = 60.0;
 
-  public EntechCommand() {
-  }
+  public EntechCommand() {}
 
   public EntechCommand(EntechSubsystem subsystem) {
     this(subsystem, DEFAULT_TIMEOUT_SECONDS);

@@ -9,6 +9,5 @@ public class IntakeOutput implements SubsystemOutput {
   public boolean brakeModeEnabled;
 
   @Override
-  public void log() {
-  }
+  public void log() {}
 }

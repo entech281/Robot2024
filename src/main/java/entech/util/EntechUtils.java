@@ -6,7 +6,7 @@ public final class EntechUtils {
    * return value that is in the range between limit1 and limit2 capping the value if original value
    * is outside the range limit1 and limit2 can be specified in either order
    *
-   * @param value  value to be capped
+   * @param value value to be capped
    * @param limit1 limit value 1
    * @param limit2 limit value 2
    * @return
@@ -18,7 +18,7 @@ public final class EntechUtils {
   /**
    * Scale up a value if its magnitude is below minMagnitude
    *
-   * @param value        value to be checked
+   * @param value value to be checked
    * @param minMagnitude minimum value
    * @return value value is greater minMagnitude. Sign is preserved from the input value.
    */
@@ -56,6 +56,5 @@ public final class EntechUtils {
     return angle;
   }
 
-  private EntechUtils() {
-  }
+  private EntechUtils() {}
 }

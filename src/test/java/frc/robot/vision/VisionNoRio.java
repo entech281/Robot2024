@@ -43,8 +43,8 @@ public class VisionNoRio {
           System.out.println("No Pose Estimate");
         }
         System.out.println("Area: " + camera.getFilteredResult().getBestTarget().getArea());
-        System.out.println(
-            "Ambiguity: " + camera.getFilteredResult().getBestTarget().getPoseAmbiguity());
+        System.out
+            .println("Ambiguity: " + camera.getFilteredResult().getBestTarget().getPoseAmbiguity());
       } else {
         System.out.println("No Targets");
       }

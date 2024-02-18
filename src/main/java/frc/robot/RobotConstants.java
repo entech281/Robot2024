@@ -15,13 +15,13 @@ public final class RobotConstants {
     // the robot, rather the allowed maximum speeds
     public static final double MAX_SPEED_METERS_PER_SECOND = 4.0; // 4.42; //4.8;
     public static final double MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 2 * Math.PI;
-        // radians per second
+    // radians per second
 
     public static final double DIRECTION_SLEW_RATE = 1.2; // radians per second
     public static final double MAGNITUDE_SLEW_RATE = 1.8;
-        // 2.0; //1.8; // percent per second (1 = 100%)
+    // 2.0; //1.8; // percent per second (1 = 100%)
     public static final double ROTATIONAL_SLEW_RATE = 2.0;
-        // 20.0; //2.0; // percent per second (1 = 100%)
+    // 20.0; //2.0; // percent per second (1 = 100%)
 
     // Chassis configuration
     public static final double TRACK_WIDTH_METERS = Units.inchesToMeters(21.75);
@@ -61,7 +61,7 @@ public final class RobotConstants {
 
     // Calculations required for driving motor conversion factors and feed forward
     public static final double DRIVING_MOTOR_FREE_SPEED_RPS = FREE_SPEED_RPM / 60;
-    public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(4.125); //0.0972;
+    public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(4.125); // 0.0972;
     public static final double WHEEL_CIRCUMFERENCE_METERS = WHEEL_DIAMETER_METERS * Math.PI;
     public static final double DRIVING_MOTOR_REDUCTION =
         (45.0 * 17 * 50) / (DRIVING_MOTOR_PINION_TEETH * 15 * 27);
@@ -72,10 +72,10 @@ public final class RobotConstants {
         (WHEEL_DIAMETER_METERS * Math.PI) / DRIVING_MOTOR_REDUCTION; // meters, per rotation
     public static final double DRIVING_ENCODER_VELOCITY_FACTOR_METERS_PER_SECOND_PER_RPM =
         ((WHEEL_DIAMETER_METERS * Math.PI) / DRIVING_MOTOR_REDUCTION) / 60.0;
-        // meters per second, per RPM
+    // meters per second, per RPM
 
     public static final double TURNING_MOTOR_REDUCTION = 150.0 / 7.0;
-        // ratio between internal relative encoder and
+    // ratio between internal relative encoder and
     // Through Bore (or Thrifty in our case)
     // absolute encoder - 150.0 / 7.0
 
@@ -86,7 +86,7 @@ public final class RobotConstants {
 
     public static final double TURNING_ENCODER_POSITION_PID_MIN_INPUT_RADIANS = 0; // radians
     public static final double TURNING_ENCODER_POSITION_PID_MAX_INPUT_RADIANS = (2 * Math.PI);
-        // radians
+    // radians
 
     public static final double DRIVING_P = 0.04;
     public static final double DRIVING_I = 0;
@@ -96,7 +96,7 @@ public final class RobotConstants {
     public static final double DRIVING_MAX_OUTPUT_NORMALIZED = 1;
 
     public static final double TURNING_P = 1.0;
-        // 1.0; // 1.0 might be a bit too much - reduce a bit if needed
+    // 1.0; // 1.0 might be a bit too much - reduce a bit if needed
     public static final double TURNING_I = 0;
     public static final double TURNING_D = 0;
     public static final double TURNING_FF = 0;
@@ -228,7 +228,7 @@ public final class RobotConstants {
 
 
   public static interface AUTONOMOUS {
-    public static final double MAX_MODULE_SPEED_METERS_PER_SECOND = 4.42; //4.42
+    public static final double MAX_MODULE_SPEED_METERS_PER_SECOND = 4.42; // 4.42
 
     public static final double TRANSLATION_CONTROLLER_P = 5;
     public static final double ROTATION_CONTROLLER_P = 5;
@@ -253,6 +253,5 @@ public final class RobotConstants {
     public static final Pose2d INITIAL_POSE = new Pose2d(INITIAL_TRANSLATION, INITIAL_ROTATION);
   }
 
-  private RobotConstants() {
-  }
+  private RobotConstants() {}
 }

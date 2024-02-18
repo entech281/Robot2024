@@ -9,11 +9,9 @@ public class IntakeInput implements SubsystemInput {
   public boolean brakeModeEnabled;
 
   @Override
-  public void toLog(LogTable table) {
-  }
+  public void toLog(LogTable table) {}
 
   @Override
-  public void fromLog(LogTable table) {
-  }
+  public void fromLog(LogTable table) {}
 
 }

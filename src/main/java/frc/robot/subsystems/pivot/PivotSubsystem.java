@@ -61,9 +61,8 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
           null);
       return 0;
     } else if (position > RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG) {
-      DriverStation.reportWarning(
-          "Pivot tried to go to " + currentInput.requestedPosition + " value was changed to " + RobotConstants.PIVOT.POSITION_CONVERSION_FACTOR,
-          null);
+      DriverStation.reportWarning("Pivot tried to go to " + currentInput.requestedPosition
+          + " value was changed to " + RobotConstants.PIVOT.POSITION_CONVERSION_FACTOR, null);
       return RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG;
     } else {
       return position;
@@ -99,9 +98,9 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   @Override
   public PivotOutput getOutputs() {
     PivotOutput pivotOutput = new PivotOutput();
-    pivotOutput.moving = pivotLeft.getEncoder().getVelocity()!=0;
-    pivotOutput.leftBrakeModeEnabled = IdleMode.kBrake==pivotLeft.getIdleMode();
-    pivotOutput.rightBrakeModeEnabled = IdleMode.kBrake==pivotRight.getIdleMode();
+    pivotOutput.moving = pivotLeft.getEncoder().getVelocity() != 0;
+    pivotOutput.leftBrakeModeEnabled = IdleMode.kBrake == pivotLeft.getIdleMode();
+    pivotOutput.rightBrakeModeEnabled = IdleMode.kBrake == pivotRight.getIdleMode();
     return pivotOutput;
   }
 

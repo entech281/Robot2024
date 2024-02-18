@@ -66,12 +66,12 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
         // acceleration
         double directionSlewRate;
 
-        if (currentTranslationMag!=0.0) {
+        if (currentTranslationMag != 0.0) {
           directionSlewRate =
               Math.abs(DrivetrainConstants.DIRECTION_SLEW_RATE / currentTranslationMag);
         } else {
-          directionSlewRate =
-              500.0; // some high number that means the slew rate is effectively instantaneous
+          directionSlewRate = 500.0; // some high number that means the slew rate is effectively
+                                     // instantaneous
         }
 
         double currentTime = WPIUtilJNI.now() * 1e-6;
@@ -79,9 +79,8 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
         double angleDif = SwerveUtils.AngleDifference(inputTranslationDir, currentTranslationDir);
 
         if (angleDif < 0.45 * Math.PI) {
-          currentTranslationDir =
-              SwerveUtils.StepTowardsCircular(currentTranslationDir, inputTranslationDir,
-                  directionSlewRate * elapsedTime);
+          currentTranslationDir = SwerveUtils.StepTowardsCircular(currentTranslationDir,
+              inputTranslationDir, directionSlewRate * elapsedTime);
           currentTranslationMag = magLimiter.calculate(inputTranslationMag);
         } else if (angleDif > 0.85 * Math.PI) {
           if (currentTranslationMag > 1e-4) {
@@ -91,9 +90,8 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
             currentTranslationMag = magLimiter.calculate(inputTranslationMag);
           }
         } else {
-          currentTranslationDir =
-              SwerveUtils.StepTowardsCircular(currentTranslationDir, inputTranslationDir,
-                  directionSlewRate * elapsedTime);
+          currentTranslationDir = SwerveUtils.StepTowardsCircular(currentTranslationDir,
+              inputTranslationDir, directionSlewRate * elapsedTime);
           currentTranslationMag = magLimiter.calculate(0.0);
         }
 
@@ -115,10 +113,9 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
       double rotDelivered =
           currentRotation * DrivetrainConstants.MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
 
-      SwerveModuleState[] swerveModuleStates =
-          DrivetrainConstants.DRIVE_KINEMATICS.toSwerveModuleStates(
-              ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered, rotDelivered,
-                  input.gyroAngle));
+      SwerveModuleState[] swerveModuleStates = DrivetrainConstants.DRIVE_KINEMATICS
+          .toSwerveModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered,
+              ySpeedDelivered, rotDelivered, input.gyroAngle));
 
       setModuleStates(swerveModuleStates);
     }

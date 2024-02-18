@@ -48,14 +48,19 @@ public class Robot extends LoggedRobot {
       new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
     } else {
       setUseTiming(false); // Run as fast as possible
-      String logPath =
-          LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or prompt the user)
-      Logger.addDataReceiver(new WPILOGWriter(
-          LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save outputs to a new log
+      String logPath = LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or
+                                                    // prompt the user)
+      Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save
+                                                                                            // outputs
+                                                                                            // to a
+                                                                                            // new
+                                                                                            // log
     }
 
-    // Logger.disableDeterministicTimestamps() // See "Deterministic Timestamps" in the "Understanding Data Flow" page
-    Logger.start(); // Start logging! No more data receivers, replay sources, or metadata values may be added.
+    // Logger.disableDeterministicTimestamps() // See "Deterministic Timestamps" in the
+    // "Understanding Data Flow" page
+    Logger.start(); // Start logging! No more data receivers, replay sources, or metadata values may
+                    // be added.
   }
 
   @Override
@@ -80,7 +85,7 @@ public class Robot extends LoggedRobot {
   public void autonomousInit() {
     autonomousCommand = commandFactory.getAutoCommand();
 
-    if (autonomousCommand!=null) {
+    if (autonomousCommand != null) {
       autonomousCommand.schedule();
     }
   }
@@ -92,14 +97,14 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void teleopInit() {
-    if (autonomousCommand!=null) {
+    if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
   }
 
   @Override
   public void teleopPeriodic() {
-    //for things that only happen in teleop
+    // for things that only happen in teleop
   }
 
   @Override

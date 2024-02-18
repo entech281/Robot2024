@@ -153,8 +153,9 @@ public class SwerveModule {
         new Rotation2d(m_turningEncoder.getPosition()));
 
     if (Math.abs(optimizedDesiredState.speedMetersPerSecond) < 0.001 // less than 1 mm per sec
-        && Math.abs(
-        optimizedDesiredState.angle.getRadians() - m_turningEncoder.getPosition()) < 0.1) // 10% of
+        && Math
+            .abs(optimizedDesiredState.angle.getRadians() - m_turningEncoder.getPosition()) < 0.1) // 10%
+                                                                                                   // of
     // a
     // radian
     {
@@ -187,8 +188,9 @@ public class SwerveModule {
   public void resetTurningEncoder() {
     m_turningSparkMax.set(0); // no moving during reset of relative turning encoder
 
-    m_turningEncoder.setPosition(
-        m_turningAbsoluteEncoder.getVirtualPosition()); // set relative position based on
+    m_turningEncoder.setPosition(m_turningAbsoluteEncoder.getVirtualPosition()); // set relative
+                                                                                 // position based
+                                                                                 // on
     // virtual absolute position
   }
 

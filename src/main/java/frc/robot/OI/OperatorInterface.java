@@ -41,8 +41,8 @@ public class OperatorInterface
   }
 
   /*
-    These force commands to accept inputs, not raw joysticks and stuff
-    also here we log any inputs handed to consumers, so they dont have to
+   * These force commands to accept inputs, not raw joysticks and stuff also here we log any inputs
+   * handed to consumers, so they dont have to
    */
   @Override
   public DebugInput getDebugInput() {

@@ -30,7 +30,7 @@ public class MultiCameraContainer implements CameraContainerI {
     if (estimatedPoses.isEmpty())
       return Optional.empty();
 
-    if (estimatedPoses.size()==1)
+    if (estimatedPoses.size() == 1)
       return Optional.of(estimatedPoses.get(0));
 
     Pose2d averagePose = estimatedPoses.get(0);

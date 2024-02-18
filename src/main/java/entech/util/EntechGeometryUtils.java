@@ -30,13 +30,12 @@ public final class EntechGeometryUtils {
   }
 
   public static Pose2d averagePose2d(Pose2d poseA, Pose2d poseB) {
-    Rotation2d rotation = Rotation2d.fromDegrees(
-        (poseA.getRotation().getDegrees() + poseB.getRotation().getDegrees()) / 2);
+    Rotation2d rotation = Rotation2d
+        .fromDegrees((poseA.getRotation().getDegrees() + poseB.getRotation().getDegrees()) / 2);
 
     return new Pose2d((poseA.getX() + poseB.getX()) / 2, (poseA.getY() + poseB.getY()) / 2,
         rotation);
   }
 
-  private EntechGeometryUtils() {
-  }
+  private EntechGeometryUtils() {}
 }
