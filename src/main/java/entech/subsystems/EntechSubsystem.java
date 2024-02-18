@@ -8,17 +8,18 @@ package entech.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public abstract class EntechSubsystem<I extends SubsystemInput,R extends SubsystemOutput> extends SubsystemBase {
+public abstract class EntechSubsystem<I extends SubsystemInput, R extends SubsystemOutput>
+    extends SubsystemBase {
 
-    protected EntechSubsystem() {
-    }
+  protected EntechSubsystem() {
+  }
 
-	public abstract void initialize();
+  public abstract void initialize();
 
-	public abstract boolean isEnabled();
+  public abstract boolean isEnabled();
 
-    public abstract  void updateInputs(I input);
+  public abstract void updateInputs(I input);
 
-    public abstract R getOutputs();
+  public abstract R getOutputs();
 
 }
