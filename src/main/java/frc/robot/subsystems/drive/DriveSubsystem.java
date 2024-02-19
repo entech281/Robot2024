@@ -74,21 +74,21 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
 
         double currentTime = WPIUtilJNI.now() * 1e-6;
         double elapsedTime = currentTime - prevTime;
-        double angleDif = SwerveUtils.AngleDifference(inputTranslationDir, currentTranslationDir);
+        double angleDif = SwerveUtils.angleDifference(inputTranslationDir, currentTranslationDir);
 
         if (angleDif < 0.45 * Math.PI) {
-          currentTranslationDir = SwerveUtils.StepTowardsCircular(currentTranslationDir,
+          currentTranslationDir = SwerveUtils.stepTowardsCircular(currentTranslationDir,
               inputTranslationDir, directionSlewRate * elapsedTime);
           currentTranslationMag = magLimiter.calculate(inputTranslationMag);
         } else if (angleDif > 0.85 * Math.PI) {
           if (currentTranslationMag > 1e-4) {
             currentTranslationMag = magLimiter.calculate(0.0);
           } else {
-            currentTranslationDir = SwerveUtils.WrapAngle(currentTranslationDir + Math.PI);
+            currentTranslationDir = SwerveUtils.wrapAngle(currentTranslationDir + Math.PI);
             currentTranslationMag = magLimiter.calculate(inputTranslationMag);
           }
         } else {
-          currentTranslationDir = SwerveUtils.StepTowardsCircular(currentTranslationDir,
+          currentTranslationDir = SwerveUtils.stepTowardsCircular(currentTranslationDir,
               inputTranslationDir, directionSlewRate * elapsedTime);
           currentTranslationMag = magLimiter.calculate(0.0);
         }

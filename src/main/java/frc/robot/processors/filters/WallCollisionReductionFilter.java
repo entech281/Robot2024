@@ -16,8 +16,8 @@ public class WallCollisionReductionFilter implements DriveFilterI {
     processedInput.gyroAngle = input.gyroAngle;
     processedInput.latestOdometryPose = input.latestOdometryPose;
 
-    Optional<Alliance> _team = DriverStation.getAlliance();
-    Alliance team = _team.isPresent() ? _team.get() : Alliance.Blue;
+    Optional<Alliance> optTeam = DriverStation.getAlliance();
+    Alliance team = optTeam.isPresent() ? optTeam.get() : Alliance.Blue;
     ChassisSpeeds robotSpeed = RobotIO.getInstance().getNavXOutput().chassisSpeeds;
 
     processedInput.xSpeed = calculateXPercent(input.xSpeed, input.latestOdometryPose.getX(), robotSpeed.vxMetersPerSecond, team);
@@ -29,7 +29,7 @@ public class WallCollisionReductionFilter implements DriveFilterI {
 
   public static interface WallCollisionReduction {
     public static final double SAFETY_DISTANCE = 1.5;
-    public static final double COORDINATE_DELAY_TIME = 20 / 1000;
+    public static final double COORDINATE_DELAY_TIME = 20.0 / 1000.0;
     public static final double X_FAR_WALL_DISTANCE = 16.54175;
     public static final double Y_FAR_WALL_DISTANCE = 8.2;
     public static final double IN_SAFETY_LIMIT_PERCENT = 0.1;
@@ -44,7 +44,7 @@ public class WallCollisionReductionFilter implements DriveFilterI {
   }
 
   public static double doDirectionalLimit(double cord, double maxCord, double speed, double percent, Alliance team) {
-    double nextSecondCord = calculateNextSecondCord(maxCord, speed);
+    double nextSecondCord = calculateNextSecondCord(cord, speed);
 
     double minFieldPercent = 1.0;
     double maxFieldPercent = 1.0;
@@ -54,13 +54,13 @@ public class WallCollisionReductionFilter implements DriveFilterI {
     if (nextSecondCord <= 0) {
       minFieldPercent = 0.0;
     } else if (nextSecondCord < WallCollisionReduction.SAFETY_DISTANCE) {
-      minFieldPercent = Math.pow(nextSecondCord / WallCollisionReduction.SAFETY_DISTANCE, Math.abs(speed));
+      minFieldPercent = calculateLimit(nextSecondCord, speed);
     }
 
     if (nextSecondCord > maxSafety) {
       maxFieldPercent = 0.0;
-    } if (nextSecondCord > maxCord) {
-      maxFieldPercent = Math.pow((nextSecondCord - maxSafety) / WallCollisionReduction.SAFETY_DISTANCE, Math.abs(speed));
+    } else if (nextSecondCord > maxCord) {
+      maxFieldPercent = calculateLimit(nextSecondCord - maxSafety, speed);
     }
 
     if (team == Alliance.Blue) {
@@ -75,5 +75,9 @@ public class WallCollisionReductionFilter implements DriveFilterI {
 
   public static double calculateNextSecondCord(double cord, double speed) {
     return calculateCorrectCord(cord, speed) + speed;
+  }
+
+  public static double calculateLimit(double nextSecondDistanceIntoSafety, double speed) {
+    return Math.pow(nextSecondDistanceIntoSafety / WallCollisionReduction.SAFETY_DISTANCE, Math.abs(speed));
   }
 }
