@@ -47,16 +47,16 @@ public class WallCollisionReductionFilter implements DriveFilterI {
 
     double maxSafety = maxCord - WallCollisionReduction.SAFETY_DISTANCE;
 
-    if (nextSecondCord <= 0) {
+    if (nextSecondCord <= 0.0) {
       minFieldPercent = 0.0;
     } else if (nextSecondCord < WallCollisionReduction.SAFETY_DISTANCE) {
       minFieldPercent = calculateLimit(nextSecondCord, speed);
     }
 
-    if (nextSecondCord > maxSafety) {
+    if (nextSecondCord >= maxCord) {
       maxFieldPercent = 0.0;
-    } else if (nextSecondCord > maxCord) {
-      maxFieldPercent = calculateLimit(nextSecondCord - maxSafety, speed);
+    } else if (nextSecondCord > maxSafety) {
+      maxFieldPercent = calculateLimit(WallCollisionReduction.SAFETY_DISTANCE - (nextSecondCord - maxSafety), speed);
     }
 
     if (team == Alliance.Blue) {
