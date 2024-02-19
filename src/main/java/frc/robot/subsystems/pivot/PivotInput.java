@@ -27,10 +27,6 @@ public class PivotInput implements SubsystemInput {
     this.requestedPosition = requestedPosition;
   }
 
-  public boolean isBrakeModeEnabled() {
-    return this.brakeModeEnabled;
-  }
-
   public boolean getBrakeModeEnabled() {
     return this.brakeModeEnabled;
   }

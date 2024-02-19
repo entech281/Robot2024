@@ -22,20 +22,12 @@ public class TransferInput implements SubsystemInput {
     brakeModeEnabled = table.get("brakeModeEnabled", false);
   }
 
-  public boolean isActivate() {
-    return this.activate;
-  }
-
   public boolean getActivate() {
     return this.activate;
   }
 
   public void setActivate(boolean activate) {
     this.activate = activate;
-  }
-
-  public boolean isBrakeModeEnabled() {
-    return this.brakeModeEnabled;
   }
 
   public boolean getBrakeModeEnabled() {

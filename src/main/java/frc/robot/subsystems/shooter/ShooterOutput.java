@@ -27,19 +27,11 @@ public class ShooterOutput implements SubsystemOutput {
     return this.active;
   }
 
-  public boolean getActive() {
-    return this.active;
-  }
-
   public void setActive(boolean active) {
     this.active = active;
   }
 
   public boolean isBrakeModeEnabled() {
-    return this.brakeModeEnabled;
-  }
-
-  public boolean getBrakeModeEnabled() {
     return this.brakeModeEnabled;
   }
 

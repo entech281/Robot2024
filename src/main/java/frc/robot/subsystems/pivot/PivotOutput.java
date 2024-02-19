@@ -17,12 +17,7 @@ public class PivotOutput implements SubsystemOutput {
     Logger.recordOutput("pivotOutput/currentPosition", currentPosition);
   }
 
-
   public boolean isMoving() {
-    return this.moving;
-  }
-
-  public boolean getMoving() {
     return this.moving;
   }
 
@@ -34,19 +29,11 @@ public class PivotOutput implements SubsystemOutput {
     return this.leftBrakeModeEnabled;
   }
 
-  public boolean getLeftBrakeModeEnabled() {
-    return this.leftBrakeModeEnabled;
-  }
-
   public void setLeftBrakeModeEnabled(boolean leftBrakeModeEnabled) {
     this.leftBrakeModeEnabled = leftBrakeModeEnabled;
   }
 
   public boolean isRightBrakeModeEnabled() {
-    return this.rightBrakeModeEnabled;
-  }
-
-  public boolean getRightBrakeModeEnabled() {
     return this.rightBrakeModeEnabled;
   }
 

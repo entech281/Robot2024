@@ -1,5 +1,6 @@
 package frc.robot.subsystems.intake;
 
+import org.littletonrobotics.junction.Logger;
 import entech.subsystems.SubsystemOutput;
 
 public class IntakeOutput implements SubsystemOutput {
@@ -9,13 +10,14 @@ public class IntakeOutput implements SubsystemOutput {
   private boolean brakeModeEnabled;
 
   @Override
-  public void log() {}
+  public void log() {
+    Logger.recordOutput("intakeOutput/active", active);
+    Logger.recordOutput("intakeOutput/currentSpeed", currentSpeed);
+    Logger.recordOutput("intakeOutput/brakeModeEnabled", brakeModeEnabled);
 
-  public boolean isActive() {
-    return this.active;
   }
 
-  public boolean getActive() {
+  public boolean isActive() {
     return this.active;
   }
 
@@ -32,10 +34,6 @@ public class IntakeOutput implements SubsystemOutput {
   }
 
   public boolean isBrakeModeEnabled() {
-    return this.brakeModeEnabled;
-  }
-
-  public boolean getBrakeModeEnabled() {
     return this.brakeModeEnabled;
   }
 

@@ -22,11 +22,6 @@ public class ShooterInput implements SubsystemInput {
     brakeModeEnabled = table.get("brakeModeEnabled", false);
 
   }
-
-  public boolean isActivate() {
-    return this.activate;
-  }
-
   public boolean getActivate() {
     return this.activate;
   }
@@ -41,10 +36,6 @@ public class ShooterInput implements SubsystemInput {
 
   public void setSpeed(double speed) {
     this.speed = speed;
-  }
-
-  public boolean isBrakeModeEnabled() {
-    return this.brakeModeEnabled;
   }
 
   public boolean getBrakeModeEnabled() {
