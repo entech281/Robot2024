@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
 import entech.commands.EntechCommand;
-import frc.robot.oi.UserPolicy;
+import frc.robot.operation.UserPolicy;
 
 public class TwistCommand extends EntechCommand {
   @Override

@@ -1,7 +1,7 @@
 package frc.robot.subsystems.navx;
 
-import entech.subsystems.SubsystemInput;
 import org.littletonrobotics.junction.LogTable;
+import entech.subsystems.SubsystemInput;
 
 public class NavXInput implements SubsystemInput {
   @Override
@@ -15,5 +15,4 @@ public class NavXInput implements SubsystemInput {
     // TODO Auto-generated method stub
 
   }
-
 }

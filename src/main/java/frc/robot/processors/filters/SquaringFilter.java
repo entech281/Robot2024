@@ -5,14 +5,11 @@ import frc.robot.subsystems.drive.DriveInput;
 public class SquaringFilter implements DriveFilterI {
   @Override
   public DriveInput process(DriveInput input) {
-    DriveInput processedInput = new DriveInput();
+    DriveInput processedInput = new DriveInput(input);
 
-    processedInput.gyroAngle = input.gyroAngle;
-    processedInput.latestOdometryPose = input.latestOdometryPose;
-
-    processedInput.xSpeed = Math.copySign(input.xSpeed * input.xSpeed, input.xSpeed);
-    processedInput.ySpeed = Math.copySign(input.ySpeed * input.ySpeed, input.ySpeed);
-    processedInput.rot = Math.copySign(input.rot * input.rot, input.rot);
+    processedInput.setXSpeed(Math.copySign(input.getXSpeed() * input.getXSpeed(), input.getXSpeed()));
+    processedInput.setYSpeed(Math.copySign(input.getYSpeed() * input.getYSpeed(), input.getYSpeed()));
+    processedInput.setRotation(Math.copySign(input.getRotation() * input.getRotation(), input.getRotation()));
 
     return processedInput;
   }

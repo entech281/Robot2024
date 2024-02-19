@@ -4,7 +4,7 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.oi.UserPolicy;
+import frc.robot.operation.UserPolicy;
 import frc.robot.subsystems.drive.DriveInput;
 
 public class AutoYawFilter implements DriveFilterI {
@@ -12,23 +12,17 @@ public class AutoYawFilter implements DriveFilterI {
 
   @Override
   public DriveInput process(DriveInput input) {
-    DriveInput processedInput = new DriveInput();
+    DriveInput processedInput = new DriveInput(input);
 
-    processedInput.gyroAngle = input.gyroAngle;
-    processedInput.latestOdometryPose = input.latestOdometryPose;
+    double calculatedRot = controller.calculate(input.getLatestOdometryPose().getRotation().getDegrees(), calculateTargetAngle(input.getLatestOdometryPose()).getDegrees());
 
-    processedInput.xSpeed = input.xSpeed;
-    processedInput.ySpeed = input.ySpeed;
-
-    double calculatedRot = controller.calculate(input.latestOdometryPose.getRotation().getDegrees(), calculateTargetAngle(input.latestOdometryPose).getDegrees());
-
-    if (Math.abs(input.latestOdometryPose.getRotation().getDegrees() - calculateTargetAngle(input.latestOdometryPose).getDegrees()) < 2) {
+    if (Math.abs(input.getLatestOdometryPose().getRotation().getDegrees() - calculateTargetAngle(input.getLatestOdometryPose()).getDegrees()) < 2) {
         calculatedRot = 0.0;
     }
 
-    processedInput.rot = UserPolicy.getInstance().isTwistable() ? input.rot : calculatedRot;
+    processedInput.setRotation(UserPolicy.getInstance().isTwistable() ? input.getRotation() : calculatedRot);
 
-    Logger.recordOutput("TargetPoseDirection", new Pose2d(input.latestOdometryPose.getTranslation(), calculateTargetAngle(input.latestOdometryPose)));
+    Logger.recordOutput("TargetPoseDirection", new Pose2d(input.getLatestOdometryPose().getTranslation(), calculateTargetAngle(input.getLatestOdometryPose())));
 
     return processedInput;
   }

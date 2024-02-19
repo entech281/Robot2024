@@ -21,21 +21,15 @@ public class DriveInputProcessor {
   }
 
   public DriveInput processInput(DriveInput input) {
-    DriveInput processedInput = new DriveInput();
-
-    processedInput.gyroAngle = input.gyroAngle;
-    processedInput.latestOdometryPose = input.latestOdometryPose;
-    processedInput.rot = input.rot;
-    processedInput.xSpeed = input.xSpeed;
-    processedInput.ySpeed = input.ySpeed;
+    DriveInput processedInput = new DriveInput(input);
 
     for (DriveFilterI filter : driveFilters) {
       processedInput = filter.process(processedInput);
-      processedInput.key = filter.getClass().getSimpleName();
+      processedInput.setKey(filter.getClass().getSimpleName());
       RobotIO.processInput(processedInput);
     }
 
-    processedInput.key = "final";
+    processedInput.setKey("final");
     RobotIO.processInput(processedInput);
 
     return processedInput;

@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.ResetTurningEncoderCommand;
-import frc.robot.oi.OperatorInterface;
+import frc.robot.operation.OperatorInterface;
 import frc.robot.processors.OdometryProcessor;
 
 /**

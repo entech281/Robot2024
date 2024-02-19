@@ -16,16 +16,16 @@ public class EntechCommand extends Command {
     this(subsystem, DEFAULT_TIMEOUT_SECONDS);
   }
 
-  public EntechCommand(EntechSubsystem subsystem1, EntechSubsystem subsystem2) {
+  public EntechCommand(EntechSubsystem<?, ?> subsystem1, EntechSubsystem<?, ?> subsystem2) {
     addRequirements(subsystem1, subsystem2);
   }
 
-  public EntechCommand(EntechSubsystem subsystem1, EntechSubsystem subsystem2,
-      EntechSubsystem subsystem3) {
+  public EntechCommand(EntechSubsystem<?, ?> subsystem1, EntechSubsystem<?, ?> subsystem2,
+      EntechSubsystem<?, ?> subsystem3) {
     addRequirements(subsystem1, subsystem2, subsystem3);
   }
 
-  public EntechCommand(EntechSubsystem subsystem, double timeout) {
+  public EntechCommand(EntechSubsystem<?, ?> subsystem, double timeout) {
     addRequirements(subsystem);
   }
 }

@@ -45,7 +45,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   }
 
   private void updateBrakeMode() {
-    if (currentInput.brakeModeEnabled) {
+    if (currentInput.getBrakeModeEnabled()) {
       pivotLeft.setIdleMode(IdleMode.kBrake);
       pivotRight.setIdleMode(IdleMode.kBrake);
     } else {
@@ -57,11 +57,11 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   private double clampRequestedPosition(double position) {
     if (position < 0) {
       DriverStation.reportWarning(
-          "Pivot tried to go to " + currentInput.requestedPosition + " value was changed to 0",
+          "Pivot tried to go to " + currentInput.getRequestedPosition() + " value was changed to 0",
           null);
       return 0;
     } else if (position > RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG) {
-      DriverStation.reportWarning("Pivot tried to go to " + currentInput.requestedPosition
+      DriverStation.reportWarning("Pivot tried to go to " + currentInput.getRequestedPosition()
           + " value was changed to " + RobotConstants.PIVOT.POSITION_CONVERSION_FACTOR, null);
       return RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG;
     } else {
@@ -76,7 +76,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
   public void periodic() {
 
-    double clampedPosition = clampRequestedPosition(currentInput.requestedPosition);
+    double clampedPosition = clampRequestedPosition(currentInput.getRequestedPosition());
 
     if (ENABLED) {
       setPosition(clampedPosition);
@@ -98,10 +98,9 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   @Override
   public PivotOutput getOutputs() {
     PivotOutput pivotOutput = new PivotOutput();
-    pivotOutput.moving = pivotLeft.getEncoder().getVelocity() != 0;
-    pivotOutput.leftBrakeModeEnabled = IdleMode.kBrake == pivotLeft.getIdleMode();
-    pivotOutput.rightBrakeModeEnabled = IdleMode.kBrake == pivotRight.getIdleMode();
+    pivotOutput.setMoving(pivotLeft.getEncoder().getVelocity() != 0);
+    pivotOutput.setLeftBrakeModeEnabled(IdleMode.kBrake == pivotLeft.getIdleMode());
+    pivotOutput.setRightBrakeModeEnabled(IdleMode.kBrake == pivotRight.getIdleMode());
     return pivotOutput;
   }
-
 }

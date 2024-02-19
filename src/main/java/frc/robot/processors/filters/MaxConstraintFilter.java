@@ -9,20 +9,14 @@ public class MaxConstraintFilter implements DriveFilterI {
 
   @Override
   public DriveInput process(DriveInput input) {
-    DriveInput processedInput = new DriveInput();
+    DriveInput processedInput = new DriveInput(input);
 
-    processedInput.gyroAngle = input.gyroAngle;
-    processedInput.latestOdometryPose = input.latestOdometryPose;
-
-    processedInput.xSpeed =
-        MathUtil.applyDeadband(MathUtil.clamp(input.xSpeed, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
-            RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);
-    processedInput.ySpeed =
-        MathUtil.applyDeadband(MathUtil.clamp(input.ySpeed, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
-            RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);
-    processedInput.rot =
-        MathUtil.applyDeadband(MathUtil.clamp(input.rot, -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
-            RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD);
+    processedInput.setXSpeed(MathUtil.applyDeadband(MathUtil.clamp(input.getXSpeed(), -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
+            RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD));
+    processedInput.setYSpeed(MathUtil.applyDeadband(MathUtil.clamp(input.getYSpeed(), -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
+            RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD));
+    processedInput.setRotation(MathUtil.applyDeadband(MathUtil.clamp(input.getRotation(), -MAX_SPEED_PERCENT, MAX_SPEED_PERCENT),
+            RobotConstants.Ports.CONTROLLER.JOYSTICK_AXIS_THRESHOLD));
 
     return processedInput;
   }

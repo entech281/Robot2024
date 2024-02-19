@@ -1,4 +1,4 @@
-package frc.robot.oi;
+package frc.robot.operation;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import entech.util.EntechJoystick;
@@ -59,12 +59,12 @@ public class OperatorInterface
   public DriveInput getDriveInput() {
     DriveInput di = new DriveInput();
 
-    di.xSpeed = -driveJoystick.getY();
-    di.ySpeed = -driveJoystick.getX();
-    di.rot = -driveJoystick.getZ();
-    di.gyroAngle = Rotation2d.fromDegrees(RobotIO.getInstance().getNavXOutput().yaw);
-    di.latestOdometryPose = odometry.getEstimatedPose();
-    di.key = "initialRaw";
+    di.setXSpeed(-driveJoystick.getY());
+    di.setYSpeed(-driveJoystick.getX());
+    di.setRotation(-driveJoystick.getZ());
+    di.setGyroAngle(Rotation2d.fromDegrees(RobotIO.getInstance().getNavXOutput().getYaw()));
+    di.setLatestOdometryPose(odometry.getEstimatedPose());
+    di.setKey("initialRaw");
 
     RobotIO.processInput(di);
     return di;

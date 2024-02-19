@@ -11,18 +11,14 @@ import frc.robot.subsystems.drive.DriveInput;
 public class WallCollisionReductionFilter implements DriveFilterI {
   @Override
   public DriveInput process(DriveInput input) {
-    DriveInput processedInput = new DriveInput();
-
-    processedInput.gyroAngle = input.gyroAngle;
-    processedInput.latestOdometryPose = input.latestOdometryPose;
+    DriveInput processedInput = new DriveInput(input);
 
     Optional<Alliance> optTeam = DriverStation.getAlliance();
     Alliance team = optTeam.isPresent() ? optTeam.get() : Alliance.Blue;
-    ChassisSpeeds robotSpeed = RobotIO.getInstance().getNavXOutput().chassisSpeeds;
+    ChassisSpeeds robotSpeed = RobotIO.getInstance().getNavXOutput().getChassisSpeeds();
 
-    processedInput.xSpeed = calculateXPercent(input.xSpeed, input.latestOdometryPose.getX(), robotSpeed.vxMetersPerSecond, team);
-    processedInput.ySpeed = calculateXPercent(input.ySpeed, input.latestOdometryPose.getY(), robotSpeed.vyMetersPerSecond, team);
-    processedInput.rot = input.rot;
+    processedInput.setXSpeed(calculateXPercent(input.getXSpeed(), input.getLatestOdometryPose().getX(), robotSpeed.vxMetersPerSecond, team));
+    processedInput.setYSpeed(calculateXPercent(input.getYSpeed(), input.getLatestOdometryPose().getY(), robotSpeed.vyMetersPerSecond, team));
 
     return processedInput;
   }

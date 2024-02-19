@@ -15,20 +15,20 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
   public NavXOutput getOutputs() {
     NavXOutput output = new NavXOutput();
 
-    output.yaw = gyro.getAngle();
-    output.pitch = gyro.getPitch();
-    output.roll = gyro.getRoll();
-    output.yawRate = gyro.getRate();
-    output.chassisSpeeds = getChassisSpeeds();
-    output.zVelocity = gyro.getVelocityZ();
-    output.temperature = gyro.getTempC();
-    output.angleAdjustment = gyro.getAngleAdjustment();
-    output.compassHeading = gyro.getCompassHeading();
-    output.isCalibrating = gyro.isCalibrating();
-    output.isMagneticDisturbance = gyro.isMagneticDisturbance();
-    output.isMagnetometerCalibrated = gyro.isMagnetometerCalibrated();
-    output.isMoving = gyro.isMoving();
-    output.isRotating = gyro.isRotating();
+    output.setYaw(gyro.getAngle());
+    output.setPitch(gyro.getPitch());
+    output.setRoll(gyro.getRoll());
+    output.setYawRate(gyro.getRate());
+    output.setChassisSpeeds(getChassisSpeeds());
+    output.setZVelocity(gyro.getVelocityZ());
+    output.setTemperature(gyro.getTempC());
+    output.setAngleAdjustment(gyro.getAngleAdjustment());
+    output.setCompassHeading(gyro.getCompassHeading());
+    output.setIsCalibrating(gyro.isCalibrating());
+    output.setIsMagneticDisturbance(gyro.isMagneticDisturbance());
+    output.setIsMagnetometerCalibrated(gyro.isMagnetometerCalibrated());
+    output.setIsMoving(gyro.isMoving());
+    output.setIsRotating(gyro.isRotating());
 
     return output;
   }
