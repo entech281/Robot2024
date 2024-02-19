@@ -24,11 +24,11 @@ public class UserPolicy {
     this.twistable = twistable;
   }
 
-    public void setTargetPose(Pose2d targetPose) {
-        this.targetPose = targetPose;
-    }
+  public void setTargetPose(Pose2d targetPose) {
+    this.targetPose = targetPose;
+  }
 
-    public Pose2d getTargetPose() {
-        return targetPose;
-    }
+  public Pose2d getTargetPose() {
+    return targetPose;
+  }
 }
