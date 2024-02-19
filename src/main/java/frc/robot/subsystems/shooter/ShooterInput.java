@@ -10,13 +10,18 @@ public class ShooterInput implements SubsystemInput {
 
   @Override
   public void toLog(LogTable table) {
-    table.put("shooterInput/active", activate);
-    table.put("shooterInput/speed", speed);
-    table.put("shooterInput/brakeModeEnabled", brakeModeEnabled);
+    table.put("activate", activate);
+    table.put("speed", speed);
+    table.put("brakeModeEnabled", brakeModeEnabled);
   }
 
   @Override
-  public void fromLog(LogTable table) {}
+  public void fromLog(LogTable table) {
+    activate = table.get("activate", false);
+    speed = table.get("speed", 0.0);
+    brakeModeEnabled = table.get("brakeModeEnabled", false);
+
+  }
 
   public boolean isActivate() {
     return this.activate;

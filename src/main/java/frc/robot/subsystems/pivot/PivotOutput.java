@@ -1,5 +1,6 @@
 package frc.robot.subsystems.pivot;
 
+import org.littletonrobotics.junction.Logger;
 import entech.subsystems.SubsystemOutput;
 
 public class PivotOutput implements SubsystemOutput {
@@ -9,7 +10,12 @@ public class PivotOutput implements SubsystemOutput {
   private double currentPosition = 0.0;
 
   @Override
-  public void log() {}
+  public void log() {
+    Logger.recordOutput("pivotOutput/moving", moving);
+    Logger.recordOutput("pivotOutput/leftBrakeModeEnabled", leftBrakeModeEnabled);
+    Logger.recordOutput("pivotOutput/rightBrakeModeEnabled", rightBrakeModeEnabled);
+    Logger.recordOutput("pivotOutput/currentPosition", currentPosition);
+  }
 
 
   public boolean isMoving() {

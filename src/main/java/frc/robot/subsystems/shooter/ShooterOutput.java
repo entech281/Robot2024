@@ -10,9 +10,9 @@ public class ShooterOutput implements SubsystemOutput {
 
   @Override
   public void log() {
-    Logger.recordOutput("shooterOutputOutput/active", active);
-    Logger.recordOutput("shooterOutputOutput/speed", speed);
-    Logger.recordOutput("shooterOutputOutput/brakeModeEnabled", brakeModeEnabled);
+    Logger.recordOutput("shooterOutput/active", active);
+    Logger.recordOutput("shooterOutput/speed", speed);
+    Logger.recordOutput("shooterOutput/brakeModeEnabled", brakeModeEnabled);
   }
 
   public double getSpeed() {

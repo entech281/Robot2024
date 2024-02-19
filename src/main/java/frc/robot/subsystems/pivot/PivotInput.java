@@ -10,10 +10,14 @@ public class PivotInput implements SubsystemInput {
   @Override
   public void toLog(LogTable table) {
     table.put("Requested position", requestedPosition);
+    table.put("Brake Mode Enabled", brakeModeEnabled);
   }
 
   @Override
-  public void fromLog(LogTable table) {}
+  public void fromLog(LogTable table) {
+    requestedPosition = table.get("Requested position", 0.0);
+    brakeModeEnabled = table.get("Brake Mode Enabled", true);
+  }
 
   public double getRequestedPosition() {
     return this.requestedPosition;

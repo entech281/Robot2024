@@ -10,13 +10,17 @@ public class TransferInput implements SubsystemInput {
 
   @Override
   public void toLog(LogTable table) {
-    table.put("transferInput/active", activate);
-    table.put("transferInput/currentMode", currentMode);
-    table.put("transferInput/brakeModeEnabled", brakeModeEnabled);
+    table.put("activate", activate);
+    table.put("currentMode", currentMode);
+    table.put("brakeModeEnabled", brakeModeEnabled);
   }
 
   @Override
-  public void fromLog(LogTable table) {}
+  public void fromLog(LogTable table) {
+    activate = table.get("activate", false);
+    currentMode = table.get("currentMode", TransferSubsystem.TransferStatus.Off);
+    brakeModeEnabled = table.get("brakeModeEnabled", false);
+  }
 
   public boolean isActivate() {
     return this.activate;
