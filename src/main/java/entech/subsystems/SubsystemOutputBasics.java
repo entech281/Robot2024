@@ -8,7 +8,7 @@ public abstract class SubsystemOutputBasics implements SubsystemOutput {
     protected boolean brakeModeEnabled;
     protected final String key;
 
-    public SubsystemOutputBasics(String key) {
+    protected SubsystemOutputBasics(String key) {
         this.key = key;
     }
 

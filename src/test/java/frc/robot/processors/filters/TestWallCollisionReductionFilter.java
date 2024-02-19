@@ -7,8 +7,20 @@ public class TestWallCollisionReductionFilter {
   public static final double TOLERANCE = 0.00001;
 
   @Test
-  public void testCalculateCorrectCord() {
-    assertEquals(WallCollisionReductionFilter.calculateCorrectCord(3, -3), 2.94, TOLERANCE);
-    assertEquals(WallCollisionReductionFilter.calculateCorrectCord(3, 3), 3.06, TOLERANCE);
+  void testCalculateCorrectCord() {
+    assertEquals(2.94, WallCollisionReductionFilter.calculateCorrectCord(3, -3), TOLERANCE);
+    assertEquals(3.06, WallCollisionReductionFilter.calculateCorrectCord(3, 3), TOLERANCE);
+  }
+
+  @Test
+  void textCalculateNextSecondCord() {
+    assertEquals(-0.06, WallCollisionReductionFilter.calculateNextSecondCord(3, -3), TOLERANCE);
+    assertEquals(6.06, WallCollisionReductionFilter.calculateNextSecondCord(3, 3), TOLERANCE);
+  }
+
+  @Test
+  void testCalculateLimit() {
+    assertEquals(0.444444, WallCollisionReductionFilter.calculateLimit(1, 2), TOLERANCE);
+    assertEquals(0.871111, WallCollisionReductionFilter.calculateLimit(1.4, -2), TOLERANCE);
   }
 }

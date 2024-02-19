@@ -73,7 +73,7 @@ public class WallCollisionReductionFilter implements DriveFilterI {
     return calculateCorrectCord(cord, speed) + speed;
   }
 
-  public static double calculateLimit(double nextSecondDistanceIntoSafety, double speed) {
-    return Math.pow(nextSecondDistanceIntoSafety / WallCollisionReduction.SAFETY_DISTANCE, Math.abs(speed));
+  public static double calculateLimit(double nextSecondDistanceFromWall, double speed) {
+    return Math.pow(nextSecondDistanceFromWall / WallCollisionReduction.SAFETY_DISTANCE, Math.abs(speed));
   }
 }
