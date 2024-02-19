@@ -32,9 +32,7 @@ public class CommandFactory {
     AutoBuilder.configureHolonomic(odometry::getEstimatedPose, // Robot pose supplier
         odometry::resetOdometry,
         // Method to reset odometry (will be called if your auto has a starting pose)
-        () -> {
-          return navXSubsystem.getOutputs().chassisSpeeds;
-        }, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+        () -> navXSubsystem.getOutputs().getChassisSpeeds(), // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
         driveSubsystem::pathFollowDrive, new HolonomicPathFollowerConfig(
             // HolonomicPathFollowerConfig, this should likely live in your Constants class
             new PIDConstants(RobotConstants.AUTONOMOUS.TRANSLATION_CONTROLLER_P, 0.0, 0.0),

@@ -12,40 +12,43 @@ public class EntechJoystick extends CommandJoystick {
     hid = this.getHID();
   }
 
-  public void WhilePressed(int button, EntechCommand command) {
+  public void whilePressed(int button, EntechCommand command) {
     this.button(button).whileTrue(command);
   }
 
-  public void WhenPressed(int button, EntechCommand command) {
+  public void whenPressed(int button, EntechCommand command) {
     this.button(button).onTrue(command);
   }
 
-  public void WhenReleased(int button, EntechCommand command) {
+  public void whenReleased(int button, EntechCommand command) {
     this.button(button).onFalse(command);
   }
 
-  public void WhileReleased(int button, EntechCommand command) {
+  public void whileReleased(int button, EntechCommand command) {
     this.button(button).whileFalse(command);
   }
 
   public void whileSwitch(int button, EntechCommand commandOnTrue, EntechCommand commandOnFalse) {
-    this.WhilePressed(button, commandOnTrue);
-    this.WhileReleased(button, commandOnFalse);
+    this.whilePressed(button, commandOnTrue);
+    this.whileReleased(button, commandOnFalse);
   }
 
   public void whenSwitch(int button, EntechCommand commandOnTrue, EntechCommand commandOnFalse) {
-    this.WhenPressed(button, commandOnTrue);
-    this.WhenReleased(button, commandOnFalse);
+    this.whenPressed(button, commandOnTrue);
+    this.whenReleased(button, commandOnFalse);
   }
 
+  @Override
   public double getX() {
     return hid.getX();
   }
 
+  @Override
   public double getY() {
     return hid.getY();
   }
 
+  @Override
   public double getZ() {
     return hid.getZ();
   }

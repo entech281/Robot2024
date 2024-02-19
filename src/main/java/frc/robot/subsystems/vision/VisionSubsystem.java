@@ -7,21 +7,17 @@
 
 package frc.robot.subsystems.vision;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
-import frc.robot.vision.CameraContainerI;
-import frc.robot.vision.MultiCameraContainer;
-import frc.robot.vision.SoloCameraContainer;
-import org.photonvision.targeting.PhotonPipelineResult;
-import org.photonvision.targeting.PhotonTrackedTarget;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> {
   private static final boolean ENABLED = true;
@@ -42,12 +38,12 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
   public VisionOutput getOutputs() {
     VisionOutput output = new VisionOutput();
 
-    output.estimatedPose = getEstimatedPose();
-    output.hasTargets = !targets.isEmpty();
-    output.latency = cameras.getLatency();
-    output.numberOfTargets = targets.size();
-    output.timeStamp = getTimeStamp();
-    output.targets = targets;
+    output.setEstimatedPose(getEstimatedPose());
+    output.setHasTargets(!targets.isEmpty());
+    output.setLatency(cameras.getLatency());
+    output.setNumberOfTargets(targets.size());
+    output.setTimeStamp(getTimeStamp());
+    output.setTargets(targets);
 
     return output;
   }

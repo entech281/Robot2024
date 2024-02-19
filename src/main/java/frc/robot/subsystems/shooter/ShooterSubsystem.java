@@ -43,7 +43,7 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
   }
 
   private void updateBrakeMode() {
-    if (currentInput.brakeModeEnabled) {
+    if (currentInput.getBrakeModeEnabled()) {
       shooterTop.setIdleMode(IdleMode.kBrake);
       shooterBottom.setIdleMode(IdleMode.kBrake);
     } else {
@@ -55,15 +55,15 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
   public void periodic() {
 
     if (ENABLED) {
-      if (currentInput.activate) {
-        shooterTopPID.setReference(currentInput.speed, CANSparkMax.ControlType.kVelocity);
-        shooterBottomPID.setReference(currentInput.speed, CANSparkMax.ControlType.kVelocity);
+      if (currentInput.getActivate()) {
+        shooterTopPID.setReference(currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
+        shooterBottomPID.setReference(currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
       } else {
         shooterTopPID.setReference(0, CANSparkMax.ControlType.kVelocity);
         shooterBottomPID.setReference(0, CANSparkMax.ControlType.kVelocity);
       }
 
-      if (currentInput.brakeModeEnabled) {
+      if (currentInput.getBrakeModeEnabled()) {
         shooterTop.setIdleMode(IdleMode.kBrake);
         shooterBottom.setIdleMode(IdleMode.kBrake);
       } else {
@@ -86,10 +86,9 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
   @Override
   public ShooterOutput getOutputs() {
     ShooterOutput shooterOutput = new ShooterOutput();
-    shooterOutput.speed =
-        (shooterTop.getEncoder().getVelocity() + shooterBottom.getEncoder().getVelocity()) / 2;
-    shooterOutput.active = shooterOutput.speed != 0;
-    shooterOutput.brakeModeEnabled = IdleMode.kBrake == shooterTop.getIdleMode();
+    shooterOutput.setCurrentSpeed( (shooterTop.getEncoder().getVelocity() + shooterBottom.getEncoder().getVelocity()) / 2);
+    shooterOutput.setActive(shooterOutput.getCurrentSpeed() != 0);
+    shooterOutput.setBrakeModeEnabled(IdleMode.kBrake == shooterTop.getIdleMode());
     return shooterOutput;
   }
 

@@ -16,8 +16,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.DrivetrainConstants;
-import frc.robot.swerve.SwerveModule;
-import frc.robot.swerve.SwerveUtils;
 
 /**
  * The {@code Drivetrain} class contains fields and methods pertaining to the function of the
@@ -51,16 +49,16 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
   public void updateInputs(DriveInput input) {
     if (ENABLED) {
       SmartDashboard.putNumberArray("Input Data",
-          new Double[] {input.xSpeed, input.ySpeed, input.rot});
+          new Double[] {input.getXSpeed(), input.getYSpeed(), input.getRotation()});
       double xSpeedCommanded;
       double ySpeedCommanded;
       double currentRotation;
 
       if (RobotConstants.DrivetrainConstants.RATE_LIMITING) {
         // Convert XY to polar for rate limiting
-        double inputTranslationDir = Math.atan2(input.ySpeed, input.xSpeed);
+        double inputTranslationDir = Math.atan2(input.getYSpeed(), input.getXSpeed());
         double inputTranslationMag =
-            Math.sqrt(Math.pow(input.xSpeed, 2) + Math.pow(input.ySpeed, 2));
+            Math.sqrt(Math.pow(input.getXSpeed(), 2) + Math.pow(input.getYSpeed(), 2));
 
         // Calculate the direction slew rate based on an estimate of the lateral
         // acceleration
@@ -76,21 +74,21 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
 
         double currentTime = WPIUtilJNI.now() * 1e-6;
         double elapsedTime = currentTime - prevTime;
-        double angleDif = SwerveUtils.AngleDifference(inputTranslationDir, currentTranslationDir);
+        double angleDif = SwerveUtils.angleDifference(inputTranslationDir, currentTranslationDir);
 
         if (angleDif < 0.45 * Math.PI) {
-          currentTranslationDir = SwerveUtils.StepTowardsCircular(currentTranslationDir,
+          currentTranslationDir = SwerveUtils.stepTowardsCircular(currentTranslationDir,
               inputTranslationDir, directionSlewRate * elapsedTime);
           currentTranslationMag = magLimiter.calculate(inputTranslationMag);
         } else if (angleDif > 0.85 * Math.PI) {
           if (currentTranslationMag > 1e-4) {
             currentTranslationMag = magLimiter.calculate(0.0);
           } else {
-            currentTranslationDir = SwerveUtils.WrapAngle(currentTranslationDir + Math.PI);
+            currentTranslationDir = SwerveUtils.wrapAngle(currentTranslationDir + Math.PI);
             currentTranslationMag = magLimiter.calculate(inputTranslationMag);
           }
         } else {
-          currentTranslationDir = SwerveUtils.StepTowardsCircular(currentTranslationDir,
+          currentTranslationDir = SwerveUtils.stepTowardsCircular(currentTranslationDir,
               inputTranslationDir, directionSlewRate * elapsedTime);
           currentTranslationMag = magLimiter.calculate(0.0);
         }
@@ -99,12 +97,12 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
 
         xSpeedCommanded = currentTranslationMag * Math.cos(currentTranslationDir);
         ySpeedCommanded = currentTranslationMag * Math.sin(currentTranslationDir);
-        currentRotation = rotLimiter.calculate(input.rot);
+        currentRotation = rotLimiter.calculate(input.getRotation());
 
       } else {
-        xSpeedCommanded = input.xSpeed;
-        ySpeedCommanded = input.ySpeed;
-        currentRotation = input.rot;
+        xSpeedCommanded = input.getXSpeed();
+        ySpeedCommanded = input.getYSpeed();
+        currentRotation = input.getRotation();
       }
 
       // Convert the commanded speeds into the correct units for the drivetrain
@@ -115,7 +113,7 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
 
       SwerveModuleState[] swerveModuleStates = DrivetrainConstants.DRIVE_KINEMATICS
           .toSwerveModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered,
-              ySpeedDelivered, rotDelivered, input.gyroAngle));
+              ySpeedDelivered, rotDelivered, input.getGyroAngle()));
 
       setModuleStates(swerveModuleStates);
     }
@@ -124,16 +122,19 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
   @Override
   public DriveOutput getOutputs() {
     DriveOutput output = new DriveOutput();
-    output.modulePositions = getModulePositions();
-    output.rawAbsoluteEncoders = new double[] {frontLeft.getTurningAbsoluteEncoder().getPosition(),
+    output.setModulePositions(getModulePositions());
+    output.setRawAbsoluteEncoders(new double[] {
+        frontLeft.getTurningAbsoluteEncoder().getPosition(),
         frontRight.getTurningAbsoluteEncoder().getPosition(),
         rearLeft.getTurningAbsoluteEncoder().getPosition(),
-        rearRight.getTurningAbsoluteEncoder().getPosition(),};
-    output.virtualAbsoluteEncoders =
-        new double[] {frontLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
-            frontRight.getTurningAbsoluteEncoder().getVirtualPosition(),
-            rearLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
-            rearRight.getTurningAbsoluteEncoder().getVirtualPosition(),};
+        rearRight.getTurningAbsoluteEncoder().getPosition()
+    });
+    output.setVirtualAbsoluteEncoders(new double[] {
+        frontLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
+        frontRight.getTurningAbsoluteEncoder().getVirtualPosition(),
+        rearLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
+        rearRight.getTurningAbsoluteEncoder().getVirtualPosition()
+    });
     return output;
   }
 

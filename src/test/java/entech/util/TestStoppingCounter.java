@@ -1,14 +1,12 @@
 package entech.util;
 
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestStoppingCounter {
 
   @Test
-  public void testStopperStopsAllSuccess() {
+  void testStopperStopsAllSuccess() {
     final int NUM_COUNTS = 4;
 
     StoppingCounter sc = new StoppingCounter("quicketest", NUM_COUNTS);
@@ -20,7 +18,7 @@ public class TestStoppingCounter {
   }
 
   @Test
-  public void testStopperResets() {
+  void testStopperResets() {
     final int NUM_COUNTS = 4;
 
     StoppingCounter sc = new StoppingCounter("quicketest", NUM_COUNTS);
