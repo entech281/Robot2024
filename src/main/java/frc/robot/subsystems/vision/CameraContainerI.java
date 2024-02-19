@@ -1,19 +1,18 @@
 package frc.robot.subsystems.vision;
 
-import java.util.Optional;
-
+import edu.wpi.first.math.geometry.Pose2d;
 import org.photonvision.targeting.PhotonPipelineResult;
 
-import edu.wpi.first.math.geometry.Pose2d;
+import java.util.Optional;
 
 public interface CameraContainerI {
-    PhotonPipelineResult getFilteredResult();
+  PhotonPipelineResult getFilteredResult();
 
-    Optional<Pose2d> getEstimatedPose();
+  Optional<Pose2d> getEstimatedPose();
 
-    double getLatency();
+  double getLatency();
 
-    boolean hasTargets();
+  boolean hasTargets();
 
-    int getTargetCount();
+  int getTargetCount();
 }

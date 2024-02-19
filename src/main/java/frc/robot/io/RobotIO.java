@@ -1,95 +1,107 @@
 package frc.robot.io;
 
-import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.inputs.LoggableInputs;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import frc.robot.subsystems.drive.DriveOutput;
 import frc.robot.subsystems.intake.IntakeOutput;
 import frc.robot.subsystems.navx.NavXOutput;
+import frc.robot.subsystems.pivot.PivotOutput;
 import frc.robot.subsystems.shooter.ShooterOutput;
 import frc.robot.subsystems.transfer.TransferOutput;
 import frc.robot.subsystems.vision.VisionOutput;
+import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.inputs.LoggableInputs;
 
 public class RobotIO {
-    private static RobotIO instance = new RobotIO();
+  private static RobotIO instance = new RobotIO();
 
-    public static RobotIO getInstance() {
-        return instance;
-    }
+  public static RobotIO getInstance() {
+    return instance;
+  }
 
-    public static void processInput(LoggableInputs in){
-        Logger.processInputs(in.getClass().getSimpleName(), in);
-    }
+  public static void processInput(LoggableInputs in) {
+    Logger.processInputs(in.getClass().getSimpleName(), in);
+  }
 
-    private RobotIO() {
-    }
+  private RobotIO() {}
 
-    public VisionOutput getVisionOutput() {
-        return latestVisionOutput;
-    }
+  public VisionOutput getVisionOutput() {
+    return latestVisionOutput;
+  }
 
-    public DriveOutput getDriveOutput() {
-        return latestDriveOutput;
-    }
-    public NavXOutput getNavXOutput() {
-        return latestNavXOutput;
-    }
+  public DriveOutput getDriveOutput() {
+    return latestDriveOutput;
+  }
 
-    public IntakeOutput getIntakeOutput() {
-        return latestIntakeOutput;
-    }
+  public NavXOutput getNavXOutput() {
+    return latestNavXOutput;
+  }
 
-    public ShooterOutput getShooterOutput() {
-        return latestShooterOutput;
-    }
+  public IntakeOutput getIntakeOutput() {
+    return latestIntakeOutput;
+  }
 
-    public TransferOutput getTransferOutput() {
-        return latestTransferOutput;
-    }
+  public ShooterOutput getShooterOutput() {
+    return latestShooterOutput;
+  }
 
-    public Pose2d getOdometryPose() {
-        return latestOdometryPose;
-    }
+  public TransferOutput getTransferOutput() {
+    return latestTransferOutput;
+  }
 
-    public void updateVision(VisionOutput vo) {
-        latestVisionOutput = vo;
-        vo.log();
-    }
-    public void updateNavx(NavXOutput no) {
-        latestNavXOutput = no;
-        no.log();
-    }
-    public void updateDrive( DriveOutput dro) {
-        latestDriveOutput = dro;
-        dro.log();
-    }
+  public PivotOutput getPivotSubsystem() {
+    return latestPivotOutput;
+  }
 
-    public void updateTransfer(TransferOutput tro) {
-        latestTransferOutput = tro;
-        tro.log();
-    }
+  public Pose2d getOdometryPose() {
+    return latestOdometryPose;
+  }
 
-    public void updateShooter(ShooterOutput sho) {
-        latestShooterOutput = sho;
-        sho.log();
-    }
+  public void updateVision(VisionOutput vo) {
+    latestVisionOutput = vo;
+    vo.log();
+  }
 
-    public void updateIntake(IntakeOutput ito) {
-        latestIntakeOutput = ito;
-        ito.log();
-    }
+  public void updateNavx(NavXOutput no) {
+    latestNavXOutput = no;
+    no.log();
+  }
 
-    public void updateOdometryPose(Pose2d pose) {
-        latestOdometryPose = pose;
-        Logger.recordOutput("OdometryPose", pose);
-    }
+  public void updateDrive(DriveOutput dro) {
+    latestDriveOutput = dro;
+    dro.log();
+  }
 
-    private VisionOutput latestVisionOutput;
-    private NavXOutput latestNavXOutput;
-    private DriveOutput latestDriveOutput;
-    private IntakeOutput latestIntakeOutput;
-    private TransferOutput latestTransferOutput;
-    private ShooterOutput latestShooterOutput;
-    private Pose2d latestOdometryPose;
+  public void updateTransfer(TransferOutput tro) {
+    latestTransferOutput = tro;
+    tro.log();
+  }
+
+  public void updateShooter(ShooterOutput sho) {
+    latestShooterOutput = sho;
+    sho.log();
+  }
+
+  public void updateIntake(IntakeOutput ito) {
+    latestIntakeOutput = ito;
+    ito.log();
+  }
+
+  public void updatePivot(PivotOutput pio) {
+    latestPivotOutput = pio;
+    pio.log();
+  }
+
+  public void updateOdometryPose(Pose2d pose) {
+    latestOdometryPose = pose;
+    Logger.recordOutput("OdometryPose", pose);
+  }
+
+  private VisionOutput latestVisionOutput;
+  private NavXOutput latestNavXOutput;
+  private DriveOutput latestDriveOutput;
+  private IntakeOutput latestIntakeOutput;
+  private TransferOutput latestTransferOutput;
+  private ShooterOutput latestShooterOutput;
+  private PivotOutput latestPivotOutput;
+  private Pose2d latestOdometryPose;
 }

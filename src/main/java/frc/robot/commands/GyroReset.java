@@ -7,30 +7,31 @@ import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.navx.NavXSubsystem;
 
 public class GyroReset extends EntechCommand {
-    private final Runnable reset;
-    private final Runnable correctOdomtry;
+  private final Runnable reset;
+  private final Runnable correctOdomtry;
 
-    public GyroReset(NavXSubsystem navx, OdometryProcessor odometry) {
-        reset = navx::zeroYaw;
-        correctOdomtry = () -> {
-            Pose2d pose = new Pose2d(odometry.getEstimatedPose().getTranslation(), Rotation2d.fromDegrees(0));
-            odometry.resetOdometry(pose);
-        };
-    }
+  public GyroReset(NavXSubsystem navx, OdometryProcessor odometry) {
+    reset = navx::zeroYaw;
+    correctOdomtry = () -> {
+      Pose2d pose =
+          new Pose2d(odometry.getEstimatedPose().getTranslation(), Rotation2d.fromDegrees(0));
+      odometry.resetOdometry(pose);
+    };
+  }
 
-    @Override
-    public void initialize() {
-        reset.run();
-        correctOdomtry.run();
-    }
+  @Override
+  public void initialize() {
+    reset.run();
+    correctOdomtry.run();
+  }
 
-    @Override
-    public boolean isFinished() {
-        return true;
-    }
+  @Override
+  public boolean isFinished() {
+    return true;
+  }
 
-    @Override
-    public boolean runsWhenDisabled() {
-        return true;
-    }
+  @Override
+  public boolean runsWhenDisabled() {
+    return true;
+  }
 }
