@@ -4,7 +4,7 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.OI.UserPolicy;
+import frc.robot.oi.UserPolicy;
 import frc.robot.subsystems.drive.DriveInput;
 
 public class AutoYawFilter implements DriveFilterI {

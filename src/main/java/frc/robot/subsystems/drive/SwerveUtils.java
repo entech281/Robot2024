@@ -93,4 +93,7 @@ public class SwerveUtils {
       return angle;
     }
   }
+
+  private SwerveUtils() {
+  }
 }

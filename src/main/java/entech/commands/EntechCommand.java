@@ -12,7 +12,7 @@ public class EntechCommand extends Command {
 
   public EntechCommand() {}
 
-  public EntechCommand(EntechSubsystem subsystem) {
+  public EntechCommand(EntechSubsystem<?, ?> subsystem) {
     this(subsystem, DEFAULT_TIMEOUT_SECONDS);
   }
 

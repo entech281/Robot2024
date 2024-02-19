@@ -1,4 +1,4 @@
-package frc.robot.OI;
+package frc.robot.oi;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -9,7 +9,8 @@ public class UserPolicy {
   private boolean twistable = false;
   private Pose2d targetPose = new Pose2d(0, 5.53, new Rotation2d());
 
-  private UserPolicy() {}
+  private UserPolicy() {
+  }
 
   public static UserPolicy getInstance() {
     return instance;

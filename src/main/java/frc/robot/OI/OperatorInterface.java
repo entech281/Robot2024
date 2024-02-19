@@ -1,4 +1,4 @@
-package frc.robot.OI;
+package frc.robot.oi;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import entech.util.EntechJoystick;
@@ -8,7 +8,12 @@ import frc.robot.SubsystemManager;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.TwistCommand;
-import frc.robot.io.*;
+import frc.robot.io.DebugInput;
+import frc.robot.io.DebugInputSupplier;
+import frc.robot.io.DriveInputSupplier;
+import frc.robot.io.OperatorInput;
+import frc.robot.io.OperatorInputSupplier;
+import frc.robot.io.RobotIO;
 import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.drive.DriveInput;
 
@@ -32,12 +37,11 @@ public class OperatorInterface
   }
 
   public void create() {
-    driveJoystick.WhilePressed(1, new TwistCommand());
-    driveJoystick.WhenPressed(11, new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
+    driveJoystick.whilePressed(1, new TwistCommand());
+    driveJoystick.whenPressed(11, new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
 
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
-
   }
 
   /*
