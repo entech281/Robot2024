@@ -73,8 +73,8 @@ public class CommandFactory {
     NamedCommands.registerCommand("Marker 1", Commands.print("Passed marker 1"));
     //NamedCommands.registerCommand("Marker 2", Commands.print("Passed marker 2"));
     NamedCommands.registerCommand("Marker 2", Commands.run( () ->{
-        DriverStation.repoortWarning("I am at marker 2! ");
-    }), driveSubsystem);
+        DriverStation.reportWarning("********** I am at marker 2",false);
+    }, driveSubsystem));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
