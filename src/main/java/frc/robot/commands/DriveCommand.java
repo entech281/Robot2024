@@ -20,12 +20,11 @@ public class DriveCommand extends EntechCommand {
 
   @Override
   public void end(boolean interrupted) {
-    DriveInput stop = new DriveInput();
+    DriveInput stop = new DriveInput(driveInputSource.getDriveInput());
 
-    stop.gyroAngle = driveInputSource.getDriveInput().gyroAngle;
-    stop.rot = 0;
-    stop.xSpeed = 0;
-    stop.ySpeed = 0;
+    stop.setRotation(0.0);
+    stop.setXSpeed(0.0);
+    stop.setXSpeed(0.0);
 
     drive.updateInputs(stop);
   }
@@ -39,12 +38,11 @@ public class DriveCommand extends EntechCommand {
 
   @Override
   public void initialize() {
-    DriveInput stop = new DriveInput();
+    DriveInput stop = new DriveInput(driveInputSource.getDriveInput());
 
-    stop.gyroAngle = driveInputSource.getDriveInput().gyroAngle;
-    stop.rot = 0;
-    stop.xSpeed = 0;
-    stop.ySpeed = 0;
+    stop.setRotation(0.0);
+    stop.setXSpeed(0.0);
+    stop.setXSpeed(0.0);
 
     drive.updateInputs(stop);
   }

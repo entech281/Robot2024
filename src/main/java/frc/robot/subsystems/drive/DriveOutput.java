@@ -1,21 +1,43 @@
 package frc.robot.subsystems.drive;
 
 
+import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import entech.subsystems.SubsystemOutput;
-import org.littletonrobotics.junction.AutoLog;
-import org.littletonrobotics.junction.Logger;
 
-@AutoLog
 public class DriveOutput implements SubsystemOutput {
-  public SwerveModulePosition[] modulePositions;
-  public double[] rawAbsoluteEncoders;
-  public double[] virtualAbsoluteEncoders;
+  private SwerveModulePosition[] modulePositions;
+  private double[] rawAbsoluteEncoders;
+  private double[] virtualAbsoluteEncoders;
 
   @Override
   public void log() {
-    Logger.recordOutput("driveOutput", modulePositions);
-    Logger.recordOutput("rawAbsoluteEncoders", rawAbsoluteEncoders);
-    Logger.recordOutput("virtualAbsoluteEncoders", virtualAbsoluteEncoders);
+    Logger.recordOutput("driveOutput/modulePositions", modulePositions);
+    Logger.recordOutput("driveOutput/rawAbsoluteEncoders", rawAbsoluteEncoders);
+    Logger.recordOutput("driveOutput/virtualAbsoluteEncoders", virtualAbsoluteEncoders);
+  }
+
+  public SwerveModulePosition[] getModulePositions() {
+    return this.modulePositions;
+  }
+
+  public void setModulePositions(SwerveModulePosition[] modulePositions) {
+    this.modulePositions = modulePositions;
+  }
+
+  public double[] getRawAbsoluteEncoders() {
+    return this.rawAbsoluteEncoders;
+  }
+
+  public void setRawAbsoluteEncoders(double[] rawAbsoluteEncoders) {
+    this.rawAbsoluteEncoders = rawAbsoluteEncoders;
+  }
+
+  public double[] getVirtualAbsoluteEncoders() {
+    return this.virtualAbsoluteEncoders;
+  }
+
+  public void setVirtualAbsoluteEncoders(double[] virtualAbsoluteEncoders) {
+    this.virtualAbsoluteEncoders = virtualAbsoluteEncoders;
   }
 }

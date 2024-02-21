@@ -1,13 +1,9 @@
 package frc.robot.subsystems.intake;
 
-import entech.subsystems.SubsystemOutput;
+import entech.subsystems.SubsystemOutputBasics;
 
-public class IntakeOutput implements SubsystemOutput {
-
-  public boolean active;
-  public double currentSpeed;
-  public boolean brakeModeEnabled;
-
-  @Override
-  public void log() {}
+public class IntakeOutput extends SubsystemOutputBasics {
+  public IntakeOutput() {
+    super("intakeOutput");
+  }
 }

@@ -1,13 +1,12 @@
-package frc.robot.vision;
-
-import edu.wpi.first.math.geometry.Pose2d;
-import entech.util.EntechGeometryUtils;
-import org.photonvision.targeting.PhotonPipelineResult;
-import org.photonvision.targeting.PhotonTrackedTarget;
+package frc.robot.subsystems.vision;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
+import edu.wpi.first.math.geometry.Pose2d;
+import entech.util.EntechGeometryUtils;
 
 public class MultiCameraContainer implements CameraContainerI {
   private final CameraContainerI[] cameraContainers;
@@ -18,7 +17,7 @@ public class MultiCameraContainer implements CameraContainerI {
 
   @Override
   public Optional<Pose2d> getEstimatedPose() {
-    List<Pose2d> estimatedPoses = new ArrayList<Pose2d>();
+    List<Pose2d> estimatedPoses = new ArrayList<>();
 
     for (CameraContainerI cameraContainer : cameraContainers) {
       Optional<Pose2d> estPose = cameraContainer.getEstimatedPose();
@@ -44,7 +43,7 @@ public class MultiCameraContainer implements CameraContainerI {
 
   @Override
   public PhotonPipelineResult getFilteredResult() {
-    List<PhotonTrackedTarget> targets = new ArrayList<PhotonTrackedTarget>();
+    List<PhotonTrackedTarget> targets = new ArrayList<>();
     double timeStamp = 0.0;
     double latency = 0.0;
 

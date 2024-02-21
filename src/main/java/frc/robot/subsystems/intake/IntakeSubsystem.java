@@ -24,13 +24,13 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
 
   public void periodic() {
     if (ENABLED) {
-      if (currentInput.activate) {
+      if (currentInput.getActivate()) {
         intakeMotor.set(RobotConstants.INTAKE.INTAKE_SPEED);
       } else {
         intakeMotor.set(0);
       }
 
-      if (currentInput.brakeModeEnabled) {
+      if (currentInput.getBrakeModeEnabled()) {
         intakeMotor.setIdleMode(IdleMode.kBrake);
       } else {
         intakeMotor.setIdleMode(IdleMode.kCoast);
@@ -51,10 +51,9 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
   @Override
   public IntakeOutput getOutputs() {
     IntakeOutput intakeOutput = new IntakeOutput();
-    intakeOutput.active = intakeMotor.getEncoder().getVelocity() != 0;
-    intakeOutput.currentSpeed = intakeMotor.getEncoder().getVelocity();
-    intakeOutput.brakeModeEnabled = IdleMode.kBrake == intakeMotor.getIdleMode();
-    intakeOutput.currentSpeed = intakeMotor.getEncoder().getVelocity();
+    intakeOutput.setActive(intakeMotor.getEncoder().getVelocity() != 0);
+    intakeOutput.setCurrentSpeed(intakeMotor.getEncoder().getVelocity());
+    intakeOutput.setBrakeModeEnabled(IdleMode.kBrake == intakeMotor.getIdleMode());
     return intakeOutput;
   }
 

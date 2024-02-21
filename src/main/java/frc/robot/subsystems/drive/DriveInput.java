@@ -1,18 +1,29 @@
 package frc.robot.subsystems.drive;
 
+import org.littletonrobotics.junction.LogTable;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import entech.subsystems.SubsystemInput;
 import frc.robot.RobotConstants;
-import org.littletonrobotics.junction.LogTable;
 
 public class DriveInput implements SubsystemInput {
-  public double xSpeed;
-  public double ySpeed;
-  public double rot;
-  public Rotation2d gyroAngle;
-  public Pose2d latestOdometryPose;
-  public String key = "driveInput";
+  private double xSpeed;
+  private double ySpeed;
+  private double rot;
+  private Rotation2d gyroAngle;
+  private Pose2d latestOdometryPose;
+  private String key = "driveInput";
+
+  public DriveInput() {
+  }
+
+  public DriveInput(DriveInput template) {
+    xSpeed = template.getXSpeed();
+    ySpeed = template.getYSpeed();
+    rot = template.getRotation();
+    gyroAngle = template.getGyroAngle();
+    latestOdometryPose = template.getLatestOdometryPose();
+  }
 
   @Override
   public void fromLog(LogTable table) {
@@ -30,5 +41,53 @@ public class DriveInput implements SubsystemInput {
     table.put(key + "/rot", rot);
     table.put(key + "/gyroAngle", gyroAngle);
     table.put(key + "/pose", latestOdometryPose);
+  }
+
+  public double getXSpeed() {
+    return this.xSpeed;
+  }
+
+  public void setXSpeed(double xSpeed) {
+    this.xSpeed = xSpeed;
+  }
+
+  public double getYSpeed() {
+    return this.ySpeed;
+  }
+
+  public void setYSpeed(double ySpeed) {
+    this.ySpeed = ySpeed;
+  }
+
+  public double getRotation() {
+    return this.rot;
+  }
+
+  public void setRotation(double rot) {
+    this.rot = rot;
+  }
+
+  public Rotation2d getGyroAngle() {
+    return this.gyroAngle;
+  }
+
+  public void setGyroAngle(Rotation2d gyroAngle) {
+    this.gyroAngle = gyroAngle;
+  }
+
+  public Pose2d getLatestOdometryPose() {
+    return this.latestOdometryPose;
+  }
+
+  public void setLatestOdometryPose(Pose2d latestOdometryPose) {
+    this.latestOdometryPose = latestOdometryPose;
+  }
+
+  public String getKey() {
+    return this.key;
+  }
+
+  public void setKey(String key) {
+    this.key = key;
   }
 }

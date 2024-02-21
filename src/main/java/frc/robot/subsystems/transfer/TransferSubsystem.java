@@ -30,19 +30,19 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
   public void periodic() {
     if (ENABLED) {
-      if (currentInput.activate) {
-        if (currentInput.currentMode == TransferStatus.Shooting) {
+      if (currentInput.getActivate()) {
+        if (currentInput.getCurrentMode() == TransferStatus.Shooting) {
           transferMotor.set(RobotConstants.TRANSFER.SHOOTING_SPEED);
-        } else if (currentInput.currentMode == TransferStatus.Transfering) {
+        } else if (currentInput.getCurrentMode() == TransferStatus.Transfering) {
           transferMotor.set(RobotConstants.TRANSFER.TRANSFERING_SPEED);
-        } else if (currentInput.currentMode == TransferStatus.Intaking) {
+        } else if (currentInput.getCurrentMode() == TransferStatus.Intaking) {
           transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED);
         }
       } else {
         transferMotor.set(0.0);
       }
 
-      if (currentInput.brakeModeEnabled) {
+      if (currentInput.getBrakeModeEnabled()) {
         transferMotor.setIdleMode(IdleMode.kBrake);
       } else {
         transferMotor.setIdleMode(IdleMode.kCoast);
@@ -63,11 +63,10 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
   @Override
   public TransferOutput getOutputs() {
     TransferOutput transferOutput = new TransferOutput();
-    transferOutput.active = transferMotor.getEncoder().getVelocity() != 0;
-    transferOutput.brakeModeEnabled = IdleMode.kBrake == transferMotor.getIdleMode();
-    transferOutput.currentSpeed = transferMotor.getEncoder().getVelocity();
-    transferOutput.currentMode = currentInput.currentMode;
-    transferOutput.currentSpeed = transferMotor.getEncoder().getVelocity();
+    transferOutput.setActive(transferMotor.getEncoder().getVelocity() != 0);
+    transferOutput.setBrakeModeEnabled(IdleMode.kBrake == transferMotor.getIdleMode());
+    transferOutput.setCurrentSpeed(transferMotor.getEncoder().getVelocity());
+    transferOutput.setCurrentMode(currentInput.getCurrentMode());
     return transferOutput;
   }
 
