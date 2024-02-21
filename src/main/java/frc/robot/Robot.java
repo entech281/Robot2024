@@ -70,7 +70,7 @@ public class Robot extends LoggedRobot {
     odometry = new OdometryProcessor();
     commandFactory = new CommandFactory(subsystemManager, odometry);
     operatorInterface = new OperatorInterface(commandFactory, subsystemManager, odometry);
-    operatorInterface.create();
+    operatorInterface.configureBindings();
     odometry.createEstimator();
   }
 
@@ -83,6 +83,7 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void autonomousInit() {
+    operatorInterface.configureBindings();
     autonomousCommand = commandFactory.getAutoCommand();
 
     if (autonomousCommand != null) {
@@ -97,6 +98,7 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void teleopInit() {
+    operatorInterface.configureBindings();
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }

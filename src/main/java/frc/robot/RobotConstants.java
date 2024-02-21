@@ -158,6 +158,11 @@ public final class RobotConstants {
   public interface OPERATOR_PANEL {
   }
 
+  public interface DEBUG_PANEL {
+    public static final int START_TEST_BUTTON = 1;
+    public static final int YES_BUTTON = 2;
+    public static final int NO_BUTTON = 3;
+  }
 
   public static interface Vision {
     public static final Matrix<N3, N1> VISION_STD_DEVS = VecBuilder.fill(10, 10, 1000000);
