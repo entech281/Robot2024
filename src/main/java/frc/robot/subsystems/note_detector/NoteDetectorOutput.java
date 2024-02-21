@@ -5,11 +5,12 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import org.photonvision.targeting.TargetCorner;
 import entech.subsystems.SubsystemOutput;
 import java.util.List;
+import java.util.Optional;
 
 public class NoteDetectorOutput implements SubsystemOutput {
 
   public boolean hasNotes;
-  public PhotonTrackedTarget selectedNote;
+  public Optional<PhotonTrackedTarget> selectedNote;
   public List<PhotonTrackedTarget> notes;
 
   public Point getNoteMidpoint(TargetCorner bottomLeft, TargetCorner topRight) {
