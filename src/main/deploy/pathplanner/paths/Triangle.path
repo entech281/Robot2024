@@ -59,7 +59,14 @@
       "command": {
         "type": "parallel",
         "data": {
-          "commands": []
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Marker 1"
+              }
+            }
+          ]
         }
       }
     },
@@ -69,7 +76,14 @@
       "command": {
         "type": "parallel",
         "data": {
-          "commands": []
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Marker 2"
+              }
+            }
+          ]
         }
       }
     }
