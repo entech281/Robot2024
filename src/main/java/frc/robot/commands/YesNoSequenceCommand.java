@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /*
@@ -14,61 +15,90 @@ import java.util.List;
  */
 public class YesNoSequenceCommand extends Command {
 
-  private Command[] commandsToRun;
+  private final Command[] commandsToRun;
   private int currentCommandIndex = 0;
-  private boolean currentCommandInitialized = false;
-  private Trigger okButton;
-  private Trigger failButton;
 
-  private boolean overallSuccess = true;
+  private final Trigger okButton;
+  private final Trigger failButton;
+
+  private Command currentCommand;
+  private Optional<Boolean> result;
+  private final boolean finished = false;
+
   public YesNoSequenceCommand(Trigger okButton, Trigger failButton,Command ...commandsToRun){
     this.commandsToRun = commandsToRun;
     this.okButton=okButton;
     this.failButton=failButton;
-
+    result = Optional.empty();
+    if ( commandsToRun.length < 1){
+      throw new RuntimeException("No Commands Provided to run!");
+    }
   }
 
   @Override
   public void initialize() {
-    //do nothing
+    moveToNextCommand();
   }
 
   @Override
   public void execute() {
-    Command currentCommand = commandsToRun[currentCommandIndex];
-    if ( ! currentCommandInitialized ){
-      currentCommand.initialize();
-    }
-    else if ( okButton.getAsBoolean() || failButton.getAsBoolean()){
+
+    processCurrentCommand();
+
+    if ( okButton.getAsBoolean() || failButton.getAsBoolean()){
+      //user reported success or failure. move to next command if there is one
       currentCommand.cancel();
-      if (okButton.getAsBoolean()){
-        reportResult(currentCommand,true);
-        currentCommandIndex++;
+      boolean testFailed  = failButton.getAsBoolean();
+      reportResult(currentCommand.getName(),testFailed);
+
+      if ( testFailed){
+        //do not run any more tests
+        result = Optional.of(false);
       }
       else{
-        reportResult(currentCommand,false);
-        currentCommandIndex=commandsToRun.length;
-        overallSuccess = false;
+        moveToNextCommand();
       }
-
     }
     else{
-      currentCommand.execute();
+
+      if ( currentCommand.isFinished()) {
+        moveToNextCommand();
+      }
     }
 
   }
 
-  public void reportResult(Command c, boolean success){
-    DriverStation.reportWarning(c.getName() + ": result =>" + success,false);
+  private void processCurrentCommand(){
+    currentCommand.execute();
+    if ( currentCommand.isFinished()){
+      currentCommand.end(false);
+    }
+  }
+  private void moveToNextCommand(){
+
+    if (currentCommandIndex < commandsToRun.length ){
+       currentCommand = commandsToRun[currentCommandIndex];
+       currentCommand.initialize();
+      currentCommandIndex++;
+    }
+    else{
+      //if there are no more commands, we are finished!
+      result = Optional.of(true);
+    }
+
+  }
+
+  public void reportResult(String name, boolean success){
+    DriverStation.reportWarning(name + ": result =>" + success,false);
   }
 
   @Override
   public void end(boolean interrupted) {
-    DriverStation.reportWarning("Tests Complete: Overall [" + overallSuccess + "]",false);
+    DriverStation.reportWarning("Tests Complete: Overall [" + result.orElse(false) + "]",false);
   }
 
   @Override
   public boolean isFinished() {
-    return ( currentCommandIndex >= commandsToRun.length);
+    return result.orElse(false);
   }
 }
