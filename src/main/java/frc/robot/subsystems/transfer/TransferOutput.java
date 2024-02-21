@@ -1,19 +1,26 @@
 package frc.robot.subsystems.transfer;
 
-import entech.subsystems.SubsystemOutput;
 import org.littletonrobotics.junction.Logger;
+import entech.subsystems.SubsystemOutputBasics;
 
-public class TransferOutput implements SubsystemOutput {
+public class TransferOutput extends SubsystemOutputBasics {
+  private TransferSubsystem.TransferStatus currentMode;
 
-  public boolean active;
-  public double currentSpeed;
-  public boolean brakeModeEnabled;
-  public TransferSubsystem.TransferStatus currentMode;
+  public TransferOutput() {
+    super("transferOutput");
+  }
 
   @Override
   public void log() {
-    Logger.recordOutput("transferOutput/active", active);
-    Logger.recordOutput("transferOutput/currentMode", currentMode);
-    Logger.recordOutput("transferOutput/brakeModeEnabled", brakeModeEnabled);
+    super.log();
+    Logger.recordOutput(key + "currentMode", currentMode);
+  }
+
+  public TransferSubsystem.TransferStatus getCurrentMode() {
+    return this.currentMode;
+  }
+
+  public void setCurrentMode(TransferSubsystem.TransferStatus currentMode) {
+    this.currentMode = currentMode;
   }
 }

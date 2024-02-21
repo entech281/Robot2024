@@ -7,5 +7,4 @@ public interface SubsystemOutput {
   public default String getLogName(String val) {
     return getClass().getSimpleName() + "/" + val;
   }
-
 }
