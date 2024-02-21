@@ -35,20 +35,21 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   }
 
   public Optional<PhotonTrackedTarget> getChosenNote() {
-    if (chosenNote == null)
+    if (chooseNote() == null)
       return Optional.empty();
-      return ENABLED ? Optional.of(chosenNote) : Optional.empty();
+    return ENABLED ? Optional.of(chosenNote) : Optional.empty();
   }
 
-  public PhotonTrackedTarget chooseNote() {
+  public Optional<PhotonTrackedTarget> chooseNote() {
     double highestArea = 0;
+    PhotonTrackedTarget curatedNote;
     for (PhotonTrackedTarget currentNote : notes) {
       if (currentNote.getArea() > highestArea) {
         highestArea = currentNote.getArea();
-        chosenNote = currentNote;
+        curatedNote = currentNote;
       }
     }
-    return chosenNote;
+    return ENABLED ? Optional.of(curatedNote) : Optional.empty();
   }
 
   @Override
@@ -64,8 +65,10 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   }
 
   private void updateNoteDetectorData() {
-    PhotonPipelineResult result = colorCamera.getLatestResult();
-    notes = result.getTargets();
+    Optional<PhotonTrackedTarget> pickedNote = chooseNote();
+    if (pickedNote.isPresent()) {
+      chosenNote = pickedNote.get();
+    }
   }
 
   @Override
