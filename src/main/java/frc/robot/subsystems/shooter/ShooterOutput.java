@@ -1,9 +1,9 @@
 package frc.robot.subsystems.shooter;
 
-import entech.subsystems.SubsystemOutputBasics;
+import entech.subsystems.SpinMotorSubsystemOutput;
 
-public class ShooterOutput extends SubsystemOutputBasics {
-  public ShooterOutput () {
+public class ShooterOutput extends SpinMotorSubsystemOutput {
+  public ShooterOutput() {
     super("shooterOutput");
   }
 }

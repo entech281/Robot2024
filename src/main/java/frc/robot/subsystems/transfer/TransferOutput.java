@@ -1,9 +1,9 @@
 package frc.robot.subsystems.transfer;
 
 import org.littletonrobotics.junction.Logger;
-import entech.subsystems.SubsystemOutputBasics;
+import entech.subsystems.SpinMotorSubsystemOutput;
 
-public class TransferOutput extends SubsystemOutputBasics {
+public class TransferOutput extends SpinMotorSubsystemOutput {
   private TransferSubsystem.TransferStatus currentMode;
 
   public TransferOutput() {

@@ -2,13 +2,13 @@ package entech.subsystems;
 
 import org.littletonrobotics.junction.Logger;
 
-public abstract class SubsystemOutputBasics implements SubsystemOutput {
+public abstract class SpinMotorSubsystemOutput implements SubsystemOutput {
     protected boolean active;
     protected double currentSpeed;
     protected boolean brakeModeEnabled;
     protected final String key;
 
-    protected SubsystemOutputBasics(String key) {
+    protected SpinMotorSubsystemOutput(String key) {
         this.key = key;
     }
 

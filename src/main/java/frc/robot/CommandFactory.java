@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.GyroReset;
+import frc.robot.commands.GyroResetCommand;
 import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.navx.NavXSubsystem;
@@ -32,7 +32,8 @@ public class CommandFactory {
     AutoBuilder.configureHolonomic(odometry::getEstimatedPose, // Robot pose supplier
         odometry::resetOdometry,
         // Method to reset odometry (will be called if your auto has a starting pose)
-        () -> navXSubsystem.getOutputs().getChassisSpeeds(), // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+        () -> navXSubsystem.getOutputs().getChassisSpeeds(), // ChassisSpeeds supplier. MUST BE
+                                                             // ROBOT RELATIVE
         driveSubsystem::pathFollowDrive, new HolonomicPathFollowerConfig(
             // HolonomicPathFollowerConfig, this should likely live in your Constants class
             new PIDConstants(RobotConstants.AUTONOMOUS.TRANSLATION_CONTROLLER_P, 0.0, 0.0),
@@ -60,7 +61,7 @@ public class CommandFactory {
 
   public Command getAutoCommand() {
     SequentialCommandGroup auto = new SequentialCommandGroup();
-    auto.addCommands(new GyroReset(navXSubsystem, odometry));
+    auto.addCommands(new GyroResetCommand(navXSubsystem, odometry));
     auto.addCommands(new WaitCommand(2));
     auto.addCommands(new PathPlannerAuto("auto1p1"));
     return auto;

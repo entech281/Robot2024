@@ -53,9 +53,14 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
     }
   }
 
+  public void setAngleAdjustment(double angleAdjustment) {
+    gyro.setAngleAdjustment(angleAdjustment);
+  }
+
   private ChassisSpeeds getChassisSpeeds() {
     double radiansPerSecond = Units.degreesToRadians(gyro.getRate());
-    return ChassisSpeeds.fromRobotRelativeSpeeds(gyro.getVelocityX(), gyro.getVelocityY(), radiansPerSecond, gyro.getRotation2d());
+    return ChassisSpeeds.fromRobotRelativeSpeeds(gyro.getVelocityX(), gyro.getVelocityY(),
+        radiansPerSecond, gyro.getRotation2d());
   }
 
   @Override

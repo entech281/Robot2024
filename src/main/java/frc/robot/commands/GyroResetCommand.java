@@ -6,13 +6,13 @@ import entech.commands.EntechCommand;
 import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.navx.NavXSubsystem;
 
-public class GyroReset extends EntechCommand {
+public class GyroResetCommand extends EntechCommand {
   private final Runnable reset;
-  private final Runnable correctOdomtry;
+  private final Runnable correctOdometry;
 
-  public GyroReset(NavXSubsystem navx, OdometryProcessor odometry) {
+  public GyroResetCommand(NavXSubsystem navx, OdometryProcessor odometry) {
     reset = navx::zeroYaw;
-    correctOdomtry = () -> {
+    correctOdometry = () -> {
       Pose2d pose =
           new Pose2d(odometry.getEstimatedPose().getTranslation(), Rotation2d.fromDegrees(0));
       odometry.resetOdometry(pose);
@@ -22,7 +22,7 @@ public class GyroReset extends EntechCommand {
   @Override
   public void initialize() {
     reset.run();
-    correctOdomtry.run();
+    correctOdometry.run();
   }
 
   @Override
