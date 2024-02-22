@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.8494139845422553,
-      "y": 5.0135345984977695
+      "x": 0.7792735585471178,
+      "y": 4.2219238724191746
     },
-    "rotation": 0
+    "rotation": -60.75117366345303
   },
   "command": {
     "type": "sequential",
@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Heart"
+            "pathName": "autoTestStartingAngle"
           }
         }
       ]

@@ -6,6 +6,7 @@ import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.GyroResetByAngleCommand;
 import frc.robot.commands.GyroResetCommand;
 import frc.robot.commands.TwistCommand;
 import frc.robot.io.DebugInput;
@@ -40,6 +41,8 @@ public class OperatorInterface
     driveJoystick.whilePressed(1, new TwistCommand());
     driveJoystick.whenPressed(11,
         new GyroResetCommand(subsystemManager.getNavXSubsystem(), odometry));
+    driveJoystick.whenPressed(10,
+        new GyroResetByAngleCommand(subsystemManager.getNavXSubsystem(), odometry, -45));
 
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));

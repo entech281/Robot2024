@@ -2,7 +2,6 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -13,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.GyroResetCommand;
+import frc.robot.commands.GyroResetByAngleCommand;
 import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.navx.NavXSubsystem;
@@ -70,10 +69,10 @@ public class CommandFactory {
 
 
     NamedCommands.registerCommand("Marker 1", Commands.print("Passed marker 1"));
-    //NamedCommands.registerCommand("Marker 2", Commands.print("Passed marker 2"));
-    NamedCommands.registerCommand("Marker 2", Commands.run( () ->{
-        DriverStation.reportWarning("********** I am at marker 2",false);
-    }, driveSubsystem));
+    // NamedCommands.registerCommand("Marker 2", Commands.print("Passed marker 2"));
+    NamedCommands.registerCommand("Marker 2", Commands.run(() -> {
+      DriverStation.reportWarning("********** I am at marker 2", false);
+    }));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -82,7 +81,7 @@ public class CommandFactory {
 
   public Command getAutoCommand() {
     SequentialCommandGroup auto = new SequentialCommandGroup();
-    auto.addCommands(new GyroResetCommand(navXSubsystem, odometry));
+    auto.addCommands(new GyroResetByAngleCommand(navXSubsystem, odometry, 60.75));
     auto.addCommands(new WaitCommand(2));
     auto.addCommands(autoChooser.getSelected());
     return auto;

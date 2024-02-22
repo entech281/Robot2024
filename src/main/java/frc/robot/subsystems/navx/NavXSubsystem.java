@@ -54,7 +54,7 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
   }
 
   public void setAngleAdjustment(double angleAdjustment) {
-    gyro.setAngleAdjustment(angleAdjustment);
+    gyro.setAngleAdjustment(angleAdjustment);;
   }
 
   private ChassisSpeeds getChassisSpeeds() {

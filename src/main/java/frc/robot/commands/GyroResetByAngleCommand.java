@@ -6,7 +6,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import entech.commands.EntechCommand;
-import frc.robot.io.RobotIO;
 import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.navx.NavXSubsystem;
 
@@ -21,8 +20,7 @@ public class GyroResetByAngleCommand extends EntechCommand {
       double operatorForwardAngleOffset) {
     angle = operatorForwardAngleOffset;
     reset = navx::zeroYaw;
-    set = () -> navx
-        .setAngleAdjustment(angle + RobotIO.getInstance().getNavXOutput().getAngleAdjustment());
+    set = () -> navx.setAngleAdjustment(angle);
     Optional<Alliance> teamOpt = DriverStation.getAlliance();
     if (teamOpt.isPresent()) {
       angleForOdometry = teamOpt.get() == Alliance.Blue ? 0.0 : 180.0;
@@ -31,7 +29,7 @@ public class GyroResetByAngleCommand extends EntechCommand {
     correctOdometry = () -> {
       Pose2d pose = new Pose2d(odometry.getEstimatedPose().getTranslation(),
           Rotation2d.fromDegrees(angleForOdometry));
-      odometry.resetOdometry(pose);
+      odometry.resetOdometry(pose, Rotation2d.fromDegrees(angle));
     };
   }
 
