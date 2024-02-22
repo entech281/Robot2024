@@ -11,8 +11,8 @@ public class TransferOutput extends SubsystemOutputBasics {
   }
 
   @Override
-  public void log() {
-    super.log();
+  public void toLog() {
+    super.toLog();
     Logger.recordOutput(key + "currentMode", currentMode);
   }
 

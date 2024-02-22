@@ -35,7 +35,7 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
   }
 
   @Override
-  public VisionOutput getOutputs() {
+  public VisionOutput toOutputs() {
     VisionOutput output = new VisionOutput();
 
     output.setEstimatedPose(getEstimatedPose());

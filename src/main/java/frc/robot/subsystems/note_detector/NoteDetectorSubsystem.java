@@ -1,13 +1,12 @@
 package frc.robot.subsystems.note_detector;
 
-import entech.subsystems.EntechSubsystem;
-import frc.robot.RobotConstants;
-import org.photonvision.PhotonCamera;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
+import entech.subsystems.EntechSubsystem;
+import frc.robot.RobotConstants;
 
 public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, NoteDetectorOutput> {
   private static final boolean ENABLED = false;
@@ -31,7 +30,7 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
 
   @Override
   public void updateInputs(NoteDetectorInput input) {
-    
+
   }
 
   public Optional<PhotonTrackedTarget> getChosenNote() {
@@ -53,7 +52,7 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   }
 
   @Override
-  public NoteDetectorOutput getOutputs() {
+  public NoteDetectorOutput toOutputs() {
     NoteDetectorOutput output = new NoteDetectorOutput();
 
     output.hasNotes = !notes.isEmpty();
@@ -77,5 +76,5 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
       updateNoteDetectorData();
     }
   }
-  
+
 }

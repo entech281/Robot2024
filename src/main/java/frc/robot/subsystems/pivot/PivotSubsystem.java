@@ -96,7 +96,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   }
 
   @Override
-  public PivotOutput getOutputs() {
+  public PivotOutput toOutputs() {
     PivotOutput pivotOutput = new PivotOutput();
     pivotOutput.setMoving(pivotLeft.getEncoder().getVelocity() != 0);
     pivotOutput.setLeftBrakeModeEnabled(IdleMode.kBrake == pivotLeft.getIdleMode());

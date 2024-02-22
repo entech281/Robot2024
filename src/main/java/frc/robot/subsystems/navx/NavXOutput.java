@@ -4,7 +4,7 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import entech.subsystems.SubsystemOutput;
 
-public class NavXOutput implements SubsystemOutput {
+public class NavXOutput extends SubsystemOutput {
   private double yaw;
   private double pitch;
   private double roll;
@@ -23,7 +23,7 @@ public class NavXOutput implements SubsystemOutput {
   private ChassisSpeeds chassisSpeeds;
 
   @Override
-  public void log() {
+  public void toLog() {
     Logger.recordOutput("navXOutput/yaw", yaw);
     Logger.recordOutput("navXOutput/pitch", pitch);
     Logger.recordOutput("navXOutput/roll", roll);
