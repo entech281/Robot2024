@@ -10,7 +10,7 @@ public abstract class SubsystemOutput {
     Logger.recordOutput(getClass().getSimpleName() + "/CurrentCommand", currentCommand);
     Logger.recordOutput(getClass().getSimpleName() + "/defaultCommand", defaultCommand);
     toLog();
-  };
+  }
 
   public abstract void toLog();
 
