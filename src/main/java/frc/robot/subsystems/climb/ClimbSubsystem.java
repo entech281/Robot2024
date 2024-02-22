@@ -75,9 +75,14 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
     }
   }
 
-  private double getLeveledPosition(double navXRoll) {
-    double 
-    return clamped
+  public void periodic() {
+    if (ENABLED) {
+      if (currentInput.getActivate()) {
+        double CP = clampedPosition(currentInput.getRequestedPosition());
+        climbMotorLeft.getEncoder().setPosition(CP);
+        climbMotorRight.getEncoder().setPosition(CP);
+      }
+    }
   }
 
   @Override
