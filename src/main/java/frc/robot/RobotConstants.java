@@ -165,6 +165,7 @@ public final class RobotConstants {
     public static interface Cameras {
       public static final String FRONT_LEFT = "Arducam_Bravo";
       public static final String FRONT_RIGHT = "Arducam_Alpha";
+      public static final String COLOR = "I don't know";
     }
 
 
