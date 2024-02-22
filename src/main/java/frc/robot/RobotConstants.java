@@ -158,7 +158,6 @@ public final class RobotConstants {
   public interface OPERATOR_PANEL {
   }
 
-
   public static interface Vision {
     public static final Matrix<N3, N1> VISION_STD_DEVS = VecBuilder.fill(10, 10, 1000000);
 
@@ -193,7 +192,7 @@ public final class RobotConstants {
 
   public static interface PID {
 
-    public static interface Shooter {
+    public static interface SHOOTER {
       public static final double KP = 0.00008;
       public static final double KI = 0.0;
       public static final double KD = 0.0;
@@ -202,7 +201,14 @@ public final class RobotConstants {
     }
 
 
-    public static interface Pivot {
+    public static interface PIVOT {
+      public static final double KP = 0;
+      public static final double KI = 0;
+      public static final double KD = 0;
+    }
+
+
+    public static interface CLIMB {
       public static final double KP = 0;
       public static final double KI = 0;
       public static final double KD = 0;
@@ -219,7 +225,13 @@ public final class RobotConstants {
 
   public static interface PIVOT {
     public static final double UPPER_SOFT_LIMIT_DEG = 89;
-    public static final double POSITION_CONVERSION_FACTOR = 1;
+    public static final double PIVOT_CONVERSION_FACTOR = 1;
+  }
+
+
+  public static interface CLIMB {
+    public static final double UPPER_SOFT_LIMIT_Inches = 25.0;
+    public static final double CLIMB_CONVERSION_FACTOR = 1;
   }
 
 

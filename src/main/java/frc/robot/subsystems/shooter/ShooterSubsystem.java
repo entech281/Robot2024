@@ -36,10 +36,10 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
   }
 
   private void setUpPIDConstants(SparkPIDController pIDController) {
-    pIDController.setP(RobotConstants.PID.Pivot.KP);
-    pIDController.setD(RobotConstants.PID.Pivot.KI);
-    pIDController.setI(RobotConstants.PID.Pivot.KD);
-    pIDController.setFF(RobotConstants.PID.Shooter.KFF);
+    pIDController.setP(RobotConstants.PID.SHOOTER.KP);
+    pIDController.setD(RobotConstants.PID.SHOOTER.KI);
+    pIDController.setI(RobotConstants.PID.SHOOTER.KD);
+    pIDController.setFF(RobotConstants.PID.SHOOTER.KFF);
   }
 
   private void updateBrakeMode() {
@@ -86,7 +86,8 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
   @Override
   public ShooterOutput getOutputs() {
     ShooterOutput shooterOutput = new ShooterOutput();
-    shooterOutput.setCurrentSpeed( (shooterTop.getEncoder().getVelocity() + shooterBottom.getEncoder().getVelocity()) / 2);
+    shooterOutput.setCurrentSpeed(
+        (shooterTop.getEncoder().getVelocity() + shooterBottom.getEncoder().getVelocity()) / 2);
     shooterOutput.setActive(shooterOutput.getCurrentSpeed() != 0);
     shooterOutput.setBrakeModeEnabled(IdleMode.kBrake == shooterTop.getIdleMode());
     return shooterOutput;
