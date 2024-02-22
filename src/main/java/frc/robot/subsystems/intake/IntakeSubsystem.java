@@ -49,7 +49,7 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
   }
 
   @Override
-  public IntakeOutput getOutputs() {
+  public IntakeOutput toOutputs() {
     IntakeOutput intakeOutput = new IntakeOutput();
     intakeOutput.setActive(intakeMotor.getEncoder().getVelocity() != 0);
     intakeOutput.setCurrentSpeed(intakeMotor.getEncoder().getVelocity());

@@ -5,16 +5,16 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import entech.subsystems.SubsystemOutput;
 
-public class DriveOutput implements SubsystemOutput {
+public class DriveOutput extends SubsystemOutput {
   private SwerveModulePosition[] modulePositions;
   private double[] rawAbsoluteEncoders;
   private double[] virtualAbsoluteEncoders;
 
   @Override
-  public void log() {
-    Logger.recordOutput("driveOutput/modulePositions", modulePositions);
-    Logger.recordOutput("driveOutput/rawAbsoluteEncoders", rawAbsoluteEncoders);
-    Logger.recordOutput("driveOutput/virtualAbsoluteEncoders", virtualAbsoluteEncoders);
+  public void toLog() {
+    Logger.recordOutput("DriveOutput/modulePositions", modulePositions);
+    Logger.recordOutput("DriveOutput/rawAbsoluteEncoders", rawAbsoluteEncoders);
+    Logger.recordOutput("DriveOutput/virtualAbsoluteEncoders", virtualAbsoluteEncoders);
   }
 
   public SwerveModulePosition[] getModulePositions() {

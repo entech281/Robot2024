@@ -120,21 +120,18 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
   }
 
   @Override
-  public DriveOutput getOutputs() {
+  public DriveOutput toOutputs() {
     DriveOutput output = new DriveOutput();
     output.setModulePositions(getModulePositions());
-    output.setRawAbsoluteEncoders(new double[] {
-        frontLeft.getTurningAbsoluteEncoder().getPosition(),
+    output.setRawAbsoluteEncoders(new double[] {frontLeft.getTurningAbsoluteEncoder().getPosition(),
         frontRight.getTurningAbsoluteEncoder().getPosition(),
         rearLeft.getTurningAbsoluteEncoder().getPosition(),
-        rearRight.getTurningAbsoluteEncoder().getPosition()
-    });
-    output.setVirtualAbsoluteEncoders(new double[] {
-        frontLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
-        frontRight.getTurningAbsoluteEncoder().getVirtualPosition(),
-        rearLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
-        rearRight.getTurningAbsoluteEncoder().getVirtualPosition()
-    });
+        rearRight.getTurningAbsoluteEncoder().getPosition()});
+    output.setVirtualAbsoluteEncoders(
+        new double[] {frontLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
+            frontRight.getTurningAbsoluteEncoder().getVirtualPosition(),
+            rearLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
+            rearRight.getTurningAbsoluteEncoder().getVirtualPosition()});
     return output;
   }
 
