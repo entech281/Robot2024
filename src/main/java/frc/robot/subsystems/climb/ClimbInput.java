@@ -8,6 +8,7 @@ public class ClimbInput implements SubsystemInput {
   private boolean activate = false;
   private boolean brakeModeEnabled = false;
   private double requestedPosition = 0.0;
+  private double currentAngle = 0.0;
 
   @Override
   public void toLog(LogTable table) {}
@@ -37,6 +38,14 @@ public class ClimbInput implements SubsystemInput {
 
   public void setBrakeModeEnabled(boolean brakeModeEnabled) {
     this.brakeModeEnabled = brakeModeEnabled;
+  }
+
+  public double getCurrentAngle() {
+    return this.currentAngle;
+  }
+
+  public void setCurrentAngle(double currentAngle) {
+    this.currentAngle = currentAngle;
   }
 
 }

@@ -17,6 +17,8 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
   private CANSparkMax climbMotorLeft;
   private CANSparkMax climbMotorRight;
 
+  private SparkPIDController rollPIDController;
+
   @Override
   public void initialize() {
     if (ENABLED) {
@@ -33,6 +35,10 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
 
       setUpPIDConstants(climbMotorLeft.getPIDController());
       setUpPIDConstants(climbMotorRight.getPIDController());
+
+      rollPIDController.setP(1);
+      rollPIDController.setI(1);
+      rollPIDController.setD(1);
 
       updateBrakeMode();
     }
@@ -54,37 +60,24 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
     }
   }
 
-  private double clampRequestedPosition(double position) {
-    if (position < 0) {
+  private double clampedPosition(double motorPosition) {
+    if (motorPosition < 0) {
       DriverStation.reportWarning(
           "Climb tried to go to " + currentInput.getRequestedPosition() + " value was changed to 0",
           null);
       return 0;
-    } else if (position > RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG) {
+    } else if (motorPosition > RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG) {
       DriverStation.reportWarning("Climb tried to go to " + currentInput.getRequestedPosition()
           + " value was changed to " + RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR, null);
       return RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG;
     } else {
-      return position;
+      return motorPosition;
     }
   }
 
-  private void setPosition(double position) {
-    climbMotorLeft.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
-    climbMotorRight.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
-  }
-
-  public void periodic() {
-    if (ENABLED) {
-
-      double clampedPosition = clampRequestedPosition(currentInput.getRequestedPosition());
-
-      if (ENABLED) {
-        setPosition(clampedPosition);
-
-        updateBrakeMode();
-      }
-    }
+  private double getLeveledPosition(double navXRoll) {
+    double 
+    return clamped
   }
 
   @Override
