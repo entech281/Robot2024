@@ -36,10 +36,10 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
   }
 
   private void setUpPIDConstants(SparkPIDController pIDController) {
-    pIDController.setP(RobotConstants.PID.Pivot.KP);
-    pIDController.setD(RobotConstants.PID.Pivot.KI);
-    pIDController.setI(RobotConstants.PID.Pivot.KD);
-    pIDController.setFF(RobotConstants.PID.Shooter.KFF);
+    pIDController.setP(RobotConstants.PID.SHOOTER.KP);
+    pIDController.setD(RobotConstants.PID.SHOOTER.KI);
+    pIDController.setI(RobotConstants.PID.SHOOTER.KD);
+    pIDController.setFF(RobotConstants.PID.SHOOTER.KFF);
   }
 
   private void updateBrakeMode() {
