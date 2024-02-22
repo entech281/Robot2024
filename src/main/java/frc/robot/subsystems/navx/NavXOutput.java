@@ -24,20 +24,20 @@ public class NavXOutput extends SubsystemOutput {
 
   @Override
   public void toLog() {
-    Logger.recordOutput("navXOutput/yaw", yaw);
-    Logger.recordOutput("navXOutput/pitch", pitch);
-    Logger.recordOutput("navXOutput/roll", roll);
-    Logger.recordOutput("navXOutput/yawRate", yawRate);
-    Logger.recordOutput("navXOutput/zVelocity", zVelocity);
-    Logger.recordOutput("navXOutput/temperature", temperature);
-    Logger.recordOutput("navXOutput/compassHeading", compassHeading);
-    Logger.recordOutput("navXOutput/angleAdjustment", angleAdjustment);
-    Logger.recordOutput("navXOutput/isCalibrating", isCalibrating);
-    Logger.recordOutput("navXOutput/isMoving", isMoving);
-    Logger.recordOutput("navXOutput/isMoving", isRotating);
-    Logger.recordOutput("navXOutput/isMagnetometerCalibrated", isMagnetometerCalibrated);
-    Logger.recordOutput("navXOutput/isMagneticDisturbance", isMagneticDisturbance);
-    Logger.recordOutput("navXOutput/chassisSpeeds", compassHeading);
+    Logger.recordOutput("NavXOutput/yaw", yaw);
+    Logger.recordOutput("NavXOutput/pitch", pitch);
+    Logger.recordOutput("NavXOutput/roll", roll);
+    Logger.recordOutput("NavXOutput/yawRate", yawRate);
+    Logger.recordOutput("NavXOutput/zVelocity", zVelocity);
+    Logger.recordOutput("NavXOutput/temperature", temperature);
+    Logger.recordOutput("NavXOutput/compassHeading", compassHeading);
+    Logger.recordOutput("NavXOutput/angleAdjustment", angleAdjustment);
+    Logger.recordOutput("NavXOutput/isCalibrating", isCalibrating);
+    Logger.recordOutput("NavXOutput/isMoving", isMoving);
+    Logger.recordOutput("NavXOutput/isMoving", isRotating);
+    Logger.recordOutput("NavXOutput/isMagnetometerCalibrated", isMagnetometerCalibrated);
+    Logger.recordOutput("NavXOutput/isMagneticDisturbance", isMagneticDisturbance);
+    Logger.recordOutput("NavXOutput/chassisSpeeds", compassHeading);
   }
 
 

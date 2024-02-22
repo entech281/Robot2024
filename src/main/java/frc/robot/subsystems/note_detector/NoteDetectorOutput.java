@@ -2,6 +2,7 @@ package frc.robot.subsystems.note_detector;
 
 import java.util.List;
 import java.util.Optional;
+import org.littletonrobotics.junction.Logger;
 import org.opencv.core.Point;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import org.photonvision.targeting.TargetCorner;
@@ -26,6 +27,15 @@ public class NoteDetectorOutput extends SubsystemOutput {
   }
 
   @Override
-  public void toLog() {}
+  public void toLog() {
+    Logger.recordOutput("NoteDetectorOutput/hasNotes", hasNotes);
 
+    if (selectedNote.isPresent()) {
+      Logger.recordOutput("NoteDetectorOutput/selectedNote", selectedNote.get());
+    }
+
+    for (int i = 0; i < notes.size(); i++) {
+      Logger.recordOutput("NoteDetectorOutput/note" + i, notes.get(i));
+    }
+  }
 }

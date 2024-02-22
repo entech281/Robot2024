@@ -11,10 +11,10 @@ public class PivotOutput extends SubsystemOutput {
 
   @Override
   public void toLog() {
-    Logger.recordOutput("pivotOutput/moving", moving);
-    Logger.recordOutput("pivotOutput/leftBrakeModeEnabled", leftBrakeModeEnabled);
-    Logger.recordOutput("pivotOutput/rightBrakeModeEnabled", rightBrakeModeEnabled);
-    Logger.recordOutput("pivotOutput/currentPosition", currentPosition);
+    Logger.recordOutput("PivotOutput/moving", moving);
+    Logger.recordOutput("PivotOutput/leftBrakeModeEnabled", leftBrakeModeEnabled);
+    Logger.recordOutput("PivotOutput/rightBrakeModeEnabled", rightBrakeModeEnabled);
+    Logger.recordOutput("PivotOutput/currentPosition", currentPosition);
   }
 
   public boolean isMoving() {

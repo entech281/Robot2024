@@ -8,8 +8,8 @@ public abstract class SubsystemOutputBasics extends SubsystemOutput {
   protected boolean brakeModeEnabled;
   protected final String key;
 
-  protected SubsystemOutputBasics(String key) {
-    this.key = key;
+  protected SubsystemOutputBasics() {
+    this.key = this.getClass().getSimpleName();
   }
 
   public boolean isActive() {

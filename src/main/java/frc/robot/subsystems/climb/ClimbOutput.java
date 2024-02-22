@@ -1,8 +1,9 @@
 package frc.robot.subsystems.climb;
 
+import org.littletonrobotics.junction.Logger;
 import entech.subsystems.SubsystemOutput;
 
-public class ClimbOutput implements SubsystemOutput {
+public class ClimbOutput extends SubsystemOutput {
 
   private boolean active;
   private double currentPosition;
@@ -10,7 +11,12 @@ public class ClimbOutput implements SubsystemOutput {
   private boolean extended;
 
   @Override
-  public void log() {}
+  public void toLog() {
+    Logger.recordOutput("ClimbOutput/active", active);
+    Logger.recordOutput("ClimbOutput/currentPosition", currentPosition);
+    Logger.recordOutput("ClimbOutput/brakeModeEnabled", brakeModeEnabled);
+    Logger.recordOutput("ClimbOutput/extended", extended);
+  }
 
   public boolean isActive() {
     return active;

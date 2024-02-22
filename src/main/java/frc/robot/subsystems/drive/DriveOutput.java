@@ -12,9 +12,9 @@ public class DriveOutput extends SubsystemOutput {
 
   @Override
   public void toLog() {
-    Logger.recordOutput("driveOutput/modulePositions", modulePositions);
-    Logger.recordOutput("driveOutput/rawAbsoluteEncoders", rawAbsoluteEncoders);
-    Logger.recordOutput("driveOutput/virtualAbsoluteEncoders", virtualAbsoluteEncoders);
+    Logger.recordOutput("DriveOutput/modulePositions", modulePositions);
+    Logger.recordOutput("DriveOutput/rawAbsoluteEncoders", rawAbsoluteEncoders);
+    Logger.recordOutput("DriveOutput/virtualAbsoluteEncoders", virtualAbsoluteEncoders);
   }
 
   public SwerveModulePosition[] getModulePositions() {

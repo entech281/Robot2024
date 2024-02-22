@@ -19,15 +19,15 @@ public class VisionOutput extends SubsystemOutput {
   @Override
   public void toLog() {
     if (timeStamp.isPresent() && estimatedPose.isPresent()) {
-      Logger.recordOutput("visionOutput/timeStamp", timeStamp.get());
-      Logger.recordOutput("visionOutput/estimatedPose", estimatedPose.get());
+      Logger.recordOutput("VisionOutput/timeStamp", timeStamp.get());
+      Logger.recordOutput("VisionOutput/estimatedPose", estimatedPose.get());
     }
 
-    Logger.recordOutput("visionOutput/latency", latency);
-    Logger.recordOutput("visionOutput/numberOfTargets", numberOfTargets);
-    Logger.recordOutput("visionOutput/hasTargets", hasTargets);
+    Logger.recordOutput("VisionOutput/latency", latency);
+    Logger.recordOutput("VisionOutput/numberOfTargets", numberOfTargets);
+    Logger.recordOutput("VisionOutput/hasTargets", hasTargets);
     for (int i = 0; i < numberOfTargets; i++) {
-      Logger.recordOutput("visionOutput/target" + i, targets.get(i));
+      Logger.recordOutput("VisionOutput/target" + i, targets.get(i));
     }
   }
 
