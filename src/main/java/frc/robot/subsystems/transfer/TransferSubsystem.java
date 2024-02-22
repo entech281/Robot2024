@@ -15,7 +15,6 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
     Shooting, Transfering, Intaking, Off
   }
 
-
   private TransferInput currentInput = new TransferInput();
 
   private CANSparkMax transferMotor;
