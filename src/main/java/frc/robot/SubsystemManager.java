@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.io.RobotIO;
+import frc.robot.subsystems.climb.ClimbSubsystem;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.navx.NavXSubsystem;
@@ -25,6 +26,7 @@ public class SubsystemManager {
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private final TransferSubsystem transferSubsystem = new TransferSubsystem();
   private final PivotSubsystem pivotSubsystem = new PivotSubsystem();
+  private final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
 
   public SubsystemManager() {
     navXSubsystem.initialize();
@@ -34,6 +36,7 @@ public class SubsystemManager {
     shooterSubsystem.initialize();
     transferSubsystem.initialize();
     pivotSubsystem.initialize();
+    climbSubsystem.initialize();
 
     periodic();
   }
@@ -66,8 +69,15 @@ public class SubsystemManager {
     return pivotSubsystem;
   }
 
+  public ClimbSubsystem getClimbSubsystem() {
+    return climbSubsystem;
+  }
+
   public void periodic() {
     RobotIO outputs = RobotIO.getInstance();
+    if (climbSubsystem.isEnabled()) {
+      outputs.updateClimb(climbSubsystem.getOutputs());
+    }
     if (visionSubsystem.isEnabled()) {
       outputs.updateVision(visionSubsystem.getOutputs());
     }
