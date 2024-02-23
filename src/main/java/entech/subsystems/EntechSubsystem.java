@@ -23,8 +23,8 @@ public abstract class EntechSubsystem<I extends SubsystemInput, R extends Subsys
 
   public R getOutputs() {
     R out = toOutputs();
-    out.setCurrentCommand(this.getCurrentCommand().toString());
-    out.setDefaultCommand(this.getDefaultCommand().toString());
+    out.setCurrentCommand(this.getCurrentCommand() + "");
+    out.setDefaultCommand(this.getDefaultCommand() + "");
     return out;
   }
 }
