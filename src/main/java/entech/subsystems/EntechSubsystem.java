@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 package entech.subsystems;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public abstract class EntechSubsystem<I extends SubsystemInput, R extends SubsystemOutput>
@@ -19,6 +20,9 @@ public abstract class EntechSubsystem<I extends SubsystemInput, R extends Subsys
 
   public abstract void updateInputs(I input);
 
+  public abstract Command getTestCommand();
+
+
   public abstract R toOutputs();
 
   public R getOutputs() {
@@ -27,4 +31,5 @@ public abstract class EntechSubsystem<I extends SubsystemInput, R extends Subsys
     out.setDefaultCommand(this.getDefaultCommand() + "");
     return out;
   }
+
 }
