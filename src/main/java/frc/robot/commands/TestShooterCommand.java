@@ -19,6 +19,7 @@ public class TestShooterCommand extends EntechCommand {
     this.sSubsystem = subsystem;
   }
 
+  @Override
   public void initialize() {
     counter.reset();
     input.setActivate(true);
@@ -27,12 +28,16 @@ public class TestShooterCommand extends EntechCommand {
     sSubsystem.updateInputs(input);
   }
 
-  public void execute() {
-    isFinished(counter.isFinished(sSubsystem.getOutputs().isActive()));
+  @Override
+  public void end(boolean interupted) {
+    input.setActivate(false);
+    input.setSpeed(0);
+    sSubsystem.updateInputs(input);
   }
 
-  public boolean isFinished(boolean isFinished) {
-    return isFinished;
+  @Override
+  public boolean isFinished() {
+    return counter.isFinished(sSubsystem.getOutputs().isActive());
   }
 
 }

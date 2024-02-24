@@ -20,6 +20,7 @@ public class TestPivotCommand extends EntechCommand {
     this.pSubsystem = subsystem;
   }
 
+  @Override
   public void initialize() {
     counter.reset();
     input.setActivate(true);
@@ -28,19 +29,17 @@ public class TestPivotCommand extends EntechCommand {
     pSubsystem.updateInputs(input);
   }
 
-  public void execute() {
-    isFinished(counter
-        .isFinished(IsWithinTolerance.isWithinTolerance(RobotConstants.PIVOT.TEST_TOLERANCE_DEG,
-            pSubsystem.getOutputs().getCurrentPosition(), RobotConstants.PIVOT.TEST_POSITION_DEG)));
-  }
-
-  public void end() {
+  @Override
+  public void end(boolean interupted) {
     input.setRequestedPosition(0);
     input.setActivate(false);
     pSubsystem.updateInputs(input);
   }
 
-  public boolean isFinished(boolean isFinished) {
-    return isFinished;
+  @Override
+  public boolean isFinished() {
+    return counter
+        .isFinished(IsWithinTolerance.isWithinTolerance(RobotConstants.PIVOT.TEST_TOLERANCE_DEG,
+            pSubsystem.getOutputs().getCurrentPosition(), RobotConstants.PIVOT.TEST_POSITION_DEG));
   }
 }

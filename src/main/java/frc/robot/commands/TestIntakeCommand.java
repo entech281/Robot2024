@@ -25,16 +25,14 @@ public class TestIntakeCommand extends EntechCommand {
     intake.updateInputs(intakeI);
   }
 
-  public void execute() {
-    isFinished(stopCounter.isFinished(intake.getOutputs().isActive()));
-  }
-
-  public void end() {
+  @Override
+  public void end(boolean interupted) {
     intakeI.setActivate(false);
     intake.updateInputs(intakeI);
   }
 
-  public boolean isFinished(boolean isFinished) {
-    return isFinished;
+  @Override
+  public boolean isFinished() {
+    return stopCounter.isFinished(intake.getOutputs().isActive());
   }
 }

@@ -20,6 +20,7 @@ public class TestClimbCommand extends EntechCommand {
     this.cSubsystem = subsystem;
   }
 
+  @Override
   public void initialize() {
     counter.reset();
     input.setActivate(true);
@@ -28,19 +29,17 @@ public class TestClimbCommand extends EntechCommand {
     cSubsystem.updateInputs(input);
   }
 
-  public void execute() {
-    isFinished(counter
-        .isFinished(IsWithinTolerance.isWithinTolerance(RobotConstants.CLIMB.TEST_TOLERANCE_IN,
-            cSubsystem.getOutputs().getCurrentPosition(), RobotConstants.CLIMB.TEST_POSITION_IN)));
-  }
-
-  public void end() {
+  @Override
+  public void end(boolean interupted) {
     input.setActivate(false);
     input.setRequestedPosition(0);
     cSubsystem.updateInputs(input);
   }
 
-  public boolean isFinished(boolean isFinished) {
-    return isFinished;
+  @Override
+  public boolean isFinished() {
+    return counter
+        .isFinished(IsWithinTolerance.isWithinTolerance(RobotConstants.CLIMB.TEST_TOLERANCE_IN,
+            cSubsystem.getOutputs().getCurrentPosition(), RobotConstants.CLIMB.TEST_POSITION_IN));
   }
 }

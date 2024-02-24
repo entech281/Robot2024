@@ -4,7 +4,7 @@ public class IsWithinTolerance {
 
   public static boolean isWithinTolerance(double tolerance, double value,
       double requestedPosition) {
-    if (value < requestedPosition + tolerance || value > requestedPosition - tolerance) {
+    if (Math.abs(requestedPosition) - tolerance < value) {
       return true;
     } else {
       return false;

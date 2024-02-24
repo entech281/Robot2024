@@ -19,6 +19,7 @@ public class TestTransferCommand extends EntechCommand {
     this.tSubsystem = subsystem;
   }
 
+  @Override
   public void initialize() {
     counter.reset();
     input.setActivate(true);
@@ -27,18 +28,16 @@ public class TestTransferCommand extends EntechCommand {
     tSubsystem.updateInputs(input);
   }
 
-  public void execute() {
-    isFinished(counter.isFinished(tSubsystem.getOutputs().isActive()));
-  }
-
-  public void end() {
+  @Override
+  public void end(boolean interupted) {
     input.setActivate(false);
     input.setBrakeModeEnabled(false);
     input.setCurrentMode(TransferStatus.Off);
     tSubsystem.updateInputs(input);
   }
 
-  public boolean isFinished(boolean isFinished) {
-    return isFinished;
+  @Override
+  public boolean isFinished() {
+    return counter.isFinished(tSubsystem.getOutputs().isActive());
   }
 }

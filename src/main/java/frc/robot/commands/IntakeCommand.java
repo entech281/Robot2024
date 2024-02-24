@@ -38,6 +38,7 @@ public class IntakeCommand extends EntechCommand {
     transSubsystem.updateInputs(tInput);
   }
 
+  @Override
   public boolean isFinished() {
     return hNOutput.getOutputs().hasNote();
   }
