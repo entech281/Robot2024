@@ -2,12 +2,13 @@ package frc.robot.subsystems.note_detector;
 
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
+import org.opencv.core.Point;
 import org.photonvision.PhotonCamera;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
+import org.photonvision.targeting.TargetCorner;
 
 public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, NoteDetectorOutput> {
   private static final boolean ENABLED = false;
@@ -55,10 +56,8 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   @Override
   public NoteDetectorOutput getOutputs() {
     NoteDetectorOutput output = new NoteDetectorOutput();
-
-    output.hasNotes = !notes.isEmpty();
-    if (output.hasNotes) {
-      output.selectedNote = chooseNote();
+    if (!output.getNotes().isEmpty()) {
+      output.setSelectedNote(getChosenNote());
     }
 
     return output;
@@ -77,5 +76,6 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
       updateNoteDetectorData();
     }
   }
-  
+
+
 }
