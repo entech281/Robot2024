@@ -44,6 +44,7 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
     output.setNumberOfTargets(targets.size());
     output.setTimeStamp(getTimeStamp());
     output.setTargets(targets);
+    output.setTargetsData(cameras.getTargetData());
 
     return output;
   }

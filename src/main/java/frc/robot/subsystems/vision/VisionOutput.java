@@ -15,6 +15,7 @@ public class VisionOutput extends SubsystemOutput {
   private int numberOfTargets;
   private boolean hasTargets;
   private List<PhotonTrackedTarget> targets;
+  private List<EntechTargetData> targetsData;
 
   @Override
   public void toLog() {
@@ -28,6 +29,11 @@ public class VisionOutput extends SubsystemOutput {
     Logger.recordOutput("VisionOutput/hasTargets", hasTargets);
     for (int i = 0; i < numberOfTargets; i++) {
       Logger.recordOutput("VisionOutput/target" + i, targets.get(i));
+    }
+
+    for (int i = 0; i < targetsData.size(); i++) {
+      Logger.recordOutput("VisionOutput/targetData/" + targetsData.get(i).getCameraName(),
+          targetsData.get(i));
     }
   }
 
@@ -81,5 +87,13 @@ public class VisionOutput extends SubsystemOutput {
 
   public void setTargets(List<PhotonTrackedTarget> targets) {
     this.targets = targets;
+  }
+
+  public List<EntechTargetData> getTargetsData() {
+    return this.targetsData;
+  }
+
+  public void setTargetsData(List<EntechTargetData> targetsData) {
+    this.targetsData = targetsData;
   }
 }

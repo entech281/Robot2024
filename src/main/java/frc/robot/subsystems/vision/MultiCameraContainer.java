@@ -89,4 +89,13 @@ public class MultiCameraContainer implements CameraContainerI {
     }
     return hasTargets;
   }
+
+  @Override
+  public List<EntechTargetData> getTargetData() {
+    List<EntechTargetData> data = new ArrayList<>();
+    for (CameraContainerI cameraContainer : cameraContainers) {
+      data.addAll(cameraContainer.getTargetData());
+    }
+    return data;
+  }
 }

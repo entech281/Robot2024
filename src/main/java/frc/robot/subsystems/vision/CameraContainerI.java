@@ -1,9 +1,9 @@
 package frc.robot.subsystems.vision;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import org.photonvision.targeting.PhotonPipelineResult;
-
+import java.util.List;
 import java.util.Optional;
+import org.photonvision.targeting.PhotonPipelineResult;
+import edu.wpi.first.math.geometry.Pose2d;
 
 public interface CameraContainerI {
   PhotonPipelineResult getFilteredResult();
@@ -15,4 +15,6 @@ public interface CameraContainerI {
   boolean hasTargets();
 
   int getTargetCount();
+
+  List<EntechTargetData> getTargetData();
 }

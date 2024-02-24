@@ -9,11 +9,12 @@ import frc.robot.subsystems.drive.DriveSubsystem;
 
 public class TestDriveCommand extends EntechCommand {
   private final DriveSubsystem drive;
-  private final StoppingCounter counter = new StoppingCounter(this.getClass().getSimpleName(), 150);
-  private static final double DRIVE_POWER = 0.25;
+  private final StoppingCounter counter = new StoppingCounter(this.getClass().getSimpleName(), 50);
+  private static final double DRIVE_POWER = 0.15;
   private int stage = 0;
 
   public TestDriveCommand(DriveSubsystem driveSubsystem) {
+    super(driveSubsystem);
     this.drive = driveSubsystem;
   }
 
@@ -51,6 +52,9 @@ public class TestDriveCommand extends EntechCommand {
       case 6:
         input.setRotation(-DRIVE_POWER);
         break;
+      case 7:
+        input.setXSpeed(DRIVE_POWER);
+        break;
       default:
         break;
     }
@@ -65,7 +69,9 @@ public class TestDriveCommand extends EntechCommand {
 
   @Override
   public void initialize() {
+    counter.reset();
     DriveInput stop = new DriveInput();
+    stage = 0;
 
     stop.setLatestOdometryPose(new Pose2d());
     stop.setGyroAngle(new Rotation2d());
@@ -78,7 +84,7 @@ public class TestDriveCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return stage >= 5;
+    return stage >= 8;
   }
 
   @Override

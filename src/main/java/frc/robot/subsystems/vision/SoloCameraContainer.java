@@ -82,4 +82,17 @@ public class SoloCameraContainer implements CameraContainerI {
   public int getTargetCount() {
     return getFilteredResult().getTargets().size();
   }
+
+  @Override
+  public List<EntechTargetData> getTargetData() {
+    List<PhotonTrackedTarget> targets = getFilteredResult().getTargets();
+    List<Integer> targetIds = new ArrayList<>();
+    for (PhotonTrackedTarget target : targets) {
+      targetIds.add(target.getFiducialId());
+    }
+
+    List<EntechTargetData> data = new ArrayList<>();
+    data.add(new EntechTargetData(targetIds, camera.getName()));
+    return data;
+  }
 }
