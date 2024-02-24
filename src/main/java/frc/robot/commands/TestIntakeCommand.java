@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.intake.IntakeSubsystem;
 import entech.commands.EntechCommand;
+import entech.util.PeriodicLoopsPerSecond;
 import entech.util.StoppingCounter;
 import frc.robot.subsystems.intake.IntakeInput;
 
@@ -9,7 +10,8 @@ public class TestIntakeCommand extends EntechCommand {
 
   private IntakeSubsystem intake = new IntakeSubsystem();
   private IntakeInput intakeI = new IntakeInput();
-  private StoppingCounter stopCounter = new StoppingCounter(getClass().getSimpleName(), 100);
+  private StoppingCounter stopCounter =
+      new StoppingCounter(getClass().getSimpleName(), PeriodicLoopsPerSecond.getLoopsPerSecond(1));
 
   public TestIntakeCommand(IntakeSubsystem intakeSubsystem) {
     super(intakeSubsystem);

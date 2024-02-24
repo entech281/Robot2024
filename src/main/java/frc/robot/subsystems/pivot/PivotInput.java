@@ -4,6 +4,8 @@ import org.littletonrobotics.junction.LogTable;
 import entech.subsystems.SubsystemInput;
 
 public class PivotInput implements SubsystemInput {
+
+  private boolean activate = false;
   private double requestedPosition = 0.0;
   private boolean brakeModeEnabled = false;
 
@@ -17,6 +19,14 @@ public class PivotInput implements SubsystemInput {
   public void fromLog(LogTable table) {
     requestedPosition = table.get("Requested position", 0.0);
     brakeModeEnabled = table.get("Brake Mode Enabled", true);
+  }
+
+  public boolean getActivate() {
+    return this.activate;
+  }
+
+  public void setActivate(boolean activate) {
+    this.activate = activate;
   }
 
   public double getRequestedPosition() {
