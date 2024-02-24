@@ -77,6 +77,9 @@ public class SubsystemManager {
     return pivotSubsystem;
   }
 
+  public ClimbSubsystem getClimbSubsystem() {
+    return climbSubsystem;
+  }
 
   public List<EntechSubsystem<?, ?>> getSubsystemList() {
     ArrayList<EntechSubsystem<?, ?>> r = new ArrayList<>();
@@ -87,6 +90,7 @@ public class SubsystemManager {
     r.add(shooterSubsystem);
     r.add(transferSubsystem);
     r.add(pivotSubsystem);
+    r.add(climbSubsystem);
     return r;
   }
 
@@ -121,6 +125,10 @@ public class SubsystemManager {
 
     if (pivotSubsystem.isEnabled()) {
       outputs.updatePivot(pivotSubsystem.getOutputs());
+    }
+
+    if (climbSubsystem.isEnabled()) {
+      outputs.updateClimb(climbSubsystem.getOutputs());
     }
   }
 }
