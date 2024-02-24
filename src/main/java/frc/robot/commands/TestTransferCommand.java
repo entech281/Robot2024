@@ -10,7 +10,7 @@ public class TestTransferCommand extends EntechCommand {
 
   private TransferInput input = new TransferInput();
   private TransferSubsystem tSubsystem = new TransferSubsystem();
-  private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(), 75);
+  private private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(), 75);
 
   private int stage = 0;
 
@@ -30,11 +30,12 @@ public class TestTransferCommand extends EntechCommand {
   public void execute() {
     switch (stage) {
       case 1:
-
+        if()
+        break;
       case 2:
-
+        break;
       default:
-
+        break;
     }
     counter.isFinished(tSubsystem.getOutputs().isActive());
   }
