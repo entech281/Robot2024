@@ -5,6 +5,8 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import entech.subsystems.EntechSubsystem;
 
 public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
@@ -12,7 +14,7 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
   private AHRS gyro;
 
   @Override
-  public NavXOutput getOutputs() {
+  public NavXOutput toOutputs() {
     NavXOutput output = new NavXOutput();
 
     output.setYaw(gyro.getAngle());
@@ -55,7 +57,8 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
 
   private ChassisSpeeds getChassisSpeeds() {
     double radiansPerSecond = Units.degreesToRadians(gyro.getRate());
-    return ChassisSpeeds.fromRobotRelativeSpeeds(gyro.getVelocityX(), gyro.getVelocityY(), radiansPerSecond, gyro.getRotation2d());
+    return ChassisSpeeds.fromRobotRelativeSpeeds(gyro.getVelocityX(), gyro.getVelocityY(),
+        radiansPerSecond, gyro.getRotation2d());
   }
 
   @Override
@@ -70,5 +73,10 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
 
   public void zeroYaw() {
     gyro.zeroYaw();
+  }
+
+  @Override
+  public Command getTestCommand() {
+    return Commands.none();
   }
 }

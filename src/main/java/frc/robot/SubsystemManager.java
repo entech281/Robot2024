@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import entech.subsystems.EntechSubsystem;
 import frc.robot.io.RobotIO;
 import frc.robot.subsystems.climb.ClimbSubsystem;
 import frc.robot.subsystems.drive.DriveSubsystem;
@@ -14,6 +18,10 @@ import frc.robot.subsystems.shooter.ShooterSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 import frc.robot.subsystems.vision.VisionSubsystem;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Manages the subsystems and the interactions between them.
@@ -69,8 +77,17 @@ public class SubsystemManager {
     return pivotSubsystem;
   }
 
-  public ClimbSubsystem getClimbSubsystem() {
-    return climbSubsystem;
+
+  public List<EntechSubsystem<?, ?>> getSubsystemList() {
+    ArrayList<EntechSubsystem<?, ?>> r = new ArrayList<>();
+    r.add(navXSubsystem);
+    r.add(driveSubsystem);
+    r.add(visionSubsystem);
+    r.add(intakeSubsystem);
+    r.add(shooterSubsystem);
+    r.add(transferSubsystem);
+    r.add(pivotSubsystem);
+    return r;
   }
 
   public void periodic() {

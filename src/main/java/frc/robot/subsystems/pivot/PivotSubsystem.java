@@ -5,6 +5,8 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 
@@ -96,12 +98,16 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   }
 
   @Override
-  public PivotOutput getOutputs() {
+  public PivotOutput toOutputs() {
     PivotOutput pivotOutput = new PivotOutput();
     pivotOutput.setMoving(pivotLeft.getEncoder().getVelocity() != 0);
     pivotOutput.setLeftBrakeModeEnabled(IdleMode.kBrake == pivotLeft.getIdleMode());
     pivotOutput.setRightBrakeModeEnabled(IdleMode.kBrake == pivotRight.getIdleMode());
     pivotOutput.setCurrentPosition(pivotLeft.getEncoder().getPosition());
     return pivotOutput;
+  }
+  @Override
+  public Command getTestCommand() {
+    return Commands.none();
   }
 }

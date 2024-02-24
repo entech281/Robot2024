@@ -11,7 +11,12 @@ public class ClimbInput implements SubsystemInput {
   private double currentAngle = 0.0;
 
   @Override
-  public void toLog(LogTable table) {}
+  public void toLog(LogTable table) {
+    table.put("activate", activate);
+    table.put("brakeModeEnabled", brakeModeEnabled);
+    table.put("requestedPosition", requestedPosition);
+    table.put("currentAngle", currentAngle);
+  }
 
   @Override
   public void fromLog(LogTable table) {}
