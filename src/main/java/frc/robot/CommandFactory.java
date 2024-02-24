@@ -126,16 +126,17 @@ public class CommandFactory {
   }
 
   private static void addSubsystemTest(SequentialCommandGroup group, EntechSubsystem<?,?> subsystem){
+
     group.addCommands(
         Commands.run( () ->{
-          Logger.recordOutput(
-              String.format("Start Test: %s",subsystem.getName())
+          Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
+              String.format("%s: Start", subsystem.getName())
           );
         }),
         subsystem.getTestCommand(),
         Commands.run( () ->{
-          Logger.recordOutput(
-              String.format("Finished Test: %s",subsystem.getName())
+          Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
+              String.format("%s: Finished",subsystem.getName())
           );
         })
     );
