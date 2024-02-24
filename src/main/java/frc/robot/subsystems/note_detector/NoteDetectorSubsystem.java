@@ -1,22 +1,18 @@
 package frc.robot.subsystems.note_detector;
 
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import entech.subsystems.EntechSubsystem;
-import frc.robot.RobotConstants;
-import org.photonvision.PhotonCamera;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
+import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
+import frc.robot.commands.TestNoteDetectorCommand;
 
 public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, NoteDetectorOutput> {
-  private static final boolean ENABLED = false;
+  private static final boolean ENABLED = true;
 
   private PhotonCamera colorCamera;
   private PhotonTrackedTarget chosenNote;
@@ -48,25 +44,23 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
 
   public Optional<PhotonTrackedTarget> chooseNote() {
     double highestArea = 0;
-    PhotonTrackedTarget curatedNote;
+    PhotonTrackedTarget curatedNote = null;
     for (PhotonTrackedTarget currentNote : notes) {
       if (currentNote.getArea() > highestArea) {
         highestArea = currentNote.getArea();
         curatedNote = currentNote;
       }
     }
-    return ENABLED ? Optional.of(curatedNote) : Optional.empty();
+    return ENABLED && curatedNote != null ? Optional.of(curatedNote) : Optional.empty();
   }
 
   @Override
   public NoteDetectorOutput toOutputs() {
     NoteDetectorOutput output = new NoteDetectorOutput();
 
-    output.hasNotes = !notes.isEmpty();
-    if (output.hasNotes) {
-      output.selectedNote = chooseNote();
-    }
-
+    output.setHasNotes(!notes.isEmpty());
+    output.setSelectedNote(chooseNote());
+    output.setNotes(notes);
     return output;
   }
 
@@ -80,12 +74,17 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   @Override
   public void periodic() {
     if (ENABLED) {
+      updateNotes();
       updateNoteDetectorData();
     }
   }
+
   @Override
   public Command getTestCommand() {
-    return Commands.none();
+    return new TestNoteDetectorCommand(this);
   }
 
+  private void updateNotes() {
+    notes = colorCamera.getLatestResult().targets;
+  }
 }

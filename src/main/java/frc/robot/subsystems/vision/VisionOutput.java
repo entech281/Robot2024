@@ -32,8 +32,11 @@ public class VisionOutput extends SubsystemOutput {
     }
 
     for (int i = 0; i < targetsData.size(); i++) {
-      Logger.recordOutput("VisionOutput/targetData/" + targetsData.get(i).getCameraName(),
-          targetsData.get(i));
+      for (int j = 0; j < targetsData.get(i).getIds().size(); j++) {
+        Logger.recordOutput(
+            "VisionOutput/targetData/" + targetsData.get(i).getCameraName() + "/id" + j,
+            targetsData.get(i).getIds().get(j));
+      }
     }
   }
 

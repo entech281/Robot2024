@@ -11,16 +11,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
+import frc.robot.commands.TestVisionCommand;
 
 public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> {
   private static final boolean ENABLED = true;
@@ -105,8 +104,9 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
   public Optional<Double> getTimeStamp() {
     return ENABLED && timeStamp != -1 ? Optional.of(timeStamp) : Optional.empty();
   }
+
   @Override
   public Command getTestCommand() {
-    return Commands.none();
+    return new TestVisionCommand(this);
   }
 }

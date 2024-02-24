@@ -3,7 +3,12 @@ package frc.robot;
 import com.revrobotics.CANSparkBase.IdleMode;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.geometry.*;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
@@ -165,7 +170,7 @@ public final class RobotConstants {
     public static interface Cameras {
       public static final String FRONT_LEFT = "Arducam_Bravo";
       public static final String FRONT_RIGHT = "Arducam_Alpha";
-      public static final String COLOR = "I don't know";
+      public static final String COLOR = "HD_Pro_Webcam_C920";
     }
 
 

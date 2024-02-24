@@ -1,9 +1,8 @@
 package frc.robot.subsystems.vision;
 
 import java.util.List;
-import edu.wpi.first.util.protobuf.ProtobufSerializable;
 
-public class EntechTargetData implements ProtobufSerializable {
+public class EntechTargetData {
   private final List<Integer> ids;
   private final String cameraName;
 

@@ -14,10 +14,10 @@ import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.DrivetrainConstants;
+import frc.robot.commands.TestDriveCommand;
 
 /**
  * The {@code Drivetrain} class contains fields and methods pertaining to the function of the
@@ -134,6 +134,8 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
             frontRight.getTurningAbsoluteEncoder().getVirtualPosition(),
             rearLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
             rearRight.getTurningAbsoluteEncoder().getVirtualPosition()});
+    output.setModuleStates(new SwerveModuleState[] {frontLeft.getState(), frontRight.getState(),
+        rearLeft.getState(), rearRight.getState()});
     return output;
   }
 
@@ -243,6 +245,6 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
 
   @Override
   public Command getTestCommand() {
-    return Commands.none();
+    return new TestDriveCommand(this);
   }
 }

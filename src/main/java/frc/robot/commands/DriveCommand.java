@@ -1,6 +1,8 @@
 package frc.robot.commands;
 
+import org.littletonrobotics.junction.Logger;
 import entech.commands.EntechCommand;
+import frc.robot.RobotConstants;
 import frc.robot.io.DriveInputSupplier;
 import frc.robot.processors.DriveInputProcessor;
 import frc.robot.subsystems.drive.DriveInput;
@@ -27,6 +29,7 @@ public class DriveCommand extends EntechCommand {
     stop.setYSpeed(0.0);
 
     drive.updateInputs(stop);
+    Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
   }
 
   @Override

@@ -10,17 +10,19 @@ import entech.subsystems.SubsystemOutput;
 
 public class NoteDetectorOutput extends SubsystemOutput {
 
-  public boolean hasNotes;
-  public Optional<PhotonTrackedTarget> selectedNote;
-  public List<PhotonTrackedTarget> notes;
+  private boolean hasNotes;
+  private Optional<PhotonTrackedTarget> selectedNote;
+  private List<PhotonTrackedTarget> notes;
 
-  public Point getNoteMidpoint(TargetCorner bottomLeft, TargetCorner topRight) {
+  private Point getNoteMidpoint(TargetCorner bottomLeft, TargetCorner topRight) {
     Point midpoint = new Point((bottomLeft.x + topRight.x) / 2, (bottomLeft.y + topRight.y) / 2);
     return midpoint;
   }
 
   public Point getCenterOfClosestNote(PhotonTrackedTarget closestNote) {
-    List<TargetCorner> corners = closestNote.getDetectedCorners();
+    List<TargetCorner> corners = closestNote.getMinAreaRectCorners();
+    if (corners.isEmpty())
+      return null;
     TargetCorner bottomLeft = corners.get(0);
     TargetCorner topRight = corners.get(2);
     return getNoteMidpoint(bottomLeft, topRight);
@@ -37,5 +39,29 @@ public class NoteDetectorOutput extends SubsystemOutput {
     for (int i = 0; i < notes.size(); i++) {
       Logger.recordOutput("NoteDetectorOutput/note" + i, notes.get(i));
     }
+  }
+
+  public boolean hasNotes() {
+    return this.hasNotes;
+  }
+
+  public void setHasNotes(boolean hasNotes) {
+    this.hasNotes = hasNotes;
+  }
+
+  public Optional<PhotonTrackedTarget> getSelectedNote() {
+    return this.selectedNote;
+  }
+
+  public void setSelectedNote(Optional<PhotonTrackedTarget> selectedNote) {
+    this.selectedNote = selectedNote;
+  }
+
+  public List<PhotonTrackedTarget> getNotes() {
+    return this.notes;
+  }
+
+  public void setNotes(List<PhotonTrackedTarget> notes) {
+    this.notes = notes;
   }
 }

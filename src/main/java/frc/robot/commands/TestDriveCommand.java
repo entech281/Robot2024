@@ -2,6 +2,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import entech.commands.EntechCommand;
 import entech.util.StoppingCounter;
 import frc.robot.subsystems.drive.DriveInput;
@@ -55,6 +56,12 @@ public class TestDriveCommand extends EntechCommand {
       case 7:
         input.setXSpeed(DRIVE_POWER);
         break;
+      case 8:
+        double sum = 0;
+        for (SwerveModuleState state : drive.getOutputs().getModuleStates()) {
+          sum += state.speedMetersPerSecond;
+        }
+        counter.isFinished(sum < 0.0001);
       default:
         break;
     }
@@ -84,7 +91,7 @@ public class TestDriveCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return stage >= 8;
+    return stage >= 9;
   }
 
   @Override
