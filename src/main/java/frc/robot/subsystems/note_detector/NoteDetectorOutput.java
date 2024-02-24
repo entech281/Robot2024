@@ -7,12 +7,36 @@ import org.opencv.core.Point;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import org.photonvision.targeting.TargetCorner;
 import entech.subsystems.SubsystemOutput;
+import frc.robot.RobotConstants;
+import java.util.List;
+import java.util.Optional;
 
 public class NoteDetectorOutput extends SubsystemOutput {
 
-  public boolean hasNotes;
-  public Optional<PhotonTrackedTarget> selectedNote;
-  public List<PhotonTrackedTarget> notes;
+  private Optional<Point> midpoint;
+  private double yaw;
+
+  public double getYaw() {
+    return yaw;
+  }
+
+  public void setYaw(double yaw) {
+    this.yaw = yaw;
+  }
+
+  @Override
+  public void log() {
+
+  }
+
+  public Optional<Point> getMidpoint() {
+    return midpoint;
+  }
+
+  public void setMidpoint(Optional<Point> midpoint) {
+    this.midpoint = midpoint;
+  }
+  
 
   public Point getNoteMidpoint(TargetCorner bottomLeft, TargetCorner topRight) {
     Point midpoint = new Point((bottomLeft.x + topRight.x) / 2, (bottomLeft.y + topRight.y) / 2);
@@ -28,14 +52,6 @@ public class NoteDetectorOutput extends SubsystemOutput {
 
   @Override
   public void toLog() {
-    Logger.recordOutput("NoteDetectorOutput/hasNotes", hasNotes);
-
-    if (selectedNote.isPresent()) {
-      Logger.recordOutput("NoteDetectorOutput/selectedNote", selectedNote.get());
-    }
-
-    for (int i = 0; i < notes.size(); i++) {
-      Logger.recordOutput("NoteDetectorOutput/note" + i, notes.get(i));
     }
   }
-}
+

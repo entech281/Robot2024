@@ -4,6 +4,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import frc.robot.subsystems.drive.DriveOutput;
 import frc.robot.subsystems.intake.IntakeOutput;
 import frc.robot.subsystems.navx.NavXOutput;
+import frc.robot.subsystems.note_detector.NoteDetectorOutput;
 import frc.robot.subsystems.pivot.PivotOutput;
 import frc.robot.subsystems.shooter.ShooterOutput;
 import frc.robot.subsystems.transfer.TransferOutput;
@@ -49,12 +50,16 @@ public class RobotIO {
     return latestTransferOutput;
   }
 
-  public PivotOutput getPivotSubsystem() {
+  public PivotOutput getPivotOutput() {
     return latestPivotOutput;
   }
 
+  public NoteDetectorOutput getNoteDetectorOutput() {
+    return latestNoteDetectorOutput;
+  }
   public ClimbOutput getClimbOutput() {
     return latestClimbOutput;
+
   }
 
   public Pose2d getOdometryPose() {
@@ -96,6 +101,10 @@ public class RobotIO {
     pio.log();
   }
 
+  public void updateNoteDetector(NoteDetectorOutput ndo) {
+    latestNoteDetectorOutput = ndo;
+    ndo.log();
+  }
   public void updateClimb(ClimbOutput clo) {
     latestClimbOutput = clo;
     clo.log();
@@ -113,6 +122,7 @@ public class RobotIO {
   private TransferOutput latestTransferOutput;
   private ShooterOutput latestShooterOutput;
   private PivotOutput latestPivotOutput;
+  private NoteDetectorOutput latestNoteDetectorOutput;
   private ClimbOutput latestClimbOutput;
   private Pose2d latestOdometryPose;
 }

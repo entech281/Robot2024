@@ -5,11 +5,14 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
+import org.opencv.core.Point;
 import org.photonvision.PhotonCamera;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.photonvision.targeting.PhotonTrackedTarget;
+import org.photonvision.targeting.TargetCorner;
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import entech.subsystems.EntechSubsystem;
@@ -61,10 +64,9 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   @Override
   public NoteDetectorOutput toOutputs() {
     NoteDetectorOutput output = new NoteDetectorOutput();
-
-    output.hasNotes = !notes.isEmpty();
-    if (output.hasNotes) {
-      output.selectedNote = chooseNote();
+    if (getChosenNote().isPresent()) {
+      output.setMidpoint(getCenterOfClosestNote());
+      output.setYaw(getChosenNote().get().getYaw());
     }
 
     return output;
@@ -83,6 +85,29 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
       updateNoteDetectorData();
     }
   }
+
+  
+  private Point getNoteMidpoint(Point bottomLeft, Point topRight) {
+    Point midpoint = new Point((bottomLeft.x+topRight.x)/2, (bottomLeft.y+topRight.y)/2);
+    return midpoint;
+  }
+
+  private static Point transformedPoint(Point p) {
+    double cameraCenterX = RobotConstants.Vision.Cameras.COLOR_RESOLUTION[0]/2;
+    return new Point(p.x-cameraCenterX, p.y);
+  }
+
+  public Optional<Point> getCenterOfClosestNote(){
+    Optional<Point> center = Optional.empty();
+    if (getChosenNote().isPresent()) {
+      List<TargetCorner> corners = getChosenNote().get().getMinAreaRectCorners();
+      Point bottomLeft = transformedPoint(new Point(corners.get(0).x, corners.get(0).y));
+      Point topRight = transformedPoint(new Point(corners.get(2).x, corners.get(2).y));
+      center = Optional.of(getNoteMidpoint(bottomLeft, topRight));
+    }
+    return center;
+  }  
+
   @Override
   public Command getTestCommand() {
     return Commands.none();
