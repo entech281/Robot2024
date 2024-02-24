@@ -24,7 +24,7 @@ public class DriveCommand extends EntechCommand {
 
     stop.setRotation(0.0);
     stop.setXSpeed(0.0);
-    stop.setXSpeed(0.0);
+    stop.setYSpeed(0.0);
 
     drive.updateInputs(stop);
   }
@@ -42,7 +42,7 @@ public class DriveCommand extends EntechCommand {
 
     stop.setRotation(0.0);
     stop.setXSpeed(0.0);
-    stop.setXSpeed(0.0);
+    stop.setYSpeed(0.0);
 
     drive.updateInputs(stop);
   }
