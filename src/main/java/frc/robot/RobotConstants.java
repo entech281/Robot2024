@@ -152,6 +152,11 @@ public final class RobotConstants {
       public static final int JOYSTICK = 0;
       public static final int PANEL = 1;
     }
+
+
+    public static class HAS_NOTE {
+      public static final int HAS_NOTE_SENSOR = 0;
+    }
   }
 
 

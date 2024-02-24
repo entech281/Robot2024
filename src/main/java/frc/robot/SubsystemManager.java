@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.io.RobotIO;
+import frc.robot.subsystems.climb.ClimbSubsystem;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.navx.NavXSubsystem;
@@ -33,6 +34,7 @@ public class SubsystemManager {
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private final TransferSubsystem transferSubsystem = new TransferSubsystem();
   private final PivotSubsystem pivotSubsystem = new PivotSubsystem();
+  private final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
 
   public SubsystemManager() {
     navXSubsystem.initialize();
@@ -42,6 +44,7 @@ public class SubsystemManager {
     shooterSubsystem.initialize();
     transferSubsystem.initialize();
     pivotSubsystem.initialize();
+    climbSubsystem.initialize();
 
     periodic();
   }
@@ -74,9 +77,12 @@ public class SubsystemManager {
     return pivotSubsystem;
   }
 
+  public ClimbSubsystem getClimbSubsystem() {
+    return climbSubsystem;
+  }
 
-  public List<EntechSubsystem<?,?>>  getSubsystemList(){
-    ArrayList<EntechSubsystem<?,?>> r = new ArrayList<>();
+  public List<EntechSubsystem<?, ?>> getSubsystemList() {
+    ArrayList<EntechSubsystem<?, ?>> r = new ArrayList<>();
     r.add(navXSubsystem);
     r.add(driveSubsystem);
     r.add(visionSubsystem);
@@ -84,11 +90,15 @@ public class SubsystemManager {
     r.add(shooterSubsystem);
     r.add(transferSubsystem);
     r.add(pivotSubsystem);
+    r.add(climbSubsystem);
     return r;
   }
 
   public void periodic() {
     RobotIO outputs = RobotIO.getInstance();
+    if (climbSubsystem.isEnabled()) {
+      outputs.updateClimb(climbSubsystem.getOutputs());
+    }
     if (visionSubsystem.isEnabled()) {
       outputs.updateVision(visionSubsystem.getOutputs());
     }
@@ -115,6 +125,10 @@ public class SubsystemManager {
 
     if (pivotSubsystem.isEnabled()) {
       outputs.updatePivot(pivotSubsystem.getOutputs());
+    }
+
+    if (climbSubsystem.isEnabled()) {
+      outputs.updateClimb(climbSubsystem.getOutputs());
     }
   }
 }
