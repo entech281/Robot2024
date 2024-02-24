@@ -1,5 +1,7 @@
 package frc.robot.subsystems.note_detector;
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import org.photonvision.PhotonCamera;
@@ -76,6 +78,10 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
     if (ENABLED) {
       updateNoteDetectorData();
     }
+  }
+  @Override
+  public Command getTestCommand() {
+    return Commands.none();
   }
   
 }

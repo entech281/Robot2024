@@ -266,5 +266,9 @@ public final class RobotConstants {
     public static final Pose2d INITIAL_POSE = new Pose2d(INITIAL_TRANSLATION, INITIAL_ROTATION);
   }
 
+  public interface OperatorMessages {
+    public static final String SUBSYSTEM_TEST = "SubsystemTest";
+  }
+
   private RobotConstants() {}
 }
