@@ -13,6 +13,8 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.DrivetrainConstants;
@@ -120,21 +122,18 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
   }
 
   @Override
-  public DriveOutput getOutputs() {
+  public DriveOutput toOutputs() {
     DriveOutput output = new DriveOutput();
     output.setModulePositions(getModulePositions());
-    output.setRawAbsoluteEncoders(new double[] {
-        frontLeft.getTurningAbsoluteEncoder().getPosition(),
+    output.setRawAbsoluteEncoders(new double[] {frontLeft.getTurningAbsoluteEncoder().getPosition(),
         frontRight.getTurningAbsoluteEncoder().getPosition(),
         rearLeft.getTurningAbsoluteEncoder().getPosition(),
-        rearRight.getTurningAbsoluteEncoder().getPosition()
-    });
-    output.setVirtualAbsoluteEncoders(new double[] {
-        frontLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
-        frontRight.getTurningAbsoluteEncoder().getVirtualPosition(),
-        rearLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
-        rearRight.getTurningAbsoluteEncoder().getVirtualPosition()
-    });
+        rearRight.getTurningAbsoluteEncoder().getPosition()});
+    output.setVirtualAbsoluteEncoders(
+        new double[] {frontLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
+            frontRight.getTurningAbsoluteEncoder().getVirtualPosition(),
+            rearLeft.getTurningAbsoluteEncoder().getVirtualPosition(),
+            rearRight.getTurningAbsoluteEncoder().getVirtualPosition()});
     return output;
   }
 
@@ -240,5 +239,10 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
 
       resetEncoders();
     }
+  }
+
+  @Override
+  public Command getTestCommand() {
+    return Commands.none();
   }
 }

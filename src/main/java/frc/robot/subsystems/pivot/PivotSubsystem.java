@@ -5,8 +5,11 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj2.command.Command;
+
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
+import frc.robot.commands.TestPivotCommand;
 
 public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
@@ -24,9 +27,9 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
       pivotRight = new CANSparkMax(RobotConstants.Ports.CAN.PIVOT_B, MotorType.kBrushless);
 
       pivotLeft.getEncoder()
-          .setPositionConversionFactor(RobotConstants.PIVOT.POSITION_CONVERSION_FACTOR);
+          .setPositionConversionFactor(RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR);
       pivotRight.getEncoder()
-          .setPositionConversionFactor(RobotConstants.PIVOT.POSITION_CONVERSION_FACTOR);
+          .setPositionConversionFactor(RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR);
 
       updateBrakeMode();
 
@@ -39,9 +42,9 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   }
 
   private void setUpPIDConstants(SparkPIDController pIDController) {
-    pIDController.setP(RobotConstants.PID.Pivot.KP);
-    pIDController.setD(RobotConstants.PID.Pivot.KI);
-    pIDController.setI(RobotConstants.PID.Pivot.KD);
+    pIDController.setP(RobotConstants.PID.PIVOT.KP);
+    pIDController.setD(RobotConstants.PID.PIVOT.KI);
+    pIDController.setI(RobotConstants.PID.PIVOT.KD);
   }
 
   private void updateBrakeMode() {
@@ -62,7 +65,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
       return 0;
     } else if (position > RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG) {
       DriverStation.reportWarning("Pivot tried to go to " + currentInput.getRequestedPosition()
-          + " value was changed to " + RobotConstants.PIVOT.POSITION_CONVERSION_FACTOR, null);
+          + " value was changed to " + RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR, null);
       return RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG;
     } else {
       return position;
@@ -79,9 +82,11 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     double clampedPosition = clampRequestedPosition(currentInput.getRequestedPosition());
 
     if (ENABLED) {
-      setPosition(clampedPosition);
+      if (currentInput.getActivate()) {
+        setPosition(clampedPosition);
 
-      updateBrakeMode();
+        updateBrakeMode();
+      }
     }
   }
 
@@ -96,11 +101,17 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   }
 
   @Override
-  public PivotOutput getOutputs() {
+  public PivotOutput toOutputs() {
     PivotOutput pivotOutput = new PivotOutput();
     pivotOutput.setMoving(pivotLeft.getEncoder().getVelocity() != 0);
     pivotOutput.setLeftBrakeModeEnabled(IdleMode.kBrake == pivotLeft.getIdleMode());
     pivotOutput.setRightBrakeModeEnabled(IdleMode.kBrake == pivotRight.getIdleMode());
+    pivotOutput.setCurrentPosition(pivotLeft.getEncoder().getPosition());
     return pivotOutput;
+  }
+
+  @Override
+  public Command getTestCommand() {
+    return new TestPivotCommand(this);
   }
 }

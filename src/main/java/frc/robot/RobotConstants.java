@@ -111,6 +111,26 @@ public final class RobotConstants {
   }
 
 
+  public static interface TEST_CONSTANTS {
+
+    public static final int STANDARD_TEST_LENGTH = 1;
+
+    public static interface PIVOT {
+      public static final double TEST_TOLERANCE_DEG = 1;
+      public static final double TEST_POSITION_DEG = 5;
+    }
+
+    public static interface SHOOTER {
+      public static final double TESTING_SPEED = 1000;
+    }
+
+    public static interface CLIMB {
+      public static final double TEST_TOLERANCE_IN = 1;
+      public static final double TEST_POSITION_IN = 5;
+    }
+  }
+
+
   public static interface Ports {
 
     public static class ANALOG {
@@ -152,12 +172,16 @@ public final class RobotConstants {
       public static final int JOYSTICK = 0;
       public static final int PANEL = 1;
     }
+
+
+    public static class HAS_NOTE {
+      public static final int HAS_NOTE_SENSOR = 0;
+    }
   }
 
 
   public interface OPERATOR_PANEL {
   }
-
 
   public static interface Vision {
     public static final Matrix<N3, N1> VISION_STD_DEVS = VecBuilder.fill(10, 10, 1000000);
@@ -194,7 +218,7 @@ public final class RobotConstants {
 
   public static interface PID {
 
-    public static interface Shooter {
+    public static interface SHOOTER {
       public static final double KP = 0.00008;
       public static final double KI = 0.0;
       public static final double KD = 0.0;
@@ -203,7 +227,14 @@ public final class RobotConstants {
     }
 
 
-    public static interface Pivot {
+    public static interface PIVOT {
+      public static final double KP = 0;
+      public static final double KI = 0;
+      public static final double KD = 0;
+    }
+
+
+    public static interface CLIMB {
       public static final double KP = 0;
       public static final double KI = 0;
       public static final double KD = 0;
@@ -215,12 +246,19 @@ public final class RobotConstants {
     public static final double SHOOTING_SPEED = 1;
     public static final double TRANSFERING_SPEED = 0.0;
     public static final double INTAKING_SPEED = 0.0;
+    public static final double TESTING_SPEED = 0;
   }
 
 
   public static interface PIVOT {
     public static final double UPPER_SOFT_LIMIT_DEG = 89;
-    public static final double POSITION_CONVERSION_FACTOR = 1;
+    public static final double PIVOT_CONVERSION_FACTOR = 1;
+  }
+
+
+  public static interface CLIMB {
+    public static final double UPPER_SOFT_LIMIT_Inches = 25.0;
+    public static final double CLIMB_CONVERSION_FACTOR = 1;
   }
 
 
@@ -253,6 +291,10 @@ public final class RobotConstants {
     public static final Rotation2d INITIAL_ROTATION = Rotation2d.fromDegrees(0);
 
     public static final Pose2d INITIAL_POSE = new Pose2d(INITIAL_TRANSLATION, INITIAL_ROTATION);
+  }
+
+  public interface OperatorMessages {
+    public static final String SUBSYSTEM_TEST = "SubsystemTest";
   }
 
   private RobotConstants() {}

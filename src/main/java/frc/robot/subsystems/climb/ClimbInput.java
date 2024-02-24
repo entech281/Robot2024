@@ -1,25 +1,25 @@
-package frc.robot.subsystems.pivot;
+package frc.robot.subsystems.climb;
 
 import org.littletonrobotics.junction.LogTable;
 import entech.subsystems.SubsystemInput;
 
-public class PivotInput implements SubsystemInput {
+public class ClimbInput implements SubsystemInput {
 
   private boolean activate = false;
-  private double requestedPosition = 0.0;
   private boolean brakeModeEnabled = false;
+  private double requestedPosition = 0.0;
+  private double currentAngle = 0.0;
 
   @Override
   public void toLog(LogTable table) {
-    table.put("Requested position", requestedPosition);
-    table.put("Brake Mode Enabled", brakeModeEnabled);
+    table.put("activate", activate);
+    table.put("brakeModeEnabled", brakeModeEnabled);
+    table.put("requestedPosition", requestedPosition);
+    table.put("currentAngle", currentAngle);
   }
 
   @Override
-  public void fromLog(LogTable table) {
-    requestedPosition = table.get("Requested position", 0.0);
-    brakeModeEnabled = table.get("Brake Mode Enabled", true);
-  }
+  public void fromLog(LogTable table) {}
 
   public boolean getActivate() {
     return this.activate;
@@ -44,4 +44,13 @@ public class PivotInput implements SubsystemInput {
   public void setBrakeModeEnabled(boolean brakeModeEnabled) {
     this.brakeModeEnabled = brakeModeEnabled;
   }
+
+  public double getCurrentAngle() {
+    return this.currentAngle;
+  }
+
+  public void setCurrentAngle(double currentAngle) {
+    this.currentAngle = currentAngle;
+  }
+
 }

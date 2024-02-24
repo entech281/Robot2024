@@ -9,6 +9,7 @@ import frc.robot.subsystems.pivot.PivotOutput;
 import frc.robot.subsystems.shooter.ShooterOutput;
 import frc.robot.subsystems.transfer.TransferOutput;
 import frc.robot.subsystems.vision.VisionOutput;
+import frc.robot.subsystems.climb.ClimbOutput;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 
@@ -53,8 +54,13 @@ public class RobotIO {
     return latestPivotOutput;
   }
 
+<<<<<<< HEAD
   public NoteDetectorOutput getNoteDetectorOutput() {
     return latestNoteDetectorOutput;
+=======
+  public ClimbOutput getClimbOutput() {
+    return latestClimbOutput;
+>>>>>>> main
   }
 
   public Pose2d getOdometryPose() {
@@ -96,9 +102,15 @@ public class RobotIO {
     pio.log();
   }
 
+<<<<<<< HEAD
   public void updateNoteDetector(NoteDetectorOutput ndo) {
     latestNoteDetectorOutput = ndo;
     ndo.log();
+=======
+  public void updateClimb(ClimbOutput clo) {
+    latestClimbOutput = clo;
+    clo.log();
+>>>>>>> main
   }
 
   public void updateOdometryPose(Pose2d pose) {
@@ -113,6 +125,10 @@ public class RobotIO {
   private TransferOutput latestTransferOutput;
   private ShooterOutput latestShooterOutput;
   private PivotOutput latestPivotOutput;
+<<<<<<< HEAD
   private NoteDetectorOutput latestNoteDetectorOutput;
+=======
+  private ClimbOutput latestClimbOutput;
+>>>>>>> main
   private Pose2d latestOdometryPose;
 }

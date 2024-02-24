@@ -3,18 +3,19 @@ package frc.robot.subsystems.transfer;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
+import frc.robot.commands.TestTransferCommand;
 
 public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOutput> {
 
   private final boolean ENABLED = false;
 
 
-  public enum TransferStatus {
-    Shooting, Transfering, Intaking, Off
+  public enum TransferPreset {
+    Shooting, Transfering, Intaking, Testing, Off
   }
-
 
   private TransferInput currentInput = new TransferInput();
 
@@ -31,12 +32,14 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        if (currentInput.getCurrentMode() == TransferStatus.Shooting) {
+        if (currentInput.getSpeedPreset() == TransferPreset.Shooting) {
           transferMotor.set(RobotConstants.TRANSFER.SHOOTING_SPEED);
-        } else if (currentInput.getCurrentMode() == TransferStatus.Transfering) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Transfering) {
           transferMotor.set(RobotConstants.TRANSFER.TRANSFERING_SPEED);
-        } else if (currentInput.getCurrentMode() == TransferStatus.Intaking) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Intaking) {
           transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED);
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Testing) {
+          transferMotor.set(RobotConstants.TRANSFER.TESTING_SPEED);
         }
       } else {
         transferMotor.set(0.0);
@@ -61,13 +64,17 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
   }
 
   @Override
-  public TransferOutput getOutputs() {
+  public TransferOutput toOutputs() {
     TransferOutput transferOutput = new TransferOutput();
     transferOutput.setActive(transferMotor.getEncoder().getVelocity() != 0);
     transferOutput.setBrakeModeEnabled(IdleMode.kBrake == transferMotor.getIdleMode());
     transferOutput.setCurrentSpeed(transferMotor.getEncoder().getVelocity());
-    transferOutput.setCurrentMode(currentInput.getCurrentMode());
+    transferOutput.setCurrentMode(currentInput.getSpeedPreset());
     return transferOutput;
   }
 
+  @Override
+  public Command getTestCommand() {
+    return new TestTransferCommand(this);
+  }
 }
