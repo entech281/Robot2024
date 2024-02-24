@@ -111,6 +111,26 @@ public final class RobotConstants {
   }
 
 
+  public static interface TEST_CONSTANTS {
+
+    public static final int STANDARD_TEST_LENGTH = 1;
+
+    public static interface PIVOT {
+      public static final double TEST_TOLERANCE_DEG = 1;
+      public static final double TEST_POSITION_DEG = 5;
+    }
+
+    public static interface SHOOTER {
+      public static final double TESTING_SPEED = 1000;
+    }
+
+    public static interface CLIMB {
+      public static final double TEST_TOLERANCE_IN = 1;
+      public static final double TEST_POSITION_IN = 5;
+    }
+  }
+
+
   public static interface Ports {
 
     public static class ANALOG {
@@ -225,6 +245,7 @@ public final class RobotConstants {
     public static final double SHOOTING_SPEED = 1;
     public static final double TRANSFERING_SPEED = 0.0;
     public static final double INTAKING_SPEED = 0.0;
+    public static final double TESTING_SPEED = 0;
   }
 
 
