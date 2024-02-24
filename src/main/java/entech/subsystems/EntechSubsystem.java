@@ -20,8 +20,16 @@ public abstract class EntechSubsystem<I extends SubsystemInput, R extends Subsys
 
   public abstract void updateInputs(I input);
 
-  public abstract R getOutputs();
-
   public abstract Command getTestCommand();
+
+
+  public abstract R toOutputs();
+
+  public R getOutputs() {
+    R out = toOutputs();
+    out.setCurrentCommand(this.getCurrentCommand() + "");
+    out.setDefaultCommand(this.getDefaultCommand() + "");
+    return out;
+  }
 
 }

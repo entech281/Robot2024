@@ -2,7 +2,6 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -58,7 +57,8 @@ public class CommandFactory {
     AutoBuilder.configureHolonomic(odometry::getEstimatedPose, // Robot pose supplier
         odometry::resetOdometry,
         // Method to reset odometry (will be called if your auto has a starting pose)
-        () -> navXSubsystem.getOutputs().getChassisSpeeds(), // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+        () -> navXSubsystem.toOutputs().getChassisSpeeds(), // ChassisSpeeds supplier. MUST BE ROBOT
+                                                            // RELATIVE
         driveSubsystem::pathFollowDrive, new HolonomicPathFollowerConfig(
             // HolonomicPathFollowerConfig, this should likely live in your Constants
             // class
@@ -88,9 +88,9 @@ public class CommandFactory {
 
 
     NamedCommands.registerCommand("Marker 1", Commands.print("Passed marker 1"));
-    //NamedCommands.registerCommand("Marker 2", Commands.print("Passed marker 2"));
-    NamedCommands.registerCommand("Marker 2", Commands.run( () ->{
-        DriverStation.reportWarning("********** I am at marker 2",false);
+    // NamedCommands.registerCommand("Marker 2", Commands.print("Passed marker 2"));
+    NamedCommands.registerCommand("Marker 2", Commands.run(() -> {
+      DriverStation.reportWarning("********** I am at marker 2", false);
     }, driveSubsystem));
 
     autoChooser = AutoBuilder.buildAutoChooser();

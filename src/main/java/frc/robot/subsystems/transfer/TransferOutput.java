@@ -6,13 +6,9 @@ import entech.subsystems.SubsystemOutputBasics;
 public class TransferOutput extends SubsystemOutputBasics {
   private TransferSubsystem.TransferStatus currentMode;
 
-  public TransferOutput() {
-    super("transferOutput");
-  }
-
   @Override
-  public void log() {
-    super.log();
+  public void toLog() {
+    super.toLog();
     Logger.recordOutput(key + "currentMode", currentMode);
   }
 

@@ -14,7 +14,7 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
   private AHRS gyro;
 
   @Override
-  public NavXOutput getOutputs() {
+  public NavXOutput toOutputs() {
     NavXOutput output = new NavXOutput();
 
     output.setYaw(gyro.getAngle());
@@ -57,7 +57,8 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
 
   private ChassisSpeeds getChassisSpeeds() {
     double radiansPerSecond = Units.degreesToRadians(gyro.getRate());
-    return ChassisSpeeds.fromRobotRelativeSpeeds(gyro.getVelocityX(), gyro.getVelocityY(), radiansPerSecond, gyro.getRotation2d());
+    return ChassisSpeeds.fromRobotRelativeSpeeds(gyro.getVelocityX(), gyro.getVelocityY(),
+        radiansPerSecond, gyro.getRotation2d());
   }
 
   @Override

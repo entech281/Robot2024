@@ -62,7 +62,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
   }
 
   @Override
-  public TransferOutput getOutputs() {
+  public TransferOutput toOutputs() {
     TransferOutput transferOutput = new TransferOutput();
     transferOutput.setActive(transferMotor.getEncoder().getVelocity() != 0);
     transferOutput.setBrakeModeEnabled(IdleMode.kBrake == transferMotor.getIdleMode());
