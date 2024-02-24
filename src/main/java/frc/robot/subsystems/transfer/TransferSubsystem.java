@@ -13,7 +13,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
   private final boolean ENABLED = false;
 
 
-  public enum TransferStatus {
+  public enum TransferPreset {
     Shooting, Transfering, Intaking, Testing, Off
   }
 
@@ -32,13 +32,13 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        if (currentInput.getCurrentMode() == TransferStatus.Shooting) {
+        if (currentInput.getSpeedPreset() == TransferPreset.Shooting) {
           transferMotor.set(RobotConstants.TRANSFER.SHOOTING_SPEED);
-        } else if (currentInput.getCurrentMode() == TransferStatus.Transfering) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Transfering) {
           transferMotor.set(RobotConstants.TRANSFER.TRANSFERING_SPEED);
-        } else if (currentInput.getCurrentMode() == TransferStatus.Intaking) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Intaking) {
           transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED);
-        } else if (currentInput.getCurrentMode() == TransferStatus.Testing) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Testing) {
           transferMotor.set(RobotConstants.TRANSFER.TESTING_SPEED);
         }
       } else {
@@ -69,7 +69,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
     transferOutput.setActive(transferMotor.getEncoder().getVelocity() != 0);
     transferOutput.setBrakeModeEnabled(IdleMode.kBrake == transferMotor.getIdleMode());
     transferOutput.setCurrentSpeed(transferMotor.getEncoder().getVelocity());
-    transferOutput.setCurrentMode(currentInput.getCurrentMode());
+    transferOutput.setCurrentMode(currentInput.getSpeedPreset());
     return transferOutput;
   }
 

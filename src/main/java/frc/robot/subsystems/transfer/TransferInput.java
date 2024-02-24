@@ -6,19 +6,19 @@ import entech.subsystems.SubsystemInput;
 public class TransferInput implements SubsystemInput {
   private boolean activate = false;
   private boolean brakeModeEnabled = false;
-  private TransferSubsystem.TransferStatus currentMode = TransferSubsystem.TransferStatus.Off;
+  private TransferSubsystem.TransferPreset speedPreset = TransferSubsystem.TransferPreset.Off;
 
   @Override
   public void toLog(LogTable table) {
     table.put("activate", activate);
-    table.put("currentMode", currentMode);
+    table.put("currentMode", speedPreset);
     table.put("brakeModeEnabled", brakeModeEnabled);
   }
 
   @Override
   public void fromLog(LogTable table) {
     activate = table.get("activate", false);
-    currentMode = table.get("currentMode", TransferSubsystem.TransferStatus.Off);
+    speedPreset = table.get("currentMode", TransferSubsystem.TransferPreset.Off);
     brakeModeEnabled = table.get("brakeModeEnabled", false);
   }
 
@@ -38,11 +38,11 @@ public class TransferInput implements SubsystemInput {
     this.brakeModeEnabled = brakeModeEnabled;
   }
 
-  public TransferSubsystem.TransferStatus getCurrentMode() {
-    return this.currentMode;
+  public TransferSubsystem.TransferPreset getSpeedPreset() {
+    return this.speedPreset;
   }
 
-  public void setCurrentMode(TransferSubsystem.TransferStatus currentMode) {
-    this.currentMode = currentMode;
+  public void setSpeedPreset(TransferSubsystem.TransferPreset currentMode) {
+    this.speedPreset = currentMode;
   }
 }

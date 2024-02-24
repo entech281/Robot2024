@@ -12,8 +12,8 @@ public class TestPivotCommand extends EntechCommand {
 
   private PivotInput input = new PivotInput();
   private PivotSubsystem pSubsystem = new PivotSubsystem();
-  private StoppingCounter counter =
-      new StoppingCounter(getClass().getSimpleName(), PeriodicLoopsPerSecond.getLoopsPerSecond(1));
+  private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
+      PeriodicLoopsPerSecond.getLoopsPerSecond(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH));
 
   public TestPivotCommand(PivotSubsystem subsystem) {
     super(subsystem);
@@ -24,7 +24,7 @@ public class TestPivotCommand extends EntechCommand {
   public void initialize() {
     counter.reset();
     input.setActivate(true);
-    input.setRequestedPosition(RobotConstants.PIVOT.TEST_POSITION_DEG);
+    input.setRequestedPosition(RobotConstants.TEST_CONSTANTS.PIVOT.TEST_POSITION_DEG);
     input.setBrakeModeEnabled(false);
     pSubsystem.updateInputs(input);
   }
@@ -38,8 +38,9 @@ public class TestPivotCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return counter
-        .isFinished(IsWithinTolerance.isWithinTolerance(RobotConstants.PIVOT.TEST_TOLERANCE_DEG,
-            pSubsystem.getOutputs().getCurrentPosition(), RobotConstants.PIVOT.TEST_POSITION_DEG));
+    return counter.isFinished(
+        IsWithinTolerance.isWithinTolerance(RobotConstants.TEST_CONSTANTS.PIVOT.TEST_TOLERANCE_DEG,
+            pSubsystem.getOutputs().getCurrentPosition(),
+            RobotConstants.TEST_CONSTANTS.PIVOT.TEST_POSITION_DEG));
   }
 }

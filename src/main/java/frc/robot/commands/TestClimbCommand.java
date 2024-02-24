@@ -12,8 +12,8 @@ public class TestClimbCommand extends EntechCommand {
 
   private ClimbInput input = new ClimbInput();
   private ClimbSubsystem cSubsystem = new ClimbSubsystem();
-  private StoppingCounter counter =
-      new StoppingCounter(getClass().getSimpleName(), PeriodicLoopsPerSecond.getLoopsPerSecond(1));
+  private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
+      PeriodicLoopsPerSecond.getLoopsPerSecond(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH));
 
   public TestClimbCommand(ClimbSubsystem subsystem) {
     super(subsystem);
@@ -24,7 +24,7 @@ public class TestClimbCommand extends EntechCommand {
   public void initialize() {
     counter.reset();
     input.setActivate(true);
-    input.setRequestedPosition(RobotConstants.CLIMB.TEST_POSITION_IN);
+    input.setRequestedPosition(RobotConstants.TEST_CONSTANTS.CLIMB.TEST_POSITION_IN);
     input.setBrakeModeEnabled(false);
     cSubsystem.updateInputs(input);
   }
@@ -38,8 +38,9 @@ public class TestClimbCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return counter
-        .isFinished(IsWithinTolerance.isWithinTolerance(RobotConstants.CLIMB.TEST_TOLERANCE_IN,
-            cSubsystem.getOutputs().getCurrentPosition(), RobotConstants.CLIMB.TEST_POSITION_IN));
+    return counter.isFinished(
+        IsWithinTolerance.isWithinTolerance(RobotConstants.TEST_CONSTANTS.CLIMB.TEST_TOLERANCE_IN,
+            cSubsystem.getOutputs().getCurrentPosition(),
+            RobotConstants.TEST_CONSTANTS.CLIMB.TEST_POSITION_IN));
   }
 }
