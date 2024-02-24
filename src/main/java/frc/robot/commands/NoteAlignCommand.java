@@ -36,12 +36,12 @@ public class NoteAlignCommand extends EntechCommand {
 
     drive.updateInputs(stop);
 
-    note = nds.getOutputs().selectedNote;
+    //note = nds.getOutputs().selectedNote;
   }
 
   @Override
   public void execute() {
-    double distance = nds.getCenterOfClosestNote(note).x;
+    //double distance = nds.getCenterOfClosestNote(note).x;
   }
 
 }
