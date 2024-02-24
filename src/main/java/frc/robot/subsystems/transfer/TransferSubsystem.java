@@ -4,9 +4,9 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
+import frc.robot.commands.TestTransferCommand;
 
 public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOutput> {
 
@@ -72,8 +72,9 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
     transferOutput.setCurrentMode(currentInput.getCurrentMode());
     return transferOutput;
   }
+
   @Override
   public Command getTestCommand() {
-    return Commands.none();
+    return new TestTransferCommand(this);
   }
 }

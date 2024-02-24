@@ -5,9 +5,9 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
+import frc.robot.commands.TestShooterCommand;
 
 public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutput> {
 
@@ -94,8 +94,9 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     shooterOutput.setBrakeModeEnabled(IdleMode.kBrake == shooterTop.getIdleMode());
     return shooterOutput;
   }
+
   @Override
   public Command getTestCommand() {
-    return Commands.none();
+    return new TestShooterCommand(this);
   }
 }
