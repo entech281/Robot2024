@@ -7,6 +7,7 @@ public class UserPolicy {
   private static UserPolicy instance = new UserPolicy();
 
   private boolean twistable = false;
+  private boolean aligningToNote = false;
   private Pose2d targetPose = new Pose2d(0, 5.53, new Rotation2d());
 
   private UserPolicy() {
@@ -31,5 +32,9 @@ public class UserPolicy {
 
   public Pose2d getTargetPose() {
     return targetPose;
+  }
+
+  public boolean isAligningToNote() {
+    return this.aligningToNote;
   }
 }
