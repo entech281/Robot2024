@@ -10,12 +10,7 @@ import java.lang.Math;
 
 public class NoteAlignmentFilter {
 
-  private Point noteUnitVector;
   private double driveSpeed;
-
-  public Point getNoteUnitVector() {
-    return noteUnitVector;
-  }
 
   public double toRadians(double degrees) {
     return degrees*Math.PI/180;
@@ -27,7 +22,7 @@ public class NoteAlignmentFilter {
       targetYaw = no.getYaw();
       double noteAngle = input.getLatestOdometryPose().getRotation().getRadians()-toRadians(targetYaw);
       driveSpeed = Math.sqrt(Math.pow(input.getXSpeed(), 2) + Math.pow(input.getYSpeed(), 2));
-      noteUnitVector = new Point(Math.cos(noteAngle), -Math.sin(noteAngle));
+      Point noteUnitVector = new Point(Math.cos(noteAngle), -Math.sin(noteAngle));
       DriveInput adjustedDriveInput = new DriveInput(input);
       adjustedDriveInput.setXSpeed(driveSpeed*noteUnitVector.x);
       adjustedDriveInput.setYSpeed(driveSpeed*noteUnitVector.y);
