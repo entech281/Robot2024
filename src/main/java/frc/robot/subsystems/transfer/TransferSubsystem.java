@@ -12,7 +12,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
 
   public enum TransferStatus {
-    Shooting, Transfering, Intaking, Off
+    Shooting, Transfering, Intaking, Testing, Off
   }
 
   private TransferInput currentInput = new TransferInput();
@@ -36,6 +36,8 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
           transferMotor.set(RobotConstants.TRANSFER.TRANSFERING_SPEED);
         } else if (currentInput.getCurrentMode() == TransferStatus.Intaking) {
           transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED);
+        } else if (currentInput.getCurrentMode() == TransferStatus.Testing) {
+          transferMotor.set(RobotConstants.TRANSFER.TESTING_SPEED);
         }
       } else {
         transferMotor.set(0.0);
