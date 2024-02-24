@@ -3,6 +3,7 @@ package frc.robot.commands;
 import entech.commands.EntechCommand;
 import entech.util.PeriodicLoopsPerSecond;
 import entech.util.StoppingCounter;
+import frc.robot.RobotConstants;
 import frc.robot.subsystems.shooter.ShooterInput;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 
@@ -22,7 +23,7 @@ public class TestShooterCommand extends EntechCommand {
     counter.reset();
     input.setActivate(true);
     input.setBrakeModeEnabled(false);
-    input.setSpeed(1000);
+    input.setSpeed(RobotConstants.SHOOTER.TESTING_SPEED);
     sSubsystem.updateInputs(input);
   }
 

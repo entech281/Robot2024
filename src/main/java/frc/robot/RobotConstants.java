@@ -225,24 +225,33 @@ public final class RobotConstants {
     public static final double SHOOTING_SPEED = 1;
     public static final double TRANSFERING_SPEED = 0.0;
     public static final double INTAKING_SPEED = 0.0;
-    public static final double TESTING_SPEED = 0.0;
+    public static final double TESTING_SPEED = 0;
   }
 
 
   public static interface PIVOT {
     public static final double UPPER_SOFT_LIMIT_DEG = 89;
     public static final double PIVOT_CONVERSION_FACTOR = 1;
+    public static final double TEST_TOLERANCE_DEG = 1;
+    public static final double TEST_POSITION_DEG = 5;
   }
 
 
   public static interface CLIMB {
     public static final double UPPER_SOFT_LIMIT_Inches = 25.0;
     public static final double CLIMB_CONVERSION_FACTOR = 1;
+    public static final double TEST_TOLERANCE_IN = 1;
+    public static final double TEST_POSITION_IN = 5;
   }
 
 
   public static interface INTAKE {
     public static final double INTAKE_SPEED = 0.0;
+  }
+
+
+  public static interface SHOOTER {
+    public static final double TESTING_SPEED = 1000;
   }
 
 
