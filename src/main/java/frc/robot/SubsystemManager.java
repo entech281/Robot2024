@@ -28,6 +28,7 @@ public class SubsystemManager {
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private final TransferSubsystem transferSubsystem = new TransferSubsystem();
   private final PivotSubsystem pivotSubsystem = new PivotSubsystem();
+  private final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
 
   public SubsystemManager() {
     navXSubsystem.initialize();
@@ -37,6 +38,7 @@ public class SubsystemManager {
     shooterSubsystem.initialize();
     transferSubsystem.initialize();
     pivotSubsystem.initialize();
+    climbSubsystem.initialize();
 
     periodic();
   }
