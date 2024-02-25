@@ -2,6 +2,7 @@ package frc.robot.subsystems.LEDs;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -18,8 +19,10 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
 
   private AddressableLED leds;
   private AddressableLEDBuffer buffer;
+  private Color currentColor;
 
   private LEDInput currentInput = new LEDInput();
+  private Timer blinkTimer = new Timer();
 
   public LEDSubsystem() {
     leds = new AddressableLED(RobotConstants.LED.PORT);
@@ -31,10 +34,31 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
   @Override
   public void initialize() {
     setColor(currentInput.getColor());
+    blinkTimer.start();
   }
 
   public void periodic() {
-    setColor(currentInput.getColor());
+    if (ENABLED) {
+      if (currentInput.getBlinking()) {
+        if (blinkTimer.hasElapsed(0.25)) {
+          toggleColor();
+          blinkTimer.restart();
+        }
+      } else {
+        setColor(currentInput.getColor());
+      }
+    }
+
+  }
+
+  private void toggleColor() {
+    if (currentColor == Color.kBlack) {
+      setColor(currentInput.getColor());
+      currentColor = currentInput.getColor();
+    } else {
+      setColor(Color.kBlack);
+      currentColor = Color.kBlack;
+    }
   }
 
   private void setColor(Color c) {
