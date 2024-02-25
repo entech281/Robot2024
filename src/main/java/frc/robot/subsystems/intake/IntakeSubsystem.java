@@ -4,9 +4,9 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
+import frc.robot.commands.TestIntakeCommand;
 
 public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> {
 
@@ -58,9 +58,10 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
     intakeOutput.setBrakeModeEnabled(IdleMode.kBrake == intakeMotor.getIdleMode());
     return intakeOutput;
   }
+
   @Override
   public Command getTestCommand() {
-    return Commands.none();
+    return new TestIntakeCommand(this);
   }
 
 }

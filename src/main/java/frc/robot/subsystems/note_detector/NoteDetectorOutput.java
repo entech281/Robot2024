@@ -13,6 +13,25 @@ public class NoteDetectorOutput extends SubsystemOutput {
   private boolean hasNotes;
   private Optional<PhotonTrackedTarget> selectedNote;
   private List<PhotonTrackedTarget> notes;
+  private Optional<Point> midpoint;
+  private double yaw;
+
+  public double getYaw() {
+    return yaw;
+  }
+
+  public void setYaw(double yaw) {
+    this.yaw = yaw;
+  }
+
+  public Optional<Point> getMidpoint() {
+    return midpoint;
+  }
+
+  public void setMidpoint(Optional<Point> midpoint) {
+    this.midpoint = midpoint;
+  }
+
 
   private Point getNoteMidpoint(TargetCorner bottomLeft, TargetCorner topRight) {
     Point midpoint = new Point((bottomLeft.x + topRight.x) / 2, (bottomLeft.y + topRight.y) / 2);
@@ -39,6 +58,13 @@ public class NoteDetectorOutput extends SubsystemOutput {
     for (int i = 0; i < notes.size(); i++) {
       Logger.recordOutput("NoteDetectorOutput/note" + i, notes.get(i));
     }
+
+    if (midpoint.isPresent()) {
+      Logger.recordOutput("NoteDetectorOutput/midpoint/x", midpoint.get().x);
+      Logger.recordOutput("NoteDetectorOutput/midpoint/y", midpoint.get().y);
+    }
+
+    Logger.recordOutput("NoteDetectorOutput/yaw", yaw);
   }
 
   public boolean hasNotes() {

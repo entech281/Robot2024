@@ -3,6 +3,7 @@ package frc.robot.io;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 import edu.wpi.first.math.geometry.Pose2d;
+import frc.robot.subsystems.climb.ClimbOutput;
 import frc.robot.subsystems.drive.DriveOutput;
 import frc.robot.subsystems.intake.IntakeOutput;
 import frc.robot.subsystems.navx.NavXOutput;
@@ -49,16 +50,21 @@ public class RobotIO {
     return latestTransferOutput;
   }
 
-  public PivotOutput getPivotSubsystem() {
+  public PivotOutput getPivotOutput() {
     return latestPivotOutput;
-  }
-
-  public Pose2d getOdometryPose() {
-    return latestOdometryPose;
   }
 
   public NoteDetectorOutput getNoteDetectorOutput() {
     return latestNoteDetectorOutput;
+  }
+
+  public ClimbOutput getClimbOutput() {
+    return latestClimbOutput;
+
+  }
+
+  public Pose2d getOdometryPose() {
+    return latestOdometryPose;
   }
 
   public void updateVision(VisionOutput vo) {
@@ -96,6 +102,11 @@ public class RobotIO {
     pio.log();
   }
 
+  public void updateClimb(ClimbOutput clo) {
+    latestClimbOutput = clo;
+    clo.log();
+  }
+
   public void updateOdometryPose(Pose2d pose) {
     latestOdometryPose = pose;
     Logger.recordOutput("OdometryPose", pose);
@@ -114,5 +125,6 @@ public class RobotIO {
   private ShooterOutput latestShooterOutput;
   private PivotOutput latestPivotOutput;
   private NoteDetectorOutput latestNoteDetectorOutput;
+  private ClimbOutput latestClimbOutput;
   private Pose2d latestOdometryPose;
 }

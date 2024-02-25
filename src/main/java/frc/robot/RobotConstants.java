@@ -116,6 +116,26 @@ public final class RobotConstants {
   }
 
 
+  public static interface TEST_CONSTANTS {
+
+    public static final int STANDARD_TEST_LENGTH = 1;
+
+    public static interface PIVOT {
+      public static final double TEST_TOLERANCE_DEG = 1;
+      public static final double TEST_POSITION_DEG = 5;
+    }
+
+    public static interface SHOOTER {
+      public static final double TESTING_SPEED = 1000;
+    }
+
+    public static interface CLIMB {
+      public static final double TEST_TOLERANCE_IN = 1;
+      public static final double TEST_POSITION_IN = 5;
+    }
+  }
+
+
   public static interface Ports {
 
     public static class ANALOG {
@@ -157,6 +177,11 @@ public final class RobotConstants {
       public static final int JOYSTICK = 0;
       public static final int PANEL = 1;
     }
+
+
+    public static class HAS_NOTE {
+      public static final int HAS_NOTE_SENSOR = 0;
+    }
   }
 
 
@@ -178,6 +203,10 @@ public final class RobotConstants {
     public static interface Filters {
       public static final double MAX_AMBIGUITY = 0.4;
       public static final double MAX_DISTANCE = 3;
+    }
+
+    public static interface Resolution {
+      public static final int[] COLOR_RESOLUTION = {640, 480};
     }
 
 
@@ -231,6 +260,7 @@ public final class RobotConstants {
     public static final double SHOOTING_SPEED = 1;
     public static final double TRANSFERING_SPEED = 0.0;
     public static final double INTAKING_SPEED = 0.0;
+    public static final double TESTING_SPEED = 0;
   }
 
 
@@ -271,11 +301,13 @@ public final class RobotConstants {
 
     public static final Translation2d INITIAL_TRANSLATION =
         new Translation2d(Units.inchesToMeters(FIELD_LENGTH_INCHES / 2),
-            Units.inchesToMeters(FIELD_WIDTH_INCHES / 2)); // mid field
+            Units.inchesToMeters(FIELD_WIDTH_INCHES / 2)); // mid
+                                                           // field
     public static final Rotation2d INITIAL_ROTATION = Rotation2d.fromDegrees(0);
 
     public static final Pose2d INITIAL_POSE = new Pose2d(INITIAL_TRANSLATION, INITIAL_ROTATION);
   }
+
 
   public interface OperatorMessages {
     public static final String SUBSYSTEM_TEST = "SubsystemTest";

@@ -4,7 +4,7 @@ import org.littletonrobotics.junction.Logger;
 import entech.subsystems.SubsystemOutputBasics;
 
 public class TransferOutput extends SubsystemOutputBasics {
-  private TransferSubsystem.TransferStatus currentMode;
+  private TransferSubsystem.TransferPreset currentMode;
 
   @Override
   public void toLog() {
@@ -12,11 +12,11 @@ public class TransferOutput extends SubsystemOutputBasics {
     Logger.recordOutput(key + "currentMode", currentMode);
   }
 
-  public TransferSubsystem.TransferStatus getCurrentMode() {
+  public TransferSubsystem.TransferPreset getCurrentMode() {
     return this.currentMode;
   }
 
-  public void setCurrentMode(TransferSubsystem.TransferStatus currentMode) {
+  public void setCurrentMode(TransferSubsystem.TransferPreset currentMode) {
     this.currentMode = currentMode;
   }
 }

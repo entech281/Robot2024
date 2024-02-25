@@ -6,9 +6,10 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
+
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
+import frc.robot.commands.TestPivotCommand;
 
 public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
@@ -81,9 +82,11 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     double clampedPosition = clampRequestedPosition(currentInput.getRequestedPosition());
 
     if (ENABLED) {
-      setPosition(clampedPosition);
+      if (currentInput.getActivate()) {
+        setPosition(clampedPosition);
 
-      updateBrakeMode();
+        updateBrakeMode();
+      }
     }
   }
 
@@ -106,8 +109,9 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     pivotOutput.setCurrentPosition(pivotLeft.getEncoder().getPosition());
     return pivotOutput;
   }
+
   @Override
   public Command getTestCommand() {
-    return Commands.none();
+    return new TestPivotCommand(this);
   }
 }
