@@ -30,14 +30,14 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
 
   @Override
   public void initialize() {
-    setColor(Color.kWhite);
+    setColor(currentInput.getColor());
   }
 
   public void periodic() {
     setColor(currentInput.getColor());
   }
 
-  public void setColor(Color c) {
+  private void setColor(Color c) {
     for (var i = 0; i < buffer.getLength(); i++) {
       buffer.setLED(i, c);
     }
