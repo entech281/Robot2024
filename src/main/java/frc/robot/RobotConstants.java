@@ -111,6 +111,12 @@ public final class RobotConstants {
   }
 
 
+  public static interface LED {
+    public static final int PORT = 1;
+    public static final int NUM_LEDS = 42;
+  }
+
+
   public static interface TEST_CONSTANTS {
 
     public static final int STANDARD_TEST_LENGTH = 1;
