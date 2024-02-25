@@ -168,9 +168,10 @@ public final class RobotConstants {
 
 
     public static interface Cameras {
-      public static final String FRONT_LEFT = "Arducam_Bravo";
-      public static final String FRONT_RIGHT = "Arducam_Alpha";
+      public static final String LEFT = "Arducam_Bravo";
+      public static final String RIGHT = "Arducam_Alpha";
       public static final String COLOR = "HD_Pro_Webcam_C920";
+      public static final String MIDDLE = "Global_Shutter_Camera";
     }
 
 
@@ -181,16 +182,21 @@ public final class RobotConstants {
 
 
     public static interface Transforms {
-      public static final Transform3d FRONT_LEFT = new Transform3d(
+      public static final Transform3d LEFT = new Transform3d(
           new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(4.25),
               Units.inchesToMeters(19.5)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
               Units.degreesToRadians(-90)));
-      public static final Transform3d FRONT_RIGHT = new Transform3d(
+      public static final Transform3d RIGHT = new Transform3d(
           new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(-4.25),
               Units.inchesToMeters(19.5)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
               Units.degreesToRadians(90)));
+      public static final Transform3d MIDDLE = new Transform3d(
+          new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(1.25),
+              Units.inchesToMeters(19.5)),
+          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(15),
+              Units.degreesToRadians(0.0)));
     }
   }
 

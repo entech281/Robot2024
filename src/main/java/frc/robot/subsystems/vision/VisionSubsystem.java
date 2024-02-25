@@ -62,14 +62,14 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
         throw new RuntimeException("Could not load wpilib AprilTagFields");
       }
 
-      CameraContainerI cameraBeta =
-          new SoloCameraContainer(RobotConstants.Vision.Cameras.FRONT_LEFT,
-              RobotConstants.Vision.Transforms.FRONT_LEFT, photonAprilTagFieldLayout);
-      CameraContainerI cameraAlpha =
-          new SoloCameraContainer(RobotConstants.Vision.Cameras.FRONT_RIGHT,
-              RobotConstants.Vision.Transforms.FRONT_RIGHT, photonAprilTagFieldLayout);
+      CameraContainerI cameraBeta = new SoloCameraContainer(RobotConstants.Vision.Cameras.LEFT,
+          RobotConstants.Vision.Transforms.LEFT, photonAprilTagFieldLayout);
+      CameraContainerI cameraAlpha = new SoloCameraContainer(RobotConstants.Vision.Cameras.RIGHT,
+          RobotConstants.Vision.Transforms.RIGHT, photonAprilTagFieldLayout);
+      CameraContainerI cameraMiddle = new SoloCameraContainer(RobotConstants.Vision.Cameras.MIDDLE,
+          RobotConstants.Vision.Transforms.MIDDLE, photonAprilTagFieldLayout);
 
-      this.cameras = new MultiCameraContainer(cameraAlpha, cameraBeta);
+      this.cameras = new MultiCameraContainer(cameraAlpha, cameraBeta, cameraMiddle);
     }
   }
 
