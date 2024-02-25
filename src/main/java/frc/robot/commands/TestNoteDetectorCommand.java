@@ -3,7 +3,6 @@ package frc.robot.commands;
 import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 import org.opencv.core.Point;
-import org.photonvision.targeting.PhotonTrackedTarget;
 import entech.commands.EntechCommand;
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.note_detector.NoteDetectorOutput;
@@ -27,30 +26,23 @@ public class TestNoteDetectorCommand extends EntechCommand {
   public void execute() {
     NoteDetectorOutput out = noteDetector.getOutputs();
 
-    Optional<PhotonTrackedTarget> selectedNote = out.getSelectedNote();
-    Point centerOfNote = null;
+    Optional<Point> midpoint = out.getMidpoint();
 
-    if (selectedNote.isPresent()) {
-      centerOfNote = out.getCenterOfClosestNote(selectedNote.get());
-    } else if (out.hasNotes()) {
-      centerOfNote = out.getCenterOfClosestNote(out.getNotes().get(0));
-    }
-
-    if (centerOfNote == null) {
-      Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
-          "Put note in front of colored camera.");
-    } else {
-      if (centerOfNote.x < 200) {
+    if (midpoint.isPresent()) {
+      if (midpoint.get().x < -0.1) {
         Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "Move note right.");
         return;
       }
 
-      if (centerOfNote.x > 232) {
+      if (midpoint.get().x > 0.1) {
         Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "Move note left.");
         return;
       }
 
       complete = true;
+    } else {
+      Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
+          "Put note in front of colored camera.");
     }
   }
 
@@ -63,5 +55,4 @@ public class TestNoteDetectorCommand extends EntechCommand {
   public boolean isFinished() {
     return complete;
   }
-
 }

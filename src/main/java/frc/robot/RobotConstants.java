@@ -206,7 +206,7 @@ public final class RobotConstants {
     }
 
     public static interface Resolution {
-      public static final int[] COLOR_RESOLUTION = {640, 480};
+      public static final int[] COLOR_RESOLUTION = {432, 240};
     }
 
 

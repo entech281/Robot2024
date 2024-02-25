@@ -40,7 +40,7 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   public Optional<PhotonTrackedTarget> getChosenNote() {
     if (chooseNote() == null)
       return Optional.empty();
-    return ENABLED ? Optional.of(chosenNote) : Optional.empty();
+    return ENABLED && chosenNote != null ? Optional.of(chosenNote) : Optional.empty();
   }
 
   public Optional<PhotonTrackedTarget> chooseNote() {
