@@ -22,7 +22,7 @@ import frc.robot.RobotConstants;
 import frc.robot.commands.TestVisionCommand;
 
 public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> {
-  private static final boolean ENABLED = true;
+  private static final boolean ENABLED = false;
 
   private CameraContainerI cameras;
 
