@@ -1,25 +1,19 @@
 package frc.robot.subsystems.note_detector;
 
-
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import entech.subsystems.EntechSubsystem;
-import frc.robot.RobotConstants;
-import org.opencv.core.Point;
-import org.photonvision.PhotonCamera;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.photonvision.targeting.PhotonTrackedTarget;
-import org.photonvision.targeting.TargetCorner;
+import org.opencv.core.Point;
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonTrackedTarget;
+import org.photonvision.targeting.TargetCorner;
+import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
+import frc.robot.commands.TestNoteDetectorCommand;
 
 public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, NoteDetectorOutput> {
-  private static final boolean ENABLED = false;
+  private static final boolean ENABLED = true;
 
   private PhotonCamera colorCamera;
   private PhotonTrackedTarget chosenNote;
@@ -46,26 +40,30 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   public Optional<PhotonTrackedTarget> getChosenNote() {
     if (chooseNote() == null)
       return Optional.empty();
-    return ENABLED ? Optional.of(chosenNote) : Optional.empty();
+    return ENABLED && chosenNote != null ? Optional.of(chosenNote) : Optional.empty();
   }
 
   public Optional<PhotonTrackedTarget> chooseNote() {
     double highestArea = 0;
-    PhotonTrackedTarget curatedNote;
+    PhotonTrackedTarget curatedNote = null;
     for (PhotonTrackedTarget currentNote : notes) {
       if (currentNote.getArea() > highestArea) {
         highestArea = currentNote.getArea();
         curatedNote = currentNote;
       }
     }
-    return ENABLED ? Optional.of(curatedNote) : Optional.empty();
+    return ENABLED && curatedNote != null ? Optional.of(curatedNote) : Optional.empty();
   }
 
   @Override
   public NoteDetectorOutput toOutputs() {
     NoteDetectorOutput output = new NoteDetectorOutput();
+
+    output.setHasNotes(!notes.isEmpty());
+    output.setSelectedNote(chooseNote());
+    output.setNotes(notes);
+    output.setMidpoint(getCenterOfClosestNote());
     if (getChosenNote().isPresent()) {
-      output.setMidpoint(getCenterOfClosestNote());
       output.setYaw(getChosenNote().get().getYaw());
     }
 
@@ -82,22 +80,23 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   @Override
   public void periodic() {
     if (ENABLED) {
+      updateNotes();
       updateNoteDetectorData();
     }
   }
 
-  
+
   private Point getNoteMidpoint(Point bottomLeft, Point topRight) {
-    Point midpoint = new Point((bottomLeft.x+topRight.x)/2, (bottomLeft.y+topRight.y)/2);
+    Point midpoint = new Point((bottomLeft.x + topRight.x) / 2, (bottomLeft.y + topRight.y) / 2);
     return midpoint;
   }
 
   private static Point transformedPoint(Point p) {
-    double cameraCenterX = RobotConstants.Vision.Cameras.COLOR_RESOLUTION[0]/2;
-    return new Point(p.x-cameraCenterX, p.y);
+    double cameraCenterX = RobotConstants.Vision.Resolution.COLOR_RESOLUTION[0] / 2;
+    return new Point(p.x - cameraCenterX, p.y);
   }
 
-  public Optional<Point> getCenterOfClosestNote(){
+  public Optional<Point> getCenterOfClosestNote() {
     Optional<Point> center = Optional.empty();
     if (getChosenNote().isPresent()) {
       List<TargetCorner> corners = getChosenNote().get().getMinAreaRectCorners();
@@ -106,11 +105,14 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
       center = Optional.of(getNoteMidpoint(bottomLeft, topRight));
     }
     return center;
-  }  
+  }
 
   @Override
   public Command getTestCommand() {
-    return Commands.none();
+    return new TestNoteDetectorCommand(this);
   }
 
+  private void updateNotes() {
+    notes = colorCamera.getLatestResult().targets;
+  }
 }

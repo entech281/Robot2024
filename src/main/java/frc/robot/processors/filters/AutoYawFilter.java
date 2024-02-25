@@ -14,15 +14,23 @@ public class AutoYawFilter implements DriveFilterI {
   public DriveInput process(DriveInput input) {
     DriveInput processedInput = new DriveInput(input);
 
-    double calculatedRot = controller.calculate(input.getLatestOdometryPose().getRotation().getDegrees(), calculateTargetAngle(input.getLatestOdometryPose()).getDegrees());
+    if (UserPolicy.getInstance().getTargetPose() != null) {
+      double calculatedRot =
+          controller.calculate(input.getLatestOdometryPose().getRotation().getDegrees(),
+              calculateTargetAngle(input.getLatestOdometryPose()).getDegrees());
 
-    if (Math.abs(input.getLatestOdometryPose().getRotation().getDegrees() - calculateTargetAngle(input.getLatestOdometryPose()).getDegrees()) < 2) {
+      if (Math.abs(input.getLatestOdometryPose().getRotation().getDegrees()
+          - calculateTargetAngle(input.getLatestOdometryPose()).getDegrees()) < 2) {
         calculatedRot = 0.0;
+      }
+
+      processedInput.setRotation(
+          UserPolicy.getInstance().isTwistable() ? input.getRotation() : calculatedRot);
+
+      Logger.recordOutput("TargetPoseDirection",
+          new Pose2d(input.getLatestOdometryPose().getTranslation(),
+              calculateTargetAngle(input.getLatestOdometryPose())));
     }
-
-    processedInput.setRotation(UserPolicy.getInstance().isTwistable() ? input.getRotation() : calculatedRot);
-
-    Logger.recordOutput("TargetPoseDirection", new Pose2d(input.getLatestOdometryPose().getTranslation(), calculateTargetAngle(input.getLatestOdometryPose())));
 
     return processedInput;
   }
