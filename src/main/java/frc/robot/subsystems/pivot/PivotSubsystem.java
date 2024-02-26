@@ -14,7 +14,7 @@ import frc.robot.commands.TestPivotCommand;
 public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
   private boolean ENABLED = false;
-  private boolean isInverted = true;
+  private boolean IS_INVERTED = true;
 
   private PivotInput currentInput = new PivotInput();
 
@@ -35,8 +35,8 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
       updateBrakeMode();
 
-      pivotLeft.setInverted(isInverted);
-      pivotRight.setInverted(isInverted);
+      pivotLeft.setInverted(IS_INVERTED);
+      pivotRight.setInverted(IS_INVERTED);
 
       setUpPIDConstants(pivotRight.getPIDController());
     }
