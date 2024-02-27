@@ -1,6 +1,7 @@
 package frc.robot.operation;
 
 import org.littletonrobotics.junction.Logger;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,9 +13,11 @@ import entech.util.EntechJoystick;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
+import frc.robot.commands.AlignNoteToggleCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.RunTestCommand;
+import frc.robot.commands.SetTargetCommand;
 import frc.robot.commands.TwistCommand;
 import frc.robot.io.DebugInput;
 import frc.robot.io.DebugInputSupplier;
@@ -58,6 +61,9 @@ public class OperatorInterface
     testChooser.addOption("All tests", getTestCommand());
 
     driveJoystick.whenPressed(7, new RunTestCommand(testChooser));
+    driveJoystick.whenPressed(8, new AlignNoteToggleCommand());
+    driveJoystick.whenPressed(9, new SetTargetCommand(new Pose2d(0, 5.53, new Rotation2d())));
+    driveJoystick.whenPressed(10, new SetTargetCommand(new Pose2d(1.79, 8.17, new Rotation2d())));
   }
 
   private SendableChooser<Command> getTestCommandChooser() {
