@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
-import frc.robot.commands.TestPivotCommand;
+import frc.robot.commands.testCommands.TestPivotCommand;
 
 public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 

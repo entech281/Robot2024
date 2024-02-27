@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.testCommands;
 
 import entech.commands.EntechCommand;
 import entech.util.PeriodicLoopsPerSecond;

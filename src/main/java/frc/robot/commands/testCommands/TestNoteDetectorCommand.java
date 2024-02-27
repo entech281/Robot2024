@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.testCommands;
 
 import java.util.Optional;
 import org.littletonrobotics.junction.Logger;

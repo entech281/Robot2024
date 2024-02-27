@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotConstants.DrivetrainConstants;
-import frc.robot.commands.TestDriveCommand;
+import frc.robot.commands.testCommands.TestDriveCommand;
 
 /**
  * The {@code Drivetrain} class contains fields and methods pertaining to the function of the

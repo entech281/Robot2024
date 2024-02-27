@@ -3,11 +3,12 @@ package frc.robot.commands;
 import entech.commands.EntechCommand;
 import frc.robot.subsystems.has_note.HasNoteSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem;
+import frc.robot.subsystems.transfer.TransferSubsystem.TransferPreset;
 import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.intake.IntakeInput;
 import frc.robot.subsystems.transfer.TransferInput;
 
-public class IntakeCommand extends EntechCommand {
+public class IntakeNoteCommand extends EntechCommand {
 
   private IntakeSubsystem intSubsystem;
   private TransferSubsystem transSubsystem;
@@ -17,7 +18,7 @@ public class IntakeCommand extends EntechCommand {
 
   private HasNoteSubsystem hNOutput = new HasNoteSubsystem();
 
-  public IntakeCommand(IntakeSubsystem iSubsystem, TransferSubsystem tSubsystem) {
+  public IntakeNoteCommand(IntakeSubsystem iSubsystem, TransferSubsystem tSubsystem) {
     super(iSubsystem, tSubsystem);
     this.intSubsystem = iSubsystem;
     this.transSubsystem = tSubsystem;
@@ -26,7 +27,11 @@ public class IntakeCommand extends EntechCommand {
   @Override
   public void initialize() {
     iInput.setActivate(true);
+    iInput.setSpeed(1);
+    iInput.setBrakeModeEnabled(false);
     tInput.setActivate(true);
+    tInput.setSpeedPreset(TransferPreset.Intaking);
+    tInput.setBrakeModeEnabled(false);
     intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
   }

@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.testCommands;
 
 import frc.robot.subsystems.intake.IntakeSubsystem;
 import entech.commands.EntechCommand;

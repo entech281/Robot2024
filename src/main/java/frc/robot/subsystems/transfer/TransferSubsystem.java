@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
-import frc.robot.commands.TestTransferCommand;
+import frc.robot.commands.testCommands.TestTransferCommand;
 
 public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOutput> {
 
@@ -14,7 +14,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
 
   public enum TransferPreset {
-    Shooting, Transfering, Intaking, Testing, Off
+    Shooting, Transfering, Intaking, Ejecting, Testing, Off
   }
 
   private TransferInput currentInput = new TransferInput();
@@ -38,13 +38,14 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
           transferMotor.set(RobotConstants.TRANSFER.TRANSFERING_SPEED);
         } else if (currentInput.getSpeedPreset() == TransferPreset.Intaking) {
           transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED);
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Ejecting) {
+          transferMotor.set(RobotConstants.TRANSFER.EJECTING_SPEED);
         } else if (currentInput.getSpeedPreset() == TransferPreset.Testing) {
           transferMotor.set(RobotConstants.TRANSFER.TESTING_SPEED);
         }
       } else {
         transferMotor.set(0.0);
       }
-
       if (currentInput.getBrakeModeEnabled()) {
         transferMotor.setIdleMode(IdleMode.kBrake);
       } else {

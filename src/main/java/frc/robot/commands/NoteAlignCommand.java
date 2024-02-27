@@ -18,7 +18,8 @@ public class NoteAlignCommand extends EntechCommand {
 
   private PhotonTrackedTarget note;
 
-  public NoteAlignCommand(DriveSubsystem drive, DriveInputSupplier driveInputSource, NoteDetectorSubsystem nds) {
+  public NoteAlignCommand(DriveSubsystem drive, DriveInputSupplier driveInputSource,
+      NoteDetectorSubsystem nds) {
     super(drive);
     this.drive = drive;
     this.inputProcessor = new DriveInputProcessor();
@@ -36,12 +37,12 @@ public class NoteAlignCommand extends EntechCommand {
 
     drive.updateInputs(stop);
 
-    //note = nds.getOutputs().selectedNote;
+    // note = nds.getOutputs().selectedNote;
   }
 
   @Override
   public void execute() {
-    //double distance = nds.getCenterOfClosestNote(note).x;
+    // double distance = nds.getCenterOfClosestNote(note).x;
   }
 
 }
