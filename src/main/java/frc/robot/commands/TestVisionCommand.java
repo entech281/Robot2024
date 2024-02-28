@@ -38,6 +38,11 @@ public class TestVisionCommand extends EntechCommand {
 
   private void testCamera(int id, String cameraName, String commonName) {
     EntechTargetData data = getDataOf(cameraName);
+    if (data == null) {
+      Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
+          "The " + cameraName + " camera was not found check coprocessors.");
+    }
+
     if (data.getIds().contains(id)) {
       stage++;
     } else {
