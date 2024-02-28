@@ -8,14 +8,14 @@ public class ClimbInput implements SubsystemInput {
   private boolean activate = false;
   private boolean brakeModeEnabled = false;
   private double requestedPosition = 0.0;
-  private double currentRoll = 0.0;
+  // private double currentRoll = 0.0;
 
   @Override
   public void toLog(LogTable table) {
     table.put("activate", activate);
     table.put("brakeModeEnabled", brakeModeEnabled);
     table.put("requestedPosition", requestedPosition);
-    table.put("currentRoll", currentRoll);
+    // table.put("currentRoll", currentRoll);
   }
 
   @Override
@@ -45,12 +45,12 @@ public class ClimbInput implements SubsystemInput {
     this.brakeModeEnabled = brakeModeEnabled;
   }
 
-  public double getCurrentAngle() {
-    return this.currentRoll;
-  }
+  // public double getCurrentAngle() {
+  // return this.currentRoll;
+  // }
 
-  public void setCurrentAngle(double currentRoll) {
-    this.currentRoll = currentRoll;
-  }
+  // public void setCurrentAngle(double currentRoll) {
+  // this.currentRoll = currentRoll;
+  // }
 
 }

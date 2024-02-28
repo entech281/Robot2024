@@ -6,15 +6,15 @@ import frc.robot.subsystems.climb.ClimbInput;
 import frc.robot.subsystems.climb.ClimbOutput;
 import frc.robot.subsystems.climb.ClimbSubsystem;
 
-public class RaiseClimbCommand extends EntechCommand {
+public class LowerClimbCommand extends EntechCommand {
 
   private ClimbInput cInput = new ClimbInput();
   private ClimbOutput cOutput = new ClimbOutput();
   private ClimbSubsystem cSubsystem = new ClimbSubsystem();
 
-  private double POSITION = 5;
+  private double POSITION = 0;
 
-  public RaiseClimbCommand(ClimbSubsystem cSubsystem) {
+  public LowerClimbCommand(ClimbSubsystem cSubsystem) {
     super(cSubsystem);
     this.cSubsystem = cSubsystem;
   }
