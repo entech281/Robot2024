@@ -202,7 +202,7 @@ public final class RobotConstants {
     public static interface Cameras {
       public static final String LEFT = "Arducam_Bravo";
       public static final String RIGHT = "Arducam_Alpha";
-      public static final String COLOR = "HD_Pro_Webcam_C920";
+      public static final String COLOR = "Arducam_OV9782_USB_Camera";
       public static final String MIDDLE = "Global_Shutter_Camera";
     }
 
@@ -213,7 +213,7 @@ public final class RobotConstants {
     }
 
     public static interface Resolution {
-      public static final int[] COLOR_RESOLUTION = {432, 240};
+      public static final int[] COLOR_RESOLUTION = {320, 240};
     }
 
 

@@ -74,6 +74,8 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
     Optional<PhotonTrackedTarget> pickedNote = chooseNote();
     if (pickedNote.isPresent()) {
       chosenNote = pickedNote.get();
+    } else {
+      chosenNote = null;
     }
   }
 
