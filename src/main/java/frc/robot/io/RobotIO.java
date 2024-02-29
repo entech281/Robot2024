@@ -1,5 +1,6 @@
 package frc.robot.io;
 
+import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -117,6 +118,19 @@ public class RobotIO {
     ndo.log();
   }
 
+  public Optional<Double> getDistanceFromTarget() {
+    return distanceFromTarget;
+  }
+
+  public void setDistanceFromTarget(Optional<Double> distance) {
+    distanceFromTarget = distance;
+    if (distance.isPresent()) {
+      Logger.recordOutput("DistanceFromTarget", distance.get());
+    } else {
+      Logger.recordOutput("DistanceFromTarget", -1);
+    }
+  }
+
   private VisionOutput latestVisionOutput;
   private NavXOutput latestNavXOutput;
   private DriveOutput latestDriveOutput;
@@ -127,4 +141,5 @@ public class RobotIO {
   private NoteDetectorOutput latestNoteDetectorOutput;
   private ClimbOutput latestClimbOutput;
   private Pose2d latestOdometryPose;
+  private Optional<Double> distanceFromTarget = Optional.empty();
 }

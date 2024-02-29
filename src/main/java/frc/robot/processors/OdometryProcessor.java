@@ -6,6 +6,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
+import frc.robot.operation.UserPolicy;
 
 public class OdometryProcessor {
   private SwerveDrivePoseEstimator estimator;
@@ -38,11 +39,26 @@ public class OdometryProcessor {
     }
 
     RobotIO.getInstance().updateOdometryPose(getEstimatedPose());
+
+    Pose2d target = UserPolicy.getInstance().getTargetPose();
+
+    if (target != null) {
+      RobotIO.getInstance().setDistanceFromTarget(Optional.of(calculateDistanceFromTarget(target)));
+    } else {
+      RobotIO.getInstance().setDistanceFromTarget(Optional.empty());
+    }
   }
 
   public void addVisionEstimatedPose(Pose2d visionPose, double timeStamp, Rotation2d yaw) {
     Pose2d fixedVisionPose = new Pose2d(visionPose.getTranslation(), yaw);
     estimator.addVisionMeasurement(fixedVisionPose, timeStamp);
+  }
+
+  public double calculateDistanceFromTarget(Pose2d target) {
+    double xDist = getEstimatedPose().getX() - target.getX();
+    double yDist = getEstimatedPose().getY() - target.getY();
+
+    return Math.sqrt(xDist * xDist + yDist * yDist);
   }
 
   /**
