@@ -19,13 +19,12 @@ public class ShootSpeakerCommand extends EntechCommand {
   private PivotInput pInput = new PivotInput();
   private TransferInput tInput = new TransferInput();
 
-  private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(), RESET_DELAY);
+  private StoppingCounter counter =
+      new StoppingCounter(getClass().getSimpleName(), RobotConstants.SHOOTER.RESET_DELAY);
 
   private ShooterSubsystem sSubsystem;
   private PivotSubsystem pSubsystem;
   private TransferSubsystem tSubsystem;
-
-  public static final double RESET_DELAY = 0.5;
 
   private boolean noNote;
 

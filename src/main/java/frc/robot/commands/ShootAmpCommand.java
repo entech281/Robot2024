@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import entech.commands.EntechCommand;
+import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
 import frc.robot.subsystems.pivot.PivotInput;
@@ -20,6 +21,9 @@ public class ShootAmpCommand extends EntechCommand {
   private ShooterSubsystem sSubsystem;
   private PivotSubsystem pSubsystem;
   private TransferSubsystem tSubsystem;
+
+  private StoppingCounter counter =
+      new StoppingCounter(getClass().getSimpleName(), RobotConstants.SHOOTER.RESET_DELAY);
 
   private boolean noNote;
 
@@ -82,7 +86,7 @@ public class ShootAmpCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    if (noNote) {
+    if (counter.isFinished(noNote)) {
       return true;
     } else {
       return false;

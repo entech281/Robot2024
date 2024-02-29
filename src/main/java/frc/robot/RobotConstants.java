@@ -183,7 +183,7 @@ public final class RobotConstants {
       public static final double JOYSTICK_AXIS_THRESHOLD = 0.2;
       public static final int JOYSTICK = 0;
       public static final int PANEL = 1;
-      
+
       public static class BUTTONS {
         public static final int TWIST = 1;
         public static final int INTAKE = 2;
@@ -207,7 +207,7 @@ public final class RobotConstants {
       public static final int ADVANCE_CLIMB = 4;
       public static final int REVERSE_CLIMB = 5;
     }
-    
+
     public static class SWITCHES {
       public static final int INTAKE = 3;
       public static final int ALIGN_SPEAKER_AMP = 6;
@@ -302,11 +302,19 @@ public final class RobotConstants {
   public static interface CLIMB {
     public static final double UPPER_SOFT_LIMIT_Inches = 25.0;
     public static final double CLIMB_CONVERSION_FACTOR = 1;
+    public static final double CLIMB_RETRACTED = 0;
+    public static final double CLIMB_EXTENDED = 5;
   }
 
 
   public static interface INTAKE {
     public static final double INTAKE_SPEED = 0.0;
+    public static final int EJECTING_TIME = 2;
+  }
+
+
+  public static interface SHOOTER {
+    public static final double RESET_DELAY = 0.5;
   }
 
 
