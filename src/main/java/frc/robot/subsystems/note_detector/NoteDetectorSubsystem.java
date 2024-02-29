@@ -38,8 +38,6 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   }
 
   public Optional<PhotonTrackedTarget> getChosenNote() {
-    if (chooseNote() == null)
-      return Optional.empty();
     return ENABLED && chosenNote != null ? Optional.of(chosenNote) : Optional.empty();
   }
 
@@ -60,11 +58,14 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
     NoteDetectorOutput output = new NoteDetectorOutput();
 
     output.setHasNotes(!notes.isEmpty());
-    output.setSelectedNote(chooseNote());
+    output.setSelectedNote(getChosenNote());
     output.setNotes(notes);
     output.setMidpoint(getCenterOfClosestNote());
-    if (getChosenNote().isPresent()) {
-      output.setYaw(getChosenNote().get().getYaw());
+    Optional<PhotonTrackedTarget> note = getChosenNote();
+    if (note.isPresent()) {
+      output.setYaw(note.get().getYaw());
+    } else {
+      output.setYaw(0);
     }
 
     return output;
@@ -74,6 +75,8 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
     Optional<PhotonTrackedTarget> pickedNote = chooseNote();
     if (pickedNote.isPresent()) {
       chosenNote = pickedNote.get();
+    } else {
+      chosenNote = null;
     }
   }
 
@@ -92,14 +95,15 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   }
 
   private static Point transformedPoint(Point p) {
-    double cameraCenterX = RobotConstants.Vision.Resolution.COLOR_RESOLUTION[0] / 2;
+    double cameraCenterX = RobotConstants.Vision.Resolution.COLOR_RESOLUTION[0] / 2.0;
     return new Point(p.x - cameraCenterX, p.y);
   }
 
   public Optional<Point> getCenterOfClosestNote() {
     Optional<Point> center = Optional.empty();
-    if (getChosenNote().isPresent()) {
-      List<TargetCorner> corners = getChosenNote().get().getMinAreaRectCorners();
+    Optional<PhotonTrackedTarget> note = getChosenNote();
+    if (note.isPresent()) {
+      List<TargetCorner> corners = note.get().getMinAreaRectCorners();
       Point bottomLeft = transformedPoint(new Point(corners.get(0).x, corners.get(0).y));
       Point topRight = transformedPoint(new Point(corners.get(2).x, corners.get(2).y));
       center = Optional.of(getNoteMidpoint(bottomLeft, topRight));

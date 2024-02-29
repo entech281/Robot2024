@@ -12,10 +12,12 @@ import entech.util.EntechJoystick;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
+import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.RunTestCommand;
 import frc.robot.commands.TwistCommand;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.io.DebugInput;
 import frc.robot.io.DebugInputSupplier;
 import frc.robot.io.DriveInputSupplier;
@@ -45,11 +47,18 @@ public class OperatorInterface
   }
 
   public void create() {
-    driveJoystick.whilePressed(1, new TwistCommand());
-    driveJoystick.whenPressed(11, new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
+    driverBindings();
+    operatorBindings();
+  }
+
+  public void driverBindings() {
+    driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.TWIST, new TwistCommand());
+    driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.GYRO_RESET, new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
 
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
+    driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.INTAKE, new IntakeCommand(subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
+    driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.ALIGN_SPEAKER_AMP, new DoNothing()); // align to speaker or amp depending on an operator switch
 
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
     SendableChooser<Command> testChooser = getTestCommandChooser();
@@ -57,7 +66,16 @@ public class OperatorInterface
 
     testChooser.addOption("All tests", getTestCommand());
 
-    driveJoystick.whenPressed(7, new RunTestCommand(testChooser));
+    driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.RUN_TESTS, new RunTestCommand(testChooser));
+  }
+
+  public void operatorBindings() {
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_AMP).whileTrue(new DoNothing()); // shoot speaker
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_SPEAKER).whileTrue(new DoNothing()); // shoot amp
+    operatorPanel.whileSwitch(RobotConstants.OPERATOR_PANEL.SWITCHES.INTAKE, new IntakeCommand(subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()), new DoNothing()); // run intake and transfer backwards and eject note
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.ADVANCE_CLIMB).whileTrue(new DoNothing()); // advance to next stage of climb
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.REVERSE_CLIMB).onTrue(new DoNothing()); // revert to last state of climb
+    operatorPanel.whileSwitch(RobotConstants.OPERATOR_PANEL.SWITCHES.ALIGN_SPEAKER_AMP, new DoNothing(), new DoNothing()); // allows the driver to align to speaker or amp
   }
 
   private SendableChooser<Command> getTestCommandChooser() {
@@ -108,21 +126,19 @@ public class OperatorInterface
         addSubsystemTest(allTests, subsystem);
       }
     }
-    allTests.addCommands(Commands.runOnce(() -> {
-      Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Tests.");
-    }));
+    allTests.addCommands(Commands.runOnce(() -> Logger
+        .recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Tests.")));
     return allTests;
   }
 
   private static void addSubsystemTest(SequentialCommandGroup group,
       EntechSubsystem<?, ?> subsystem) {
 
-    group.addCommands(Commands.runOnce(() -> {
-      Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
-          String.format("%s: Start", subsystem.getName()));
-    }), subsystem.getTestCommand(), Commands.runOnce(() -> {
-      Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
-          String.format("%s: Finished", subsystem.getName()));
-    }));
+    group.addCommands(
+        Commands.runOnce(() -> Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
+            String.format("%s: Start", subsystem.getName()))),
+        subsystem.getTestCommand(),
+        Commands.runOnce(() -> Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
+            String.format("%s: Finished", subsystem.getName()))));
   }
 }

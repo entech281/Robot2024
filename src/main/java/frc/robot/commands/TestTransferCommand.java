@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
 import entech.commands.EntechCommand;
-import entech.util.PeriodicLoopsPerSecond;
+import entech.util.EntechUtils;
 import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.transfer.TransferInput;
@@ -13,7 +13,7 @@ public class TestTransferCommand extends EntechCommand {
   private TransferInput input = new TransferInput();
   private TransferSubsystem tSubsystem = new TransferSubsystem();
   private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
-      PeriodicLoopsPerSecond.getLoopsPerSecond(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH));
+      EntechUtils.getLoopsPerSecond(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH));
 
   public TestTransferCommand(TransferSubsystem subsystem) {
     super(subsystem);
@@ -25,7 +25,7 @@ public class TestTransferCommand extends EntechCommand {
     counter.reset();
     input.setActivate(true);
     input.setBrakeModeEnabled(false);
-    input.setSpeedPreset(TransferPreset.Testing);
+    input.setSpeedPreset(TransferPreset.TESTING);
     tSubsystem.updateInputs(input);
   }
 
@@ -33,7 +33,7 @@ public class TestTransferCommand extends EntechCommand {
   public void end(boolean interupted) {
     input.setActivate(false);
     input.setBrakeModeEnabled(false);
-    input.setSpeedPreset(TransferPreset.Off);
+    input.setSpeedPreset(TransferPreset.OFF);
     tSubsystem.updateInputs(input);
   }
 

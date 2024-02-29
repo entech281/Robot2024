@@ -1,8 +1,7 @@
 package frc.robot.commands;
 
 import entech.commands.EntechCommand;
-import entech.util.IsWithinTolerance;
-import entech.util.PeriodicLoopsPerSecond;
+import entech.util.EntechUtils;
 import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.pivot.PivotInput;
@@ -13,7 +12,7 @@ public class TestPivotCommand extends EntechCommand {
   private PivotInput input = new PivotInput();
   private PivotSubsystem pSubsystem = new PivotSubsystem();
   private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
-      PeriodicLoopsPerSecond.getLoopsPerSecond(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH));
+      EntechUtils.getLoopsPerSecond(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH));
 
   public TestPivotCommand(PivotSubsystem subsystem) {
     super(subsystem);
@@ -39,7 +38,7 @@ public class TestPivotCommand extends EntechCommand {
   @Override
   public boolean isFinished() {
     return counter.isFinished(
-        IsWithinTolerance.isWithinTolerance(RobotConstants.TEST_CONSTANTS.PIVOT.TEST_TOLERANCE_DEG,
+        EntechUtils.isWithinTolerance(RobotConstants.TEST_CONSTANTS.PIVOT.TEST_TOLERANCE_DEG,
             pSubsystem.getOutputs().getCurrentPosition(),
             RobotConstants.TEST_CONSTANTS.PIVOT.TEST_POSITION_DEG));
   }
