@@ -3,7 +3,7 @@ package entech.util;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-public class TestEntechUtils {
+class TestEntechUtils {
   @Test
   void testPeriodicLoopsPerSecond() {
     assertEquals(50, EntechUtils.getLoopsPerSecond(1));

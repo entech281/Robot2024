@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.ejml.simple.UnsupportedOperation;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
@@ -33,7 +34,7 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
 
   @Override
   public void updateInputs(VisionInput input) {
-
+    new UnsupportedOperation();
   }
 
   @Override

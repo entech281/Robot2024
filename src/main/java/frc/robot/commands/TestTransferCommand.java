@@ -25,7 +25,7 @@ public class TestTransferCommand extends EntechCommand {
     counter.reset();
     input.setActivate(true);
     input.setBrakeModeEnabled(false);
-    input.setSpeedPreset(TransferPreset.Testing);
+    input.setSpeedPreset(TransferPreset.TESTING);
     tSubsystem.updateInputs(input);
   }
 
@@ -33,7 +33,7 @@ public class TestTransferCommand extends EntechCommand {
   public void end(boolean interupted) {
     input.setActivate(false);
     input.setBrakeModeEnabled(false);
-    input.setSpeedPreset(TransferPreset.Off);
+    input.setSpeedPreset(TransferPreset.OFF);
     tSubsystem.updateInputs(input);
   }
 
