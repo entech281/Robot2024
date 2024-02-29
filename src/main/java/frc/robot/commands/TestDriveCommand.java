@@ -62,6 +62,7 @@ public class TestDriveCommand extends EntechCommand {
           sum += state.speedMetersPerSecond;
         }
         counter.isFinished(sum < 0.0001);
+        break;
       default:
         break;
     }

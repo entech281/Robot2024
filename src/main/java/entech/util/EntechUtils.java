@@ -56,5 +56,16 @@ public final class EntechUtils {
     return angle;
   }
 
+  private static final int PERIODIC_LOOP_FACTOR_SEC = 50;
+
+  public static int getLoopsPerSecond(int seconds) {
+    return PERIODIC_LOOP_FACTOR_SEC * seconds;
+  }
+
+  public static boolean isWithinTolerance(double tolerance, double value,
+      double requestedPosition) {
+    return Math.abs(requestedPosition - value) < tolerance;
+  }
+
   private EntechUtils() {}
 }
