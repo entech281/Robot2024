@@ -59,6 +59,7 @@ public class OperatorInterface
     operatorPanel.whileSwitch(3, new IntakeCommand(subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()), new DoNothing()); // run intake and transfer backwards and eject note
     operatorPanel.button(4).whileTrue(new DoNothing()); // advance to next stage of climb
     operatorPanel.button(5).onTrue(new DoNothing()); // revert to last state of climb
+    operatorPanel.whileSwitch(6, new DoNothing(), new DoNothing());
   }
 
   /*
