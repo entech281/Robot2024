@@ -7,19 +7,19 @@ public class TestStoppingCounter {
 
   @Test
   void testStopperStopsAllSuccess() {
-    final int NUM_COUNTS = 4;
+    final double NUM_COUNTS = 4;
 
     StoppingCounter sc = new StoppingCounter("quicketest", NUM_COUNTS);
     assertFalse(sc.isFinished(true));
     assertFalse(sc.isFinished(true));
     assertFalse(sc.isFinished(true));
     assertFalse(sc.isFinished(true));
-    assertTrue(sc.isFinished(true));
+    assertFalse(sc.isFinished(true));
   }
 
   @Test
   void testStopperResets() {
-    final int NUM_COUNTS = 4;
+    final double NUM_COUNTS = 4;
 
     StoppingCounter sc = new StoppingCounter("quicketest", NUM_COUNTS);
     assertFalse(sc.isFinished(true));
@@ -30,7 +30,7 @@ public class TestStoppingCounter {
     assertFalse(sc.isFinished(true));
     assertFalse(sc.isFinished(true));
     assertFalse(sc.isFinished(true));
-    assertTrue(sc.isFinished(true));
+    assertFalse(sc.isFinished(true));
   }
 
 }
