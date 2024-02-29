@@ -20,7 +20,7 @@ public class StoppingCounter {
       currentCounts = 0;
     }
     SmartDashboard.putNumber("StopCounter::" + name, currentCounts);
-    return currentCounts > PeriodicLoopsPerSecond.getLoopsPerSecond(targetCounts);
+    return currentCounts > EntechUtils.getLoopsPerSecond(targetCounts);
   }
 
   public void reset() {
