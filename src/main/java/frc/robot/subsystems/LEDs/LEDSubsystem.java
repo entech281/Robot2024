@@ -15,7 +15,7 @@ import frc.robot.RobotConstants;
  */
 public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
 
-  private boolean ENABLED;
+  private static final boolean ENABLED = false;
 
   private AddressableLED leds;
   private AddressableLEDBuffer buffer;

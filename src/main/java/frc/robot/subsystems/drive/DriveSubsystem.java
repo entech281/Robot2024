@@ -26,10 +26,10 @@ import frc.robot.commands.testCommands.TestDriveCommand;
 public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
   private static final boolean ENABLED = true;
 
-  public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = -0.6493782167825488;
-  public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = -0.44890044829984976;
-  public static final double REAR_LEFT_VIRTUAL_OFFSET_RADIANS = -1.3180966246712007;
-  public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = -0.832907157277369;
+  public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = 1.4779245720125385;
+  public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = -2.247701101404261;
+  public static final double REAR_LEFT_VIRTUAL_OFFSET_RADIANS = 0.7613908452677798;
+  public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = 1.704240497731777;
 
   public static final int GYRO_ORIENTATION = 1; // might be able to merge with kGyroReversed
 
