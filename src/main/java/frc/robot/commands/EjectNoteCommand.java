@@ -1,7 +1,8 @@
 package frc.robot.commands;
 
 import entech.commands.EntechCommand;
-import frc.robot.subsystems.has_note.HasNoteSubsystem;
+import entech.util.PeriodicLoopsPerSecond;
+import entech.util.StoppingCounter;
 import frc.robot.subsystems.intake.IntakeInput;
 import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.transfer.TransferInput;
@@ -16,7 +17,11 @@ public class EjectNoteCommand extends EntechCommand {
   private IntakeInput iInput = new IntakeInput();
   private TransferInput tInput = new TransferInput();
 
-  private HasNoteSubsystem hNOutput = new HasNoteSubsystem();
+  private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
+      PeriodicLoopsPerSecond.getLoopsPerSecond(EJECTING_TIME));
+
+  public static final int EJECTING_TIME = 2;
+  public boolean ejecting = false;
 
   public EjectNoteCommand(IntakeSubsystem iSubsystem, TransferSubsystem tSubsystem) {
     super(iSubsystem, tSubsystem);
@@ -26,6 +31,7 @@ public class EjectNoteCommand extends EntechCommand {
 
   @Override
   public void initialize() {
+    ejecting = true;
     iInput.setActivate(false);
     iInput.setSpeed(-1);
     iInput.setBrakeModeEnabled(false);
@@ -49,7 +55,7 @@ public class EjectNoteCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return hNOutput.getOutputs().hasNote();
+    return counter.isFinished(ejecting);
   }
 
   @Override

@@ -2,15 +2,14 @@ package frc.robot.commands;
 
 import entech.commands.EntechCommand;
 import entech.util.IsWithinTolerance;
+import frc.robot.io.RobotIO;
 import frc.robot.subsystems.climb.ClimbInput;
-import frc.robot.subsystems.climb.ClimbOutput;
 import frc.robot.subsystems.climb.ClimbSubsystem;
 
 public class LowerClimbCommand extends EntechCommand {
 
   private ClimbInput cInput = new ClimbInput();
-  private ClimbOutput cOutput = new ClimbOutput();
-  private ClimbSubsystem cSubsystem = new ClimbSubsystem();
+  private ClimbSubsystem cSubsystem;
 
   private double POSITION = 0;
 
@@ -34,7 +33,8 @@ public class LowerClimbCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return IsWithinTolerance.isWithinTolerance(1, cOutput.getCurrentPosition(), POSITION);
+    return IsWithinTolerance.isWithinTolerance(1,
+        RobotIO.getInstance().getClimbOutput().getCurrentPosition(), POSITION);
   }
 
   @Override

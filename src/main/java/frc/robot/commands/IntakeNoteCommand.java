@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
 import entech.commands.EntechCommand;
-import frc.robot.subsystems.has_note.HasNoteSubsystem;
+import frc.robot.io.RobotIO;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem.TransferPreset;
 import frc.robot.subsystems.intake.IntakeSubsystem;
@@ -15,8 +15,6 @@ public class IntakeNoteCommand extends EntechCommand {
 
   private IntakeInput iInput = new IntakeInput();
   private TransferInput tInput = new TransferInput();
-
-  private HasNoteSubsystem hNOutput = new HasNoteSubsystem();
 
   public IntakeNoteCommand(IntakeSubsystem iSubsystem, TransferSubsystem tSubsystem) {
     super(iSubsystem, tSubsystem);
@@ -45,7 +43,7 @@ public class IntakeNoteCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return hNOutput.getOutputs().hasNote();
+    return RobotIO.getInstance().getHasNoteOutput().hasNote();
   }
 
   @Override
