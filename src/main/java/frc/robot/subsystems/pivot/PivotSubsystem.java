@@ -1,5 +1,6 @@
 package frc.robot.subsystems.pivot;
 
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
@@ -76,7 +77,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   public void periodic() {
     double clampedPosition = clampRequestedPosition(currentInput.getRequestedPosition());
     if (ENABLED && currentInput.getActivate()) {
-      pivotLeft.getPIDController().setReference(clampedPosition, CANSparkMax.ControlType.kPosition);
+      pivotLeft.getPIDController().setReference(clampedPosition, ControlType.kPosition);
       updateBrakeMode();
     }
   }

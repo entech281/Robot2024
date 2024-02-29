@@ -34,7 +34,7 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
 
   @Override
   public void updateInputs(VisionInput input) {
-    new UnsupportedOperation();
+    throw new UnsupportedOperation();
   }
 
   @Override

@@ -69,7 +69,7 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
 
   @Override
   public void updateInputs(NavXInput input) {
-    new UnsupportedOperation();
+    throw new UnsupportedOperation();
   }
 
   public void zeroYaw() {

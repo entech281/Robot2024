@@ -8,11 +8,11 @@ import entech.subsystems.SubsystemInput;
 public class VisionInput implements SubsystemInput {
   @Override
   public void toLog(LogTable table) {
-    new UnsupportedOperation();
+    throw new UnsupportedOperation();
   }
 
   @Override
   public void fromLog(LogTable table) {
-    new UnsupportedOperation();
+    throw new UnsupportedOperation();
   }
 }
