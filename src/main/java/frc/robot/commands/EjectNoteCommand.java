@@ -17,8 +17,7 @@ public class EjectNoteCommand extends EntechCommand {
   private IntakeInput iInput = new IntakeInput();
   private TransferInput tInput = new TransferInput();
 
-  private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
-      PeriodicLoopsPerSecond.getLoopsPerSecond(EJECTING_TIME));
+  private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(), EJECTING_TIME);
 
   public static final int EJECTING_TIME = 2;
   public boolean ejecting = false;
