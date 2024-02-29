@@ -13,21 +13,29 @@ import frc.robot.subsystems.pivot.PivotSubsystem;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 
-public class UniversalCoastModeCommand extends EntechCommand {
+public class CoastModeCommand extends EntechCommand {
 
-  private ClimbInput cInput = new ClimbInput();
-  private IntakeInput iInput = new IntakeInput();
-  private PivotInput pInput = new PivotInput();
-  private ShooterInput sInput = new ShooterInput();
-  private TransferInput tInput = new TransferInput();
+  private ClimbInput cInput;
+  private IntakeInput iInput;
+  private PivotInput pInput;
+  private ShooterInput sInput;
+  private TransferInput tInput;
 
-  private ClimbSubsystem cSubsystem = new ClimbSubsystem();
-  private IntakeSubsystem iSubsystem = new IntakeSubsystem();
-  private PivotSubsystem pSubsystem = new PivotSubsystem();
-  private ShooterSubsystem sSubsystem = new ShooterSubsystem();
-  private TransferSubsystem tSubsystem = new TransferSubsystem();
+  private ClimbSubsystem cSubsystem;
+  private IntakeSubsystem iSubsystem;
+  private PivotSubsystem pSubsystem;
+  private ShooterSubsystem sSubsystem;
+  private TransferSubsystem tSubsystem;
 
-  public UniversalCoastModeCommand() {}
+  public CoastModeCommand(ClimbSubsystem climbSubsystem, IntakeSubsystem intakeSubsystem,
+      PivotSubsystem pivotSubsystem, ShooterSubsystem shooterSubsystem,
+      TransferSubsystem transferSubsystem) {
+    this.cSubsystem = climbSubsystem;
+    this.iSubsystem = intakeSubsystem;
+    this.pSubsystem = pivotSubsystem;
+    this.sSubsystem = shooterSubsystem;
+    this.tSubsystem = transferSubsystem;
+  }
 
   @Override
   public void initialize() {

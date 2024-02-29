@@ -8,9 +8,9 @@ import frc.robot.subsystems.climb.ClimbSubsystem;
 
 public class RaiseClimbCommand extends EntechCommand {
 
-  private ClimbInput cInput = new ClimbInput();
-  private ClimbOutput cOutput = new ClimbOutput();
-  private ClimbSubsystem cSubsystem = new ClimbSubsystem();
+  private ClimbInput cInput;
+  private ClimbOutput cOutput;
+  private ClimbSubsystem cSubsystem;
 
   private double POSITION = 5;
 

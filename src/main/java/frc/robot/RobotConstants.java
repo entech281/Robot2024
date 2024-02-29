@@ -169,10 +169,10 @@ public final class RobotConstants {
 
       public static final int TRANSFER = 7;
 
-      public static final int INTAKE = 6;
+      public static final int INTAKE = 4;
 
       public static final int PIVOT_B = 5;
-      public static final int PIVOT_A = 4;
+      public static final int PIVOT_A = 6;
 
       public static final int CLIMB_B = 3;
       public static final int CLIMB_A = 2;
@@ -275,6 +275,8 @@ public final class RobotConstants {
   public static interface PIVOT {
     public static final double UPPER_SOFT_LIMIT_DEG = 89;
     public static final double PIVOT_CONVERSION_FACTOR = 1;
+    public static final double SHOOT_AMP_POSITION_DEG = 88;
+    public static final double POSITION_TOLERANCE_DEG = 2;
   }
 
 
