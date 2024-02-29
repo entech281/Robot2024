@@ -1,6 +1,7 @@
 package frc.robot.commands.testCommands;
 
 import java.util.List;
+import java.util.Random;
 import org.littletonrobotics.junction.Logger;
 import entech.commands.EntechCommand;
 import frc.robot.RobotConstants;
@@ -10,6 +11,7 @@ import frc.robot.subsystems.vision.VisionSubsystem;
 public class TestVisionCommand extends EntechCommand {
   private int stage = 0;
   private final VisionSubsystem vision;
+  private final Random random = new Random();
 
   private int leftTestTag;
   private int rightTestTag;
@@ -31,6 +33,7 @@ public class TestVisionCommand extends EntechCommand {
         break;
       case 2:
         testCamera(middleTestTag, RobotConstants.Vision.Cameras.MIDDLE, "middle");
+        break;
       default:
         break;
     }
@@ -38,6 +41,11 @@ public class TestVisionCommand extends EntechCommand {
 
   private void testCamera(int id, String cameraName, String commonName) {
     EntechTargetData data = getDataOf(cameraName);
+    if (data == null) {
+      Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
+          "The " + cameraName + " camera was not found check coprocessors.");
+    }
+
     if (data.getIds().contains(id)) {
       stage++;
     } else {
@@ -65,9 +73,9 @@ public class TestVisionCommand extends EntechCommand {
 
   @Override
   public void initialize() {
-    leftTestTag = (int) (1 + (Math.random() * 7));
-    rightTestTag = (int) (1 + (Math.random() * 7));
-    middleTestTag = (int) (1 + (Math.random() * 7));
+    leftTestTag = 1 + random.nextInt(7);
+    rightTestTag = 1 + random.nextInt(7);
+    middleTestTag = 1 + random.nextInt(7);
     stage = 0;
   }
 

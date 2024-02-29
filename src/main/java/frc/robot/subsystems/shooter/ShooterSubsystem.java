@@ -12,13 +12,13 @@ import frc.robot.commands.testCommands.TestShooterCommand;
 
 public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutput> {
 
-  private final boolean ENABLED = false;
+  private static final boolean ENABLED = false;
 
   private CANSparkMax shooterTop;
   private CANSparkMax shooterBottom;
 
-  SparkPIDController shooterTopPID = null;
-  SparkPIDController shooterBottomPID = null;
+  private SparkPIDController shooterTopPID = null;
+  private SparkPIDController shooterBottomPID = null;
 
   private ShooterInput currentInput = new ShooterInput();
 
@@ -55,8 +55,8 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     }
   }
 
+  @Override
   public void periodic() {
-
     if (ENABLED) {
       if (currentInput.getActivate()) {
         shooterTopPID.setReference(currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);

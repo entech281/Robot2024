@@ -183,6 +183,14 @@ public final class RobotConstants {
       public static final double JOYSTICK_AXIS_THRESHOLD = 0.2;
       public static final int JOYSTICK = 0;
       public static final int PANEL = 1;
+      
+      public static class BUTTONS {
+        public static final int TWIST = 1;
+        public static final int INTAKE = 2;
+        public static final int ALIGN_SPEAKER_AMP = 3;
+        public static final int RUN_TESTS = 7;
+        public static final int GYRO_RESET = 11;
+      }
     }
 
 
@@ -193,6 +201,17 @@ public final class RobotConstants {
 
 
   public interface OPERATOR_PANEL {
+    public static class BUTTONS {
+      public static final int SHOOT_SPEAKER = 1;
+      public static final int SHOOT_AMP = 2;
+      public static final int ADVANCE_CLIMB = 4;
+      public static final int REVERSE_CLIMB = 5;
+    }
+    
+    public static class SWITCHES {
+      public static final int INTAKE = 3;
+      public static final int ALIGN_SPEAKER_AMP = 6;
+    }
   }
 
   public static interface Vision {
@@ -213,7 +232,7 @@ public final class RobotConstants {
     }
 
     public static interface Resolution {
-      public static final int[] COLOR_RESOLUTION = {320, 240};
+      public static final double[] COLOR_RESOLUTION = {320, 240};
     }
 
 

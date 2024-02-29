@@ -34,6 +34,7 @@ public class IntakeNoteCommand extends EntechCommand {
     transSubsystem.updateInputs(tInput);
   }
 
+  @Override
   public void end(boolean interupted) {
     iInput.setActivate(false);
     tInput.setActivate(false);
