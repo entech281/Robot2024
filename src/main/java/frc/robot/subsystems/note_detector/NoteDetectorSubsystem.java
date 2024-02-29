@@ -13,7 +13,7 @@ import frc.robot.RobotConstants;
 import frc.robot.commands.testCommands.TestNoteDetectorCommand;
 
 public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, NoteDetectorOutput> {
-  private static final boolean ENABLED = false;
+  private static final boolean ENABLED = true;
 
   private PhotonCamera colorCamera;
   private PhotonTrackedTarget chosenNote;
