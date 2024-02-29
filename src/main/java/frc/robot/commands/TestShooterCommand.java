@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
 import entech.commands.EntechCommand;
-import entech.util.PeriodicLoopsPerSecond;
+import entech.util.EntechUtils;
 import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.shooter.ShooterInput;
@@ -12,7 +12,7 @@ public class TestShooterCommand extends EntechCommand {
   private ShooterInput input = new ShooterInput();
   private ShooterSubsystem sSubsystem = new ShooterSubsystem();
   private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
-      PeriodicLoopsPerSecond.getLoopsPerSecond(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH));
+      EntechUtils.getLoopsPerSecond(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH));
 
   public TestShooterCommand(ShooterSubsystem subsystem) {
     super(subsystem);

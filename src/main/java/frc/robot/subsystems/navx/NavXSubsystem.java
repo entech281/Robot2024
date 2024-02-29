@@ -1,5 +1,6 @@
 package frc.robot.subsystems.navx;
 
+import org.ejml.simple.UnsupportedOperation;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
@@ -68,7 +69,7 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
 
   @Override
   public void updateInputs(NavXInput input) {
-    return;
+    throw new UnsupportedOperation();
   }
 
   public void zeroYaw() {

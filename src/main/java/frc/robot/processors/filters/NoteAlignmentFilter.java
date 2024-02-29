@@ -37,7 +37,7 @@ public class NoteAlignmentFilter implements DriveFilterI {
           .radiansToDegrees(Alliance.Blue == team ? Math.atan2(input.getYSpeed(), input.getXSpeed())
               : Math.atan2(-input.getYSpeed(), -input.getXSpeed()));
       DriveInput adjustedDriveInput = new DriveInput(input);
-      if (!(Math.abs(input.getLatestOdometryPose().getRotation().getDegrees()) - targetYaw < 1.5)
+      if (Math.abs(input.getLatestOdometryPose().getRotation().getDegrees()) - targetYaw >= 1.5
           && !UserPolicy.getInstance().isTwistable()) {
         adjustedDriveInput.setRotation(
             controller.calculate(input.getLatestOdometryPose().getRotation().getDegrees(),

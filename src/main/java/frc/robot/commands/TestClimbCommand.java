@@ -1,8 +1,7 @@
 package frc.robot.commands;
 
 import entech.commands.EntechCommand;
-import entech.util.IsWithinTolerance;
-import entech.util.PeriodicLoopsPerSecond;
+import entech.util.EntechUtils;
 import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.climb.ClimbInput;
@@ -13,7 +12,7 @@ public class TestClimbCommand extends EntechCommand {
   private ClimbInput input = new ClimbInput();
   private ClimbSubsystem cSubsystem = new ClimbSubsystem();
   private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
-      PeriodicLoopsPerSecond.getLoopsPerSecond(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH));
+      EntechUtils.getLoopsPerSecond(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH));
 
   public TestClimbCommand(ClimbSubsystem subsystem) {
     super(subsystem);
@@ -39,7 +38,7 @@ public class TestClimbCommand extends EntechCommand {
   @Override
   public boolean isFinished() {
     return counter.isFinished(
-        IsWithinTolerance.isWithinTolerance(RobotConstants.TEST_CONSTANTS.CLIMB.TEST_TOLERANCE_IN,
+        EntechUtils.isWithinTolerance(RobotConstants.TEST_CONSTANTS.CLIMB.TEST_TOLERANCE_IN,
             cSubsystem.getOutputs().getCurrentPosition(),
             RobotConstants.TEST_CONSTANTS.CLIMB.TEST_POSITION_IN));
   }

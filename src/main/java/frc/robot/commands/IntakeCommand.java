@@ -2,10 +2,10 @@ package frc.robot.commands;
 
 import entech.commands.EntechCommand;
 import frc.robot.subsystems.has_note.HasNoteSubsystem;
-import frc.robot.subsystems.transfer.TransferSubsystem;
-import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.intake.IntakeInput;
+import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.transfer.TransferInput;
+import frc.robot.subsystems.transfer.TransferSubsystem;
 
 public class IntakeCommand extends EntechCommand {
 
@@ -31,6 +31,7 @@ public class IntakeCommand extends EntechCommand {
     transSubsystem.updateInputs(tInput);
   }
 
+  @Override
   public void end(boolean interupted) {
     iInput.setActivate(false);
     tInput.setActivate(false);

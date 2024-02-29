@@ -126,21 +126,19 @@ public class OperatorInterface
         addSubsystemTest(allTests, subsystem);
       }
     }
-    allTests.addCommands(Commands.runOnce(() -> {
-      Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Tests.");
-    }));
+    allTests.addCommands(Commands.runOnce(() -> Logger
+        .recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Tests.")));
     return allTests;
   }
 
   private static void addSubsystemTest(SequentialCommandGroup group,
       EntechSubsystem<?, ?> subsystem) {
 
-    group.addCommands(Commands.runOnce(() -> {
-      Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
-          String.format("%s: Start", subsystem.getName()));
-    }), subsystem.getTestCommand(), Commands.runOnce(() -> {
-      Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
-          String.format("%s: Finished", subsystem.getName()));
-    }));
+    group.addCommands(
+        Commands.runOnce(() -> Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
+            String.format("%s: Start", subsystem.getName()))),
+        subsystem.getTestCommand(),
+        Commands.runOnce(() -> Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
+            String.format("%s: Finished", subsystem.getName()))));
   }
 }
