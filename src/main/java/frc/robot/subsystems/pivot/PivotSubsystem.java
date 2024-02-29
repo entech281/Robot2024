@@ -8,6 +8,7 @@ import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
+import entech.util.EntechUtils;
 import frc.robot.RobotConstants;
 import frc.robot.commands.testCommands.TestPivotCommand;
 
@@ -76,9 +77,11 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   @Override
   public void periodic() {
     double clampedPosition = clampRequestedPosition(currentInput.getRequestedPosition());
-    if (ENABLED && currentInput.getActivate()) {
-      pivotLeft.getPIDController().setReference(clampedPosition, ControlType.kPosition);
-      updateBrakeMode();
+    if (ENABLED) {
+      if (currentInput.getActivate()) {
+        pivotLeft.getPIDController().setReference(clampedPosition, ControlType.kPosition);
+        updateBrakeMode();
+      }
     }
   }
 
@@ -99,7 +102,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     pivotOutput.setLeftBrakeModeEnabled(IdleMode.kBrake == pivotLeft.getIdleMode());
     pivotOutput.setRightBrakeModeEnabled(IdleMode.kBrake == pivotRight.getIdleMode());
     pivotOutput.setCurrentPosition(pivotLeft.getEncoder().getPosition());
-    pivotOutput.setAtRequestedPosition(IsWithinTolerance.isWithinTolerance(1,
+    pivotOutput.setAtRequestedPosition(EntechUtils.isWithinTolerance(1,
         pivotLeft.getEncoder().getPosition(), currentInput.getRequestedPosition()));
     return pivotOutput;
   }

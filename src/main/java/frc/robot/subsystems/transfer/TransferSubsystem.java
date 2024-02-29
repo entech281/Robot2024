@@ -33,11 +33,11 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        if (currentInput.getSpeedPreset() == TransferPreset.SHOOTING) {
+        if (currentInput.getSpeedPreset() == TransferPreset.Shooting) {
           transferMotor.set(RobotConstants.TRANSFER.SHOOTING_SPEED);
-        } else if (currentInput.getSpeedPreset() == TransferPreset.TRANSFERING) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Transfering) {
           transferMotor.set(RobotConstants.TRANSFER.TRANSFERING_SPEED);
-        } else if (currentInput.getSpeedPreset() == TransferPreset.INTAKING) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Intaking) {
           transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED);
         } else if (currentInput.getSpeedPreset() == TransferPreset.Ejecting) {
           transferMotor.set(RobotConstants.TRANSFER.EJECTING_SPEED);
