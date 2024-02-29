@@ -29,10 +29,10 @@ public final class RobotConstants {
     // 20.0; //2.0; // percent per second (1 = 100%)
 
     // Chassis configuration
-    public static final double TRACK_WIDTH_METERS = Units.inchesToMeters(21.75);
+    public static final double TRACK_WIDTH_METERS = Units.inchesToMeters(21.5);
 
     // Distance between centers of right and left wheels on robot
-    public static final double WHEEL_BASE_METERS = Units.inchesToMeters(21.75);
+    public static final double WHEEL_BASE_METERS = Units.inchesToMeters(18);
 
     // Distance to farthest module
     public static final double DRIVE_BASE_RADIUS_METERS = 0.39;
