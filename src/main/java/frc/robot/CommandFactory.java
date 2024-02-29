@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import entech.subsystems.EntechSubsystem;
 import frc.robot.commands.GyroReset;
 import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.drive.DriveSubsystem;
@@ -22,10 +21,6 @@ import frc.robot.subsystems.pivot.PivotSubsystem;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 import frc.robot.subsystems.vision.VisionSubsystem;
-import org.littletonrobotics.junction.Logger;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @SuppressWarnings("unused")
 public class CommandFactory {
@@ -95,7 +90,6 @@ public class CommandFactory {
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
-
   }
 
   public Command getAutoCommand() {
@@ -105,42 +99,4 @@ public class CommandFactory {
     auto.addCommands(autoChooser.getSelected());
     return auto;
   }
-
-
-  public SendableChooser getTestCommandChooser(){
-    SendableChooser<Command> testCommandChooser = new SendableChooser<>();
-    for (EntechSubsystem<?,?> subsystem: subsystemManager.getSubsystemList()){
-      testCommandChooser.addOption(subsystem.getName(),subsystem.getTestCommand());
-    }
-    return testCommandChooser;
-  }
-
-  public Command getTestCommand(){
-
-    SequentialCommandGroup allTests = new SequentialCommandGroup();
-    for (EntechSubsystem<?,?> subsystem: subsystemManager.getSubsystemList()){
-      addSubsystemTest(allTests,subsystem);
-    }
-    return allTests;
-
-  }
-
-  private static void addSubsystemTest(SequentialCommandGroup group, EntechSubsystem<?,?> subsystem){
-
-    group.addCommands(
-        Commands.run( () ->{
-          Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
-              String.format("%s: Start", subsystem.getName())
-          );
-        }),
-        subsystem.getTestCommand(),
-        Commands.run( () ->{
-          Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
-              String.format("%s: Finished",subsystem.getName())
-          );
-        })
-    );
-  }
-
-
 }

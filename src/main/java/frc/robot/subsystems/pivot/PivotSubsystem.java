@@ -14,6 +14,7 @@ import frc.robot.commands.TestPivotCommand;
 public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
   private boolean ENABLED = false;
+  private boolean IS_INVERTED = true;
 
   private PivotInput currentInput = new PivotInput();
 
@@ -25,6 +26,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     if (ENABLED) {
       pivotLeft = new CANSparkMax(RobotConstants.Ports.CAN.PIVOT_A, MotorType.kBrushless);
       pivotRight = new CANSparkMax(RobotConstants.Ports.CAN.PIVOT_B, MotorType.kBrushless);
+      pivotRight.follow(pivotLeft);
 
       pivotLeft.getEncoder()
           .setPositionConversionFactor(RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR);
@@ -33,10 +35,9 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
       updateBrakeMode();
 
-      pivotLeft.setInverted(true);
-      pivotRight.setInverted(true);
+      pivotLeft.setInverted(IS_INVERTED);
+      pivotRight.setInverted(IS_INVERTED);
 
-      setUpPIDConstants(pivotLeft.getPIDController());
       setUpPIDConstants(pivotRight.getPIDController());
     }
   }
@@ -72,18 +73,14 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     }
   }
 
-  private void setPosition(double position) {
-    pivotLeft.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
-    pivotRight.getPIDController().setReference(position, CANSparkMax.ControlType.kPosition);
-  }
-
   public void periodic() {
 
     double clampedPosition = clampRequestedPosition(currentInput.getRequestedPosition());
 
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        setPosition(clampedPosition);
+        pivotLeft.getPIDController().setReference(clampedPosition,
+            CANSparkMax.ControlType.kPosition);
 
         updateBrakeMode();
       }

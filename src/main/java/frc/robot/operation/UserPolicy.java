@@ -1,16 +1,15 @@
 package frc.robot.operation;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 
 public class UserPolicy {
   private static UserPolicy instance = new UserPolicy();
 
   private boolean twistable = false;
-  private Pose2d targetPose = new Pose2d(0, 5.53, new Rotation2d());
+  private boolean aligningToNote = true;
+  private Pose2d targetPose = null; // new Pose2d(0, 5.53, new Rotation2d());
 
-  private UserPolicy() {
-  }
+  private UserPolicy() {}
 
   public static UserPolicy getInstance() {
     return instance;
@@ -31,5 +30,13 @@ public class UserPolicy {
 
   public Pose2d getTargetPose() {
     return targetPose;
+  }
+
+  public boolean isAligningToNote() {
+    return this.aligningToNote;
+  }
+
+  public void setAligningToNote(boolean aligningToNote) {
+    this.aligningToNote = aligningToNote;
   }
 }

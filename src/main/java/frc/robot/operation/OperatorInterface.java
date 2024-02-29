@@ -1,6 +1,13 @@
 package frc.robot.operation;
 
+import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import entech.subsystems.EntechSubsystem;
 import entech.util.EntechJoystick;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
@@ -8,6 +15,7 @@ import frc.robot.SubsystemManager;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
+import frc.robot.commands.RunTestCommand;
 import frc.robot.commands.TwistCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.io.DebugInput;
@@ -51,6 +59,14 @@ public class OperatorInterface
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
     driveJoystick.whilePressed(2, new IntakeCommand(subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
     driveJoystick.whilePressed(3, new DoNothing()); // align to speaker or amp depending on an operator switch
+
+    Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
+    SendableChooser<Command> testChooser = getTestCommandChooser();
+    SmartDashboard.putData("Test Chooser", testChooser);
+
+    testChooser.addOption("All tests", getTestCommand());
+
+    driveJoystick.whenPressed(7, new RunTestCommand(testChooser));
   }
 
   public void operatorBindings() {
@@ -60,6 +76,14 @@ public class OperatorInterface
     operatorPanel.button(4).whileTrue(new DoNothing()); // advance to next stage of climb
     operatorPanel.button(5).onTrue(new DoNothing()); // revert to last state of climb
     operatorPanel.whileSwitch(6, new DoNothing(), new DoNothing());
+  }
+
+  private SendableChooser<Command> getTestCommandChooser() {
+    SendableChooser<Command> testCommandChooser = new SendableChooser<>();
+    for (EntechSubsystem<?, ?> subsystem : subsystemManager.getSubsystemList()) {
+      testCommandChooser.addOption(subsystem.getName(), subsystem.getTestCommand());
+    }
+    return testCommandChooser;
   }
 
   /*
@@ -93,5 +117,30 @@ public class OperatorInterface
     OperatorInput oi = new OperatorInput();
     RobotIO.processInput(oi);
     return oi;
+  }
+
+  public Command getTestCommand() {
+    SequentialCommandGroup allTests = new SequentialCommandGroup();
+    for (EntechSubsystem<?, ?> subsystem : subsystemManager.getSubsystemList()) {
+      if (subsystem.isEnabled()) {
+        addSubsystemTest(allTests, subsystem);
+      }
+    }
+    allTests.addCommands(Commands.runOnce(() -> {
+      Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Tests.");
+    }));
+    return allTests;
+  }
+
+  private static void addSubsystemTest(SequentialCommandGroup group,
+      EntechSubsystem<?, ?> subsystem) {
+
+    group.addCommands(Commands.runOnce(() -> {
+      Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
+          String.format("%s: Start", subsystem.getName()));
+    }), subsystem.getTestCommand(), Commands.runOnce(() -> {
+      Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
+          String.format("%s: Finished", subsystem.getName()));
+    }));
   }
 }

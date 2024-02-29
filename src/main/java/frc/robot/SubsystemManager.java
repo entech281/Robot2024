@@ -4,24 +4,19 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import java.util.ArrayList;
+import java.util.List;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.io.RobotIO;
 import frc.robot.subsystems.climb.ClimbSubsystem;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.navx.NavXSubsystem;
+import frc.robot.subsystems.note_detector.NoteDetectorSubsystem;
 import frc.robot.subsystems.pivot.PivotSubsystem;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 import frc.robot.subsystems.vision.VisionSubsystem;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Manages the subsystems and the interactions between them.
@@ -34,6 +29,7 @@ public class SubsystemManager {
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private final TransferSubsystem transferSubsystem = new TransferSubsystem();
   private final PivotSubsystem pivotSubsystem = new PivotSubsystem();
+  private final NoteDetectorSubsystem noteDetectorSubsystem = new NoteDetectorSubsystem();
   private final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
 
   public SubsystemManager() {
@@ -45,6 +41,7 @@ public class SubsystemManager {
     transferSubsystem.initialize();
     pivotSubsystem.initialize();
     climbSubsystem.initialize();
+    noteDetectorSubsystem.initialize();
 
     periodic();
   }
@@ -81,6 +78,10 @@ public class SubsystemManager {
     return climbSubsystem;
   }
 
+  public NoteDetectorSubsystem getNoteDetectorSubsystem() {
+    return noteDetectorSubsystem;
+  }
+
   public List<EntechSubsystem<?, ?>> getSubsystemList() {
     ArrayList<EntechSubsystem<?, ?>> r = new ArrayList<>();
     r.add(navXSubsystem);
@@ -89,8 +90,9 @@ public class SubsystemManager {
     r.add(intakeSubsystem);
     r.add(shooterSubsystem);
     r.add(transferSubsystem);
+    r.add(noteDetectorSubsystem);
     r.add(pivotSubsystem);
-    r.add(climbSubsystem);
+
     return r;
   }
 
@@ -127,8 +129,8 @@ public class SubsystemManager {
       outputs.updatePivot(pivotSubsystem.getOutputs());
     }
 
-    if (climbSubsystem.isEnabled()) {
-      outputs.updateClimb(climbSubsystem.getOutputs());
+    if (noteDetectorSubsystem.isEnabled()) {
+      outputs.updateNoteDetector(noteDetectorSubsystem.getOutputs());
     }
   }
 }

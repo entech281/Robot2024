@@ -3,7 +3,12 @@ package frc.robot;
 import com.revrobotics.CANSparkBase.IdleMode;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.geometry.*;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
@@ -111,6 +116,13 @@ public final class RobotConstants {
   }
 
 
+  public static interface LED {
+    public static final int PORT = 1;
+    public static final int NUM_LEDS = 42;
+    public static final double BLINK_INTERVAL = 0.25;
+  }
+
+
   public static interface TEST_CONSTANTS {
 
     public static final int STANDARD_TEST_LENGTH = 1;
@@ -188,9 +200,10 @@ public final class RobotConstants {
 
 
     public static interface Cameras {
-      public static final String FRONT_LEFT = "Arducam_Bravo";
-      public static final String FRONT_RIGHT = "Arducam_Alpha";
-      public static final String COLOR = "I don't know";
+      public static final String LEFT = "Arducam_Bravo";
+      public static final String RIGHT = "Arducam_Alpha";
+      public static final String COLOR = "Arducam_OV9782_USB_Camera";
+      public static final String MIDDLE = "Global_Shutter_Camera";
     }
 
 
@@ -199,18 +212,27 @@ public final class RobotConstants {
       public static final double MAX_DISTANCE = 3;
     }
 
+    public static interface Resolution {
+      public static final int[] COLOR_RESOLUTION = {320, 240};
+    }
+
 
     public static interface Transforms {
-      public static final Transform3d FRONT_LEFT = new Transform3d(
+      public static final Transform3d LEFT = new Transform3d(
           new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(4.25),
               Units.inchesToMeters(19.5)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
               Units.degreesToRadians(-90)));
-      public static final Transform3d FRONT_RIGHT = new Transform3d(
+      public static final Transform3d RIGHT = new Transform3d(
           new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(-4.25),
               Units.inchesToMeters(19.5)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
               Units.degreesToRadians(90)));
+      public static final Transform3d MIDDLE = new Transform3d(
+          new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(1.25),
+              Units.inchesToMeters(19.5)),
+          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(15),
+              Units.degreesToRadians(0.0)));
     }
   }
 
@@ -286,11 +308,13 @@ public final class RobotConstants {
 
     public static final Translation2d INITIAL_TRANSLATION =
         new Translation2d(Units.inchesToMeters(FIELD_LENGTH_INCHES / 2),
-            Units.inchesToMeters(FIELD_WIDTH_INCHES / 2)); // mid field
+            Units.inchesToMeters(FIELD_WIDTH_INCHES / 2)); // mid
+                                                           // field
     public static final Rotation2d INITIAL_ROTATION = Rotation2d.fromDegrees(0);
 
     public static final Pose2d INITIAL_POSE = new Pose2d(INITIAL_TRANSLATION, INITIAL_ROTATION);
   }
+
 
   public interface OperatorMessages {
     public static final String SUBSYSTEM_TEST = "SubsystemTest";
