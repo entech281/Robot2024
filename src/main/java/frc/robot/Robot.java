@@ -55,6 +55,7 @@ public class Robot extends LoggedRobot {
                                                                                             // to a
                                                                                             // new
                                                                                             // log
+      Logger.addDataReceiver(new NT4Publisher());
     }
 
     // Logger.disableDeterministicTimestamps() // See "Deterministic Timestamps" in the
