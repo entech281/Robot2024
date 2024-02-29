@@ -2,9 +2,9 @@ package frc.robot.commands;
 
 import entech.commands.EntechCommand;
 import entech.util.SpeakerPivotSolution;
+import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
-import frc.robot.subsystems.has_note.HasNoteOutput;
 import frc.robot.subsystems.pivot.PivotInput;
 import frc.robot.subsystems.pivot.PivotSubsystem;
 import frc.robot.subsystems.shooter.ShooterInput;
@@ -19,11 +19,13 @@ public class ShootSpeakerCommand extends EntechCommand {
   private PivotInput pInput = new PivotInput();
   private TransferInput tInput = new TransferInput();
 
+  private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(), RESET_DELAY);
+
   private ShooterSubsystem sSubsystem;
   private PivotSubsystem pSubsystem;
   private TransferSubsystem tSubsystem;
 
-  private HasNoteOutput hNOutput;
+  public static final double RESET_DELAY = 0.5;
 
   private boolean noNote;
 
@@ -56,7 +58,8 @@ public class ShootSpeakerCommand extends EntechCommand {
   @Override
   public void execute() {
     if (RobotIO.getInstance().getPivotOutput().isAtRequestedPosition()
-        && RobotIO.getInstance().getShooterOutput().isAtSpeed() && hNOutput.hasNote()) {
+        && RobotIO.getInstance().getShooterOutput().isAtSpeed()
+        && RobotIO.getInstance().getHasNoteOutput().hasNote()) {
       tInput.setActivate(true);
       tInput.setBrakeModeEnabled(false);
       tInput.setSpeedPreset(TransferPreset.Shooting);
@@ -85,7 +88,7 @@ public class ShootSpeakerCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    if (noNote) {
+    if (counter.isFinished(noNote)) {
       return true;
     } else {
       return false;

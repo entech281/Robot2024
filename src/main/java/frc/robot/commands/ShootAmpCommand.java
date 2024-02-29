@@ -3,7 +3,6 @@ package frc.robot.commands;
 import entech.commands.EntechCommand;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
-import frc.robot.subsystems.has_note.HasNoteOutput;
 import frc.robot.subsystems.pivot.PivotInput;
 import frc.robot.subsystems.pivot.PivotSubsystem;
 import frc.robot.subsystems.shooter.ShooterInput;
@@ -22,8 +21,6 @@ public class ShootAmpCommand extends EntechCommand {
   private PivotSubsystem pSubsystem;
   private TransferSubsystem tSubsystem;
 
-  private HasNoteOutput hNOutput;
-
   private boolean noNote;
 
   public ShootAmpCommand(ShooterSubsystem shooterSubsystem, PivotSubsystem pivotSubsystem,
@@ -36,7 +33,7 @@ public class ShootAmpCommand extends EntechCommand {
 
   @Override
   public void initialize() {
-    if (hNOutput.hasNote()) {
+    if (RobotIO.getInstance().getHasNoteOutput().hasNote()) {
       noNote = false;
       sInput.setActivate(true);
       sInput.setBrakeModeEnabled(false);
@@ -55,12 +52,13 @@ public class ShootAmpCommand extends EntechCommand {
   @Override
   public void execute() {
     if (RobotIO.getInstance().getPivotOutput().isAtRequestedPosition()
-        && RobotIO.getInstance().getShooterOutput().isAtSpeed() && hNOutput.hasNote()) {
+        && RobotIO.getInstance().getShooterOutput().isAtSpeed()
+        && RobotIO.getInstance().getHasNoteOutput().hasNote()) {
       tInput.setActivate(true);
       tInput.setBrakeModeEnabled(false);
       tInput.setSpeedPreset(TransferPreset.Shooting);
       tSubsystem.updateInputs(tInput);
-    } else if (hNOutput.hasNote() == false) {
+    } else if (RobotIO.getInstance().getHasNoteOutput().hasNote() == false) {
       noNote = true;
     }
   }

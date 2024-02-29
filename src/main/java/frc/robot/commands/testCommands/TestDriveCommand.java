@@ -5,12 +5,14 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import entech.commands.EntechCommand;
 import entech.util.StoppingCounter;
+import frc.robot.RobotConstants;
 import frc.robot.subsystems.drive.DriveInput;
 import frc.robot.subsystems.drive.DriveSubsystem;
 
 public class TestDriveCommand extends EntechCommand {
   private final DriveSubsystem drive;
-  private final StoppingCounter counter = new StoppingCounter(this.getClass().getSimpleName(), 50);
+  private final StoppingCounter counter = new StoppingCounter(this.getClass().getSimpleName(),
+      RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
   private static final double DRIVE_POWER = 0.15;
   private int stage = 0;
 

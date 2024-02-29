@@ -11,7 +11,7 @@ public class LowerClimbCommand extends EntechCommand {
   private ClimbInput cInput = new ClimbInput();
   private ClimbSubsystem cSubsystem;
 
-  private double POSITION = 0;
+  public static final double POSITION = 0;
 
   public LowerClimbCommand(ClimbSubsystem cSubsystem) {
     super(cSubsystem);
