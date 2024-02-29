@@ -169,10 +169,10 @@ public final class RobotConstants {
 
       public static final int TRANSFER = 7;
 
-      public static final int INTAKE = 6;
+      public static final int INTAKE = 4;
 
       public static final int PIVOT_B = 5;
-      public static final int PIVOT_A = 4;
+      public static final int PIVOT_A = 6;
 
       public static final int CLIMB_B = 3;
       public static final int CLIMB_A = 2;
@@ -183,7 +183,7 @@ public final class RobotConstants {
       public static final double JOYSTICK_AXIS_THRESHOLD = 0.2;
       public static final int JOYSTICK = 0;
       public static final int PANEL = 1;
-      
+
       public static class BUTTONS {
         public static final int TWIST = 1;
         public static final int INTAKE = 2;
@@ -207,7 +207,7 @@ public final class RobotConstants {
       public static final int ADVANCE_CLIMB = 4;
       public static final int REVERSE_CLIMB = 5;
     }
-    
+
     public static class SWITCHES {
       public static final int INTAKE = 3;
       public static final int ALIGN_SPEAKER_AMP = 6;
