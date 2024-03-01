@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
-import frc.robot.commands.TestTransferCommand;
+import frc.robot.commands.test.TestTransferCommand;
 
 public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOutput> {
 
@@ -14,7 +14,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
 
   public enum TransferPreset {
-    SHOOTING, TRANSFERING, INTAKING, TESTING, OFF
+    Shooting, Transfering, Intaking, Ejecting, Testing, Off
   }
 
   private TransferInput currentInput = new TransferInput();
@@ -33,19 +33,20 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        if (currentInput.getSpeedPreset() == TransferPreset.SHOOTING) {
+        if (currentInput.getSpeedPreset() == TransferPreset.Shooting) {
           transferMotor.set(RobotConstants.TRANSFER.SHOOTING_SPEED);
-        } else if (currentInput.getSpeedPreset() == TransferPreset.TRANSFERING) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Transfering) {
           transferMotor.set(RobotConstants.TRANSFER.TRANSFERING_SPEED);
-        } else if (currentInput.getSpeedPreset() == TransferPreset.INTAKING) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Intaking) {
           transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED);
-        } else if (currentInput.getSpeedPreset() == TransferPreset.TESTING) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Ejecting) {
+          transferMotor.set(RobotConstants.TRANSFER.EJECTING_SPEED);
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Testing) {
           transferMotor.set(RobotConstants.TRANSFER.TESTING_SPEED);
         }
       } else {
         transferMotor.set(0.0);
       }
-
       if (currentInput.getBrakeModeEnabled()) {
         transferMotor.setIdleMode(IdleMode.kBrake);
       } else {

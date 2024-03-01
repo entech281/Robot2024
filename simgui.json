@@ -8,22 +8,33 @@
   },
   "NTProvider": {
     "types": {
-      "/FMSInfo": "FMSInfo"
+      "/FMSInfo": "FMSInfo",
+      "/SmartDashboard/Auto Chooser": "String Chooser",
+      "/SmartDashboard/Test Chooser": "String Chooser",
+      "/SmartDashboard/navX-Sensor[4]": "Gyro"
     }
   },
   "NetworkTables": {
     "transitory": {
-      "FMSInfo": {
+      "AdvantageKit": {
+        "DriveInput": {
+          "final": {
+            "open": true
+          },
+          "initialRaw": {
+            "open": true
+          },
+          "open": true
+        },
+        "RealOutputs": {
+          "open": true
+        },
         "open": true
       },
       "LiveWindow": {
         ".status": {
           "open": true
-        },
-        "open": true
-      },
-      "Shuffleboard": {
-        "open": true
+        }
       }
     }
   },
@@ -32,5 +43,8 @@
       "open": true
     },
     "visible": true
+  },
+  "NetworkTables View": {
+    "visible": false
   }
 }

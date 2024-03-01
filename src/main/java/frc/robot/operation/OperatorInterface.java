@@ -1,6 +1,7 @@
 package frc.robot.operation;
 
 import org.littletonrobotics.junction.Logger;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,9 +16,10 @@ import frc.robot.SubsystemManager;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
+import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.RunTestCommand;
+import frc.robot.commands.SetTargetCommand;
 import frc.robot.commands.TwistCommand;
-import frc.robot.commands.IntakeCommand;
 import frc.robot.io.DebugInput;
 import frc.robot.io.DebugInputSupplier;
 import frc.robot.io.DriveInputSupplier;
@@ -53,12 +55,16 @@ public class OperatorInterface
 
   public void driverBindings() {
     driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.TWIST, new TwistCommand());
-    driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.GYRO_RESET, new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
+    driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.GYRO_RESET,
+        new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
 
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
-    driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.INTAKE, new IntakeCommand(subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
-    driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.ALIGN_SPEAKER_AMP, new DoNothing()); // align to speaker or amp depending on an operator switch
+    driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.INTAKE,
+        new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
+            subsystemManager.getTransferSubsystem()));
+    driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.ALIGN_SPEAKER_AMP,
+        new DoNothing()); // align to speaker or amp depending on an operator switch
 
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
     SendableChooser<Command> testChooser = getTestCommandChooser();
@@ -66,16 +72,26 @@ public class OperatorInterface
 
     testChooser.addOption("All tests", getTestCommand());
 
-    driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.RUN_TESTS, new RunTestCommand(testChooser));
+    driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.RUN_TESTS,
+        new RunTestCommand(testChooser));
   }
 
   public void operatorBindings() {
-    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_AMP).whileTrue(new DoNothing()); // shoot speaker
-    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_SPEAKER).whileTrue(new DoNothing()); // shoot amp
-    operatorPanel.whileSwitch(RobotConstants.OPERATOR_PANEL.SWITCHES.INTAKE, new IntakeCommand(subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()), new DoNothing()); // run intake and transfer backwards and eject note
-    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.ADVANCE_CLIMB).whileTrue(new DoNothing()); // advance to next stage of climb
-    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.REVERSE_CLIMB).onTrue(new DoNothing()); // revert to last state of climb
-    operatorPanel.whileSwitch(RobotConstants.OPERATOR_PANEL.SWITCHES.ALIGN_SPEAKER_AMP, new DoNothing(), new DoNothing()); // allows the driver to align to speaker or amp
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_AMP)
+        .whileTrue(new DoNothing());
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_SPEAKER)
+        .whileTrue(new DoNothing());
+    operatorPanel.whileSwitch(RobotConstants.OPERATOR_PANEL.SWITCHES.INTAKE,
+        new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
+            subsystemManager.getTransferSubsystem()),
+        new DoNothing()); // run intake and transfer backwards and eject note
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.ADVANCE_CLIMB)
+        .whileTrue(new DoNothing()); // advance to next stage of climb
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.REVERSE_CLIMB)
+        .onTrue(new DoNothing()); // revert to last state of climb
+    operatorPanel.whileSwitch(RobotConstants.OPERATOR_PANEL.SWITCHES.ALIGN_SPEAKER_AMP,
+        new SetTargetCommand(new Pose2d(0.0, 5.6, new Rotation2d())),
+        new SetTargetCommand(new Pose2d(1.81, 8.2, new Rotation2d())));
   }
 
   private SendableChooser<Command> getTestCommandChooser() {

@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.commands.test;
 
 import java.util.List;
 import java.util.Random;
@@ -44,6 +44,7 @@ public class TestVisionCommand extends EntechCommand {
     if (data == null) {
       Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
           "The " + cameraName + " camera was not found check coprocessors.");
+      return;
     }
 
     if (data.getIds().contains(id)) {
