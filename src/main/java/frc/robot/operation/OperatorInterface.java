@@ -1,6 +1,7 @@
 package frc.robot.operation;
 
 import org.littletonrobotics.junction.Logger;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,6 +18,7 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.RunTestCommand;
+import frc.robot.commands.SetTargetCommand;
 import frc.robot.commands.TwistCommand;
 import frc.robot.io.DebugInput;
 import frc.robot.io.DebugInputSupplier;
@@ -76,9 +78,9 @@ public class OperatorInterface
 
   public void operatorBindings() {
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_AMP)
-        .whileTrue(new DoNothing()); // shoot speaker
+        .whileTrue(new SetTargetCommand(new Pose2d(1.81, 8.2, new Rotation2d()))); // shoot speaker
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_SPEAKER)
-        .whileTrue(new DoNothing()); // shoot amp
+        .whileTrue(new SetTargetCommand(new Pose2d(0.0, 5.6, new Rotation2d()))); // shoot amp
     operatorPanel.whileSwitch(RobotConstants.OPERATOR_PANEL.SWITCHES.INTAKE,
         new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
             subsystemManager.getTransferSubsystem()),
