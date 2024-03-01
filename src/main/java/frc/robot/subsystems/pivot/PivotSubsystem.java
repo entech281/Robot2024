@@ -4,7 +4,7 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkPIDController;
+// import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
@@ -25,8 +25,8 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   @Override
   public void initialize() {
     if (ENABLED) {
-      pivotLeft = new CANSparkMax(RobotConstants.Ports.CAN.PIVOT_A, MotorType.kBrushless);
-      pivotRight = new CANSparkMax(RobotConstants.Ports.CAN.PIVOT_B, MotorType.kBrushless);
+      pivotLeft = new CANSparkMax(RobotConstants.PORTS.CAN.PIVOT_A, MotorType.kBrushless);
+      pivotRight = new CANSparkMax(RobotConstants.PORTS.CAN.PIVOT_B, MotorType.kBrushless);
       pivotRight.follow(pivotLeft);
 
       pivotLeft.getEncoder()
@@ -39,15 +39,15 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
       pivotLeft.setInverted(IS_INVERTED);
       pivotRight.setInverted(IS_INVERTED);
 
-      setUpPIDConstants(pivotRight.getPIDController());
+      // setUpPIDConstants(pivotRight.getPIDController());
     }
   }
 
-  private void setUpPIDConstants(SparkPIDController pIDController) {
-    pIDController.setP(RobotConstants.PID.PIVOT.KP);
-    pIDController.setD(RobotConstants.PID.PIVOT.KI);
-    pIDController.setI(RobotConstants.PID.PIVOT.KD);
-  }
+  // private void setUpPIDConstants(SparkPIDController pIDController) {
+  // pIDController.setP(RobotConstants.PID.PIVOT.KP);
+  // pIDController.setD(RobotConstants.PID.PIVOT.KI);
+  // pIDController.setI(RobotConstants.PID.PIVOT.KD);
+  // }
 
   private void updateBrakeMode() {
     if (currentInput.getBrakeModeEnabled()) {
@@ -61,13 +61,12 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
   private double clampRequestedPosition(double position) {
     if (position < 0) {
-      DriverStation.reportWarning(
-          "Pivot tried to go to " + currentInput.getRequestedPosition() + " value was changed to 0",
-          null);
-      return 0;
+      DriverStation.reportWarning("Pivot tried to go to " + currentInput.getRequestedPosition()
+          + " value was changed to " + RobotConstants.PIVOT.LOWER_SOFT_LIMIT_DEG, null);
+      return RobotConstants.PIVOT.LOWER_SOFT_LIMIT_DEG;
     } else if (position > RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG) {
       DriverStation.reportWarning("Pivot tried to go to " + currentInput.getRequestedPosition()
-          + " value was changed to " + RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR, null);
+          + " value was changed to " + RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG, null);
       return RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG;
     } else {
       return position;

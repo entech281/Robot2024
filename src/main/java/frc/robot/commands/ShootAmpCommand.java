@@ -37,7 +37,7 @@ public class ShootAmpCommand extends EntechCommand {
 
   @Override
   public void initialize() {
-    if (RobotIO.getInstance().getHasNoteOutput().hasNote()) {
+    if (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()) {
       noNote = false;
       sInput.setActivate(true);
       sInput.setBrakeModeEnabled(false);
@@ -57,12 +57,12 @@ public class ShootAmpCommand extends EntechCommand {
   public void execute() {
     if (RobotIO.getInstance().getPivotOutput().isAtRequestedPosition()
         && RobotIO.getInstance().getShooterOutput().isAtSpeed()
-        && RobotIO.getInstance().getHasNoteOutput().hasNote()) {
+        && RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()) {
       tInput.setActivate(true);
       tInput.setBrakeModeEnabled(false);
       tInput.setSpeedPreset(TransferPreset.Shooting);
       tSubsystem.updateInputs(tInput);
-    } else if (!RobotIO.getInstance().getHasNoteOutput().hasNote()) {
+    } else if (!RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()) {
       noNote = true;
     }
   }

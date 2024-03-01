@@ -6,8 +6,8 @@ import org.littletonrobotics.junction.inputs.LoggableInputs;
 import edu.wpi.first.math.geometry.Pose2d;
 import frc.robot.subsystems.climb.ClimbOutput;
 import frc.robot.subsystems.drive.DriveOutput;
-import frc.robot.subsystems.has_note.HasNoteOutput;
 import frc.robot.subsystems.intake.IntakeOutput;
+import frc.robot.subsystems.internal_note_detector.InternalNoteDetectorOutput;
 import frc.robot.subsystems.navx.NavXOutput;
 import frc.robot.subsystems.note_detector.NoteDetectorOutput;
 import frc.robot.subsystems.pivot.PivotOutput;
@@ -65,8 +65,8 @@ public class RobotIO {
 
   }
 
-  public HasNoteOutput getHasNoteOutput() {
-    return latestHasNoteOutput;
+  public InternalNoteDetectorOutput getInternalNoteDetectorOutput() {
+    return latestInternalNoteDetectorOutput;
   }
 
   public Pose2d getOdometryPose() {
@@ -113,8 +113,8 @@ public class RobotIO {
     clo.log();
   }
 
-  public void updateHasNote(HasNoteOutput hno) {
-    latestHasNoteOutput = hno;
+  public void updateInternalNoteDetector(InternalNoteDetectorOutput hno) {
+    latestInternalNoteDetectorOutput = hno;
     hno.log();
   }
 
@@ -148,7 +148,7 @@ public class RobotIO {
   private TransferOutput latestTransferOutput;
   private ShooterOutput latestShooterOutput;
   private PivotOutput latestPivotOutput;
-  private HasNoteOutput latestHasNoteOutput;
+  private InternalNoteDetectorOutput latestInternalNoteDetectorOutput;
   private NoteDetectorOutput latestNoteDetectorOutput;
   private ClimbOutput latestClimbOutput;
   private Pose2d latestOdometryPose;

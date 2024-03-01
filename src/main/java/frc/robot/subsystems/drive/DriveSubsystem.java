@@ -218,21 +218,21 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
   @Override
   public void initialize() {
     if (ENABLED) {
-      frontLeft = new SwerveModule(RobotConstants.Ports.CAN.FRONT_LEFT_DRIVING,
-          RobotConstants.Ports.CAN.FRONT_LEFT_TURNING,
-          RobotConstants.Ports.ANALOG.FRONT_LEFT_TURNING_ABSOLUTE_ENCODER, false);
+      frontLeft = new SwerveModule(RobotConstants.PORTS.CAN.FRONT_LEFT_DRIVING,
+          RobotConstants.PORTS.CAN.FRONT_LEFT_TURNING,
+          RobotConstants.PORTS.ANALOG.FRONT_LEFT_TURNING_ABSOLUTE_ENCODER, false);
 
-      frontRight = new SwerveModule(RobotConstants.Ports.CAN.FRONT_RIGHT_DRIVING,
-          RobotConstants.Ports.CAN.FRONT_RIGHT_TURNING,
-          RobotConstants.Ports.ANALOG.FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
+      frontRight = new SwerveModule(RobotConstants.PORTS.CAN.FRONT_RIGHT_DRIVING,
+          RobotConstants.PORTS.CAN.FRONT_RIGHT_TURNING,
+          RobotConstants.PORTS.ANALOG.FRONT_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
 
-      rearLeft = new SwerveModule(RobotConstants.Ports.CAN.REAR_LEFT_DRIVING,
-          RobotConstants.Ports.CAN.REAR_LEFT_TURNING,
-          RobotConstants.Ports.ANALOG.REAR_LEFT_TURNING_ABSOLUTE_ENCODER, false);
+      rearLeft = new SwerveModule(RobotConstants.PORTS.CAN.REAR_LEFT_DRIVING,
+          RobotConstants.PORTS.CAN.REAR_LEFT_TURNING,
+          RobotConstants.PORTS.ANALOG.REAR_LEFT_TURNING_ABSOLUTE_ENCODER, false);
 
-      rearRight = new SwerveModule(RobotConstants.Ports.CAN.REAR_RIGHT_DRIVING,
-          RobotConstants.Ports.CAN.REAR_RIGHT_TURNING,
-          RobotConstants.Ports.ANALOG.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
+      rearRight = new SwerveModule(RobotConstants.PORTS.CAN.REAR_RIGHT_DRIVING,
+          RobotConstants.PORTS.CAN.REAR_RIGHT_TURNING,
+          RobotConstants.PORTS.ANALOG.REAR_RIGHT_TURNING_ABSOLUTE_ENCODER, false);
 
       frontLeft.calibrateVirtualPosition(FRONT_LEFT_VIRTUAL_OFFSET_RADIANS);
       frontRight.calibrateVirtualPosition(FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS);

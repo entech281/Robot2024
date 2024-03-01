@@ -14,7 +14,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
 
   public enum TransferPreset {
-    Shooting, Transfering, Intaking, Ejecting, Testing, Off
+    Shooting, Transferring, Intaking1, Intaking2, Ejecting, Testing, Off
   }
 
   private TransferInput currentInput = new TransferInput();
@@ -24,7 +24,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
   @Override
   public void initialize() {
     if (ENABLED) {
-      transferMotor = new CANSparkMax(RobotConstants.Ports.CAN.TRANSFER, MotorType.kBrushless);
+      transferMotor = new CANSparkMax(RobotConstants.PORTS.CAN.TRANSFER, MotorType.kBrushless);
       transferMotor.setInverted(false);
     }
   }
@@ -35,10 +35,12 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
       if (currentInput.getActivate()) {
         if (currentInput.getSpeedPreset() == TransferPreset.Shooting) {
           transferMotor.set(RobotConstants.TRANSFER.SHOOTING_SPEED);
-        } else if (currentInput.getSpeedPreset() == TransferPreset.Transfering) {
-          transferMotor.set(RobotConstants.TRANSFER.TRANSFERING_SPEED);
-        } else if (currentInput.getSpeedPreset() == TransferPreset.Intaking) {
-          transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED);
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Transferring) {
+          transferMotor.set(RobotConstants.TRANSFER.TRANSFERRING_SPEED);
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Intaking1) {
+          transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED_1);
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Intaking2) {
+          transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED_2);
         } else if (currentInput.getSpeedPreset() == TransferPreset.Ejecting) {
           transferMotor.set(RobotConstants.TRANSFER.EJECTING_SPEED);
         } else if (currentInput.getSpeedPreset() == TransferPreset.Testing) {
@@ -53,6 +55,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
         transferMotor.setIdleMode(IdleMode.kCoast);
       }
     }
+
   }
 
   @Override
