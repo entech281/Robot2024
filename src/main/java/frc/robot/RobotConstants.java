@@ -294,6 +294,7 @@ public final class RobotConstants {
   public static interface PIVOT {
     public static final double UPPER_SOFT_LIMIT_DEG = 25;
     public static final double PIVOT_CONVERSION_FACTOR = 0.007;
+    public static final double SHOOT_AMP_POSITION_DEG = 23;
   }
 
 
