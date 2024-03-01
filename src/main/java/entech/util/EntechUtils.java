@@ -56,9 +56,9 @@ public final class EntechUtils {
     return angle;
   }
 
-  private static final int PERIODIC_LOOP_FACTOR_SEC = 50;
+  private static final double PERIODIC_LOOP_FACTOR_SEC = 50;
 
-  public static int getLoopsPerSecond(int seconds) {
+  public static double getLoopsPerSecond(double seconds) {
     return PERIODIC_LOOP_FACTOR_SEC * seconds;
   }
 

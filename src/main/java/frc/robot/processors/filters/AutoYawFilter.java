@@ -14,7 +14,8 @@ public class AutoYawFilter implements DriveFilterI {
   public DriveInput process(DriveInput input) {
     DriveInput processedInput = new DriveInput(input);
 
-    if (UserPolicy.getInstance().getTargetPose() != null) {
+    if (UserPolicy.getInstance().getTargetPose() != null
+        && !UserPolicy.getInstance().isAligningToNote()) {
       double calculatedRot =
           controller.calculate(input.getLatestOdometryPose().getRotation().getDegrees(),
               calculateTargetAngle(input.getLatestOdometryPose()).getDegrees());

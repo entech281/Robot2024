@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
-import frc.robot.commands.TestIntakeCommand;
+import frc.robot.commands.test.TestIntakeCommand;
 
 public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> {
 
@@ -27,7 +27,7 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        intakeMotor.set(RobotConstants.INTAKE.INTAKE_SPEED);
+        intakeMotor.set(currentInput.getSpeed());
       } else {
         intakeMotor.set(0);
       }

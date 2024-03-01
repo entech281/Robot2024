@@ -286,6 +286,7 @@ public final class RobotConstants {
     public static final double SHOOTING_SPEED = 1;
     public static final double TRANSFERING_SPEED = 0.0;
     public static final double INTAKING_SPEED = 0.0;
+    public static final double EJECTING_SPEED = -1;
     public static final double TESTING_SPEED = 0;
   }
 
@@ -299,11 +300,19 @@ public final class RobotConstants {
   public static interface CLIMB {
     public static final double UPPER_SOFT_LIMIT_Inches = 25.0;
     public static final double CLIMB_CONVERSION_FACTOR = 1;
+    public static final double CLIMB_RETRACTED = 0;
+    public static final double CLIMB_EXTENDED = 5;
   }
 
 
   public static interface INTAKE {
     public static final double INTAKE_SPEED = 0.0;
+    public static final int EJECTING_TIME = 2;
+  }
+
+
+  public static interface SHOOTER {
+    public static final double RESET_DELAY = 0.5;
   }
 
 
