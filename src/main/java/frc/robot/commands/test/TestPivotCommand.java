@@ -1,4 +1,4 @@
-package frc.robot.commands.testCommands;
+package frc.robot.commands.test;
 
 import entech.commands.EntechCommand;
 import entech.util.EntechUtils;

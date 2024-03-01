@@ -1,4 +1,4 @@
-package frc.robot.commands.testCommands;
+package frc.robot.commands.test;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;

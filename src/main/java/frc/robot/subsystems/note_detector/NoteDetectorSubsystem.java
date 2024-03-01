@@ -10,7 +10,7 @@ import org.photonvision.targeting.TargetCorner;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
-import frc.robot.commands.testCommands.TestNoteDetectorCommand;
+import frc.robot.commands.test.TestNoteDetectorCommand;
 
 public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, NoteDetectorOutput> {
   private static final boolean ENABLED = true;

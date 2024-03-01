@@ -1,4 +1,4 @@
-package frc.robot.commands.testCommands;
+package frc.robot.commands.test;
 
 import entech.commands.EntechCommand;
 import entech.util.EntechUtils;
@@ -8,7 +8,6 @@ import frc.robot.subsystems.climb.ClimbInput;
 import frc.robot.subsystems.climb.ClimbSubsystem;
 
 public class TestClimbCommand extends EntechCommand {
-
   private ClimbInput input = new ClimbInput();
   private ClimbSubsystem cSubsystem = new ClimbSubsystem();
   private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),

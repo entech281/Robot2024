@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
-import frc.robot.commands.testCommands.TestTransferCommand;
+import frc.robot.commands.test.TestTransferCommand;
 
 public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOutput> {
 

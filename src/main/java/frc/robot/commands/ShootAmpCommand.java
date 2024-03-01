@@ -8,9 +8,9 @@ import frc.robot.subsystems.pivot.PivotInput;
 import frc.robot.subsystems.pivot.PivotSubsystem;
 import frc.robot.subsystems.shooter.ShooterInput;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
+import frc.robot.subsystems.transfer.TransferInput;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem.TransferPreset;
-import frc.robot.subsystems.transfer.TransferInput;
 
 public class ShootAmpCommand extends EntechCommand {
 
@@ -62,7 +62,7 @@ public class ShootAmpCommand extends EntechCommand {
       tInput.setBrakeModeEnabled(false);
       tInput.setSpeedPreset(TransferPreset.Shooting);
       tSubsystem.updateInputs(tInput);
-    } else if (RobotIO.getInstance().getHasNoteOutput().hasNote() == false) {
+    } else if (!RobotIO.getInstance().getHasNoteOutput().hasNote()) {
       noNote = true;
     }
   }
@@ -86,10 +86,6 @@ public class ShootAmpCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    if (counter.isFinished(noNote)) {
-      return true;
-    } else {
-      return false;
-    }
+    return counter.isFinished(noNote);
   }
 }

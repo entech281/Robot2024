@@ -78,9 +78,9 @@ public class OperatorInterface
 
   public void operatorBindings() {
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_AMP)
-        .whileTrue(new SetTargetCommand(new Pose2d(1.81, 8.2, new Rotation2d()))); // shoot speaker
+        .whileTrue(new DoNothing());
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_SPEAKER)
-        .whileTrue(new SetTargetCommand(new Pose2d(0.0, 5.6, new Rotation2d()))); // shoot amp
+        .whileTrue(new DoNothing());
     operatorPanel.whileSwitch(RobotConstants.OPERATOR_PANEL.SWITCHES.INTAKE,
         new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
             subsystemManager.getTransferSubsystem()),
@@ -90,7 +90,8 @@ public class OperatorInterface
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.REVERSE_CLIMB)
         .onTrue(new DoNothing()); // revert to last state of climb
     operatorPanel.whileSwitch(RobotConstants.OPERATOR_PANEL.SWITCHES.ALIGN_SPEAKER_AMP,
-        new DoNothing(), new DoNothing()); // allows the driver to align to speaker or amp
+        new SetTargetCommand(new Pose2d(0.0, 5.6, new Rotation2d())),
+        new SetTargetCommand(new Pose2d(1.81, 8.2, new Rotation2d())));
   }
 
   private SendableChooser<Command> getTestCommandChooser() {

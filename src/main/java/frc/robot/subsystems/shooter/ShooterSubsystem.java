@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import entech.util.EntechUtils;
 import frc.robot.RobotConstants;
-import frc.robot.commands.testCommands.TestShooterCommand;
+import frc.robot.commands.test.TestShooterCommand;
 
 public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutput> {
 

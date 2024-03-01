@@ -20,8 +20,6 @@ public class EjectNoteCommand extends EntechCommand {
   private StoppingCounter counter =
       new StoppingCounter(getClass().getSimpleName(), RobotConstants.INTAKE.EJECTING_TIME);
 
-  public boolean ejecting = false;
-
   public EjectNoteCommand(IntakeSubsystem iSubsystem, TransferSubsystem tSubsystem) {
     super(iSubsystem, tSubsystem);
     this.intSubsystem = iSubsystem;
@@ -30,7 +28,6 @@ public class EjectNoteCommand extends EntechCommand {
 
   @Override
   public void initialize() {
-    ejecting = true;
     iInput.setActivate(false);
     iInput.setSpeed(-1);
     iInput.setBrakeModeEnabled(false);
@@ -41,6 +38,7 @@ public class EjectNoteCommand extends EntechCommand {
     transSubsystem.updateInputs(tInput);
   }
 
+  @Override
   public void end(boolean interupted) {
     iInput.setActivate(false);
     iInput.setSpeed(0);
@@ -54,7 +52,7 @@ public class EjectNoteCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return counter.isFinished(ejecting);
+    return counter.isFinished(true);
   }
 
   @Override

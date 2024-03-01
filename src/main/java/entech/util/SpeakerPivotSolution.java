@@ -8,4 +8,5 @@ public class SpeakerPivotSolution {
     return shooterSolutionDeg;
   }
 
+  private SpeakerPivotSolution() {}
 }

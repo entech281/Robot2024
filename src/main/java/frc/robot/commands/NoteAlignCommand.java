@@ -1,13 +1,11 @@
 package frc.robot.commands;
 
-import java.util.Optional;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import entech.commands.EntechCommand;
 import frc.robot.io.DriveInputSupplier;
 import frc.robot.processors.DriveInputProcessor;
 import frc.robot.subsystems.drive.DriveInput;
 import frc.robot.subsystems.drive.DriveSubsystem;
-import frc.robot.subsystems.note_detector.NoteDetectorOutput;
 import frc.robot.subsystems.note_detector.NoteDetectorSubsystem;
 
 public class NoteAlignCommand extends EntechCommand {
