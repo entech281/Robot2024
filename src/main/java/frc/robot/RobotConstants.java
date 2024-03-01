@@ -169,10 +169,10 @@ public final class RobotConstants {
 
       public static final int TRANSFER = 7;
 
-      public static final int INTAKE = 6;
+      public static final int INTAKE = 4;
 
       public static final int PIVOT_B = 5;
-      public static final int PIVOT_A = 4;
+      public static final int PIVOT_A = 6;
 
       public static final int CLIMB_B = 3;
       public static final int CLIMB_A = 2;
@@ -183,7 +183,7 @@ public final class RobotConstants {
       public static final double JOYSTICK_AXIS_THRESHOLD = 0.2;
       public static final int JOYSTICK = 0;
       public static final int PANEL = 1;
-      
+
       public static class BUTTONS {
         public static final int TWIST = 1;
         public static final int INTAKE = 2;
@@ -207,7 +207,7 @@ public final class RobotConstants {
       public static final int ADVANCE_CLIMB = 4;
       public static final int REVERSE_CLIMB = 5;
     }
-    
+
     public static class SWITCHES {
       public static final int INTAKE = 3;
       public static final int ALIGN_SPEAKER_AMP = 6;
@@ -286,6 +286,7 @@ public final class RobotConstants {
     public static final double SHOOTING_SPEED = 1;
     public static final double TRANSFERING_SPEED = 0.0;
     public static final double INTAKING_SPEED = 0.0;
+    public static final double EJECTING_SPEED = -1;
     public static final double TESTING_SPEED = 0;
   }
 
@@ -293,17 +294,27 @@ public final class RobotConstants {
   public static interface PIVOT {
     public static final double UPPER_SOFT_LIMIT_DEG = 89;
     public static final double PIVOT_CONVERSION_FACTOR = 1;
+    public static final double SHOOT_AMP_POSITION_DEG = 88;
+    public static final double POSITION_TOLERANCE_DEG = 2;
   }
 
 
   public static interface CLIMB {
     public static final double UPPER_SOFT_LIMIT_Inches = 25.0;
     public static final double CLIMB_CONVERSION_FACTOR = 1;
+    public static final double CLIMB_RETRACTED = 0;
+    public static final double CLIMB_EXTENDED = 5;
   }
 
 
   public static interface INTAKE {
     public static final double INTAKE_SPEED = 0.0;
+    public static final int EJECTING_TIME = 2;
+  }
+
+
+  public static interface SHOOTER {
+    public static final double RESET_DELAY = 0.5;
   }
 
 

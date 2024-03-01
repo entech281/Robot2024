@@ -6,8 +6,9 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
+import entech.util.EntechUtils;
 import frc.robot.RobotConstants;
-import frc.robot.commands.TestShooterCommand;
+import frc.robot.commands.test.TestShooterCommand;
 
 public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutput> {
 
@@ -92,6 +93,8 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
         (shooterTop.getEncoder().getVelocity() + shooterBottom.getEncoder().getVelocity()) / 2);
     shooterOutput.setActive(shooterOutput.getCurrentSpeed() != 0);
     shooterOutput.setBrakeModeEnabled(IdleMode.kBrake == shooterTop.getIdleMode());
+    shooterOutput.setIsAtSpeed(EntechUtils.isWithinTolerance(100.0, shooterOutput.getCurrentSpeed(),
+        currentInput.getSpeed()));
     return shooterOutput;
   }
 
