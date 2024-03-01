@@ -7,6 +7,7 @@ public class PivotOutput extends SubsystemOutput {
   private boolean moving = false;
   private boolean leftBrakeModeEnabled = false;
   private boolean rightBrakeModeEnabled = false;
+  private boolean isAtRequestedPosition = false;
   private double currentPosition = 0.0;
 
   @Override
@@ -39,6 +40,14 @@ public class PivotOutput extends SubsystemOutput {
 
   public void setRightBrakeModeEnabled(boolean rightBrakeModeEnabled) {
     this.rightBrakeModeEnabled = rightBrakeModeEnabled;
+  }
+
+  public boolean isAtRequestedPosition() {
+    return this.isAtRequestedPosition;
+  }
+
+  public void setAtRequestedPosition(boolean isAtRequestedPosition) {
+    this.isAtRequestedPosition = isAtRequestedPosition;
   }
 
   public double getCurrentPosition() {

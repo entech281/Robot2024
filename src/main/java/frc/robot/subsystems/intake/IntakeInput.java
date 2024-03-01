@@ -4,8 +4,9 @@ import org.littletonrobotics.junction.LogTable;
 import entech.subsystems.SubsystemInput;
 
 public class IntakeInput implements SubsystemInput {
-  private boolean activate;
-  private boolean brakeModeEnabled;
+  private boolean activate = false;
+  private boolean brakeModeEnabled = false;
+  private double speed = 0.0;
 
   @Override
   public void toLog(LogTable table) {
@@ -33,5 +34,13 @@ public class IntakeInput implements SubsystemInput {
 
   public void setBrakeModeEnabled(boolean brakeModeEnabled) {
     this.brakeModeEnabled = brakeModeEnabled;
+  }
+
+  public double getSpeed() {
+    return this.speed;
+  }
+
+  public void setSpeed(double speed) {
+    this.speed = speed;
   }
 }

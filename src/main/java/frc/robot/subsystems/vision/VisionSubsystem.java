@@ -20,10 +20,10 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
-import frc.robot.commands.TestVisionCommand;
+import frc.robot.commands.test.TestVisionCommand;
 
 public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> {
-  private static final boolean ENABLED = false;
+  private static final boolean ENABLED = true;
 
   private CameraContainerI cameras;
 
