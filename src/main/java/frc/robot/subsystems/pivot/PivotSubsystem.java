@@ -66,7 +66,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
       return 0;
     } else if (position > RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG) {
       DriverStation.reportWarning("Pivot tried to go to " + currentInput.getRequestedPosition()
-          + " value was changed to " + RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR, null);
+          + " value was changed to " + RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG, null);
       return RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG;
     } else {
       return position;
