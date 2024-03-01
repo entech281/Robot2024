@@ -15,7 +15,7 @@ import frc.robot.commands.test.TestPivotCommand;
 public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
   private static final boolean ENABLED = false;
-  private static final boolean IS_INVERTED = true;
+  private static final boolean IS_INVERTED = false;
 
   private PivotInput currentInput = new PivotInput();
 
@@ -67,7 +67,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
       return 0;
     } else if (position > RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG) {
       DriverStation.reportWarning("Pivot tried to go to " + currentInput.getRequestedPosition()
-          + " value was changed to " + RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR, null);
+          + " value was changed to " + RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG, null);
       return RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG;
     } else {
       return position;
