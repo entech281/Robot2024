@@ -12,7 +12,7 @@ import frc.robot.subsystems.climb.ClimbSubsystem;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.navx.NavXSubsystem;
-import frc.robot.subsystems.note_detector.NoteDetectorSubsystem;
+import frc.robot.subsystems.noteDetector.NoteDetectorSubsystem;
 import frc.robot.subsystems.pivot.PivotSubsystem;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem;

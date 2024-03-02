@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.io.RobotIO;
 import frc.robot.operation.UserPolicy;
 import frc.robot.subsystems.drive.DriveInput;
-import frc.robot.subsystems.note_detector.NoteDetectorOutput;
+import frc.robot.subsystems.noteDetector.NoteDetectorOutput;
 
 public class NoteAlignmentFilter implements DriveFilterI {
   private static final double TARGETING_DRIVE_ANGLE_RANGE = 2.5;

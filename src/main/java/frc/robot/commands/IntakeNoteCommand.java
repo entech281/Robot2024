@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import entech.commands.EntechCommand;
+import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem.TransferPreset;
@@ -28,10 +29,21 @@ public class IntakeNoteCommand extends EntechCommand {
     iInput.setSpeed(1);
     iInput.setBrakeModeEnabled(false);
     tInput.setActivate(true);
-    tInput.setSpeedPreset(TransferPreset.Intaking);
+    tInput.setSpeedPreset(TransferPreset.Intaking1);
     tInput.setBrakeModeEnabled(false);
     intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
+  }
+
+  @Override
+  public void execute() {
+    if (RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()) {
+      iInput.setSpeed(RobotConstants.INTAKE.INTAKE_SPEED / 2);
+      intSubsystem.updateInputs(iInput);
+
+      tInput.setSpeedPreset(TransferPreset.Intaking2);
+      transSubsystem.updateInputs(tInput);
+    }
   }
 
   @Override
@@ -44,7 +56,7 @@ public class IntakeNoteCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return RobotIO.getInstance().getHasNoteOutput().hasNote();
+    return RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote();
   }
 
   @Override

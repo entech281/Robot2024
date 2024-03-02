@@ -33,9 +33,9 @@ import frc.robot.subsystems.drive.DriveInput;
 public class OperatorInterface
     implements DriveInputSupplier, DebugInputSupplier, OperatorInputSupplier {
   private final EntechJoystick driveJoystick =
-      new EntechJoystick(RobotConstants.Ports.CONTROLLER.JOYSTICK);
+      new EntechJoystick(RobotConstants.PORTS.CONTROLLER.JOYSTICK);
   private final EntechJoystick operatorPanel =
-      new EntechJoystick(RobotConstants.Ports.CONTROLLER.PANEL);
+      new EntechJoystick(RobotConstants.PORTS.CONTROLLER.PANEL);
 
   private final CommandFactory commandFactory;
   private final SubsystemManager subsystemManager;
@@ -54,16 +54,16 @@ public class OperatorInterface
   }
 
   public void driverBindings() {
-    driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.TWIST, new TwistCommand());
-    driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.GYRO_RESET,
+    driveJoystick.whilePressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.TWIST, new TwistCommand());
+    driveJoystick.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.GYRO_RESET,
         new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
 
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
-    driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.INTAKE,
+    driveJoystick.whilePressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.INTAKE,
         new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
             subsystemManager.getTransferSubsystem()));
-    driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.ALIGN_SPEAKER_AMP,
+    driveJoystick.whilePressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.ALIGN_SPEAKER_AMP,
         new DoNothing()); // align to speaker or amp depending on an operator switch
 
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
@@ -72,7 +72,7 @@ public class OperatorInterface
 
     testChooser.addOption("All tests", getTestCommand());
 
-    driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.RUN_TESTS,
+    driveJoystick.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.RUN_TESTS,
         new RunTestCommand(testChooser));
   }
 

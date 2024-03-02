@@ -8,7 +8,7 @@ import frc.robot.processors.filters.MaxConstraintFilter;
 import frc.robot.processors.filters.NoteAlignmentFilter;
 import frc.robot.processors.filters.SquaringFilter;
 import frc.robot.subsystems.drive.DriveInput;
-import frc.robot.subsystems.note_detector.NoteDetectorOutput;
+import frc.robot.subsystems.noteDetector.NoteDetectorOutput;
 
 public class NoteAlignProcessor {
   private List<DriveFilterI> filters = new ArrayList<>();

@@ -5,8 +5,8 @@ import org.littletonrobotics.junction.Logger;
 import org.opencv.core.Point;
 import entech.commands.EntechCommand;
 import frc.robot.RobotConstants;
-import frc.robot.subsystems.note_detector.NoteDetectorOutput;
-import frc.robot.subsystems.note_detector.NoteDetectorSubsystem;
+import frc.robot.subsystems.noteDetector.NoteDetectorOutput;
+import frc.robot.subsystems.noteDetector.NoteDetectorSubsystem;
 
 public class TestNoteDetectorCommand extends EntechCommand {
   private final NoteDetectorSubsystem noteDetector;

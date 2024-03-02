@@ -143,7 +143,7 @@ public final class RobotConstants {
   }
 
 
-  public static interface Ports {
+  public static interface PORTS {
 
     public static class ANALOG {
       public static final int FRONT_LEFT_TURNING_ABSOLUTE_ENCODER = 3;
@@ -195,7 +195,8 @@ public final class RobotConstants {
 
 
     public static class HAS_NOTE {
-      public static final int HAS_NOTE_SENSOR = 0;
+      public static final int INTERNAL_SENSOR_FORWARD = 0;
+      public static final int INTERNAL_SENSOR_REAR = 1;
     }
   }
 
@@ -267,11 +268,11 @@ public final class RobotConstants {
     }
 
 
-    public static interface PIVOT {
-      public static final double KP = 0;
-      public static final double KI = 0;
-      public static final double KD = 0;
-    }
+    // public static interface PIVOT {
+    // public static final double KP = 0.00004;
+    // public static final double KI = 0;
+    // public static final double KD = 0;
+    // }
 
 
     public static interface CLIMB {
@@ -284,17 +285,20 @@ public final class RobotConstants {
 
   public static interface TRANSFER {
     public static final double SHOOTING_SPEED = 1;
-    public static final double TRANSFERING_SPEED = 0.0;
-    public static final double INTAKING_SPEED = 0.0;
+    public static final double TRANSFERRING_SPEED = 0.0;
+    public static final double INTAKING_SPEED_FAST = 1;
+    public static final double INTAKING_SPEED_SLOW = 0.5;
     public static final double EJECTING_SPEED = -1;
     public static final double TESTING_SPEED = 0;
   }
 
 
   public static interface PIVOT {
-    public static final double UPPER_SOFT_LIMIT_DEG = 25;
-    public static final double PIVOT_CONVERSION_FACTOR = 0.007;
-    public static final double SHOOT_AMP_POSITION_DEG = 23;
+    public static final double UPPER_SOFT_LIMIT_DEG = 86;
+    public static final double LOWER_SOFT_LIMIT_DEG = 2;
+    public static final double PIVOT_CONVERSION_FACTOR = 2.4;
+    public static final double SHOOT_AMP_POSITION_DEG = 3;
+    public static final double POSITION_TOLERANCE_DEG = 2;
   }
 
 
