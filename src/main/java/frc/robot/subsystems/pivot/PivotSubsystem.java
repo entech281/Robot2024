@@ -77,11 +77,9 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   public void periodic() {
     double clampedPosition = clampRequestedPosition(currentInput.getRequestedPosition());
     if (ENABLED) {
-      if (currentInput.getActivate()) {
-        pivotLeft.getPIDController().setReference(
-            calculateMotorPositionFromDegrees(clampedPosition), ControlType.kSmartMotion);
-        updateBrakeMode();
-      }
+      pivotLeft.getPIDController().setReference(calculateMotorPositionFromDegrees(clampedPosition),
+          ControlType.kSmartMotion, 0);
+      updateBrakeMode();
     }
   }
 
@@ -106,6 +104,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
         pivotLeft.getEncoder().getPosition(), currentInput.getRequestedPosition()));
     pivotOutput.setAtLowerLimit(
         pivotLeft.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).isPressed());
+    pivotOutput.setRequestedPosition(currentInput.getRequestedPosition());
     return pivotOutput;
   }
 

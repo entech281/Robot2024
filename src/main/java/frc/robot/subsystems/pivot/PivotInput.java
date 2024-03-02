@@ -2,11 +2,12 @@ package frc.robot.subsystems.pivot;
 
 import org.littletonrobotics.junction.LogTable;
 import entech.subsystems.SubsystemInput;
+import frc.robot.RobotConstants;
 
 public class PivotInput implements SubsystemInput {
 
-  private boolean activate = false;
-  private double requestedPosition = 0.0;
+  private boolean activate = true;
+  private double requestedPosition = RobotConstants.PIVOT.INITIAL_POSITION;
   private boolean brakeModeEnabled = false;
 
   @Override
