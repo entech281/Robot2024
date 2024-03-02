@@ -1,5 +1,6 @@
 package frc.robot.operation;
 
+import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.geometry.Pose2d;
 
 public class UserPolicy {
@@ -7,7 +8,7 @@ public class UserPolicy {
 
   private boolean twistable = false;
   private boolean aligningToNote = true;
-  private Pose2d targetPose = null; // new Pose2d(0, 5.53, new Rotation2d());
+  private Pose2d targetPose = null;
 
   private UserPolicy() {}
 
@@ -22,10 +23,12 @@ public class UserPolicy {
 
   public void setIsTwistable(boolean twistable) {
     this.twistable = twistable;
+    Logger.recordOutput("UserPolicy/twistable", twistable);
   }
 
   public void setTargetPose(Pose2d targetPose) {
     this.targetPose = targetPose;
+    Logger.recordOutput("UserPolicy/targetPose", targetPose);
   }
 
   public Pose2d getTargetPose() {
@@ -38,5 +41,6 @@ public class UserPolicy {
 
   public void setAligningToNote(boolean aligningToNote) {
     this.aligningToNote = aligningToNote;
+    Logger.recordOutput("UserPolicy/aligningToNote", aligningToNote);
   }
 }
