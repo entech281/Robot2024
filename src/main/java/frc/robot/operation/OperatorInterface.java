@@ -59,23 +59,20 @@ public class OperatorInterface
 
   public void driverBindings() {
 
-    driveController.button(5).whileTrue(new TwistCommand());
+    //driveController.button(6).whileTrue(new TwistCommand());
     //driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.TWIST, new TwistCommand());
 
-    //button 7 could be wrong.
+
     driveController.button(7).onTrue(new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
     //driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.GYRO_RESET,new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
 
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
 
-    driveController.button(0).whileTrue(new IntakeCommand(
+    driveController.button(2).whileTrue(new IntakeCommand(
         subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
 
-    //driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.INTAKE, new IntakeCommand(
-    //    subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
-    //driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.ALIGN_SPEAKER_AMP,
-    //    new DoNothing()); // align to speaker or amp depending on an operator switch
+
 
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
     SendableChooser<Command> testChooser = getTestCommandChooser();
@@ -83,11 +80,7 @@ public class OperatorInterface
 
     testChooser.addOption("All tests", getTestCommand());
 
-    //driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.RUN_TESTS,
-    //    new RunTestCommand(testChooser));
-    //driveJoystick.whenPressed(8, new AlignNoteToggleCommand());
-    //driveJoystick.whenPressed(9, new SetTargetCommand(new Pose2d(0, 5.53, new Rotation2d())));
-    //driveJoystick.whenPressed(10, new SetTargetCommand(new Pose2d(1.79, 8.2, new Rotation2d())));
+
   }
 
   public void operatorBindings() {
@@ -130,12 +123,24 @@ public class OperatorInterface
   public DriveInput getDriveInput() {
     DriveInput di = new DriveInput();
 
-    //di.setXSpeed(-driveJoystick.getY());
-    //di.setYSpeed(-driveJoystick.getX());
-    //di.setRotation(-driveJoystick.getZ());
+
     di.setXSpeed(-driveController.getLeftY());
     di.setYSpeed(-driveController.getLeftX());
-    di.setRotation(-driveController.getRightX());
+    //di.setRotation(-driveController.getRightX());
+
+
+    double TRIGGER_THRESHOLD = 0.2;
+    if ( driveController.getLeftTriggerAxis() > TRIGGER_THRESHOLD){
+      UserPolicy.getInstance().setIsTwistable(true);
+      di.setRotation(driveController.getLeftTriggerAxis());
+    }
+    else if ( driveController.getRightTriggerAxis() > TRIGGER_THRESHOLD){
+      UserPolicy.getInstance().setIsTwistable(true);
+      di.setRotation(-driveController.getRightTriggerAxis());
+    }
+    else{
+      UserPolicy.getInstance().setIsTwistable(false);
+    }
 
     di.setGyroAngle(Rotation2d.fromDegrees(RobotIO.getInstance().getNavXOutput().getYaw()));
     di.setLatestOdometryPose(odometry.getEstimatedPose());
