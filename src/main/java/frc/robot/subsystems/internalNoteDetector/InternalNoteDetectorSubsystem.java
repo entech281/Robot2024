@@ -1,4 +1,4 @@
-package frc.robot.subsystems.internal_note_detector;
+package frc.robot.subsystems.internalNoteDetector;
 
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;

@@ -1,4 +1,4 @@
-package frc.robot.subsystems.note_detector;
+package frc.robot.subsystems.noteDetector;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,9 +1,9 @@
-package frc.robot.subsystems.note_detector;
+package frc.robot.subsystems.internalNoteDetector;
 
 import org.littletonrobotics.junction.LogTable;
 import entech.subsystems.SubsystemInput;
 
-public class NoteDetectorInput implements SubsystemInput {
+public class InternalNoteDetectorInput implements SubsystemInput {
 
   @Override
   public void toLog(LogTable table) {}

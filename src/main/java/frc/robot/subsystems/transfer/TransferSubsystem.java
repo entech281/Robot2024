@@ -38,9 +38,9 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
         } else if (currentInput.getSpeedPreset() == TransferPreset.Transferring) {
           transferMotor.set(RobotConstants.TRANSFER.TRANSFERRING_SPEED);
         } else if (currentInput.getSpeedPreset() == TransferPreset.Intaking1) {
-          transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED_1);
+          transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED_FAST);
         } else if (currentInput.getSpeedPreset() == TransferPreset.Intaking2) {
-          transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED_2);
+          transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED_SLOW);
         } else if (currentInput.getSpeedPreset() == TransferPreset.Ejecting) {
           transferMotor.set(RobotConstants.TRANSFER.EJECTING_SPEED);
         } else if (currentInput.getSpeedPreset() == TransferPreset.Testing) {
