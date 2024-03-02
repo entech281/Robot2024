@@ -43,11 +43,18 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
 
     output.setEstimatedPose(getEstimatedPose());
     output.setHasTargets(!targets.isEmpty());
-    output.setLatency(cameras.getLatency());
+
     output.setNumberOfTargets(targets.size());
     output.setTimeStamp(getTimeStamp());
     output.setTargets(targets);
-    output.setTargetsData(cameras.getTargetData());
+
+    if (ENABLED) {
+      output.setTargetsData(cameras.getTargetData());
+      output.setLatency(cameras.getLatency());
+    } else {
+      output.setTargetsData(new ArrayList<EntechTargetData>());
+      output.setLatency(-1);
+    }
 
     return output;
   }

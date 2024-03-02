@@ -15,6 +15,7 @@ public class NoteDetectorOutput extends SubsystemOutput {
   private List<PhotonTrackedTarget> notes;
   private Optional<Point> midpoint;
   private double yaw;
+  private double latency;
 
   public double getYaw() {
     return yaw;
@@ -65,6 +66,7 @@ public class NoteDetectorOutput extends SubsystemOutput {
     }
 
     Logger.recordOutput("NoteDetectorOutput/yaw", yaw);
+    Logger.recordOutput("NoteDetectorOutput/latency", latency);
   }
 
   public boolean hasNotes() {
@@ -89,5 +91,13 @@ public class NoteDetectorOutput extends SubsystemOutput {
 
   public void setNotes(List<PhotonTrackedTarget> notes) {
     this.notes = notes;
+  }
+
+  public double getLatency() {
+    return this.latency;
+  }
+
+  public void setLatency(double latency) {
+    this.latency = latency;
   }
 }
