@@ -2,13 +2,14 @@ package frc.robot.commands;
 
 import java.util.function.Supplier;
 import entech.commands.EntechCommand;
+import frc.robot.RobotConstants;
 import frc.robot.subsystems.pivot.PivotInput;
 import frc.robot.subsystems.pivot.PivotSubsystem;
 
 public class PivotNudgeCommand extends EntechCommand {
   private final PivotSubsystem pivot;
 
-  private static final double NUDGE_AMOUNT = 0.05;
+  private static final double NUDGE_AMOUNT = 0.4;
   private final Supplier<Integer> pov;
 
   public PivotNudgeCommand(PivotSubsystem pivot, Supplier<Integer> pov) {
@@ -22,19 +23,25 @@ public class PivotNudgeCommand extends EntechCommand {
     PivotInput pi = new PivotInput();
     pi.setActivate(false);
 
-    double pivotAngle = pivot.getOutputs().getCurrentPosition();
+    double pivotAngle = pivot.getOutputs().getRequestedPosition();
 
     if (pov.get() == 0) {
-      pi.setRequestedPosition(pivotAngle + NUDGE_AMOUNT);
+      double angle = pivotAngle + NUDGE_AMOUNT;
+      if (angle > RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG) {
+        angle = RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG;
+      }
+      pi.setRequestedPosition(angle);
+      pivot.updateInputs(pi);
     }
 
     if (pov.get() == 180) {
-      pi.setRequestedPosition(pivotAngle - NUDGE_AMOUNT);
+      double angle = pivotAngle - NUDGE_AMOUNT;
+      if (angle < RobotConstants.PIVOT.LOWER_SOFT_LIMIT_DEG) {
+        angle = RobotConstants.PIVOT.LOWER_SOFT_LIMIT_DEG;
+      }
+      pi.setRequestedPosition(angle);
+      pivot.updateInputs(pi);
     }
-
-    pi.setRequestedPosition(pivotAngle);
-
-    pivot.updateInputs(pi);
   }
 
   @Override

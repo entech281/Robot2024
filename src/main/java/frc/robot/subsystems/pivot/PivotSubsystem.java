@@ -37,6 +37,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
       pivotRight.follow(pivotLeft);
 
       updateBrakeMode();
+      pivotLeft.getEncoder().setPosition(0.0);
 
       pivotLeft.setInverted(IS_INVERTED);
       pivotRight.setInverted(IS_INVERTED);
@@ -62,11 +63,11 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   private double clampRequestedPosition(double position) {
     if (position < 0) {
       DriverStation.reportWarning("Pivot tried to go to " + currentInput.getRequestedPosition()
-          + " value was changed to " + RobotConstants.PIVOT.LOWER_SOFT_LIMIT_DEG, null);
+          + " value was changed to " + RobotConstants.PIVOT.LOWER_SOFT_LIMIT_DEG, false);
       return RobotConstants.PIVOT.LOWER_SOFT_LIMIT_DEG;
     } else if (position > RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG) {
       DriverStation.reportWarning("Pivot tried to go to " + currentInput.getRequestedPosition()
-          + " value was changed to " + RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG, null);
+          + " value was changed to " + RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG, false);
       return RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG;
     } else {
       return position;
@@ -99,7 +100,8 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     pivotOutput.setMoving(pivotLeft.getEncoder().getVelocity() != 0);
     pivotOutput.setLeftBrakeModeEnabled(IdleMode.kBrake == pivotLeft.getIdleMode());
     pivotOutput.setRightBrakeModeEnabled(IdleMode.kBrake == pivotRight.getIdleMode());
-    pivotOutput.setCurrentPosition(pivotLeft.getEncoder().getPosition());
+    pivotOutput.setCurrentPosition(
+        pivotLeft.getEncoder().getPosition() * RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR);
     pivotOutput.setAtRequestedPosition(EntechUtils.isWithinTolerance(1,
         pivotLeft.getEncoder().getPosition(), currentInput.getRequestedPosition()));
     pivotOutput.setAtLowerLimit(
