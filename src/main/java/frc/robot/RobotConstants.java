@@ -220,7 +220,7 @@ public final class RobotConstants {
 
 
     public static interface Cameras {
-      public static final String LEFT = "Arducam_Bravo";
+      public static final String LEFT = "Aducam_Bravo";
       public static final String RIGHT = "Arducam_Alpha";
       public static final String COLOR = "Arducam_OV9782_USB_Camera";
       public static final String MIDDLE = "Global_Shutter_Camera";
@@ -260,11 +260,11 @@ public final class RobotConstants {
   public static interface PID {
 
     public static interface SHOOTER {
-      public static final double KP = 0.00008;
+      public static final double KP = 0.00041;
       public static final double KI = 0.0;
       public static final double KD = 0.0;
-      public static final double KFF = 0.0;
-      public static final double MAX_SPEED = 5500;
+      public static final double KFF = 0.00018;
+      public static final double MAX_SPEED = 4000;
     }
 
 
@@ -286,9 +286,10 @@ public final class RobotConstants {
   public static interface TRANSFER {
     public static final double SHOOTING_SPEED = 1;
     public static final double TRANSFERRING_SPEED = 0.0;
-    public static final double INTAKING_SPEED_FAST = 1;
-    public static final double INTAKING_SPEED_SLOW = 0.5;
+    public static final double INTAKING_SPEED_FAST = 0.7;
+    public static final double INTAKING_SPEED_SLOW = 0;
     public static final double EJECTING_SPEED = -1;
+    public static final double RETRACTING_SPEED = -0.2;
     public static final double TESTING_SPEED = 0;
   }
 
@@ -318,6 +319,7 @@ public final class RobotConstants {
 
   public static interface SHOOTER {
     public static final double RESET_DELAY = 0.5;
+    public static final double SHOOT_DELAY = 0.5;
   }
 
 

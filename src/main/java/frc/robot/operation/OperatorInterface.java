@@ -19,6 +19,7 @@ import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.RunTestCommand;
 import frc.robot.commands.SetTargetCommand;
+import frc.robot.commands.ShootSpeakerCommand;
 import frc.robot.commands.TwistCommand;
 import frc.robot.io.DebugInput;
 import frc.robot.io.DebugInputSupplier;
@@ -58,8 +59,8 @@ public class OperatorInterface
     driveJoystick.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.GYRO_RESET,
         new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
 
-    subsystemManager.getDriveSubsystem()
-        .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
+    // subsystemManager.getDriveSubsystem()
+    // .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
     driveJoystick.whilePressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.INTAKE,
         new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
             subsystemManager.getTransferSubsystem()));
@@ -81,8 +82,10 @@ public class OperatorInterface
     // .whileTrue(new DoNothing());
     // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_SPEAKER)
     // .whileTrue(new DoNothing());
-    operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.SWITCHES.INTAKE, new IntakeNoteCommand(
+    operatorPanel.whenPressed(RobotConstants.OPERATOR_PANEL.SWITCHES.INTAKE, new IntakeNoteCommand(
         subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
+    operatorPanel.whilePressed(6, new ShootSpeakerCommand(subsystemManager.getShooterSubsystem(),
+        subsystemManager.getPivotSubsystem(), subsystemManager.getTransferSubsystem()));
     // run intake and transfer backwards and eject note
     // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.ADVANCE_CLIMB)
     // .whileTrue(new DoNothing()); // advance to next stage of climb
