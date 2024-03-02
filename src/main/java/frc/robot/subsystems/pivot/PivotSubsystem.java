@@ -22,17 +22,19 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   private CANSparkMax pivotLeft;
   private CANSparkMax pivotRight;
 
+  public static double calculateMotorPositionFromDegrees(double degrees){
+    return degrees / RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR;
+  }
+
   @Override
   public void initialize() {
     if (ENABLED) {
+      //IMPORTANT! DO NOT BURN FLASH OR SET SETTINGS FOR THIS SUBSYSTEM in code!
+      //we want to avoid accidently disabling the controller soft limits
       pivotLeft = new CANSparkMax(RobotConstants.PORTS.CAN.PIVOT_A, MotorType.kBrushless);
       pivotRight = new CANSparkMax(RobotConstants.PORTS.CAN.PIVOT_B, MotorType.kBrushless);
       pivotRight.follow(pivotLeft);
 
-      pivotLeft.getEncoder()
-          .setPositionConversionFactor(RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR);
-      pivotRight.getEncoder()
-          .setPositionConversionFactor(RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR);
 
       updateBrakeMode();
 
@@ -78,7 +80,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     double clampedPosition = clampRequestedPosition(currentInput.getRequestedPosition());
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        pivotLeft.getPIDController().setReference(clampedPosition, ControlType.kPosition);
+        pivotLeft.getPIDController().setReference(calculateMotorPositionFromDegrees(clampedPosition), ControlType.kPosition);
         updateBrakeMode();
       }
     }
