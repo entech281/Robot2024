@@ -68,6 +68,12 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
       output.setYaw(0);
     }
 
+    if (ENABLED) {
+      output.setLatency(colorCamera.getLatestResult().getLatencyMillis());
+    } else {
+      output.setLatency(-1);
+    }
+
     return output;
   }
 
