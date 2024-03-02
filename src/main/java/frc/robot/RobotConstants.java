@@ -129,7 +129,7 @@ public final class RobotConstants {
 
     public static interface PIVOT {
       public static final double TEST_TOLERANCE_DEG = 1;
-      public static final double TEST_POSITION_DEG = 5;
+      public static final double TEST_POSITION_DEG = 10;
     }
 
     public static interface SHOOTER {
@@ -189,6 +189,7 @@ public final class RobotConstants {
         public static final int INTAKE = 2;
         public static final int ALIGN_SPEAKER_AMP = 3;
         public static final int RUN_TESTS = 7;
+        public static final int PIVOT = 5;
         public static final int GYRO_RESET = 11;
       }
     }

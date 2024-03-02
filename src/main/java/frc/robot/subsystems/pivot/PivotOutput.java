@@ -2,22 +2,23 @@ package frc.robot.subsystems.pivot;
 
 import org.littletonrobotics.junction.Logger;
 import entech.subsystems.SubsystemOutput;
-import frc.robot.RobotConstants;
 
 public class PivotOutput extends SubsystemOutput {
   private boolean moving = false;
   private boolean leftBrakeModeEnabled = false;
   private boolean rightBrakeModeEnabled = false;
   private boolean isAtRequestedPosition = false;
+  private double requestedPosition = 0.0;
   private boolean isAtUpperLimit = false;
   private boolean isAtLowerLimit = false;
-  private double currentPosition = RobotConstants.PIVOT.INITIAL_POSITION;
+  private double currentPosition = 0.0;
 
   @Override
   public void toLog() {
     Logger.recordOutput("PivotOutput/moving", moving);
     Logger.recordOutput("PivotOutput/leftBrakeModeEnabled", leftBrakeModeEnabled);
     Logger.recordOutput("PivotOutput/rightBrakeModeEnabled", rightBrakeModeEnabled);
+    Logger.recordOutput("PivotOutput/requestedPosition", requestedPosition);
     Logger.recordOutput("PivotOutput/currentPosition", currentPosition);
     Logger.recordOutput("PivotOutput/isAtUpperLimit", isAtUpperLimit);
     Logger.recordOutput("PivotOutput/isAtLowerLimit", isAtLowerLimit);
@@ -77,5 +78,13 @@ public class PivotOutput extends SubsystemOutput {
 
   public void setAtLowerLimit(boolean isAtLowerLimit) {
     this.isAtLowerLimit = isAtLowerLimit;
+  }
+
+  public double getRequestedPosition() {
+    return this.requestedPosition;
+  }
+
+  public void setRequestedPosition(double requestedPosition) {
+    this.requestedPosition = requestedPosition;
   }
 }

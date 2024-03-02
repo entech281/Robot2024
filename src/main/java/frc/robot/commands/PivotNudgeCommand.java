@@ -8,7 +8,7 @@ import frc.robot.subsystems.pivot.PivotSubsystem;
 public class PivotNudgeCommand extends EntechCommand {
   private final PivotSubsystem pivot;
 
-  private static final double NUDGE_AMOUNT = 0.5;
+  private static final double NUDGE_AMOUNT = 0.05;
   private final Supplier<Integer> pov;
 
   public PivotNudgeCommand(PivotSubsystem pivot, Supplier<Integer> pov) {
