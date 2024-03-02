@@ -268,11 +268,11 @@ public final class RobotConstants {
     }
 
 
-    // public static interface PIVOT {
-    // public static final double KP = 0.00004;
-    // public static final double KI = 0;
-    // public static final double KD = 0;
-    // }
+    public static interface PIVOT {
+      public static final double KP = 0.00004;
+      public static final double KI = 0;
+      public static final double KD = 0;
+    }
 
 
     public static interface CLIMB {
@@ -300,6 +300,7 @@ public final class RobotConstants {
     public static final double PIVOT_CONVERSION_FACTOR = 2.4;
     public static final double SHOOT_AMP_POSITION_DEG = 3;
     public static final double POSITION_TOLERANCE_DEG = 2;
+    public static final double INITIAL_POSITION = 1;
   }
 
 

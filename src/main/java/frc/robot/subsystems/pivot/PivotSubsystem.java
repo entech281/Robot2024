@@ -1,5 +1,6 @@
 package frc.robot.subsystems.pivot;
 
+import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -14,7 +15,7 @@ import frc.robot.commands.test.TestPivotCommand;
 
 public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
-  private static final boolean ENABLED = false;
+  private static final boolean ENABLED = true;
   private static final boolean IS_INVERTED = false;
 
   private PivotInput currentInput = new PivotInput();
@@ -35,13 +36,10 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
       pivotRight = new CANSparkMax(RobotConstants.PORTS.CAN.PIVOT_B, MotorType.kBrushless);
       pivotRight.follow(pivotLeft);
 
-
       updateBrakeMode();
 
       pivotLeft.setInverted(IS_INVERTED);
       pivotRight.setInverted(IS_INVERTED);
-
-      // setUpPIDConstants(pivotRight.getPIDController());
     }
   }
 
@@ -81,7 +79,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     if (ENABLED) {
       if (currentInput.getActivate()) {
         pivotLeft.getPIDController().setReference(
-            calculateMotorPositionFromDegrees(clampedPosition), ControlType.kPosition);
+            calculateMotorPositionFromDegrees(clampedPosition), ControlType.kSmartMotion);
         updateBrakeMode();
       }
     }
@@ -106,6 +104,8 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     pivotOutput.setCurrentPosition(pivotLeft.getEncoder().getPosition());
     pivotOutput.setAtRequestedPosition(EntechUtils.isWithinTolerance(1,
         pivotLeft.getEncoder().getPosition(), currentInput.getRequestedPosition()));
+    pivotOutput.setAtLowerLimit(
+        pivotLeft.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).isPressed());
     return pivotOutput;
   }
 
