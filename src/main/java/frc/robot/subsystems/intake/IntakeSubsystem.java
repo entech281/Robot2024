@@ -3,6 +3,7 @@ package frc.robot.subsystems.intake;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
@@ -10,20 +11,22 @@ import frc.robot.commands.test.TestIntakeCommand;
 
 public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> {
 
-  private final static boolean ENABLED = false;
+  private final static boolean ENABLED = true;
 
-  IntakeInput currentInput = new IntakeInput();
+  private IntakeInput currentInput = new IntakeInput();
 
-  CANSparkMax intakeMotor;
+  private CANSparkMax intakeMotor;
 
   @Override
   public void initialize() {
     if (ENABLED) {
+      DriverStation.reportWarning("Intake was initalized", false);
       intakeMotor = new CANSparkMax(RobotConstants.PORTS.CAN.INTAKE, MotorType.kBrushless);
       intakeMotor.setInverted(false);
     }
   }
 
+  @Override
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {

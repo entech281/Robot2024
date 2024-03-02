@@ -11,6 +11,7 @@ import frc.robot.io.RobotIO;
 import frc.robot.subsystems.climb.ClimbSubsystem;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
+import frc.robot.subsystems.internalNoteDetector.InternalNoteDetectorSubsystem;
 import frc.robot.subsystems.navx.NavXSubsystem;
 import frc.robot.subsystems.noteDetector.NoteDetectorSubsystem;
 import frc.robot.subsystems.pivot.PivotSubsystem;
@@ -29,6 +30,8 @@ public class SubsystemManager {
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private final TransferSubsystem transferSubsystem = new TransferSubsystem();
   private final PivotSubsystem pivotSubsystem = new PivotSubsystem();
+  private final InternalNoteDetectorSubsystem internalNoteDetectorSubsystem =
+      new InternalNoteDetectorSubsystem();
   private final NoteDetectorSubsystem noteDetectorSubsystem = new NoteDetectorSubsystem();
   private final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
 
@@ -41,6 +44,7 @@ public class SubsystemManager {
     transferSubsystem.initialize();
     pivotSubsystem.initialize();
     climbSubsystem.initialize();
+    internalNoteDetectorSubsystem.initialize();
     noteDetectorSubsystem.initialize();
 
     periodic();
@@ -82,6 +86,10 @@ public class SubsystemManager {
     return noteDetectorSubsystem;
   }
 
+  public InternalNoteDetectorSubsystem getInternalNoteDetectorSubsystem() {
+    return internalNoteDetectorSubsystem;
+  }
+
   public List<EntechSubsystem<?, ?>> getSubsystemList() {
     ArrayList<EntechSubsystem<?, ?>> r = new ArrayList<>();
     r.add(navXSubsystem);
@@ -92,6 +100,7 @@ public class SubsystemManager {
     r.add(transferSubsystem);
     r.add(noteDetectorSubsystem);
     r.add(pivotSubsystem);
+    r.add(internalNoteDetectorSubsystem);
 
     return r;
   }
@@ -126,6 +135,13 @@ public class SubsystemManager {
       outputs.updatePivot(pivotSubsystem.getOutputs());
     }
 
-    outputs.updateNoteDetector(noteDetectorSubsystem.getOutputs());
+    if (noteDetectorSubsystem.isEnabled()) {
+      outputs.updateNoteDetector(noteDetectorSubsystem.getOutputs());
+    }
+
+    if (internalNoteDetectorSubsystem.isEnabled()) {
+      outputs.updateInternalNoteDetector(internalNoteDetectorSubsystem.getOutputs());
+    }
+
   }
 }

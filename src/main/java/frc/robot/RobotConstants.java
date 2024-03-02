@@ -210,7 +210,7 @@ public final class RobotConstants {
     }
 
     public static class SWITCHES {
-      public static final int INTAKE = 3;
+      public static final int INTAKE = 2;
       public static final int ALIGN_SPEAKER_AMP = 6;
     }
   }
@@ -311,7 +311,7 @@ public final class RobotConstants {
 
 
   public static interface INTAKE {
-    public static final double INTAKE_SPEED = 0.0;
+    public static final double INTAKE_SPEED = 1;
     public static final int EJECTING_TIME = 2;
   }
 

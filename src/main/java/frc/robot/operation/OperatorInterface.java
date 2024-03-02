@@ -77,21 +77,20 @@ public class OperatorInterface
   }
 
   public void operatorBindings() {
-    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_AMP)
-        .whileTrue(new DoNothing());
-    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_SPEAKER)
-        .whileTrue(new DoNothing());
-    operatorPanel.whileSwitch(RobotConstants.OPERATOR_PANEL.SWITCHES.INTAKE,
-        new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
-            subsystemManager.getTransferSubsystem()),
-        new DoNothing()); // run intake and transfer backwards and eject note
-    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.ADVANCE_CLIMB)
-        .whileTrue(new DoNothing()); // advance to next stage of climb
-    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.REVERSE_CLIMB)
-        .onTrue(new DoNothing()); // revert to last state of climb
-    operatorPanel.whileSwitch(RobotConstants.OPERATOR_PANEL.SWITCHES.ALIGN_SPEAKER_AMP,
-        new SetTargetCommand(new Pose2d(0.0, 5.6, new Rotation2d())),
-        new SetTargetCommand(new Pose2d(1.81, 8.2, new Rotation2d())));
+    // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_AMP)
+    // .whileTrue(new DoNothing());
+    // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_SPEAKER)
+    // .whileTrue(new DoNothing());
+    operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.SWITCHES.INTAKE, new IntakeNoteCommand(
+        subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
+    // run intake and transfer backwards and eject note
+    // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.ADVANCE_CLIMB)
+    // .whileTrue(new DoNothing()); // advance to next stage of climb
+    // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.REVERSE_CLIMB)
+    // .onTrue(new DoNothing()); // revert to last state of climb
+    // operatorPanel.whileSwitch(RobotConstants.OPERATOR_PANEL.SWITCHES.ALIGN_SPEAKER_AMP,
+    // new SetTargetCommand(new Pose2d(0.0, 5.6, new Rotation2d())),
+    // new SetTargetCommand(new Pose2d(1.81, 8.2, new Rotation2d())));
   }
 
   private SendableChooser<Command> getTestCommandChooser() {
