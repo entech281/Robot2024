@@ -9,7 +9,7 @@ import frc.robot.subsystems.climb.ClimbSubsystem;
 
 public class TestClimbCommand extends EntechCommand {
   private ClimbInput input = new ClimbInput();
-  private ClimbSubsystem cSubsystem = new ClimbSubsystem();
+  private final ClimbSubsystem cSubsystem;
   private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
       RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
 

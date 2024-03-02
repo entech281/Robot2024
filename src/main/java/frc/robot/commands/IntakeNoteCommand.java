@@ -4,11 +4,11 @@ import edu.wpi.first.wpilibj.DriverStation;
 import entech.commands.EntechCommand;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
+import frc.robot.subsystems.intake.IntakeInput;
+import frc.robot.subsystems.intake.IntakeSubsystem;
+import frc.robot.subsystems.transfer.TransferInput;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem.TransferPreset;
-import frc.robot.subsystems.intake.IntakeSubsystem;
-import frc.robot.subsystems.intake.IntakeInput;
-import frc.robot.subsystems.transfer.TransferInput;
 
 public class IntakeNoteCommand extends EntechCommand {
 
@@ -32,7 +32,7 @@ public class IntakeNoteCommand extends EntechCommand {
     iInput.setBrakeModeEnabled(false);
     tInput.setActivate(true);
     tInput.setSpeedPreset(TransferPreset.Intaking1);
-    tInput.setBrakeModeEnabled(false);
+    tInput.setBrakeModeEnabled(true);
     intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
   }

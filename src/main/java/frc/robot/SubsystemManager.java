@@ -135,9 +135,7 @@ public class SubsystemManager {
       outputs.updatePivot(pivotSubsystem.getOutputs());
     }
 
-    if (noteDetectorSubsystem.isEnabled()) {
-      outputs.updateNoteDetector(noteDetectorSubsystem.getOutputs());
-    }
+    outputs.updateNoteDetector(noteDetectorSubsystem.getOutputs());
 
     if (internalNoteDetectorSubsystem.isEnabled()) {
       outputs.updateInternalNoteDetector(internalNoteDetectorSubsystem.getOutputs());

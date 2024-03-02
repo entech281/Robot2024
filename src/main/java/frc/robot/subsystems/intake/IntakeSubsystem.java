@@ -3,7 +3,6 @@ package frc.robot.subsystems.intake;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
@@ -20,9 +19,8 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
   @Override
   public void initialize() {
     if (ENABLED) {
-      DriverStation.reportWarning("Intake was initalized", false);
-      intakeMotor = new CANSparkMax(RobotConstants.PORTS.CAN.INTAKE, MotorType.kBrushless);
-      intakeMotor.setInverted(false);
+      this.intakeMotor = new CANSparkMax(RobotConstants.PORTS.CAN.INTAKE, MotorType.kBrushless);
+      this.intakeMotor.setInverted(false);
     }
   }
 
@@ -30,15 +28,15 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        intakeMotor.set(currentInput.getSpeed());
+        this.intakeMotor.set(currentInput.getSpeed());
       } else {
-        intakeMotor.set(0);
+        this.intakeMotor.set(0);
       }
 
       if (currentInput.getBrakeModeEnabled()) {
-        intakeMotor.setIdleMode(IdleMode.kBrake);
+        this.intakeMotor.setIdleMode(IdleMode.kBrake);
       } else {
-        intakeMotor.setIdleMode(IdleMode.kCoast);
+        this.intakeMotor.setIdleMode(IdleMode.kCoast);
       }
     }
   }
@@ -56,9 +54,9 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
   @Override
   public IntakeOutput toOutputs() {
     IntakeOutput intakeOutput = new IntakeOutput();
-    intakeOutput.setActive(intakeMotor.getEncoder().getVelocity() != 0);
-    intakeOutput.setCurrentSpeed(intakeMotor.getEncoder().getVelocity());
-    intakeOutput.setBrakeModeEnabled(IdleMode.kBrake == intakeMotor.getIdleMode());
+    intakeOutput.setActive(this.intakeMotor.getEncoder().getVelocity() != 0);
+    intakeOutput.setCurrentSpeed(this.intakeMotor.getEncoder().getVelocity());
+    intakeOutput.setBrakeModeEnabled(IdleMode.kBrake == this.intakeMotor.getIdleMode());
     return intakeOutput;
   }
 

@@ -10,7 +10,7 @@ import frc.robot.subsystems.pivot.PivotSubsystem;
 public class TestPivotCommand extends EntechCommand {
 
   private PivotInput input = new PivotInput();
-  private PivotSubsystem pSubsystem = new PivotSubsystem();
+  private final PivotSubsystem pSubsystem;
   private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
       RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
 
