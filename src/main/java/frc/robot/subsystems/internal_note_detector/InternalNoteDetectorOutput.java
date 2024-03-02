@@ -1,5 +1,6 @@
 package frc.robot.subsystems.internal_note_detector;
 
+import org.littletonrobotics.junction.Logger;
 import entech.subsystems.SubsystemOutput;
 
 public class InternalNoteDetectorOutput extends SubsystemOutput {
@@ -24,6 +25,9 @@ public class InternalNoteDetectorOutput extends SubsystemOutput {
   }
 
   @Override
-  public void toLog() {}
+  public void toLog() {
+    Logger.recordOutput("ForwardInternalSensor", forwardNoteSensor);
+    Logger.recordOutput("RearInternalSensor", rearNoteSensor);
+  }
 
 }
