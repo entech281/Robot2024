@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import entech.commands.EntechCommand;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
@@ -25,8 +26,9 @@ public class IntakeNoteCommand extends EntechCommand {
 
   @Override
   public void initialize() {
+    DriverStation.reportWarning("Command was called", false);
     iInput.setActivate(true);
-    iInput.setSpeed(1);
+    iInput.setSpeed(RobotConstants.INTAKE.INTAKE_SPEED);
     iInput.setBrakeModeEnabled(false);
     tInput.setActivate(true);
     tInput.setSpeedPreset(TransferPreset.Intaking1);

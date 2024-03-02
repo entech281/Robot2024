@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 public class InternalNoteDetectorSubsystem
     extends EntechSubsystem<InternalNoteDetectorInput, InternalNoteDetectorOutput> {
 
-  private boolean ENABLED = false;
+  private boolean ENABLED = true;
 
   private DigitalInput internalSensorF;
   private DigitalInput internalSensorR;
