@@ -101,17 +101,14 @@ public class SubsystemManager {
     if (climbSubsystem.isEnabled()) {
       outputs.updateClimb(climbSubsystem.getOutputs());
     }
-    if (visionSubsystem.isEnabled()) {
-      outputs.updateVision(visionSubsystem.getOutputs());
-    }
+
+    outputs.updateVision(visionSubsystem.getOutputs());
 
     if (driveSubsystem.isEnabled()) {
       outputs.updateDrive(driveSubsystem.getOutputs());
     }
 
-    if (navXSubsystem.isEnabled()) {
-      outputs.updateNavx(navXSubsystem.getOutputs());
-    }
+    outputs.updateNavx(navXSubsystem.getOutputs());
 
     if (transferSubsystem.isEnabled()) {
       outputs.updateTransfer(transferSubsystem.getOutputs());
@@ -129,8 +126,6 @@ public class SubsystemManager {
       outputs.updatePivot(pivotSubsystem.getOutputs());
     }
 
-    if (noteDetectorSubsystem.isEnabled()) {
-      outputs.updateNoteDetector(noteDetectorSubsystem.getOutputs());
-    }
+    outputs.updateNoteDetector(noteDetectorSubsystem.getOutputs());
   }
 }
