@@ -1,7 +1,6 @@
 package frc.robot.operation;
 
 import org.littletonrobotics.junction.Logger;
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,11 +13,10 @@ import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
 import frc.robot.commands.DoNothing;
-import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
+import frc.robot.commands.PivotNudgeCommand;
 import frc.robot.commands.RunTestCommand;
-import frc.robot.commands.SetTargetCommand;
 import frc.robot.commands.ShootSpeakerCommand;
 import frc.robot.commands.TwistCommand;
 import frc.robot.io.DebugInput;
@@ -75,6 +73,9 @@ public class OperatorInterface
 
     driveJoystick.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.RUN_TESTS,
         new RunTestCommand(testChooser));
+
+    subsystemManager.getPivotSubsystem().setDefaultCommand(new PivotNudgeCommand(
+        subsystemManager.getPivotSubsystem(), driveJoystick.getHID()::getPOV));
   }
 
   public void operatorBindings() {

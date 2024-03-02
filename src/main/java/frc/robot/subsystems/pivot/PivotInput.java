@@ -7,16 +7,18 @@ public class PivotInput implements SubsystemInput {
 
   private boolean activate = false;
   private double requestedPosition = 0.0;
-  private boolean brakeModeEnabled = false;
+  private boolean brakeModeEnabled = true;
 
   @Override
   public void toLog(LogTable table) {
+    table.put("Activate", activate);
     table.put("Requested position", requestedPosition);
     table.put("Brake Mode Enabled", brakeModeEnabled);
   }
 
   @Override
   public void fromLog(LogTable table) {
+    activate = table.get("Activate", activate);
     requestedPosition = table.get("Requested position", 0.0);
     brakeModeEnabled = table.get("Brake Mode Enabled", true);
   }

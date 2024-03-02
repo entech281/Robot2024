@@ -24,7 +24,6 @@ public class TestPivotCommand extends EntechCommand {
     counter.reset();
     input.setActivate(true);
     input.setRequestedPosition(RobotConstants.TEST_CONSTANTS.PIVOT.TEST_POSITION_DEG);
-    input.setBrakeModeEnabled(false);
     pSubsystem.updateInputs(input);
   }
 
