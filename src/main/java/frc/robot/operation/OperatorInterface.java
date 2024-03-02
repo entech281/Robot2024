@@ -13,6 +13,7 @@ import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
 import frc.robot.commands.DoNothing;
+import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotNudgeCommand;
@@ -58,8 +59,8 @@ public class OperatorInterface
     driveJoystick.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.GYRO_RESET,
         new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
 
-    // subsystemManager.getDriveSubsystem()
-    // .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
+    subsystemManager.getDriveSubsystem()
+        .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
     driveJoystick.whilePressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.INTAKE,
         new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
             subsystemManager.getTransferSubsystem()));
