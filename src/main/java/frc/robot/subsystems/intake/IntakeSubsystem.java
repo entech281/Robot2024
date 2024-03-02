@@ -19,7 +19,7 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
   @Override
   public void initialize() {
     if (ENABLED) {
-      intakeMotor = new CANSparkMax(RobotConstants.Ports.CAN.INTAKE, MotorType.kBrushless);
+      intakeMotor = new CANSparkMax(RobotConstants.PORTS.CAN.INTAKE, MotorType.kBrushless);
       intakeMotor.setInverted(false);
     }
   }

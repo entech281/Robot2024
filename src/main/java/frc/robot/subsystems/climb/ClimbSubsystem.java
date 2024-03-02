@@ -25,8 +25,8 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
   @Override
   public void initialize() {
     if (ENABLED) {
-      climbMotorLeft = new CANSparkMax(RobotConstants.Ports.CAN.CLIMB_A, MotorType.kBrushless);
-      climbMotorRight = new CANSparkMax(RobotConstants.Ports.CAN.CLIMB_B, MotorType.kBrushless);
+      climbMotorLeft = new CANSparkMax(RobotConstants.PORTS.CAN.CLIMB_A, MotorType.kBrushless);
+      climbMotorRight = new CANSparkMax(RobotConstants.PORTS.CAN.CLIMB_B, MotorType.kBrushless);
 
       climbMotorLeft.setInverted(false);
       climbMotorRight.setInverted(false);

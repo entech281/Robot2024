@@ -25,8 +25,8 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
   @Override
   public void initialize() {
     if (ENABLED) {
-      shooterTop = new CANSparkMax(RobotConstants.Ports.CAN.SHOOTER_A, MotorType.kBrushless);
-      shooterBottom = new CANSparkMax(RobotConstants.Ports.CAN.SHOOTER_B, MotorType.kBrushless);
+      shooterTop = new CANSparkMax(RobotConstants.PORTS.CAN.SHOOTER_A, MotorType.kBrushless);
+      shooterBottom = new CANSparkMax(RobotConstants.PORTS.CAN.SHOOTER_B, MotorType.kBrushless);
 
       updateBrakeMode();
 
