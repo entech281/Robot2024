@@ -1,5 +1,6 @@
 package frc.robot.operation;
 
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -33,10 +34,12 @@ import frc.robot.subsystems.drive.DriveInput;
 
 public class OperatorInterface
     implements DriveInputSupplier, DebugInputSupplier, OperatorInputSupplier {
-  private final EntechJoystick driveJoystick =
-      new EntechJoystick(RobotConstants.Ports.CONTROLLER.JOYSTICK);
+  //private final EntechJoystick driveJoystick =
+  //    new EntechJoystick(RobotConstants.Ports.CONTROLLER.JOYSTICK);
   private final EntechJoystick operatorPanel =
       new EntechJoystick(RobotConstants.Ports.CONTROLLER.PANEL);
+
+  private final CommandXboxController driveController = new CommandXboxController(RobotConstants.Ports.CONTROLLER.JOYSTICK);
 
   private final CommandFactory commandFactory;
   private final SubsystemManager subsystemManager;
@@ -55,16 +58,24 @@ public class OperatorInterface
   }
 
   public void driverBindings() {
-    driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.TWIST, new TwistCommand());
-    driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.GYRO_RESET,
-        new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
+
+    driveController.button(5).whileTrue(new TwistCommand());
+    //driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.TWIST, new TwistCommand());
+
+    //button 7 could be wrong.
+    driveController.button(7).onTrue(new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
+    //driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.GYRO_RESET,new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
 
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
-    driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.INTAKE, new IntakeCommand(
+
+    driveController.button(0).whileTrue(new IntakeCommand(
         subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
-    driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.ALIGN_SPEAKER_AMP,
-        new DoNothing()); // align to speaker or amp depending on an operator switch
+
+    //driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.INTAKE, new IntakeCommand(
+    //    subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
+    //driveJoystick.whilePressed(RobotConstants.Ports.CONTROLLER.BUTTONS.ALIGN_SPEAKER_AMP,
+    //    new DoNothing()); // align to speaker or amp depending on an operator switch
 
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
     SendableChooser<Command> testChooser = getTestCommandChooser();
@@ -72,11 +83,11 @@ public class OperatorInterface
 
     testChooser.addOption("All tests", getTestCommand());
 
-    driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.RUN_TESTS,
-        new RunTestCommand(testChooser));
-    driveJoystick.whenPressed(8, new AlignNoteToggleCommand());
-    driveJoystick.whenPressed(9, new SetTargetCommand(new Pose2d(0, 5.53, new Rotation2d())));
-    driveJoystick.whenPressed(10, new SetTargetCommand(new Pose2d(1.79, 8.2, new Rotation2d())));
+    //driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.RUN_TESTS,
+    //    new RunTestCommand(testChooser));
+    //driveJoystick.whenPressed(8, new AlignNoteToggleCommand());
+    //driveJoystick.whenPressed(9, new SetTargetCommand(new Pose2d(0, 5.53, new Rotation2d())));
+    //driveJoystick.whenPressed(10, new SetTargetCommand(new Pose2d(1.79, 8.2, new Rotation2d())));
   }
 
   public void operatorBindings() {
@@ -119,9 +130,13 @@ public class OperatorInterface
   public DriveInput getDriveInput() {
     DriveInput di = new DriveInput();
 
-    di.setXSpeed(-driveJoystick.getY());
-    di.setYSpeed(-driveJoystick.getX());
-    di.setRotation(-driveJoystick.getZ());
+    //di.setXSpeed(-driveJoystick.getY());
+    //di.setYSpeed(-driveJoystick.getX());
+    //di.setRotation(-driveJoystick.getZ());
+    di.setXSpeed(-driveController.getLeftY());
+    di.setYSpeed(-driveController.getLeftX());
+    di.setRotation(-driveController.getRightX());
+
     di.setGyroAngle(Rotation2d.fromDegrees(RobotIO.getInstance().getNavXOutput().getYaw()));
     di.setLatestOdometryPose(odometry.getEstimatedPose());
     di.setKey("initialRaw");
