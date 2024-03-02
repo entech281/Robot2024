@@ -18,9 +18,9 @@ public class ShootAmpCommand extends EntechCommand {
   private PivotInput pInput = new PivotInput();
   private TransferInput tInput = new TransferInput();
 
-  private ShooterSubsystem sSubsystem;
-  private PivotSubsystem pSubsystem;
-  private TransferSubsystem tSubsystem;
+  private final ShooterSubsystem sSubsystem;
+  private final PivotSubsystem pSubsystem;
+  private final TransferSubsystem tSubsystem;
 
   private StoppingCounter counter =
       new StoppingCounter(getClass().getSimpleName(), RobotConstants.SHOOTER.RESET_DELAY);

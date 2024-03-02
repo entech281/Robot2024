@@ -1,5 +1,6 @@
 package frc.robot.subsystems.pivot;
 
+import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -14,7 +15,7 @@ import frc.robot.commands.test.TestPivotCommand;
 
 public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
-  private static final boolean ENABLED = false;
+  private static final boolean ENABLED = true;
   private static final boolean IS_INVERTED = false;
 
   private PivotInput currentInput = new PivotInput();
@@ -22,24 +23,24 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   private CANSparkMax pivotLeft;
   private CANSparkMax pivotRight;
 
+  public static double calculateMotorPositionFromDegrees(double degrees) {
+    return degrees / RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR;
+  }
+
   @Override
   public void initialize() {
     if (ENABLED) {
+      // IMPORTANT! DO NOT BURN FLASH OR SET SETTINGS FOR THIS SUBSYSTEM in code!
+      // we want to avoid accidently disabling the controller soft limits
       pivotLeft = new CANSparkMax(RobotConstants.PORTS.CAN.PIVOT_A, MotorType.kBrushless);
       pivotRight = new CANSparkMax(RobotConstants.PORTS.CAN.PIVOT_B, MotorType.kBrushless);
       pivotRight.follow(pivotLeft);
 
-      pivotLeft.getEncoder()
-          .setPositionConversionFactor(RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR);
-      pivotRight.getEncoder()
-          .setPositionConversionFactor(RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR);
-
       updateBrakeMode();
+      pivotLeft.getEncoder().setPosition(0.0);
 
       pivotLeft.setInverted(IS_INVERTED);
       pivotRight.setInverted(IS_INVERTED);
-
-      // setUpPIDConstants(pivotRight.getPIDController());
     }
   }
 
@@ -62,11 +63,11 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   private double clampRequestedPosition(double position) {
     if (position < 0) {
       DriverStation.reportWarning("Pivot tried to go to " + currentInput.getRequestedPosition()
-          + " value was changed to " + RobotConstants.PIVOT.LOWER_SOFT_LIMIT_DEG, null);
+          + " value was changed to " + RobotConstants.PIVOT.LOWER_SOFT_LIMIT_DEG, false);
       return RobotConstants.PIVOT.LOWER_SOFT_LIMIT_DEG;
     } else if (position > RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG) {
       DriverStation.reportWarning("Pivot tried to go to " + currentInput.getRequestedPosition()
-          + " value was changed to " + RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG, null);
+          + " value was changed to " + RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG, false);
       return RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG;
     } else {
       return position;
@@ -77,10 +78,9 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   public void periodic() {
     double clampedPosition = clampRequestedPosition(currentInput.getRequestedPosition());
     if (ENABLED) {
-      if (currentInput.getActivate()) {
-        pivotLeft.getPIDController().setReference(clampedPosition, ControlType.kPosition);
-        updateBrakeMode();
-      }
+      pivotLeft.getPIDController().setReference(calculateMotorPositionFromDegrees(clampedPosition),
+          ControlType.kSmartMotion, 0);
+      updateBrakeMode();
     }
   }
 
@@ -100,9 +100,13 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     pivotOutput.setMoving(pivotLeft.getEncoder().getVelocity() != 0);
     pivotOutput.setLeftBrakeModeEnabled(IdleMode.kBrake == pivotLeft.getIdleMode());
     pivotOutput.setRightBrakeModeEnabled(IdleMode.kBrake == pivotRight.getIdleMode());
-    pivotOutput.setCurrentPosition(pivotLeft.getEncoder().getPosition());
+    pivotOutput.setCurrentPosition(
+        pivotLeft.getEncoder().getPosition() * RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR);
     pivotOutput.setAtRequestedPosition(EntechUtils.isWithinTolerance(1,
         pivotLeft.getEncoder().getPosition(), currentInput.getRequestedPosition()));
+    pivotOutput.setAtLowerLimit(
+        pivotLeft.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).isPressed());
+    pivotOutput.setRequestedPosition(currentInput.getRequestedPosition());
     return pivotOutput;
   }
 

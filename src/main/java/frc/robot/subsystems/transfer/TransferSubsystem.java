@@ -10,11 +10,11 @@ import frc.robot.commands.test.TestTransferCommand;
 
 public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOutput> {
 
-  private static final boolean ENABLED = false;
+  private static final boolean ENABLED = true;
 
 
   public enum TransferPreset {
-    Shooting, Transferring, Intaking1, Intaking2, Ejecting, Testing, Off
+    Shooting, Transferring, Intaking1, Intaking2, Retracting, Ejecting, Testing, Off
   }
 
   private TransferInput currentInput = new TransferInput();
@@ -43,6 +43,8 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
           transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED_SLOW);
         } else if (currentInput.getSpeedPreset() == TransferPreset.Ejecting) {
           transferMotor.set(RobotConstants.TRANSFER.EJECTING_SPEED);
+        } else if (currentInput.getSpeedPreset() == TransferPreset.Retracting) {
+          transferMotor.set(RobotConstants.TRANSFER.RETRACTING_SPEED);
         } else if (currentInput.getSpeedPreset() == TransferPreset.Testing) {
           transferMotor.set(RobotConstants.TRANSFER.TESTING_SPEED);
         }

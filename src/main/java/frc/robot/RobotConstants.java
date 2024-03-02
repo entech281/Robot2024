@@ -129,7 +129,7 @@ public final class RobotConstants {
 
     public static interface PIVOT {
       public static final double TEST_TOLERANCE_DEG = 1;
-      public static final double TEST_POSITION_DEG = 5;
+      public static final double TEST_POSITION_DEG = 10;
     }
 
     public static interface SHOOTER {
@@ -189,6 +189,7 @@ public final class RobotConstants {
         public static final int INTAKE = 2;
         public static final int ALIGN_SPEAKER_AMP = 3;
         public static final int RUN_TESTS = 7;
+        public static final int PIVOT = 5;
         public static final int GYRO_RESET = 11;
       }
     }
@@ -210,7 +211,7 @@ public final class RobotConstants {
     }
 
     public static class SWITCHES {
-      public static final int INTAKE = 2;
+      public static final int INTAKE = 11;
       public static final int ALIGN_SPEAKER_AMP = 6;
     }
   }
@@ -220,7 +221,7 @@ public final class RobotConstants {
 
 
     public static interface Cameras {
-      public static final String LEFT = "Arducam_Bravo";
+      public static final String LEFT = "Aducam_Bravo";
       public static final String RIGHT = "Arducam_Alpha";
       public static final String COLOR = "Arducam_OV9782_USB_Camera";
       public static final String MIDDLE = "Global_Shutter_Camera";
@@ -260,19 +261,19 @@ public final class RobotConstants {
   public static interface PID {
 
     public static interface SHOOTER {
-      public static final double KP = 0.00008;
+      public static final double KP = 0.00041;
       public static final double KI = 0.0;
       public static final double KD = 0.0;
-      public static final double KFF = 0.0;
-      public static final double MAX_SPEED = 5500;
+      public static final double KFF = 0.00018;
+      public static final double MAX_SPEED = 4000;
     }
 
 
-    // public static interface PIVOT {
-    // public static final double KP = 0.00004;
-    // public static final double KI = 0;
-    // public static final double KD = 0;
-    // }
+    public static interface PIVOT {
+      public static final double KP = 0.00004;
+      public static final double KI = 0;
+      public static final double KD = 0;
+    }
 
 
     public static interface CLIMB {
@@ -286,19 +287,21 @@ public final class RobotConstants {
   public static interface TRANSFER {
     public static final double SHOOTING_SPEED = 1;
     public static final double TRANSFERRING_SPEED = 0.0;
-    public static final double INTAKING_SPEED_FAST = 1;
-    public static final double INTAKING_SPEED_SLOW = 0.5;
+    public static final double INTAKING_SPEED_FAST = 0.7;
+    public static final double INTAKING_SPEED_SLOW = 0;
     public static final double EJECTING_SPEED = -1;
+    public static final double RETRACTING_SPEED = -0.2;
     public static final double TESTING_SPEED = 0;
   }
 
 
   public static interface PIVOT {
-    public static final double UPPER_SOFT_LIMIT_DEG = 86;
-    public static final double LOWER_SOFT_LIMIT_DEG = 2;
+    public static final double UPPER_SOFT_LIMIT_DEG = 40;
+    public static final double LOWER_SOFT_LIMIT_DEG = 1;
     public static final double PIVOT_CONVERSION_FACTOR = 2.4;
     public static final double SHOOT_AMP_POSITION_DEG = 3;
     public static final double POSITION_TOLERANCE_DEG = 2;
+    public static final double INITIAL_POSITION = 1;
   }
 
 
@@ -311,13 +314,14 @@ public final class RobotConstants {
 
 
   public static interface INTAKE {
-    public static final double INTAKE_SPEED = 1;
+    public static final double INTAKE_SPEED = 0.8;
     public static final int EJECTING_TIME = 2;
   }
 
 
   public static interface SHOOTER {
     public static final double RESET_DELAY = 0.5;
+    public static final double SHOOT_DELAY = 0.5;
   }
 
 

@@ -19,11 +19,13 @@ public class ShootSpeakerCommand extends EntechCommand {
   private PivotInput pInput = new PivotInput();
   private TransferInput tInput = new TransferInput();
 
-  private StoppingCounter counter =
+  private StoppingCounter cancelCounter =
       new StoppingCounter(getClass().getSimpleName(), RobotConstants.SHOOTER.RESET_DELAY);
+  private StoppingCounter shootingCounter =
+      new StoppingCounter(getClass().getSimpleName(), RobotConstants.SHOOTER.SHOOT_DELAY);
 
   private ShooterSubsystem sSubsystem;
-  private PivotSubsystem pSubsystem;
+  // private PivotSubsystem pSubsystem;
   private TransferSubsystem tSubsystem;
 
   private boolean noNote;
@@ -32,23 +34,26 @@ public class ShootSpeakerCommand extends EntechCommand {
       TransferSubsystem transferSubsystem) {
     super(shooterSubsystem, pivotSubsystem, transferSubsystem);
     this.sSubsystem = shooterSubsystem;
-    this.pSubsystem = pivotSubsystem;
+    // this.pSubsystem = pivotSubsystem;
     this.tSubsystem = transferSubsystem;
   }
 
   @Override
   public void initialize() {
-    if (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()) {
+    cancelCounter.reset();
+    shootingCounter.reset();
+    if (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
+        || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()) {
       noNote = false;
       sInput.setActivate(true);
       sInput.setBrakeModeEnabled(false);
-      sInput.setSpeed(RobotConstants.PID.SHOOTER.MAX_SPEED);
+      sInput.setSpeed(4000);
       sSubsystem.updateInputs(sInput);
 
-      pInput.setActivate(true);
-      pInput.setBrakeModeEnabled(true);
-      pInput.setRequestedPosition(SpeakerPivotSolution.getShooterSolutionDeg());
-      pSubsystem.updateInputs(pInput);
+      // pInput.setActivate(true);
+      // pInput.setBrakeModeEnabled(true);
+      // pInput.setRequestedPosition(SpeakerPivotSolution.getShooterSolutionDeg());
+      // pSubsystem.updateInputs(pInput);
     } else {
       noNote = true;
     }
@@ -56,14 +61,15 @@ public class ShootSpeakerCommand extends EntechCommand {
 
   @Override
   public void execute() {
-    if (RobotIO.getInstance().getPivotOutput().isAtRequestedPosition()
-        && RobotIO.getInstance().getShooterOutput().isAtSpeed()
-        && RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()) {
+    if (shootingCounter.isFinished(RobotIO.getInstance().getShooterOutput().isAtSpeed()
+        && (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
+            || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()))) {
       tInput.setActivate(true);
       tInput.setBrakeModeEnabled(false);
       tInput.setSpeedPreset(TransferPreset.Shooting);
       tSubsystem.updateInputs(tInput);
-    } else if (!RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()) {
+    } else if (!(RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
+        || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote())) {
       noNote = true;
     }
   }
@@ -71,8 +77,8 @@ public class ShootSpeakerCommand extends EntechCommand {
   @Override
   public void end(boolean interupted) {
 
-    pInput.setRequestedPosition(0);
-    pSubsystem.updateInputs(pInput);
+    // pInput.setRequestedPosition(0);
+    // pSubsystem.updateInputs(pInput);
 
     sInput.setBrakeModeEnabled(true);
     sInput.setActivate(false);
@@ -87,6 +93,6 @@ public class ShootSpeakerCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return counter.isFinished(noNote);
+    return cancelCounter.isFinished(noNote);
   }
 }

@@ -1,7 +1,6 @@
 package frc.robot.operation;
 
 import org.littletonrobotics.junction.Logger;
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,8 +16,10 @@ import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
+import frc.robot.commands.PivotNudgeCommand;
+import frc.robot.commands.PivotPositionCommand;
 import frc.robot.commands.RunTestCommand;
-import frc.robot.commands.SetTargetCommand;
+import frc.robot.commands.ShootSpeakerCommand;
 import frc.robot.commands.TwistCommand;
 import frc.robot.io.DebugInput;
 import frc.robot.io.DebugInputSupplier;
@@ -65,6 +66,8 @@ public class OperatorInterface
             subsystemManager.getTransferSubsystem()));
     driveJoystick.whilePressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.ALIGN_SPEAKER_AMP,
         new DoNothing()); // align to speaker or amp depending on an operator switch
+    driveJoystick.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.PIVOT,
+        new PivotPositionCommand(subsystemManager.getPivotSubsystem()));
 
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
     SendableChooser<Command> testChooser = getTestCommandChooser();
@@ -74,6 +77,9 @@ public class OperatorInterface
 
     driveJoystick.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.RUN_TESTS,
         new RunTestCommand(testChooser));
+
+    subsystemManager.getPivotSubsystem().setDefaultCommand(new PivotNudgeCommand(
+        subsystemManager.getPivotSubsystem(), driveJoystick.getHID()::getPOV));
   }
 
   public void operatorBindings() {
@@ -81,8 +87,10 @@ public class OperatorInterface
     // .whileTrue(new DoNothing());
     // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_SPEAKER)
     // .whileTrue(new DoNothing());
-    operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.SWITCHES.INTAKE, new IntakeNoteCommand(
+    operatorPanel.whenPressed(RobotConstants.OPERATOR_PANEL.SWITCHES.INTAKE, new IntakeNoteCommand(
         subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
+    operatorPanel.whilePressed(6, new ShootSpeakerCommand(subsystemManager.getShooterSubsystem(),
+        subsystemManager.getPivotSubsystem(), subsystemManager.getTransferSubsystem()));
     // run intake and transfer backwards and eject note
     // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.ADVANCE_CLIMB)
     // .whileTrue(new DoNothing()); // advance to next stage of climb

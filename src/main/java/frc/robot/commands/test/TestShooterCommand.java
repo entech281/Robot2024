@@ -9,7 +9,7 @@ import frc.robot.subsystems.shooter.ShooterSubsystem;
 public class TestShooterCommand extends EntechCommand {
 
   private ShooterInput input = new ShooterInput();
-  private ShooterSubsystem sSubsystem = new ShooterSubsystem();
+  private final ShooterSubsystem sSubsystem;
   private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
       RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
 

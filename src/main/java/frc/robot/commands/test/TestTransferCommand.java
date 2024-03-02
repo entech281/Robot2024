@@ -10,7 +10,7 @@ import frc.robot.subsystems.transfer.TransferSubsystem.TransferPreset;
 public class TestTransferCommand extends EntechCommand {
 
   private TransferInput input = new TransferInput();
-  private TransferSubsystem tSubsystem = new TransferSubsystem();
+  private final TransferSubsystem tSubsystem;
   private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
       RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
 

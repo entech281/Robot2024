@@ -8,13 +8,14 @@ import frc.robot.subsystems.intake.IntakeSubsystem;
 
 public class TestIntakeCommand extends EntechCommand {
 
-  private IntakeSubsystem intake = new IntakeSubsystem();
+  private final IntakeSubsystem intake;
   private IntakeInput intakeI = new IntakeInput();
   private StoppingCounter stopCounter = new StoppingCounter(getClass().getSimpleName(),
       RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
 
   public TestIntakeCommand(IntakeSubsystem intakeSubsystem) {
     super(intakeSubsystem);
+    intake = intakeSubsystem;
   }
 
   @Override
