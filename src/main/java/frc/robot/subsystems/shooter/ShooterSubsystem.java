@@ -31,7 +31,7 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
       updateBrakeMode();
 
       shooterTop.setInverted(true);
-      shooterBottom.setInverted(true);
+      shooterBottom.setInverted(false);
 
       setUpPIDConstants(shooterTop.getPIDController());
       setUpPIDConstants(shooterBottom.getPIDController());
