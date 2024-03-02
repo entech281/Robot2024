@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 // import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -14,7 +15,7 @@ import frc.robot.commands.test.TestPivotCommand;
 
 public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
-  private static final boolean ENABLED = false;
+  private static final boolean ENABLED = true;
   private static final boolean IS_INVERTED = false;
 
   private PivotInput currentInput = new PivotInput();
@@ -22,26 +23,23 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   private CANSparkMax pivotLeft;
   private CANSparkMax pivotRight;
 
-  public static double calculateMotorPositionFromDegrees(double degrees){
+  public static double calculateMotorPositionFromDegrees(double degrees) {
     return degrees / RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR;
   }
 
   @Override
   public void initialize() {
     if (ENABLED) {
-      //IMPORTANT! DO NOT BURN FLASH OR SET SETTINGS FOR THIS SUBSYSTEM in code!
-      //we want to avoid accidently disabling the controller soft limits
+      // IMPORTANT! DO NOT BURN FLASH OR SET SETTINGS FOR THIS SUBSYSTEM in code!
+      // we want to avoid accidently disabling the controller soft limits
       pivotLeft = new CANSparkMax(RobotConstants.PORTS.CAN.PIVOT_A, MotorType.kBrushless);
       pivotRight = new CANSparkMax(RobotConstants.PORTS.CAN.PIVOT_B, MotorType.kBrushless);
       pivotRight.follow(pivotLeft);
-
 
       updateBrakeMode();
 
       pivotLeft.setInverted(IS_INVERTED);
       pivotRight.setInverted(IS_INVERTED);
-
-      // setUpPIDConstants(pivotRight.getPIDController());
     }
   }
 
@@ -80,7 +78,8 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     double clampedPosition = clampRequestedPosition(currentInput.getRequestedPosition());
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        pivotLeft.getPIDController().setReference(calculateMotorPositionFromDegrees(clampedPosition), ControlType.kPosition);
+        pivotLeft.getPIDController().setReference(
+            calculateMotorPositionFromDegrees(clampedPosition), ControlType.kSmartMotion);
         updateBrakeMode();
       }
     }
@@ -105,6 +104,8 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     pivotOutput.setCurrentPosition(pivotLeft.getEncoder().getPosition());
     pivotOutput.setAtRequestedPosition(EntechUtils.isWithinTolerance(1,
         pivotLeft.getEncoder().getPosition(), currentInput.getRequestedPosition()));
+    pivotOutput.setAtLowerLimit(
+        pivotLeft.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).isPressed());
     return pivotOutput;
   }
 

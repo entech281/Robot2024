@@ -2,13 +2,16 @@ package frc.robot.subsystems.pivot;
 
 import org.littletonrobotics.junction.Logger;
 import entech.subsystems.SubsystemOutput;
+import frc.robot.RobotConstants;
 
 public class PivotOutput extends SubsystemOutput {
   private boolean moving = false;
   private boolean leftBrakeModeEnabled = false;
   private boolean rightBrakeModeEnabled = false;
   private boolean isAtRequestedPosition = false;
-  private double currentPosition = 0.0;
+  private boolean isAtUpperLimit = false;
+  private boolean isAtLowerLimit = false;
+  private double currentPosition = RobotConstants.PIVOT.INITIAL_POSITION;
 
   @Override
   public void toLog() {
@@ -16,6 +19,8 @@ public class PivotOutput extends SubsystemOutput {
     Logger.recordOutput("PivotOutput/leftBrakeModeEnabled", leftBrakeModeEnabled);
     Logger.recordOutput("PivotOutput/rightBrakeModeEnabled", rightBrakeModeEnabled);
     Logger.recordOutput("PivotOutput/currentPosition", currentPosition);
+    Logger.recordOutput("PivotOutput/isAtUpperLimit", isAtUpperLimit);
+    Logger.recordOutput("PivotOutput/isAtLowerLimit", isAtLowerLimit);
   }
 
   public boolean isMoving() {
@@ -56,5 +61,21 @@ public class PivotOutput extends SubsystemOutput {
 
   public void setCurrentPosition(double currentPosition) {
     this.currentPosition = currentPosition;
+  }
+
+  public boolean isAtUpperLimit() {
+    return this.isAtUpperLimit;
+  }
+
+  public void setAtUpperLimit(boolean isAtUpperLimit) {
+    this.isAtUpperLimit = isAtUpperLimit;
+  }
+
+  public boolean isAtLowerLimit() {
+    return this.isAtLowerLimit;
+  }
+
+  public void setAtLowerLimit(boolean isAtLowerLimit) {
+    this.isAtLowerLimit = isAtLowerLimit;
   }
 }
