@@ -8,23 +8,25 @@ import frc.robot.RobotConstants;
 import frc.robot.subsystems.pivot.PivotInput;
 import frc.robot.subsystems.pivot.PivotSubsystem;
 
-public class PivotPositionCommand extends EntechCommand {
+public class PositionPivotCommand extends EntechCommand {
 
   private PivotInput input = new PivotInput();
+  private double requestedPosition;
   private final PivotSubsystem pSubsystem;
   private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
       RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
 
-  public PivotPositionCommand(PivotSubsystem subsystem) {
+  public PositionPivotCommand(PivotSubsystem subsystem, double position) {
     super(subsystem);
     this.pSubsystem = subsystem;
+    this.requestedPosition = position;
   }
 
   @Override
   public void initialize() {
     counter.reset();
     input.setActivate(true);
-    input.setRequestedPosition(RobotConstants.TEST_CONSTANTS.PIVOT.TEST_POSITION_DEG);
+    input.setRequestedPosition(requestedPosition);
     input.setBrakeModeEnabled(true);
     DriverStation.reportWarning("PivotPositionCommand was run", false);
     pSubsystem.updateInputs(input);

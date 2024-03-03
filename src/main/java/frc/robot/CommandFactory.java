@@ -10,9 +10,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import entech.util.SpeakerPivotSolution;
 import frc.robot.commands.GyroReset;
+import frc.robot.commands.PositionPivotCommand;
+import frc.robot.commands.ShootCommand;
+import frc.robot.commands.StartShooterCommand;
+import frc.robot.io.RobotIO;
 import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
@@ -38,6 +44,7 @@ public class CommandFactory {
 
 
   public CommandFactory(SubsystemManager subsystemManager, OdometryProcessor odometry) {
+
     this.driveSubsystem = subsystemManager.getDriveSubsystem();
     this.visionSubsystem = subsystemManager.getVisionSubsystem();
     this.navXSubsystem = subsystemManager.getNavXSubsystem();
@@ -98,5 +105,12 @@ public class CommandFactory {
     auto.addCommands(new WaitCommand(2));
     auto.addCommands(autoChooser.getSelected());
     return auto;
+  }
+
+  public Command shootSpeakerCommand() {
+    return new SequentialCommandGroup(
+        new ParallelCommandGroup(new StartShooterCommand(shooterSubsystem),
+            new PositionPivotCommand(pivotSubsystem, SpeakerPivotSolution.getShooterSolutionDeg())),
+        new ShootCommand(transferSubsystem, shooterSubsystem));
   }
 }
