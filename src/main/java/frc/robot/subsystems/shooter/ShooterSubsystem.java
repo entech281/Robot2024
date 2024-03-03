@@ -13,7 +13,7 @@ import frc.robot.commands.test.TestShooterCommand;
 public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutput> {
 
   private static final boolean ENABLED = true;
-  private static final double TOLERANCE = 40;
+  private static final double TOLERANCE = 75;
 
   private CANSparkMax shooterTop;
   private CANSparkMax shooterBottom;

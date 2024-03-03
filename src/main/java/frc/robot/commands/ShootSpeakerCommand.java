@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import java.util.Optional;
+import edu.wpi.first.math.util.Units;
 import entech.commands.EntechCommand;
 import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
@@ -24,7 +26,7 @@ public class ShootSpeakerCommand extends EntechCommand {
       new StoppingCounter(getClass().getSimpleName(), RobotConstants.SHOOTER.SHOOT_DELAY);
 
   private ShooterSubsystem sSubsystem;
-  // private PivotSubsystem pSubsystem;
+  private PivotSubsystem pSubsystem;
   private TransferSubsystem tSubsystem;
 
   private boolean noNote;
@@ -33,7 +35,7 @@ public class ShootSpeakerCommand extends EntechCommand {
       TransferSubsystem transferSubsystem) {
     super(shooterSubsystem, pivotSubsystem, transferSubsystem);
     this.sSubsystem = shooterSubsystem;
-    // this.pSubsystem = pivotSubsystem;
+    this.pSubsystem = pivotSubsystem;
     this.tSubsystem = transferSubsystem;
   }
 
@@ -49,20 +51,30 @@ public class ShootSpeakerCommand extends EntechCommand {
       sInput.setSpeed(4000);
       sSubsystem.updateInputs(sInput);
 
-      // pInput.setActivate(true);
-      // pInput.setBrakeModeEnabled(true);
-      // pInput.setRequestedPosition(SpeakerPivotSolution.getShooterSolutionDeg());
-      // pSubsystem.updateInputs(pInput);
+      pInput.setActivate(true);
+      pInput.setBrakeModeEnabled(true);
+      pInput.setRequestedPosition(calculatePivotAngle());
+      pSubsystem.updateInputs(pInput);
     } else {
       noNote = true;
     }
+  }
+
+  private double calculatePivotAngle() {
+    Optional<Double> distance = RobotIO.getInstance().getDistanceFromTarget();
+    if (distance.isPresent()) {
+      return ((distance.get() - Units.inchesToMeters(18)) * RobotConstants.PIVOT.kM)
+          + RobotConstants.PIVOT.kB;
+    }
+    return RobotConstants.PIVOT.MIN_SCORE_ANGLE;
   }
 
   @Override
   public void execute() {
     if (shootingCounter.isFinished(RobotIO.getInstance().getShooterOutput().isAtSpeed()
         && (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
-            || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()))) {
+            || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote())
+        && RobotIO.getInstance().getPivotOutput().isAtRequestedPosition())) {
       tInput.setActivate(true);
       tInput.setBrakeModeEnabled(false);
       tInput.setSpeedPreset(TransferPreset.Shooting);
@@ -76,8 +88,8 @@ public class ShootSpeakerCommand extends EntechCommand {
   @Override
   public void end(boolean interupted) {
 
-    // pInput.setRequestedPosition(0);
-    // pSubsystem.updateInputs(pInput);
+    pInput.setRequestedPosition(0);
+    pSubsystem.updateInputs(pInput);
 
     sInput.setBrakeModeEnabled(false);
     sInput.setActivate(false);

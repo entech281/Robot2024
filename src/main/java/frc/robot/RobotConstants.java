@@ -261,7 +261,7 @@ public final class RobotConstants {
   public static interface PID {
 
     public static interface SHOOTER {
-      public static final double KP = 0.00041;
+      public static final double KP = 0.000415;
       public static final double KI = 0.0;
       public static final double KD = 0.0;
       public static final double KFF = 0.000175;
@@ -302,6 +302,11 @@ public final class RobotConstants {
     public static final double SHOOT_AMP_POSITION_DEG = 3;
     public static final double POSITION_TOLERANCE_DEG = 2;
     public static final double INITIAL_POSITION = 1;
+
+    public static final double kM = 12.9346;
+    public static final double kB = 1.42426;
+
+    public static final double MIN_SCORE_ANGLE = 14.28;
   }
 
 

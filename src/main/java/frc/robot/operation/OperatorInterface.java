@@ -18,6 +18,7 @@ import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotNudgeCommand;
 import frc.robot.commands.PivotPositionCommand;
+import frc.robot.commands.ResetOdometryCommand;
 import frc.robot.commands.RunTestCommand;
 import frc.robot.commands.ShootSpeakerCommand;
 import frc.robot.commands.TwistCommand;
@@ -68,6 +69,8 @@ public class OperatorInterface
         new DoNothing()); // align to speaker or amp depending on an operator switch
     driveJoystick.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.PIVOT,
         new PivotPositionCommand(subsystemManager.getPivotSubsystem()));
+
+    driveJoystick.whenPressed(3, new ResetOdometryCommand(odometry));
 
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
     SendableChooser<Command> testChooser = getTestCommandChooser();
