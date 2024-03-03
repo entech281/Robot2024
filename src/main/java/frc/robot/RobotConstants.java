@@ -129,7 +129,7 @@ public final class RobotConstants {
 
     public static interface PIVOT {
       public static final double TEST_TOLERANCE_DEG = 1;
-      public static final double TEST_POSITION_DEG = 10;
+      public static final double TEST_POSITION_DEG = 27;
     }
 
     public static interface SHOOTER {
@@ -264,7 +264,7 @@ public final class RobotConstants {
       public static final double KP = 0.00041;
       public static final double KI = 0.0;
       public static final double KD = 0.0;
-      public static final double KFF = 0.00018;
+      public static final double KFF = 0.000175;
       public static final double MAX_SPEED = 4000;
     }
 
@@ -321,7 +321,7 @@ public final class RobotConstants {
 
   public static interface SHOOTER {
     public static final double RESET_DELAY = 0.5;
-    public static final double SHOOT_DELAY = 0.5;
+    public static final double SHOOT_DELAY = 0.25;
   }
 
 

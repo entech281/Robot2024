@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import entech.commands.EntechCommand;
-import entech.util.SpeakerPivotSolution;
 import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
@@ -80,7 +79,7 @@ public class ShootSpeakerCommand extends EntechCommand {
     // pInput.setRequestedPosition(0);
     // pSubsystem.updateInputs(pInput);
 
-    sInput.setBrakeModeEnabled(true);
+    sInput.setBrakeModeEnabled(false);
     sInput.setActivate(false);
     sSubsystem.updateInputs(sInput);
 
