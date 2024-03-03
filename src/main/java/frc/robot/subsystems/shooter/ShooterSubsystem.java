@@ -29,6 +29,9 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
       shooterTop = new CANSparkMax(RobotConstants.PORTS.CAN.SHOOTER_A, MotorType.kBrushless);
       shooterBottom = new CANSparkMax(RobotConstants.PORTS.CAN.SHOOTER_B, MotorType.kBrushless);
 
+      shooterTop.setIdleMode(IdleMode.kCoast);
+      shooterBottom.setIdleMode(IdleMode.kCoast);
+
       shooterTop.getEncoder().setVelocityConversionFactor(1);
       shooterBottom.getEncoder().setVelocityConversionFactor(1);
 
@@ -37,10 +40,9 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
       shooterTop.setInverted(true);
       shooterBottom.setInverted(true);
 
-      shooterTopPID = shooterTop.getPIDController();
+      shooterTop.follow(shooterBottom);
       shooterBottomPID = shooterBottom.getPIDController();
 
-      setUpPIDConstants(shooterTopPID);
       setUpPIDConstants(shooterBottomPID);
     }
   }
@@ -66,16 +68,16 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        shooterTopPID.setReference(-currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
+        // shooterTopPID.setReference(-currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
         shooterBottomPID.setReference(-currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
       } else {
-        shooterTopPID.setReference(0, CANSparkMax.ControlType.kVelocity);
+        // shooterTopPID.setReference(0, CANSparkMax.ControlType.kVelocity);
         shooterBottomPID.setReference(0, CANSparkMax.ControlType.kVelocity);
       }
 
       if (currentInput.getBrakeModeEnabled()) {
-        shooterTop.setIdleMode(IdleMode.kBrake);
-        shooterBottom.setIdleMode(IdleMode.kBrake);
+        // shooterTop.setIdleMode(IdleMode.kBrake);
+        // shooterBottom.setIdleMode(IdleMode.kBrake);
       } else {
         shooterTop.setIdleMode(IdleMode.kCoast);
         shooterBottom.setIdleMode(IdleMode.kCoast);
@@ -107,6 +109,8 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     shooterOutput.setBrakeModeEnabled(IdleMode.kBrake == shooterTop.getIdleMode());
     shooterOutput.setIsAtSpeed(EntechUtils.isWithinTolerance(TOLERANCE,
         shooterOutput.getCurrentSpeed(), currentInput.getSpeed()));
+    shooterOutput.setSpeedA(shooterTop.getEncoder().getVelocity());
+    shooterOutput.setSpeedB(shooterBottom.getEncoder().getVelocity());
     return shooterOutput;
   }
 
