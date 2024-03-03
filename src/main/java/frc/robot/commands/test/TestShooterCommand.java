@@ -36,7 +36,7 @@ public class TestShooterCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return counter.isFinished(sSubsystem.getOutputs().isActive());
+    return counter.isFinished(sSubsystem.getOutputs().isAtSpeed());
   }
 
 }
