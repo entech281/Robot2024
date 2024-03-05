@@ -29,18 +29,16 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
       shooterTop = new CANSparkMax(RobotConstants.PORTS.CAN.SHOOTER_A, MotorType.kBrushless);
       shooterBottom = new CANSparkMax(RobotConstants.PORTS.CAN.SHOOTER_B, MotorType.kBrushless);
 
-      shooterTop.setIdleMode(IdleMode.kCoast);
-      shooterBottom.setIdleMode(IdleMode.kCoast);
+      shooterTop.setIdleMode(IdleMode.kBrake);
+      shooterBottom.setIdleMode(IdleMode.kBrake);
 
       shooterTop.getEncoder().setVelocityConversionFactor(1);
       shooterBottom.getEncoder().setVelocityConversionFactor(1);
 
-      updateBrakeMode();
-
       shooterTop.setInverted(true);
       shooterBottom.setInverted(true);
 
-      shooterTop.follow(shooterBottom);
+      shooterTopPID = shooterTop.getPIDController();
       shooterBottomPID = shooterBottom.getPIDController();
 
       setUpPIDConstants(shooterBottomPID);
@@ -69,19 +67,24 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     if (ENABLED) {
       if (currentInput.getActivate()) {
         // shooterTopPID.setReference(-currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
-        shooterBottomPID.setReference(-currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
+        // shooterBottomPID.setReference(-currentInput.getSpeed(),
+        // CANSparkMax.ControlType.kVelocity);
+        shooterBottom.set(1.0);
+        shooterTop.set(1.0);
       } else {
         // shooterTopPID.setReference(0, CANSparkMax.ControlType.kVelocity);
-        shooterBottomPID.setReference(0, CANSparkMax.ControlType.kVelocity);
+        // shooterBottomPID.setReference(0, CANSparkMax.ControlType.kVelocity);
+        shooterBottom.set(0.0);
+        shooterTop.set(0.0);
       }
 
-      if (currentInput.getBrakeModeEnabled()) {
-        // shooterTop.setIdleMode(IdleMode.kBrake);
-        // shooterBottom.setIdleMode(IdleMode.kBrake);
-      } else {
-        shooterTop.setIdleMode(IdleMode.kCoast);
-        shooterBottom.setIdleMode(IdleMode.kCoast);
-      }
+      // if (currentInput.getBrakeModeEnabled()) {
+      // // shooterTop.setIdleMode(IdleMode.kBrake);
+      // // shooterBottom.setIdleMode(IdleMode.kBrake);
+      // } else {
+      // shooterTop.setIdleMode(IdleMode.kCoast);
+      // shooterBottom.setIdleMode(IdleMode.kCoast);
+      // }
     }
   }
 
