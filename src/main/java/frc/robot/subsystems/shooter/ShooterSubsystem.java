@@ -29,8 +29,8 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
       shooterTop = new CANSparkMax(RobotConstants.PORTS.CAN.SHOOTER_A, MotorType.kBrushless);
       shooterBottom = new CANSparkMax(RobotConstants.PORTS.CAN.SHOOTER_B, MotorType.kBrushless);
 
-      shooterTop.setIdleMode(IdleMode.kBrake);
-      shooterBottom.setIdleMode(IdleMode.kBrake);
+      shooterTop.setIdleMode(IdleMode.kCoast);
+      shooterBottom.setIdleMode(IdleMode.kCoast);
 
       shooterTop.getEncoder().setVelocityConversionFactor(1);
       shooterBottom.getEncoder().setVelocityConversionFactor(1);
@@ -78,13 +78,13 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
         shooterTop.set(0.0);
       }
 
-      // if (currentInput.getBrakeModeEnabled()) {
-      // // shooterTop.setIdleMode(IdleMode.kBrake);
-      // // shooterBottom.setIdleMode(IdleMode.kBrake);
-      // } else {
-      // shooterTop.setIdleMode(IdleMode.kCoast);
-      // shooterBottom.setIdleMode(IdleMode.kCoast);
-      // }
+      if (currentInput.getBrakeModeEnabled()) {
+        // shooterTop.setIdleMode(IdleMode.kBrake);
+        // shooterBottom.setIdleMode(IdleMode.kBrake);
+      } else {
+        shooterTop.setIdleMode(IdleMode.kCoast);
+        shooterBottom.setIdleMode(IdleMode.kCoast);
+      }
     }
   }
 
