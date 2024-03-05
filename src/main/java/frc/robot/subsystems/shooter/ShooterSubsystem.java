@@ -35,8 +35,8 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
       shooterTop.getEncoder().setVelocityConversionFactor(1);
       shooterBottom.getEncoder().setVelocityConversionFactor(1);
 
-      shooterTop.setInverted(true);
-      shooterBottom.setInverted(true);
+      shooterTop.setInverted(false);
+      shooterBottom.setInverted(false);
 
       shooterTopPID = shooterTop.getPIDController();
       shooterBottomPID = shooterBottom.getPIDController();
@@ -110,8 +110,9 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     shooterOutput.setCurrentSpeed(getCurrentSpeed());
     shooterOutput.setActive(shooterOutput.getCurrentSpeed() != 0);
     shooterOutput.setBrakeModeEnabled(IdleMode.kBrake == shooterTop.getIdleMode());
-    shooterOutput.setIsAtSpeed(EntechUtils.isWithinTolerance(TOLERANCE,
-        shooterOutput.getCurrentSpeed(), currentInput.getSpeed()));
+    // shooterOutput.setIsAtSpeed(EntechUtils.isWithinTolerance(TOLERANCE,
+    // shooterOutput.getCurrentSpeed(), currentInput.getSpeed()));
+    shooterOutput.setIsAtSpeed(Math.abs(shooterOutput.getCurrentSpeed()) > 4500);
     shooterOutput.setSpeedA(shooterTop.getEncoder().getVelocity());
     shooterOutput.setSpeedB(shooterBottom.getEncoder().getVelocity());
     return shooterOutput;
