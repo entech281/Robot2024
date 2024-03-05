@@ -6,7 +6,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
-import entech.util.EntechUtils;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestShooterCommand;
 
