@@ -50,12 +50,10 @@ public class ShootCommand extends EntechCommand {
         || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()) {
       noNote = false;
       sInput.setActivate(true);
-      sInput.setBrakeModeEnabled(false);
       sInput.setSpeed(5000);
       sSubsystem.updateInputs(sInput);
 
       pInput.setActivate(true);
-      pInput.setBrakeModeEnabled(true);
       if (ampSwitch.getAsBoolean()) {
         pInput.setRequestedPosition(RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG);
       } else if (speakerSwitch.getAsBoolean()) {
@@ -75,7 +73,6 @@ public class ShootCommand extends EntechCommand {
         && (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
             || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()))) {
       tInput.setActivate(true);
-      tInput.setBrakeModeEnabled(false);
       tInput.setSpeedPreset(TransferPreset.Shooting);
       tSubsystem.updateInputs(tInput);
     } else if (!(RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
@@ -90,7 +87,6 @@ public class ShootCommand extends EntechCommand {
     pInput.setRequestedPosition(0);
     pSubsystem.updateInputs(pInput);
 
-    sInput.setBrakeModeEnabled(false);
     sInput.setActivate(false);
     sSubsystem.updateInputs(sInput);
 

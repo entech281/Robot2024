@@ -30,10 +30,8 @@ public class EjectNoteCommand extends EntechCommand {
   public void initialize() {
     iInput.setActivate(true);
     iInput.setSpeed(-1);
-    iInput.setBrakeModeEnabled(false);
     tInput.setActivate(true);
     tInput.setSpeedPreset(TransferPreset.Ejecting);
-    tInput.setBrakeModeEnabled(false);
     intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
     counter.reset();
@@ -43,10 +41,8 @@ public class EjectNoteCommand extends EntechCommand {
   public void end(boolean interupted) {
     iInput.setActivate(false);
     iInput.setSpeed(0);
-    iInput.setBrakeModeEnabled(false);
     tInput.setActivate(false);
     tInput.setSpeedPreset(TransferPreset.Off);
-    tInput.setBrakeModeEnabled(false);
     intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
   }

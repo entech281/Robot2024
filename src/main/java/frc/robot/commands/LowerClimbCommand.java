@@ -21,7 +21,6 @@ public class LowerClimbCommand extends EntechCommand {
   @Override
   public void initialize() {
     cInput.setActivate(true);
-    cInput.setBrakeModeEnabled(true);
     cInput.setRequestedPosition(RobotConstants.CLIMB.CLIMB_RETRACTED);
     cSubsystem.updateInputs(cInput);
   }
