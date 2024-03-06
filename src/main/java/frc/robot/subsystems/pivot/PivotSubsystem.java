@@ -39,9 +39,9 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
       pivotLeft.setInverted(IS_INVERTED);
       pivotRight.setInverted(IS_INVERTED);
-      
-      pivotLeft.setIdleMode(IdleMode.kCoast);
-      pivotRight.setIdleMode(IdleMode.kCoast);
+
+      pivotLeft.setIdleMode(IdleMode.kBrake);
+      pivotRight.setIdleMode(IdleMode.kBrake);
     }
   }
 
