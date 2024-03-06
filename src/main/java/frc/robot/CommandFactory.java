@@ -16,7 +16,6 @@ import frc.robot.commands.GyroReset;
 import frc.robot.commands.GyroResetByAngleCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.ShootAngleCommand;
-import frc.robot.commands.ShootSpeakerCommand;
 import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
@@ -94,10 +93,10 @@ public class CommandFactory {
 
     NamedCommands.registerCommand("intake",
         new IntakeNoteCommand(intakeSubsystem, transferSubsystem));
-    NamedCommands.registerCommand("shoot1",
-        new ShootAngleCommand(shooterSubsystem, pivotSubsystem, transferSubsystem, 15));
-    NamedCommands.registerCommand("shoot2",
-        new ShootSpeakerCommand(shooterSubsystem, pivotSubsystem, transferSubsystem));
+    NamedCommands.registerCommand("shoot1", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
+        transferSubsystem, RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING));
+    NamedCommands.registerCommand("shoot2", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
+        transferSubsystem, RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING));
     NamedCommands.registerCommand("120degreeStart",
         new GyroResetByAngleCommand(navXSubsystem, odometry, 120));
 
