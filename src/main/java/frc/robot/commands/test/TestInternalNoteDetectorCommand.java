@@ -5,12 +5,13 @@ import entech.commands.EntechCommand;
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.internalNoteDetector.InternalNoteDetectorSubsystem;
 
-public class TestInternalNoteDetector extends EntechCommand {
+public class TestInternalNoteDetectorCommand extends EntechCommand {
   private final InternalNoteDetectorSubsystem detector;
 
   private int stage = 0;
 
-  public TestInternalNoteDetector(InternalNoteDetectorSubsystem internalNoteDetectorSubsystem) {
+  public TestInternalNoteDetectorCommand(
+      InternalNoteDetectorSubsystem internalNoteDetectorSubsystem) {
     super(internalNoteDetectorSubsystem);
     detector = internalNoteDetectorSubsystem;
   }
@@ -47,5 +48,10 @@ public class TestInternalNoteDetector extends EntechCommand {
   @Override
   public boolean isFinished() {
     return stage >= 2;
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test.");
   }
 }

@@ -53,7 +53,7 @@ public class ShootSpeakerCommand extends EntechCommand {
       pInput.setActivate(true);
       pInput.setBrakeModeEnabled(true);
       // pInput.setRequestedPosition(calculatePivotAngle());
-      pInput.setRequestedPosition(RobotConstants.PIVOT.MIN_SCORE_ANGLE);
+      pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING);
       pSubsystem.updateInputs(pInput);
     } else {
       noNote = true;
@@ -70,7 +70,7 @@ public class ShootSpeakerCommand extends EntechCommand {
 
       return a + b + c + d + RobotConstants.PIVOT.kE;
     }
-    return RobotConstants.PIVOT.MIN_SCORE_ANGLE;
+    return RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING;
   }
 
   @Override

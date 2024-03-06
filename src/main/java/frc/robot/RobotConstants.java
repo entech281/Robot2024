@@ -133,7 +133,7 @@ public final class RobotConstants {
     }
 
     public static interface SHOOTER {
-      public static final double TESTING_SPEED = 1000;
+      public static final double TESTING_SPEED = 5000;
     }
 
     public static interface CLIMB {
@@ -291,7 +291,7 @@ public final class RobotConstants {
     public static final double INTAKING_SPEED_SLOW = 0;
     public static final double EJECTING_SPEED = -1;
     public static final double RETRACTING_SPEED = -0.2;
-    public static final double TESTING_SPEED = 0;
+    public static final double TESTING_SPEED = 0.15;
   }
 
 
@@ -311,7 +311,8 @@ public final class RobotConstants {
 
     public static final double LOB_ANGLE = 10.0;
 
-    public static final double MIN_SCORE_ANGLE = 14.28;
+    public static final double SPEAKER_BUMPER_SCORING = 15.2;
+    public static final double SPEAKER_PODIUM_SCORING = 25;
   }
 
 

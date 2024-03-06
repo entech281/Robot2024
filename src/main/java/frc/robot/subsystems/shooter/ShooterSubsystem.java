@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
+import entech.util.EntechUtils;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestShooterCommand;
 
@@ -41,6 +42,7 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
       shooterBottomPID = shooterBottom.getPIDController();
 
       setUpPIDConstants(shooterBottomPID);
+      setUpPIDConstants(shooterTopPID);
     }
   }
 
@@ -65,11 +67,10 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        // shooterTopPID.setReference(-currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
-        // shooterBottomPID.setReference(-currentInput.getSpeed(),
-        // CANSparkMax.ControlType.kVelocity);
-        shooterBottom.set(1.0);
-        shooterTop.set(1.0);
+        shooterTopPID.setReference(currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
+        shooterBottomPID.setReference(currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
+        // shooterBottom.set(1.0);
+        // shooterTop.set(1.0);
       } else {
         // shooterTopPID.setReference(0, CANSparkMax.ControlType.kVelocity);
         // shooterBottomPID.setReference(0, CANSparkMax.ControlType.kVelocity);
@@ -89,7 +90,7 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
 
   private double getCurrentSpeed() {
     double currentSpeed =
-        -(shooterTop.getEncoder().getVelocity() + shooterBottom.getEncoder().getVelocity()) / 2;
+        (shooterTop.getEncoder().getVelocity() + shooterBottom.getEncoder().getVelocity()) / 2;
     return currentSpeed;
   }
 
@@ -109,9 +110,9 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     shooterOutput.setCurrentSpeed(getCurrentSpeed());
     shooterOutput.setActive(shooterOutput.getCurrentSpeed() != 0);
     shooterOutput.setBrakeModeEnabled(IdleMode.kBrake == shooterTop.getIdleMode());
-    // shooterOutput.setIsAtSpeed(EntechUtils.isWithinTolerance(TOLERANCE,
-    // shooterOutput.getCurrentSpeed(), currentInput.getSpeed()));
-    shooterOutput.setIsAtSpeed(Math.abs(shooterOutput.getCurrentSpeed()) > 4500);
+    shooterOutput.setIsAtSpeed(EntechUtils.isWithinTolerance(TOLERANCE,
+        shooterOutput.getCurrentSpeed(), currentInput.getSpeed()));
+    // shooterOutput.setIsAtSpeed(Math.abs(shooterOutput.getCurrentSpeed()) > 1000);
     shooterOutput.setSpeedA(shooterTop.getEncoder().getVelocity());
     shooterOutput.setSpeedB(shooterBottom.getEncoder().getVelocity());
     return shooterOutput;
