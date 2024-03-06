@@ -168,14 +168,14 @@ public class OperatorInterface
 
     if (DriverControllerUtils.currentControllerIsXbox()) {
 
-      di.setXSpeed(-xboxController.getLeftY());
-      di.setYSpeed(-xboxController.getLeftX());
-      di.setRotation(DriverControllerUtils.getXboxRotation(xboxController));
+      di.setXSpeed(-this.xboxController.getLeftY());
+      di.setYSpeed(-this.xboxController.getLeftX());
+      di.setRotation(DriverControllerUtils.getXboxRotation(this.xboxController));
 
     } else {
-      di.setXSpeed(-joystickController.getY());
-      di.setYSpeed(-joystickController.getZ());
-      di.setRotation(DriverControllerUtils.getXboxRotation(xboxController));
+      di.setXSpeed(-this.joystickController.getY());
+      di.setYSpeed(-this.joystickController.getX());
+      di.setRotation(-this.joystickController.getZ());
 
     }
 
