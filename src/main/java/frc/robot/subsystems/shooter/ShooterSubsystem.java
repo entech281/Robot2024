@@ -53,16 +53,6 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     pIDController.setFF(RobotConstants.PID.SHOOTER.KFF);
   }
 
-  private void updateBrakeMode() {
-    if (currentInput.getBrakeModeEnabled()) {
-      shooterTop.setIdleMode(IdleMode.kBrake);
-      shooterBottom.setIdleMode(IdleMode.kBrake);
-    } else {
-      shooterTop.setIdleMode(IdleMode.kCoast);
-      shooterBottom.setIdleMode(IdleMode.kCoast);
-    }
-  }
-
   @Override
   public void periodic() {
     if (ENABLED) {
@@ -72,14 +62,6 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
       } else {
         shooterBottom.set(0.0);
         shooterTop.set(0.0);
-      }
-
-      if (currentInput.getBrakeModeEnabled()) {
-        shooterTop.setIdleMode(IdleMode.kBrake);
-        shooterBottom.setIdleMode(IdleMode.kBrake);
-      } else {
-        shooterTop.setIdleMode(IdleMode.kCoast);
-        shooterBottom.setIdleMode(IdleMode.kCoast);
       }
     }
   }
