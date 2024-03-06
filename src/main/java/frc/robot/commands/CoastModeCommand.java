@@ -39,12 +39,6 @@ public class CoastModeCommand extends EntechCommand {
 
   @Override
   public void initialize() {
-    cInput.setBrakeModeEnabled(false);
-    iInput.setBrakeModeEnabled(false);
-    pInput.setBrakeModeEnabled(false);
-    sInput.setBrakeModeEnabled(false);
-    tInput.setBrakeModeEnabled(false);
-
     cSubsystem.updateInputs(cInput);
     iSubsystem.updateInputs(iInput);
     pSubsystem.updateInputs(pInput);
