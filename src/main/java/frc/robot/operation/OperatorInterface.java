@@ -16,13 +16,11 @@ import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotNudgeCommand;
 import frc.robot.commands.PivotPositionCommand;
 import frc.robot.commands.ResetOdometryCommand;
-import frc.robot.commands.RunTestCommand;
 import frc.robot.commands.ShootSpeakerCommand;
 import frc.robot.commands.TwistCommand;
 import frc.robot.io.DebugInput;
@@ -86,7 +84,7 @@ public class OperatorInterface
     joystickController.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.PIVOT,
         new PivotPositionCommand(subsystemManager.getPivotSubsystem()));
 
-    driveJoystick.whenPressed(3, new ResetOdometryCommand(odometry));
+    joystickController.whenPressed(3, new ResetOdometryCommand(odometry));
 
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
     SendableChooser<Command> testChooser = getTestCommandChooser();
