@@ -181,16 +181,21 @@ public final class RobotConstants {
 
     public static class CONTROLLER {
       public static final double JOYSTICK_AXIS_THRESHOLD = 0.2;
-      public static final int JOYSTICK = 0;
+      public static final int DRIVER_CONTROLLER = 0;
       public static final int PANEL = 1;
 
-      public static class BUTTONS {
+      public static class BUTTONS_JOYSTICK {
         public static final int TWIST = 1;
         public static final int INTAKE = 2;
         public static final int ALIGN_SPEAKER_AMP = 3;
         public static final int RUN_TESTS = 7;
         public static final int PIVOT = 5;
         public static final int GYRO_RESET = 11;
+      }
+
+      public static class BUTTONS_XBOX {
+        public static final int GYRO_RESET = 7;
+        public static final int INTAKE = 2;
       }
     }
 
@@ -212,7 +217,7 @@ public final class RobotConstants {
 
     public static class SWITCHES {
       public static final int INTAKE = 11;
-      public static final int ALIGN_SPEAKER_AMP = 6;
+      public static final int SHOOT = 6;
     }
   }
 
