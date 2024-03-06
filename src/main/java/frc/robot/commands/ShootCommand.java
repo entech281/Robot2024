@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import java.util.Optional;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import entech.commands.EntechCommand;
 import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
@@ -13,7 +13,7 @@ import frc.robot.subsystems.transfer.TransferInput;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem.TransferPreset;
 
-public class ShootSpeakerCommand extends EntechCommand {
+public class ShootCommand extends EntechCommand {
 
   private ShooterInput sInput = new ShooterInput();
   private PivotInput pInput = new PivotInput();
@@ -24,18 +24,22 @@ public class ShootSpeakerCommand extends EntechCommand {
   private StoppingCounter shootingCounter =
       new StoppingCounter(getClass().getSimpleName(), RobotConstants.SHOOTER.SHOOT_DELAY);
 
-  private ShooterSubsystem sSubsystem;
-  private PivotSubsystem pSubsystem;
-  private TransferSubsystem tSubsystem;
+  private final ShooterSubsystem sSubsystem;
+  private final PivotSubsystem pSubsystem;
+  private final TransferSubsystem tSubsystem;
+  private final JoystickButton ampSwitch;
+  private final JoystickButton speakerSwitch;
 
   private boolean noNote;
 
-  public ShootSpeakerCommand(ShooterSubsystem shooterSubsystem, PivotSubsystem pivotSubsystem,
-      TransferSubsystem transferSubsystem) {
+  public ShootCommand(ShooterSubsystem shooterSubsystem, PivotSubsystem pivotSubsystem,
+      TransferSubsystem transferSubsystem, JoystickButton ampSwitch, JoystickButton speakerSwitch) {
     super(shooterSubsystem, pivotSubsystem, transferSubsystem);
     this.sSubsystem = shooterSubsystem;
     this.pSubsystem = pivotSubsystem;
     this.tSubsystem = transferSubsystem;
+    this.ampSwitch = ampSwitch;
+    this.speakerSwitch = speakerSwitch;
   }
 
   @Override
@@ -52,25 +56,17 @@ public class ShootSpeakerCommand extends EntechCommand {
 
       pInput.setActivate(true);
       pInput.setBrakeModeEnabled(true);
-      // pInput.setRequestedPosition(calculatePivotAngle());
-      pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING);
+      if (ampSwitch.getAsBoolean()) {
+        pInput.setRequestedPosition(RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG);
+      } else if (speakerSwitch.getAsBoolean()) {
+        pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING);
+      } else {
+        pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING);
+      }
       pSubsystem.updateInputs(pInput);
     } else {
       noNote = true;
     }
-  }
-
-  private double calculatePivotAngle() {
-    Optional<Double> distance = RobotIO.getInstance().getDistanceFromTarget();
-    if (distance.isPresent()) {
-      double a = Math.pow(distance.get(), 4) * RobotConstants.PIVOT.kA;
-      double b = Math.pow(distance.get(), 3) * RobotConstants.PIVOT.kB;
-      double c = Math.pow(distance.get(), 2) * RobotConstants.PIVOT.kC;
-      double d = distance.get() * RobotConstants.PIVOT.kD;
-
-      return a + b + c + d + RobotConstants.PIVOT.kE;
-    }
-    return RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING;
   }
 
   @Override

@@ -14,10 +14,12 @@ import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotNudgeCommand;
 import frc.robot.commands.PivotPositionCommand;
+import frc.robot.commands.ResetOdometryCommand;
 import frc.robot.commands.RunTestCommand;
 import frc.robot.commands.ShootSpeakerCommand;
 import frc.robot.commands.TwistCommand;
@@ -69,6 +71,8 @@ public class OperatorInterface
     driveJoystick.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS.PIVOT,
         new PivotPositionCommand(subsystemManager.getPivotSubsystem()));
 
+    driveJoystick.whenPressed(3, new ResetOdometryCommand(odometry));
+
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
     SendableChooser<Command> testChooser = getTestCommandChooser();
     SmartDashboard.putData("Test Chooser", testChooser);
@@ -80,6 +84,14 @@ public class OperatorInterface
 
     subsystemManager.getPivotSubsystem().setDefaultCommand(new PivotNudgeCommand(
         subsystemManager.getPivotSubsystem(), driveJoystick.getHID()::getPOV));
+
+    driveJoystick.whilePressed(6, new ShootSpeakerCommand(subsystemManager.getShooterSubsystem(),
+        subsystemManager.getPivotSubsystem(), subsystemManager.getTransferSubsystem()));
+
+    driveJoystick.whilePressed(4, new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
+        subsystemManager.getTransferSubsystem()));
+    driveJoystick.whilePressed(2, new EjectNoteCommand(subsystemManager.getIntakeSubsystem(),
+        subsystemManager.getTransferSubsystem()));
   }
 
   public void operatorBindings() {

@@ -73,7 +73,7 @@ public class ShootAmpCommand extends EntechCommand {
     pInput.setRequestedPosition(0);
     pSubsystem.updateInputs(pInput);
 
-    sInput.setBrakeModeEnabled(true);
+    sInput.setBrakeModeEnabled(false);
     sInput.setActivate(false);
     sSubsystem.updateInputs(sInput);
 

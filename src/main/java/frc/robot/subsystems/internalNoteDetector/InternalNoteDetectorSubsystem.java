@@ -1,10 +1,10 @@
 package frc.robot.subsystems.internalNoteDetector;
 
-import entech.subsystems.EntechSubsystem;
-import frc.robot.RobotConstants;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
+import entech.subsystems.EntechSubsystem;
+import frc.robot.RobotConstants;
+import frc.robot.commands.test.TestInternalNoteDetectorCommand;
 
 public class InternalNoteDetectorSubsystem
     extends EntechSubsystem<InternalNoteDetectorInput, InternalNoteDetectorOutput> {
@@ -32,7 +32,7 @@ public class InternalNoteDetectorSubsystem
 
   @Override
   public Command getTestCommand() {
-    return Commands.none();
+    return new TestInternalNoteDetectorCommand(this);
   }
 
   @Override

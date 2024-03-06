@@ -26,8 +26,8 @@ public class InternalNoteDetectorOutput extends SubsystemOutput {
 
   @Override
   public void toLog() {
-    Logger.recordOutput("ForwardInternalSensor", forwardNoteSensor);
-    Logger.recordOutput("RearInternalSensor", rearNoteSensor);
+    Logger.recordOutput("InternalNoteDetectorOutput/ForwardInternalSensor", forwardNoteSensor);
+    Logger.recordOutput("InternalNoteDetectorOutput/RearInternalSensor", rearNoteSensor);
   }
 
 }
