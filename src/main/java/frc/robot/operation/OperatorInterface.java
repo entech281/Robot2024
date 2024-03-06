@@ -16,6 +16,7 @@ import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotNudgeCommand;
@@ -83,6 +84,8 @@ public class OperatorInterface
     joystickController.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.PIVOT,
         new PivotPositionCommand(subsystemManager.getPivotSubsystem()));
 
+    driveJoystick.whenPressed(3, new ResetOdometryCommand(odometry));
+
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
     SendableChooser<Command> testChooser = getTestCommandChooser();
     SmartDashboard.putData("Test Chooser", testChooser);
@@ -93,30 +96,7 @@ public class OperatorInterface
     // new RunTestCommand(testChooser));
 
     subsystemManager.getPivotSubsystem().setDefaultCommand(new PivotNudgeCommand(
-        subsystemManager.getPivotSubsystem(), joystickController.getHID()::getPOV));
-  }
-
-  public void enableXboxBindings() {
-    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.GYRO_RESET)
-        .onTrue(new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
-    // driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.GYRO_RESET,new
-    // GyroReset(subsystemManager.getNavXSubsystem(), odometry));
-
-    subsystemManager.getDriveSubsystem()
-        .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
-
-    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.INTAKE)
-        .whileTrue(new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
-            subsystemManager.getTransferSubsystem()));
-
-
-
-    Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
-    SendableChooser<Command> testChooser = getTestCommandChooser();
-    SmartDashboard.putData("Test Chooser", testChooser);
-
-    testChooser.addOption("All tests", getTestCommand());
-
+        subsystemManager.getPivotSubsystem(), driveJoystick.getHID()::getPOV));
   }
 
   public void operatorBindings() {

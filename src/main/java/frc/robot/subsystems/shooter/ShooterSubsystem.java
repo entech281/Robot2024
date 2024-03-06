@@ -13,7 +13,7 @@ import frc.robot.commands.test.TestShooterCommand;
 public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutput> {
 
   private static final boolean ENABLED = true;
-  private static final double TOLERANCE = 40;
+  private static final double TOLERANCE = 75;
 
   private CANSparkMax shooterTop;
   private CANSparkMax shooterBottom;
@@ -29,19 +29,20 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
       shooterTop = new CANSparkMax(RobotConstants.PORTS.CAN.SHOOTER_A, MotorType.kBrushless);
       shooterBottom = new CANSparkMax(RobotConstants.PORTS.CAN.SHOOTER_B, MotorType.kBrushless);
 
+      shooterTop.setIdleMode(IdleMode.kCoast);
+      shooterBottom.setIdleMode(IdleMode.kCoast);
+
       shooterTop.getEncoder().setVelocityConversionFactor(1);
       shooterBottom.getEncoder().setVelocityConversionFactor(1);
 
-      updateBrakeMode();
-
-      shooterTop.setInverted(true);
-      shooterBottom.setInverted(true);
+      shooterTop.setInverted(false);
+      shooterBottom.setInverted(false);
 
       shooterTopPID = shooterTop.getPIDController();
       shooterBottomPID = shooterBottom.getPIDController();
 
-      setUpPIDConstants(shooterTopPID);
       setUpPIDConstants(shooterBottomPID);
+      setUpPIDConstants(shooterTopPID);
     }
   }
 
@@ -66,11 +67,11 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        shooterTopPID.setReference(-currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
-        shooterBottomPID.setReference(-currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
+        shooterTopPID.setReference(currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
+        shooterBottomPID.setReference(currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
       } else {
-        shooterTopPID.setReference(0, CANSparkMax.ControlType.kVelocity);
-        shooterBottomPID.setReference(0, CANSparkMax.ControlType.kVelocity);
+        shooterBottom.set(0.0);
+        shooterTop.set(0.0);
       }
 
       if (currentInput.getBrakeModeEnabled()) {
@@ -85,7 +86,7 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
 
   private double getCurrentSpeed() {
     double currentSpeed =
-        -(shooterTop.getEncoder().getVelocity() + shooterBottom.getEncoder().getVelocity()) / 2;
+        (shooterTop.getEncoder().getVelocity() + shooterBottom.getEncoder().getVelocity()) / 2;
     return currentSpeed;
   }
 
@@ -107,6 +108,8 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     shooterOutput.setBrakeModeEnabled(IdleMode.kBrake == shooterTop.getIdleMode());
     shooterOutput.setIsAtSpeed(EntechUtils.isWithinTolerance(TOLERANCE,
         shooterOutput.getCurrentSpeed(), currentInput.getSpeed()));
+    shooterOutput.setSpeedA(shooterTop.getEncoder().getVelocity());
+    shooterOutput.setSpeedB(shooterBottom.getEncoder().getVelocity());
     return shooterOutput;
   }
 

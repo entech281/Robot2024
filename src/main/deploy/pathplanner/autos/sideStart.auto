@@ -2,19 +2,25 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.36,
-      "y": 5.51
+      "x": 0.7543128599770712,
+      "y": 4.3912340076932415
     },
-    "rotation": 0.0
+    "rotation": 120.06858282186249
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "120degreeStart"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "path1p1"
+            "pathName": "sideStart"
           }
         }
       ]

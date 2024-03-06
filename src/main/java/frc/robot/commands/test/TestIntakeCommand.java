@@ -22,6 +22,7 @@ public class TestIntakeCommand extends EntechCommand {
   public void initialize() {
     stopCounter.reset();
     intakeI.setActivate(true);
+    intakeI.setSpeed(0.15);
     intakeI.setBrakeModeEnabled(false);
     intake.updateInputs(intakeI);
   }

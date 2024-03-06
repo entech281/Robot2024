@@ -129,11 +129,11 @@ public final class RobotConstants {
 
     public static interface PIVOT {
       public static final double TEST_TOLERANCE_DEG = 1;
-      public static final double TEST_POSITION_DEG = 10;
+      public static final double TEST_POSITION_DEG = 27;
     }
 
     public static interface SHOOTER {
-      public static final double TESTING_SPEED = 1000;
+      public static final double TESTING_SPEED = 5000;
     }
 
     public static interface CLIMB {
@@ -266,10 +266,10 @@ public final class RobotConstants {
   public static interface PID {
 
     public static interface SHOOTER {
-      public static final double KP = 0.00041;
+      public static final double KP = 0.000415;
       public static final double KI = 0.0;
       public static final double KD = 0.0;
-      public static final double KFF = 0.00018;
+      public static final double KFF = 0.000175;
       public static final double MAX_SPEED = 4000;
     }
 
@@ -296,17 +296,28 @@ public final class RobotConstants {
     public static final double INTAKING_SPEED_SLOW = 0;
     public static final double EJECTING_SPEED = -1;
     public static final double RETRACTING_SPEED = -0.2;
-    public static final double TESTING_SPEED = 0;
+    public static final double TESTING_SPEED = 0.15;
   }
 
 
   public static interface PIVOT {
-    public static final double UPPER_SOFT_LIMIT_DEG = 40;
+    public static final double UPPER_SOFT_LIMIT_DEG = 85;
     public static final double LOWER_SOFT_LIMIT_DEG = 1;
     public static final double PIVOT_CONVERSION_FACTOR = 2.4;
-    public static final double SHOOT_AMP_POSITION_DEG = 3;
+    public static final double SHOOT_AMP_POSITION_DEG = 85;
     public static final double POSITION_TOLERANCE_DEG = 2;
     public static final double INITIAL_POSITION = 1;
+
+    public static final double kA = 2.31586;
+    public static final double kB = -25.1345;
+    public static final double kC = 94.4448;
+    public static final double kD = -132.894;
+    public static final double kE = 76.0679;
+
+    public static final double LOB_ANGLE = 10.0;
+
+    public static final double SPEAKER_BUMPER_SCORING = 15.2;
+    public static final double SPEAKER_PODIUM_SCORING = 25;
   }
 
 
@@ -326,7 +337,7 @@ public final class RobotConstants {
 
   public static interface SHOOTER {
     public static final double RESET_DELAY = 0.5;
-    public static final double SHOOT_DELAY = 0.5;
+    public static final double SHOOT_DELAY = 0.25;
   }
 
 

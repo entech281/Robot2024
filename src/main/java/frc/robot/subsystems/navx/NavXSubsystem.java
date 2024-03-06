@@ -80,4 +80,8 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
   public Command getTestCommand() {
     return Commands.none();
   }
+
+  public void setAngleAdjustment(double angleAdjustment) {
+    gyro.setAngleAdjustment(angleAdjustment);;
+  }
 }

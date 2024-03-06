@@ -22,6 +22,7 @@ public class PivotOutput extends SubsystemOutput {
     Logger.recordOutput("PivotOutput/currentPosition", currentPosition);
     Logger.recordOutput("PivotOutput/isAtUpperLimit", isAtUpperLimit);
     Logger.recordOutput("PivotOutput/isAtLowerLimit", isAtLowerLimit);
+    Logger.recordOutput("PivotOutput/isAtRequestedPosition", isAtRequestedPosition);
   }
 
   public boolean isMoving() {

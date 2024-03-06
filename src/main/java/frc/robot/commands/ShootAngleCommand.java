@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import java.util.Optional;
 import entech.commands.EntechCommand;
 import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
@@ -13,7 +12,7 @@ import frc.robot.subsystems.transfer.TransferInput;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem.TransferPreset;
 
-public class ShootSpeakerCommand extends EntechCommand {
+public class ShootAngleCommand extends EntechCommand {
 
   private ShooterInput sInput = new ShooterInput();
   private PivotInput pInput = new PivotInput();
@@ -24,18 +23,20 @@ public class ShootSpeakerCommand extends EntechCommand {
   private StoppingCounter shootingCounter =
       new StoppingCounter(getClass().getSimpleName(), RobotConstants.SHOOTER.SHOOT_DELAY);
 
-  private ShooterSubsystem sSubsystem;
-  private PivotSubsystem pSubsystem;
-  private TransferSubsystem tSubsystem;
+  private final ShooterSubsystem sSubsystem;
+  private final PivotSubsystem pSubsystem;
+  private final TransferSubsystem tSubsystem;
+  private final double angle;
 
   private boolean noNote;
 
-  public ShootSpeakerCommand(ShooterSubsystem shooterSubsystem, PivotSubsystem pivotSubsystem,
-      TransferSubsystem transferSubsystem) {
+  public ShootAngleCommand(ShooterSubsystem shooterSubsystem, PivotSubsystem pivotSubsystem,
+      TransferSubsystem transferSubsystem, double angle) {
     super(shooterSubsystem, pivotSubsystem, transferSubsystem);
     this.sSubsystem = shooterSubsystem;
     this.pSubsystem = pivotSubsystem;
     this.tSubsystem = transferSubsystem;
+    this.angle = angle;
   }
 
   @Override
@@ -52,25 +53,11 @@ public class ShootSpeakerCommand extends EntechCommand {
 
       pInput.setActivate(true);
       pInput.setBrakeModeEnabled(true);
-      // pInput.setRequestedPosition(calculatePivotAngle());
-      pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING);
+      pInput.setRequestedPosition(angle);
       pSubsystem.updateInputs(pInput);
     } else {
       noNote = true;
     }
-  }
-
-  private double calculatePivotAngle() {
-    Optional<Double> distance = RobotIO.getInstance().getDistanceFromTarget();
-    if (distance.isPresent()) {
-      double a = Math.pow(distance.get(), 4) * RobotConstants.PIVOT.kA;
-      double b = Math.pow(distance.get(), 3) * RobotConstants.PIVOT.kB;
-      double c = Math.pow(distance.get(), 2) * RobotConstants.PIVOT.kC;
-      double d = distance.get() * RobotConstants.PIVOT.kD;
-
-      return a + b + c + d + RobotConstants.PIVOT.kE;
-    }
-    return RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING;
   }
 
   @Override

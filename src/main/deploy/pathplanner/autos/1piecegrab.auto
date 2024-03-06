@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.5,
-      "y": 4.6
+      "x": 1.3829526758152613,
+      "y": 5.528332498106438
     },
     "rotation": 0
   },
@@ -12,15 +12,27 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "Triangle"
+            "name": "shoot1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Heart"
+            "pathName": "1piecegrab"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "turn"
           }
         }
       ]

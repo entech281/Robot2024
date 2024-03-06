@@ -28,14 +28,15 @@ public class EjectNoteCommand extends EntechCommand {
 
   @Override
   public void initialize() {
-    iInput.setActivate(false);
+    iInput.setActivate(true);
     iInput.setSpeed(-1);
     iInput.setBrakeModeEnabled(false);
-    tInput.setActivate(false);
+    tInput.setActivate(true);
     tInput.setSpeedPreset(TransferPreset.Ejecting);
     tInput.setBrakeModeEnabled(false);
     intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
+    counter.reset();
   }
 
   @Override
