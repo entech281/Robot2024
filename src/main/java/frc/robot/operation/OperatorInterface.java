@@ -21,6 +21,8 @@ import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotNudgeCommand;
 import frc.robot.commands.PivotPositionCommand;
+import frc.robot.commands.ResetOdometryCommand;
+import frc.robot.commands.RunTestCommand;
 import frc.robot.commands.ShootSpeakerCommand;
 import frc.robot.commands.TwistCommand;
 import frc.robot.io.DebugInput;
@@ -96,7 +98,30 @@ public class OperatorInterface
     // new RunTestCommand(testChooser));
 
     subsystemManager.getPivotSubsystem().setDefaultCommand(new PivotNudgeCommand(
-        subsystemManager.getPivotSubsystem(), driveJoystick.getHID()::getPOV));
+        subsystemManager.getPivotSubsystem(), joystickController.getHID()::getPOV));
+  }
+
+  public void enableXboxBindings() {
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.GYRO_RESET)
+        .onTrue(new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
+    // driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.GYRO_RESET,new
+    // GyroReset(subsystemManager.getNavXSubsystem(), odometry));
+
+    subsystemManager.getDriveSubsystem()
+        .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
+
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.INTAKE)
+        .whileTrue(new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
+            subsystemManager.getTransferSubsystem()));
+
+
+
+    Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
+    SendableChooser<Command> testChooser = getTestCommandChooser();
+    SmartDashboard.putData("Test Chooser", testChooser);
+
+    testChooser.addOption("All tests", getTestCommand());
+
   }
 
   public void operatorBindings() {
