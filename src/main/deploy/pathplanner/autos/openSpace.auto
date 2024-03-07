@@ -2,25 +2,25 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7543128599770712,
-      "y": 4.3912340076932415
+      "x": 0.5139505774507043,
+      "y": 4.030690583903691
     },
-    "rotation": 120.06858282186249
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "120degreeStart"
+            "pathName": "openSpaceSideFlat"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "sideStart"
+            "pathName": "openSpacepPart2"
           }
         }
       ]

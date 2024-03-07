@@ -23,7 +23,6 @@ public class TestClimbCommand extends EntechCommand {
     counter.reset();
     input.setActivate(true);
     input.setRequestedPosition(RobotConstants.TEST_CONSTANTS.CLIMB.TEST_POSITION_IN);
-    input.setBrakeModeEnabled(false);
     cSubsystem.updateInputs(input);
   }
 

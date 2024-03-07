@@ -25,7 +25,6 @@ public class PivotPositionCommand extends EntechCommand {
     counter.reset();
     input.setActivate(true);
     input.setRequestedPosition(RobotConstants.TEST_CONSTANTS.PIVOT.TEST_POSITION_DEG);
-    input.setBrakeModeEnabled(true);
     DriverStation.reportWarning("PivotPositionCommand was run", false);
     pSubsystem.updateInputs(input);
   }

@@ -39,10 +39,8 @@ public class IntakeNoteCommand extends EntechCommand {
     hasNote = false;
     iInput.setActivate(true);
     iInput.setSpeed(RobotConstants.INTAKE.INTAKE_SPEED);
-    iInput.setBrakeModeEnabled(false);
     tInput.setActivate(true);
     tInput.setSpeedPreset(TransferPreset.Intaking1);
-    tInput.setBrakeModeEnabled(true);
     intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
   }

@@ -17,6 +17,7 @@ import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.EjectNoteCommand;
+import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LowerClimbCommand;

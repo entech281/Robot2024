@@ -22,7 +22,6 @@ public class TestShooterCommand extends EntechCommand {
   public void initialize() {
     counter.reset();
     input.setActivate(true);
-    input.setBrakeModeEnabled(false);
     input.setSpeed(RobotConstants.TEST_CONSTANTS.SHOOTER.TESTING_SPEED);
     sSubsystem.updateInputs(input);
   }

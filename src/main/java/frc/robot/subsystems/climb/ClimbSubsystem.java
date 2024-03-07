@@ -45,8 +45,9 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
       rollPIDController.setP(1);
       rollPIDController.setI(1);
       rollPIDController.setD(1);
-
-      updateBrakeMode();
+      
+      climbMotorLeft.setIdleMode(IdleMode.kCoast);
+      climbMotorRight.setIdleMode(IdleMode.kCoast);
     }
   }
 
@@ -54,16 +55,6 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
     pIDController.setP(RobotConstants.PID.CLIMB.KP);
     pIDController.setD(RobotConstants.PID.CLIMB.KI);
     pIDController.setI(RobotConstants.PID.CLIMB.KD);
-  }
-
-  private void updateBrakeMode() {
-    if (currentInput.getBrakeModeEnabled()) {
-      climbMotorLeft.setIdleMode(IdleMode.kBrake);
-      climbMotorRight.setIdleMode(IdleMode.kBrake);
-    } else {
-      climbMotorLeft.setIdleMode(IdleMode.kCoast);
-      climbMotorRight.setIdleMode(IdleMode.kCoast);
-    }
   }
 
   private double clampedPosition(double motorPosition) {

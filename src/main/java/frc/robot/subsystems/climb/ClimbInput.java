@@ -14,7 +14,6 @@ public class ClimbInput implements SubsystemInput {
   @Override
   public void toLog(LogTable table) {
     table.put("activate", activate);
-    table.put("brakeModeEnabled", brakeModeEnabled);
     table.put("requestedPosition", requestedPosition);
     // table.put("currentRoll", currentRoll);
   }
