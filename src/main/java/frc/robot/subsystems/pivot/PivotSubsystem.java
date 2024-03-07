@@ -1,11 +1,10 @@
 package frc.robot.subsystems.pivot;
 
-import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
-// import com.revrobotics.SparkPIDController;
+import com.revrobotics.SparkLimitSwitch;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
@@ -95,7 +94,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     pivotOutput.setAtRequestedPosition(EntechUtils.isWithinTolerance(1.5,
         pivotOutput.getCurrentPosition(), currentInput.getRequestedPosition()));
     pivotOutput.setAtLowerLimit(
-        pivotLeft.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyOpen).isPressed());
+        pivotLeft.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed());
     pivotOutput.setRequestedPosition(currentInput.getRequestedPosition());
     return pivotOutput;
   }
