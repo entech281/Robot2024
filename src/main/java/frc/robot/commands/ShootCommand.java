@@ -50,7 +50,6 @@ public class ShootCommand extends EntechCommand {
         || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()) {
       noNote = false;
       sInput.setActivate(true);
-      sInput.setBrakeModeEnabled(false);
       sInput.setSpeed(4500);
       sSubsystem.updateInputs(sInput);
 
