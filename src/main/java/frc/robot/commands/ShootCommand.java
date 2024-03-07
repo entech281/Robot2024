@@ -51,7 +51,7 @@ public class ShootCommand extends EntechCommand {
       noNote = false;
       sInput.setActivate(true);
       sInput.setBrakeModeEnabled(false);
-      sInput.setSpeed(4000);
+      sInput.setSpeed(4500);
       sSubsystem.updateInputs(sInput);
 
       pInput.setActivate(true);
