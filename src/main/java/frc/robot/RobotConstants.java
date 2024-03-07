@@ -186,11 +186,9 @@ public final class RobotConstants {
 
       public static class BUTTONS_JOYSTICK {
         public static final int TWIST = 1;
-        public static final int INTAKE = 2;
-        public static final int ALIGN_SPEAKER_AMP = 3;
         public static final int RUN_TESTS = 7;
-        public static final int PIVOT = 5;
         public static final int GYRO_RESET = 11;
+        public static final int RESET_ODOMETRY = 3;
       }
 
       public static class BUTTONS_XBOX {
@@ -209,15 +207,16 @@ public final class RobotConstants {
 
   public interface OPERATOR_PANEL {
     public static class BUTTONS {
-      public static final int SHOOT_SPEAKER = 1;
-      public static final int SHOOT_AMP = 2;
-      public static final int ADVANCE_CLIMB = 4;
-      public static final int REVERSE_CLIMB = 5;
+      public static final int SHOOT = 1;
+      public static final int INTAKE = 4;
+      public static final int EJECT = 5;
+      public static final int CLIMB = 7;
     }
 
     public static class SWITCHES {
-      public static final int INTAKE = 11;
-      public static final int SHOOT = 6;
+      public static final int PIVOT_AMP = 2;
+      public static final int PIVOT_SPEAKER = 3;
+      public static final int CANCEL_CLIMB = 6;
     }
   }
 
@@ -269,7 +268,7 @@ public final class RobotConstants {
       public static final double KP = 0.000415;
       public static final double KI = 0.0;
       public static final double KD = 0.0;
-      public static final double KFF = 0.000175;
+      public static final double KFF = 0.00018;
       public static final double MAX_SPEED = 4000;
     }
 

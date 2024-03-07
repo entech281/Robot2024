@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import entech.commands.EntechCommand;
 import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
@@ -27,13 +27,13 @@ public class ShootCommand extends EntechCommand {
   private final ShooterSubsystem sSubsystem;
   private final PivotSubsystem pSubsystem;
   private final TransferSubsystem tSubsystem;
-  private final JoystickButton ampSwitch;
-  private final JoystickButton speakerSwitch;
+  private final Trigger ampSwitch;
+  private final Trigger speakerSwitch;
 
   private boolean noNote;
 
   public ShootCommand(ShooterSubsystem shooterSubsystem, PivotSubsystem pivotSubsystem,
-      TransferSubsystem transferSubsystem, JoystickButton ampSwitch, JoystickButton speakerSwitch) {
+      TransferSubsystem transferSubsystem, Trigger ampSwitch, Trigger speakerSwitch) {
     super(shooterSubsystem, pivotSubsystem, transferSubsystem);
     this.sSubsystem = shooterSubsystem;
     this.pSubsystem = pivotSubsystem;
@@ -51,7 +51,7 @@ public class ShootCommand extends EntechCommand {
       noNote = false;
       sInput.setActivate(true);
       sInput.setBrakeModeEnabled(false);
-      sInput.setSpeed(5000);
+      sInput.setSpeed(4000);
       sSubsystem.updateInputs(sInput);
 
       pInput.setActivate(true);

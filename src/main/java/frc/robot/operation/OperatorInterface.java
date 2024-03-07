@@ -8,20 +8,20 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.commands.ShootCommand;
 import entech.subsystems.EntechSubsystem;
 import entech.util.DriverControllerUtils;
 import entech.util.EntechJoystick;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
-import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
-import frc.robot.commands.PivotNudgeCommand;
-import frc.robot.commands.PivotPositionCommand;
+import frc.robot.commands.LowerClimbCommand;
+import frc.robot.commands.RaiseClimbCommand;
 import frc.robot.commands.ResetOdometryCommand;
-import frc.robot.commands.ShootSpeakerCommand;
 import frc.robot.commands.TwistCommand;
 import frc.robot.io.DebugInput;
 import frc.robot.io.DebugInputSupplier;
@@ -31,7 +31,6 @@ import frc.robot.io.OperatorInputSupplier;
 import frc.robot.io.RobotIO;
 import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.drive.DriveInput;
-
 
 public class OperatorInterface
     implements DriveInputSupplier, DebugInputSupplier, OperatorInputSupplier {
@@ -75,28 +74,16 @@ public class OperatorInterface
 
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
-    joystickController.whilePressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.INTAKE,
-        new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
-            subsystemManager.getTransferSubsystem()));
-    joystickController.whilePressed(
-        RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.ALIGN_SPEAKER_AMP, new DoNothing());
     // align to speaker or amp depending on an operator switch
-    joystickController.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.PIVOT,
-        new PivotPositionCommand(subsystemManager.getPivotSubsystem()));
 
-    joystickController.whenPressed(3, new ResetOdometryCommand(odometry));
+    joystickController.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.RESET_ODOMETRY,
+        new ResetOdometryCommand(odometry));
 
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
     SendableChooser<Command> testChooser = getTestCommandChooser();
     SmartDashboard.putData("Test Chooser", testChooser);
 
     testChooser.addOption("All tests", getTestCommand());
-
-    // joystickController.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.RUN_TESTS,
-    // new RunTestCommand(testChooser));
-
-    subsystemManager.getPivotSubsystem().setDefaultCommand(new PivotNudgeCommand(
-        subsystemManager.getPivotSubsystem(), joystickController.getHID()::getPOV));
   }
 
   public void enableXboxBindings() {
@@ -123,23 +110,24 @@ public class OperatorInterface
   }
 
   public void operatorBindings() {
-    // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_AMP)
-    // .whileTrue(new DoNothing());
-    // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT_SPEAKER)
-    // .whileTrue(new DoNothing());
-    operatorPanel.whenPressed(RobotConstants.OPERATOR_PANEL.SWITCHES.INTAKE, new IntakeNoteCommand(
+
+    operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT,
+        new ShootCommand(subsystemManager.getShooterSubsystem(),
+            subsystemManager.getPivotSubsystem(), subsystemManager.getTransferSubsystem(),
+            operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_AMP),
+            operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_SPEAKER)));
+
+    operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.BUTTONS.INTAKE, new IntakeNoteCommand(
         subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
-    operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.SWITCHES.SHOOT,
-        new ShootSpeakerCommand(subsystemManager.getShooterSubsystem(),
-            subsystemManager.getPivotSubsystem(), subsystemManager.getTransferSubsystem()));
-    // run intake and transfer backwards and eject note
-    // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.ADVANCE_CLIMB)
-    // .whileTrue(new DoNothing()); // advance to next stage of climb
-    // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.REVERSE_CLIMB)
-    // .onTrue(new DoNothing()); // revert to last state of climb
-    // operatorPanel.whileSwitch(RobotConstants.OPERATOR_PANEL.SWITCHES.ALIGN_SPEAKER_AMP,
-    // new SetTargetCommand(new Pose2d(0.0, 5.6, new Rotation2d())),
-    // new SetTargetCommand(new Pose2d(1.81, 8.2, new Rotation2d())));
+    operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.BUTTONS.EJECT, new EjectNoteCommand(
+        subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
+
+    // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.CLIMB)
+    // .whileTrue(new RaiseClimbCommand(subsystemManager.getClimbSubsystem(),
+    // operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.CANCEL_CLIMB)
+    // .getAsBoolean()))
+    // .whileFalse(new LowerClimbCommand(subsystemManager.getClimbSubsystem(), operatorPanel
+    // .button(RobotConstants.OPERATOR_PANEL.SWITCHES.CANCEL_CLIMB).getAsBoolean()));
   }
 
   private SendableChooser<Command> getTestCommandChooser() {

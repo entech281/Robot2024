@@ -12,17 +12,26 @@ public class LowerClimbCommand extends EntechCommand {
   private ClimbInput cInput = new ClimbInput();
   private ClimbSubsystem cSubsystem;
 
+  private boolean freeze;
 
-  public LowerClimbCommand(ClimbSubsystem cSubsystem) {
+  public LowerClimbCommand(ClimbSubsystem cSubsystem, boolean freeze) {
     super(cSubsystem);
     this.cSubsystem = cSubsystem;
+    this.freeze = freeze;
   }
 
   @Override
   public void initialize() {
     cInput.setActivate(true);
     cInput.setBrakeModeEnabled(true);
+    cInput.setFeeze(freeze);
     cInput.setRequestedPosition(RobotConstants.CLIMB.CLIMB_RETRACTED);
+    cSubsystem.updateInputs(cInput);
+  }
+
+  @Override
+  public void execute() {
+    cInput.setFeeze(freeze);
     cSubsystem.updateInputs(cInput);
   }
 
