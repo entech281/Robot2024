@@ -2,7 +2,7 @@ if [%1]==[] goto usage
 git remote set-url origin git@10.2.81.10:entech281/Robot2024.git
 git fetch --all
 git pull
-git checkout  %1
+git checkout -f %1
 .\gradlew build
 .\gradlew deploy
 
