@@ -20,7 +20,6 @@ public class RaiseClimbCommand extends EntechCommand {
   @Override
   public void initialize() {
     cInput.setActivate(true);
-    cInput.setBrakeModeEnabled(true);
     cInput.setRequestedPosition(RobotConstants.CLIMB.CLIMB_EXTENDED);
     cSubsystem.updateInputs(cInput);
   }

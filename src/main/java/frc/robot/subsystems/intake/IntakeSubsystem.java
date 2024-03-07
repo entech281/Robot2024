@@ -21,6 +21,7 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
     if (ENABLED) {
       this.intakeMotor = new CANSparkMax(RobotConstants.PORTS.CAN.INTAKE, MotorType.kBrushless);
       this.intakeMotor.setInverted(false);
+      this.intakeMotor.setIdleMode(IdleMode.kCoast);
     }
   }
 
@@ -31,12 +32,6 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
         this.intakeMotor.set(currentInput.getSpeed());
       } else {
         this.intakeMotor.set(0);
-      }
-
-      if (currentInput.getBrakeModeEnabled()) {
-        this.intakeMotor.setIdleMode(IdleMode.kBrake);
-      } else {
-        this.intakeMotor.setIdleMode(IdleMode.kCoast);
       }
     }
   }

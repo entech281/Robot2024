@@ -6,7 +6,6 @@ import frc.robot.RobotConstants;
 
 public class PivotInput implements SubsystemInput {
 
-  private boolean brakeModeEnabled = true;
   private boolean activate = true;
   private double requestedPosition = RobotConstants.PIVOT.INITIAL_POSITION;
 
@@ -14,14 +13,12 @@ public class PivotInput implements SubsystemInput {
   public void toLog(LogTable table) {
     table.put("Activate", activate);
     table.put("Requested position", requestedPosition);
-    table.put("Brake Mode Enabled", brakeModeEnabled);
   }
 
   @Override
   public void fromLog(LogTable table) {
     activate = table.get("Activate", activate);
     requestedPosition = table.get("Requested position", 0.0);
-    brakeModeEnabled = table.get("Brake Mode Enabled", true);
   }
 
   public boolean getActivate() {
@@ -38,13 +35,5 @@ public class PivotInput implements SubsystemInput {
 
   public void setRequestedPosition(double requestedPosition) {
     this.requestedPosition = requestedPosition;
-  }
-
-  public boolean getBrakeModeEnabled() {
-    return this.brakeModeEnabled;
-  }
-
-  public void setBrakeModeEnabled(boolean brakeModeEnabled) {
-    this.brakeModeEnabled = brakeModeEnabled;
   }
 }
