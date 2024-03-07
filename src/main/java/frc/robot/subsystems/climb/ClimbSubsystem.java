@@ -10,10 +10,13 @@ import edu.wpi.first.wpilibj2.command.Commands;
 
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
+import frc.robot.io.RobotIO;
 
 public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
 
   private boolean ENABLED = false;
+
+  private double currentPosition = 0.0;
 
   private ClimbInput currentInput = new ClimbInput();
 
@@ -72,9 +75,15 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        double CP = clampedPosition(currentInput.getRequestedPosition());
-        climbMotorLeft.getEncoder().setPosition(CP);
-        climbMotorRight.getEncoder().setPosition(CP);
+        if (currentInput.getFeeze()) {
+          currentPosition = RobotIO.getInstance().getClimbOutput().getCurrentPosition();
+          climbMotorLeft.getEncoder().setPosition(currentPosition);
+          climbMotorRight.getEncoder().setPosition(currentPosition);
+        } else {
+          double CP = clampedPosition(currentInput.getRequestedPosition());
+          climbMotorLeft.getEncoder().setPosition(CP);
+          climbMotorRight.getEncoder().setPosition(CP);
+        }
       }
     }
   }
