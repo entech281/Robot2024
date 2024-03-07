@@ -97,8 +97,15 @@ public class CommandFactory {
         transferSubsystem, RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING));
     NamedCommands.registerCommand("shoot2", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
         transferSubsystem, RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING));
+    NamedCommands.registerCommand("shootAmp", new ShootAngleCommand(shooterSubsystem,
+        pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG));
     NamedCommands.registerCommand("120degreeStart",
         new GyroResetByAngleCommand(navXSubsystem, odometry, 120));
+
+    // NamedCommands.registerCommand("intake", Commands.none());
+    // NamedCommands.registerCommand("shoot1", Commands.none());
+    // NamedCommands.registerCommand("shoot2", Commands.none());
+    // NamedCommands.registerCommand("shootAmp", Commands.none());
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
