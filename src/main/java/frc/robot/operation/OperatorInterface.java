@@ -16,6 +16,7 @@ import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.PivotNudgeCommand;
@@ -83,6 +84,13 @@ public class OperatorInterface
     // align to speaker or amp depending on an operator switch
     joystickController.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.PIVOT,
         new PivotPositionCommand(subsystemManager.getPivotSubsystem()));
+    joystickController.whilePressed(RobotConstants.OPERATOR_PANEL.SWITCHES.SHOOT,
+        new ShootSpeakerCommand(subsystemManager.getShooterSubsystem(),
+            subsystemManager.getPivotSubsystem(), subsystemManager.getTransferSubsystem()));
+    joystickController.whilePressed(4, new EjectNoteCommand(subsystemManager.getIntakeSubsystem(),
+        subsystemManager.getTransferSubsystem()));
+
+
 
     joystickController.whenPressed(3, new ResetOdometryCommand(odometry));
 
