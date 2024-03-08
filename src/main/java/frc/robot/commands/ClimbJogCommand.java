@@ -1,51 +1,47 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import entech.commands.EntechCommand;
-import entech.util.EntechUtils;
 import frc.robot.RobotConstants;
-import frc.robot.io.RobotIO;
 import frc.robot.subsystems.climb.ClimbInput;
 import frc.robot.subsystems.climb.ClimbSubsystem;
 
-public class LowerClimbCommand extends EntechCommand {
+public class ClimbJogCommand extends EntechCommand {
 
-  private ClimbInput cInput = new ClimbInput();
-  private ClimbSubsystem cSubsystem;
+  private final ClimbInput cInput = new ClimbInput();
+  private final ClimbSubsystem cSubsystem;
 
-  private Trigger freeze;
-
-  public LowerClimbCommand(ClimbSubsystem cSubsystem, Trigger freeze) {
+  public ClimbJogCommand(ClimbSubsystem cSubsystem) {
     super(cSubsystem);
     this.cSubsystem = cSubsystem;
-    this.freeze = freeze;
   }
 
   @Override
   public void initialize() {
     cInput.setActivate(true);
     cInput.setBrakeModeEnabled(true);
-    cInput.setFeeze(!freeze.getAsBoolean());
-    cInput.setSpeed(-0.5);
+    cInput.setSpeed(-0.2);
     cSubsystem.updateInputs(cInput);
+    cSubsystem.setPosition(RobotConstants.CLIMB.CLIMB_EXTENDED);
   }
 
   @Override
   public void execute() {
-    cInput.setFeeze(!freeze.getAsBoolean());
-    cSubsystem.updateInputs(cInput);
-  }
-
-  public void end() {
-    cInput.setActivate(false);
+    cInput.setActivate(true);
+    cInput.setSpeed(-0.2);
     cSubsystem.updateInputs(cInput);
   }
 
   @Override
+  public void end(boolean interrupted) {
+    cInput.setActivate(false);
+    cInput.setSpeed(0);
+    cSubsystem.updateInputs(cInput);
+    cSubsystem.setPosition(RobotConstants.CLIMB.CLIMB_RETRACTED);
+  }
+
+  @Override
   public boolean isFinished() {
-    return EntechUtils.isWithinTolerance(1,
-        RobotIO.getInstance().getClimbOutput().getCurrentPosition(),
-        RobotConstants.CLIMB.CLIMB_RETRACTED);
+    return false;
   }
 
   @Override

@@ -189,6 +189,7 @@ public final class RobotConstants {
         public static final int RUN_TESTS = 7;
         public static final int GYRO_RESET = 11;
         public static final int RESET_ODOMETRY = 3;
+        public static final int CLIMB_JOG = 9;
       }
 
       public static class BUTTONS_XBOX {
@@ -315,7 +316,7 @@ public final class RobotConstants {
 
     public static final double LOB_ANGLE = 10.0;
 
-    public static final double SPEAKER_BUMPER_SCORING = 15.2;
+    public static final double SPEAKER_BUMPER_SCORING = 16;
     public static final double SPEAKER_PODIUM_SCORING = 25;
   }
 

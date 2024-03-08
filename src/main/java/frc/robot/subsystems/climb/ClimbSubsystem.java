@@ -91,4 +91,8 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
     return new TestClimbCommand(this);
   }
 
+  public void setPosition(double position) {
+    climbMotorLeft.getEncoder().setPosition(position);
+    climbMotorRight.getEncoder().setPosition(position);
+  }
 }

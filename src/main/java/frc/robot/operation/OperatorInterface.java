@@ -14,6 +14,8 @@ import entech.util.EntechJoystick;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
+import frc.robot.commands.ClimbJogCommand;
+import frc.robot.commands.ClimbJogStopCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.GyroReset;
@@ -85,6 +87,10 @@ public class OperatorInterface
 
     joystickController.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.RESET_ODOMETRY,
         new ResetOdometryCommand(odometry));
+    joystickController.whilePressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG,
+        new ClimbJogCommand(subsystemManager.getClimbSubsystem()));
+    joystickController.whenReleased(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG,
+        new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
 
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
     SmartDashboard.putData("Test Chooser", testChooser);
