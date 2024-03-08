@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestLEDCommand;
+import frc.robot.io.RobotIO;
 
 /**
  *
@@ -75,6 +76,7 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
 
   @Override
   public void updateInputs(LEDInput input) {
+    RobotIO.processInput(input);
     this.currentInput = input;
   }
 

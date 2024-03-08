@@ -9,6 +9,7 @@ import entech.subsystems.EntechSubsystem;
 import entech.util.EntechUtils;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestShooterCommand;
+import frc.robot.io.RobotIO;
 
 public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutput> {
 
@@ -79,6 +80,7 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
 
   @Override
   public void updateInputs(ShooterInput input) {
+    RobotIO.processInput(input);
     this.currentInput = input;
   }
 

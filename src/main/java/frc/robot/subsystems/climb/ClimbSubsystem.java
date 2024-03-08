@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestClimbCommand;
+import frc.robot.io.RobotIO;
 
 public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
   private boolean ENABLED = true;
@@ -73,6 +74,7 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
 
   @Override
   public void updateInputs(ClimbInput input) {
+    RobotIO.processInput(input);
     this.currentInput = input;
   }
 
