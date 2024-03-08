@@ -303,10 +303,10 @@ public final class RobotConstants {
 
 
   public static interface PIVOT {
-    public static final double UPPER_SOFT_LIMIT_DEG = 85;
+    public static final double UPPER_SOFT_LIMIT_DEG = 85.5;
     public static final double LOWER_SOFT_LIMIT_DEG = 1;
     public static final double PIVOT_CONVERSION_FACTOR = 2.4;
-    public static final double SHOOT_AMP_POSITION_DEG = 85;
+    public static final double SHOOT_AMP_POSITION_DEG = 85.5;
     public static final double POSITION_TOLERANCE_DEG = 2;
     public static final double INITIAL_POSITION = 1;
 
