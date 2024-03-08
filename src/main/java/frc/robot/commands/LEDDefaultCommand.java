@@ -32,4 +32,8 @@ public class LEDDefaultCommand extends EntechCommand {
     return false;
   }
 
+  @Override
+  public boolean runsWhenDisabled() {
+    return true;
+  }
 }
