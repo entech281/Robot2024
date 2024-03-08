@@ -100,6 +100,7 @@ public class SubsystemManager {
     r.add(transferSubsystem);
     r.add(noteDetectorSubsystem);
     r.add(pivotSubsystem);
+    r.add(climbSubsystem);
     r.add(internalNoteDetectorSubsystem);
 
     return r;

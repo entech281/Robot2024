@@ -8,13 +8,13 @@ public class ClimbInput implements SubsystemInput {
   private boolean activate = false;
   private boolean brakeModeEnabled = false;
   private boolean feeze = false;
-  private double requestedPosition = 0.0;
+  private double speed = 0.0;
   // private double currentRoll = 0.0;
 
   @Override
   public void toLog(LogTable table) {
     table.put("activate", activate);
-    table.put("requestedPosition", requestedPosition);
+    table.put("speed", speed);
     // table.put("currentRoll", currentRoll);
   }
 
@@ -29,12 +29,12 @@ public class ClimbInput implements SubsystemInput {
     this.activate = activate;
   }
 
-  public double getRequestedPosition() {
-    return this.requestedPosition;
+  public double getSpeed() {
+    return this.speed;
   }
 
-  public void setRequestedPosition(double requestedPosition) {
-    this.requestedPosition = requestedPosition;
+  public void setSpeed(double speed) {
+    this.speed = speed;
   }
 
   public boolean getBrakeModeEnabled() {

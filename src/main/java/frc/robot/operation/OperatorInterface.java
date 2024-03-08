@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import frc.robot.commands.ShootCommand;
 import entech.subsystems.EntechSubsystem;
 import entech.util.DriverControllerUtils;
 import entech.util.EntechJoystick;
@@ -17,12 +16,13 @@ import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.EjectNoteCommand;
-import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LowerClimbCommand;
 import frc.robot.commands.RaiseClimbCommand;
 import frc.robot.commands.ResetOdometryCommand;
+import frc.robot.commands.RunTestCommand;
+import frc.robot.commands.ShootCommand;
 import frc.robot.commands.TwistCommand;
 import frc.robot.io.DebugInput;
 import frc.robot.io.DebugInputSupplier;
@@ -44,11 +44,14 @@ public class OperatorInterface
   private final SubsystemManager subsystemManager;
   private final OdometryProcessor odometry;
 
+  private final SendableChooser<Command> testChooser;
+
   public OperatorInterface(CommandFactory commandFactory, SubsystemManager subsystemManager,
       OdometryProcessor odometry) {
     this.commandFactory = commandFactory;
     this.subsystemManager = subsystemManager;
     this.odometry = odometry;
+    this.testChooser = getTestCommandChooser();
   }
 
   public void create() {
@@ -73,6 +76,9 @@ public class OperatorInterface
     joystickController.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.GYRO_RESET,
         new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
 
+    joystickController.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.RUN_TESTS,
+        new RunTestCommand(testChooser));
+
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
     // align to speaker or amp depending on an operator switch
@@ -81,7 +87,6 @@ public class OperatorInterface
         new ResetOdometryCommand(odometry));
 
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
-    SendableChooser<Command> testChooser = getTestCommandChooser();
     SmartDashboard.putData("Test Chooser", testChooser);
 
     testChooser.addOption("All tests", getTestCommand());
@@ -123,12 +128,11 @@ public class OperatorInterface
     operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.BUTTONS.EJECT, new EjectNoteCommand(
         subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
 
-    // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.CLIMB)
-    // .whileTrue(new RaiseClimbCommand(subsystemManager.getClimbSubsystem(),
-    // operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.CANCEL_CLIMB)
-    // .getAsBoolean()))
-    // .whileFalse(new LowerClimbCommand(subsystemManager.getClimbSubsystem(), operatorPanel
-    // .button(RobotConstants.OPERATOR_PANEL.SWITCHES.CANCEL_CLIMB).getAsBoolean()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.CLIMB)
+        .whileTrue(new RaiseClimbCommand(subsystemManager.getClimbSubsystem(),
+            operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.CANCEL_CLIMB)))
+        .whileFalse(new LowerClimbCommand(subsystemManager.getClimbSubsystem(),
+            operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.CANCEL_CLIMB)));
   }
 
   private SendableChooser<Command> getTestCommandChooser() {

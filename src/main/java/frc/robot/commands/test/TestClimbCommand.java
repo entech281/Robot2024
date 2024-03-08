@@ -1,7 +1,6 @@
 package frc.robot.commands.test;
 
 import entech.commands.EntechCommand;
-import entech.util.EntechUtils;
 import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.climb.ClimbInput;
@@ -13,6 +12,8 @@ public class TestClimbCommand extends EntechCommand {
   private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
       RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
 
+  private int stage = 0;
+
   public TestClimbCommand(ClimbSubsystem subsystem) {
     super(subsystem);
     this.cSubsystem = subsystem;
@@ -20,24 +21,46 @@ public class TestClimbCommand extends EntechCommand {
 
   @Override
   public void initialize() {
+    stage = 0;
     counter.reset();
     input.setActivate(true);
-    input.setRequestedPosition(RobotConstants.TEST_CONSTANTS.CLIMB.TEST_POSITION_IN);
+    input.setSpeed(-0.5);
     cSubsystem.updateInputs(input);
   }
 
   @Override
   public void end(boolean interupted) {
     input.setActivate(false);
-    input.setRequestedPosition(0);
+    input.setSpeed(0);
     cSubsystem.updateInputs(input);
   }
 
   @Override
+  public void execute() {
+    switch (stage) {
+      case 0:
+        input.setActivate(true);
+        input.setSpeed(0.5);
+        cSubsystem.updateInputs(input);
+        if (cSubsystem.getOutputs().getCurrentPosition() >= RobotConstants.CLIMB.CLIMB_EXTENDED) {
+          stage++;
+        }
+        break;
+      case 1:
+        input.setActivate(true);
+        input.setSpeed(-0.5);
+        cSubsystem.updateInputs(input);
+        if (cSubsystem.getOutputs().getCurrentPosition() <= RobotConstants.CLIMB.CLIMB_RETRACTED) {
+          stage++;
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  @Override
   public boolean isFinished() {
-    return counter.isFinished(
-        EntechUtils.isWithinTolerance(RobotConstants.TEST_CONSTANTS.CLIMB.TEST_TOLERANCE_IN,
-            cSubsystem.getOutputs().getCurrentPosition(),
-            RobotConstants.TEST_CONSTANTS.CLIMB.TEST_POSITION_IN));
+    return stage == 2;
   }
 }

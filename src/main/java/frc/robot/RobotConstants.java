@@ -138,7 +138,7 @@ public final class RobotConstants {
 
     public static interface CLIMB {
       public static final double TEST_TOLERANCE_IN = 1;
-      public static final double TEST_POSITION_IN = 5;
+      public static final double TEST_POSITION_IN = 50;
     }
   }
 
@@ -281,7 +281,7 @@ public final class RobotConstants {
 
 
     public static interface CLIMB {
-      public static final double KP = 0;
+      public static final double KP = 0.00015;
       public static final double KI = 0;
       public static final double KD = 0;
     }
@@ -322,9 +322,9 @@ public final class RobotConstants {
 
   public static interface CLIMB {
     public static final double UPPER_SOFT_LIMIT_Inches = 25.0;
-    public static final double CLIMB_CONVERSION_FACTOR = 1;
+    public static final double CLIMB_CONVERSION_FACTOR = 1.0;
     public static final double CLIMB_RETRACTED = 0;
-    public static final double CLIMB_EXTENDED = 5;
+    public static final double CLIMB_EXTENDED = 250;
   }
 
 
