@@ -4,26 +4,18 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
-import frc.robot.io.RobotIO;
+import frc.robot.commands.test.TestClimbCommand;
 
 public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
-
-  private boolean ENABLED = false;
-
-  private double currentPosition = 0.0;
+  private boolean ENABLED = true;
 
   private ClimbInput currentInput = new ClimbInput();
 
   private CANSparkMax climbMotorLeft;
   private CANSparkMax climbMotorRight;
-
-  private SparkPIDController rollPIDController;
 
   @Override
   public void initialize() {
@@ -32,7 +24,7 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
       climbMotorRight = new CANSparkMax(RobotConstants.PORTS.CAN.CLIMB_B, MotorType.kBrushless);
 
       climbMotorLeft.setInverted(false);
-      climbMotorRight.setInverted(false);
+      climbMotorRight.setInverted(true);
 
       climbMotorLeft.getEncoder()
           .setPositionConversionFactor(RobotConstants.CLIMB.CLIMB_CONVERSION_FACTOR);
@@ -42,12 +34,11 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
       setUpPIDConstants(climbMotorLeft.getPIDController());
       setUpPIDConstants(climbMotorRight.getPIDController());
 
-      rollPIDController.setP(1);
-      rollPIDController.setI(1);
-      rollPIDController.setD(1);
-      
       climbMotorLeft.setIdleMode(IdleMode.kCoast);
       climbMotorRight.setIdleMode(IdleMode.kCoast);
+
+      climbMotorLeft.getEncoder().setPosition(0.0);
+      climbMotorRight.getEncoder().setPosition(0.0);
     }
   }
 
@@ -57,33 +48,20 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
     pIDController.setI(RobotConstants.PID.CLIMB.KD);
   }
 
-  private double clampedPosition(double motorPosition) {
-    if (motorPosition < 0) {
-      DriverStation.reportWarning(
-          "Climb tried to go to " + currentInput.getRequestedPosition() + " value was changed to 0",
-          null);
-      return 0;
-    } else if (motorPosition > RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG) {
-      DriverStation.reportWarning("Climb tried to go to " + currentInput.getRequestedPosition()
-          + " value was changed to " + RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR, null);
-      return RobotConstants.PIVOT.UPPER_SOFT_LIMIT_DEG;
-    } else {
-      return motorPosition;
-    }
-  }
-
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {
         if (currentInput.getFeeze()) {
-          currentPosition = RobotIO.getInstance().getClimbOutput().getCurrentPosition();
-          climbMotorLeft.getEncoder().setPosition(currentPosition);
-          climbMotorRight.getEncoder().setPosition(currentPosition);
+          climbMotorLeft.set(0.0);
+          climbMotorRight.set(0.0);
+
         } else {
-          double CP = clampedPosition(currentInput.getRequestedPosition());
-          climbMotorLeft.getEncoder().setPosition(CP);
-          climbMotorRight.getEncoder().setPosition(CP);
+          climbMotorLeft.set(currentInput.getSpeed());
+          climbMotorRight.set(currentInput.getSpeed());
         }
+      } else {
+        climbMotorLeft.set(0.0);
+        climbMotorRight.set(0.0);
       }
     }
   }
@@ -110,7 +88,7 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
 
   @Override
   public Command getTestCommand() {
-    return Commands.none();
+    return new TestClimbCommand(this);
   }
 
 }
