@@ -139,6 +139,7 @@ public class RobotIO {
 
   public void updateLED(LEDOutput ledo) {
     latestLEDOutput = ledo;
+    ledo.log();
   }
 
   public void setDistanceFromTarget(Optional<Double> distance) {

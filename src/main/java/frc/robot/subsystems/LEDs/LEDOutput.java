@@ -1,8 +1,8 @@
 package frc.robot.subsystems.LEDs;
 
-import entech.subsystems.SubsystemOutput;
 import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj.util.Color;
+import entech.subsystems.SubsystemOutput;
 
 public class LEDOutput extends SubsystemOutput {
 
@@ -11,8 +11,8 @@ public class LEDOutput extends SubsystemOutput {
 
   @Override
   public void toLog() {
-    Logger.recordOutput("CurrentCollor", color + "");
-    Logger.recordOutput("Blinking", blinking);
+    Logger.recordOutput("LEDOutput/CurrentCollor", color + "");
+    Logger.recordOutput("LEDOutput/Blinking", blinking);
   }
 
   public Color getColor() {
