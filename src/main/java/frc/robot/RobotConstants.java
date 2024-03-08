@@ -133,7 +133,7 @@ public final class RobotConstants {
     }
 
     public static interface SHOOTER {
-      public static final double TESTING_SPEED = 5000;
+      public static final double TESTING_SPEED = 2000;
     }
 
     public static interface CLIMB {
@@ -273,7 +273,8 @@ public final class RobotConstants {
       public static final double KI = 0.0;
       public static final double KD = 0.0;
       public static final double KFF = 0.00018;
-      public static final double MAX_SPEED = 4000;
+      public static final double SPEAKER_SPEED = 4000;
+      public static final double AMP_SPEED = 2000;
     }
 
 
