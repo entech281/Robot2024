@@ -14,7 +14,8 @@ import entech.util.EntechJoystick;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
-import frc.robot.commands.ClimbJogCommand;
+import frc.robot.commands.ClimbJogLeftCommand;
+import frc.robot.commands.ClimbJogRightCommand;
 import frc.robot.commands.ClimbJogStopCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.EjectNoteCommand;
@@ -93,10 +94,16 @@ public class OperatorInterface
 
     joystickController.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.RESET_ODOMETRY,
         new ResetOdometryCommand(odometry));
-    joystickController.whilePressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG,
-        new ClimbJogCommand(subsystemManager.getClimbSubsystem()));
-    joystickController.whenReleased(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG,
+    joystickController.whilePressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_LEFT,
+        new ClimbJogLeftCommand(subsystemManager.getClimbSubsystem()));
+    joystickController.whenReleased(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_LEFT,
         new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
+    joystickController.whenReleased(
+        RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_RIGHT,
+        new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
+    joystickController.whilePressed(
+        RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_RIGHT,
+        new ClimbJogRightCommand(subsystemManager.getClimbSubsystem()));
 
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
     SmartDashboard.putData("Test Chooser", testChooser);

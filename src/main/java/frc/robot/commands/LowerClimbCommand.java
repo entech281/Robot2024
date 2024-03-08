@@ -26,7 +26,7 @@ public class LowerClimbCommand extends EntechCommand {
     cInput.setActivate(true);
     cInput.setBrakeModeEnabled(true);
     cInput.setFeeze(!freeze.getAsBoolean());
-    cInput.setSpeed(-1);
+    cInput.setBothSpeed(-1);
     cSubsystem.updateInputs(cInput);
   }
 

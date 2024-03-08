@@ -190,7 +190,8 @@ public final class RobotConstants {
         public static final int RUN_TESTS = 7;
         public static final int GYRO_RESET = 11;
         public static final int RESET_ODOMETRY = 3;
-        public static final int CLIMB_JOG = 9;
+        public static final int CLIMB_JOG_LEFT = 9;
+        public static final int CLIMB_JOG_RIGHT = 10;
       }
 
       public static class BUTTONS_XBOX {

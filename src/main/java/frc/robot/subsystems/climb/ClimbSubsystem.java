@@ -57,8 +57,8 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
           climbMotorLeft.set(0.0);
 
         } else {
-          climbMotorRight.set(currentInput.getSpeed());
-          climbMotorLeft.set(currentInput.getSpeed());
+          climbMotorRight.set(currentInput.getSpeedRight());
+          climbMotorLeft.set(currentInput.getSpeedLeft());
         }
       } else {
         climbMotorRight.set(0.0);

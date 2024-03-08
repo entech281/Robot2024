@@ -5,12 +5,12 @@ import frc.robot.RobotConstants;
 import frc.robot.subsystems.climb.ClimbInput;
 import frc.robot.subsystems.climb.ClimbSubsystem;
 
-public class ClimbJogCommand extends EntechCommand {
+public class ClimbJogRightCommand extends EntechCommand {
 
   private final ClimbInput cInput = new ClimbInput();
   private final ClimbSubsystem cSubsystem;
 
-  public ClimbJogCommand(ClimbSubsystem cSubsystem) {
+  public ClimbJogRightCommand(ClimbSubsystem cSubsystem) {
     super(cSubsystem);
     this.cSubsystem = cSubsystem;
   }
@@ -19,7 +19,7 @@ public class ClimbJogCommand extends EntechCommand {
   public void initialize() {
     cInput.setActivate(true);
     cInput.setBrakeModeEnabled(true);
-    cInput.setSpeed(-0.2);
+    cInput.setSpeedRight(-0.2);
     cSubsystem.updateInputs(cInput);
     cSubsystem.setPosition(RobotConstants.CLIMB.CLIMB_EXTENDED);
   }
@@ -27,14 +27,14 @@ public class ClimbJogCommand extends EntechCommand {
   @Override
   public void execute() {
     cInput.setActivate(true);
-    cInput.setSpeed(-0.2);
+    cInput.setSpeedRight(-0.2);
     cSubsystem.updateInputs(cInput);
   }
 
   @Override
   public void end(boolean interrupted) {
     cInput.setActivate(false);
-    cInput.setSpeed(0);
+    cInput.setBothSpeed(0);
     cSubsystem.updateInputs(cInput);
     cSubsystem.setPosition(RobotConstants.CLIMB.CLIMB_RETRACTED);
   }

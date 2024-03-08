@@ -24,14 +24,14 @@ public class TestClimbCommand extends EntechCommand {
     stage = 0;
     counter.reset();
     input.setActivate(true);
-    input.setSpeed(-0.5);
+    input.setBothSpeed(-0.5);
     cSubsystem.updateInputs(input);
   }
 
   @Override
   public void end(boolean interupted) {
     input.setActivate(false);
-    input.setSpeed(0);
+    input.setBothSpeed(0);
     cSubsystem.updateInputs(input);
   }
 
@@ -40,7 +40,7 @@ public class TestClimbCommand extends EntechCommand {
     switch (stage) {
       case 0:
         input.setActivate(true);
-        input.setSpeed(0.5);
+        input.setBothSpeed(0.5);
         cSubsystem.updateInputs(input);
         if (cSubsystem.getOutputs().getCurrentPosition() >= RobotConstants.CLIMB.CLIMB_EXTENDED) {
           stage++;
@@ -48,7 +48,7 @@ public class TestClimbCommand extends EntechCommand {
         break;
       case 1:
         input.setActivate(true);
-        input.setSpeed(-0.5);
+        input.setBothSpeed(-0.5);
         cSubsystem.updateInputs(input);
         if (cSubsystem.getOutputs().getCurrentPosition() <= RobotConstants.CLIMB.CLIMB_RETRACTED) {
           stage++;
