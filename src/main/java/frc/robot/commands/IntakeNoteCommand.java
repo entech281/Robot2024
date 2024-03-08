@@ -86,11 +86,6 @@ public class IntakeNoteCommand extends EntechCommand {
     tInput.setActivate(false);
     intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
-
-    LEDInput lIn = new LEDInput();
-    lIn.setColor(Color.kGreen);
-    lIn.setBlinking(false);
-    lSubsystem.updateInputs(lIn);
   }
 
   @Override

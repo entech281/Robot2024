@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
+import frc.robot.commands.test.TestLEDCommand;
 
 /**
  *
@@ -80,7 +80,7 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
 
   @Override
   public Command getTestCommand() {
-    return Commands.none();
+    return new TestLEDCommand(this);
   }
 
   @Override
