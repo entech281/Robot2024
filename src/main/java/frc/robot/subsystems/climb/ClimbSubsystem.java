@@ -14,31 +14,31 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
 
   private ClimbInput currentInput = new ClimbInput();
 
-  private CANSparkMax climbMotorLeft;
   private CANSparkMax climbMotorRight;
+  private CANSparkMax climbMotorLeft;
 
   @Override
   public void initialize() {
     if (ENABLED) {
-      climbMotorLeft = new CANSparkMax(RobotConstants.PORTS.CAN.CLIMB_A, MotorType.kBrushless);
-      climbMotorRight = new CANSparkMax(RobotConstants.PORTS.CAN.CLIMB_B, MotorType.kBrushless);
+      climbMotorRight = new CANSparkMax(RobotConstants.PORTS.CAN.CLIMB_A, MotorType.kBrushless);
+      climbMotorLeft = new CANSparkMax(RobotConstants.PORTS.CAN.CLIMB_B, MotorType.kBrushless);
 
-      climbMotorLeft.setInverted(false);
-      climbMotorRight.setInverted(true);
+      climbMotorRight.setInverted(false);
+      climbMotorLeft.setInverted(true);
 
-      climbMotorLeft.getEncoder()
+      climbMotorRight.getEncoder()
           .setPositionConversionFactor(RobotConstants.CLIMB.CLIMB_CONVERSION_FACTOR);
-      climbMotorLeft.getEncoder()
+      climbMotorRight.getEncoder()
           .setPositionConversionFactor(RobotConstants.CLIMB.CLIMB_CONVERSION_FACTOR);
 
-      setUpPIDConstants(climbMotorLeft.getPIDController());
       setUpPIDConstants(climbMotorRight.getPIDController());
+      setUpPIDConstants(climbMotorLeft.getPIDController());
 
-      climbMotorLeft.setIdleMode(IdleMode.kCoast);
       climbMotorRight.setIdleMode(IdleMode.kCoast);
+      climbMotorLeft.setIdleMode(IdleMode.kCoast);
 
-      climbMotorLeft.getEncoder().setPosition(0.0);
       climbMotorRight.getEncoder().setPosition(0.0);
+      climbMotorLeft.getEncoder().setPosition(0.0);
     }
   }
 
@@ -52,16 +52,16 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
     if (ENABLED) {
       if (currentInput.getActivate()) {
         if (currentInput.getFeeze()) {
-          climbMotorLeft.set(0.0);
           climbMotorRight.set(0.0);
+          climbMotorLeft.set(0.0);
 
         } else {
-          climbMotorLeft.set(currentInput.getSpeed());
           climbMotorRight.set(currentInput.getSpeed());
+          climbMotorLeft.set(currentInput.getSpeed());
         }
       } else {
-        climbMotorLeft.set(0.0);
         climbMotorRight.set(0.0);
+        climbMotorLeft.set(0.0);
       }
     }
   }
@@ -79,10 +79,10 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
   @Override
   public ClimbOutput toOutputs() {
     ClimbOutput climbOutput = new ClimbOutput();
-    climbOutput.setActive(climbMotorLeft.getEncoder().getVelocity() != 0);
-    climbOutput.setBrakeModeEnabled(IdleMode.kBrake == climbMotorLeft.getIdleMode());
-    climbOutput.setCurrentPosition(climbMotorLeft.getEncoder().getPosition());
-    climbOutput.setExtended(climbMotorLeft.getEncoder().getPosition() > 0);
+    climbOutput.setActive(climbMotorRight.getEncoder().getVelocity() != 0);
+    climbOutput.setBrakeModeEnabled(IdleMode.kBrake == climbMotorRight.getIdleMode());
+    climbOutput.setCurrentPosition(climbMotorRight.getEncoder().getPosition());
+    climbOutput.setExtended(climbMotorRight.getEncoder().getPosition() > 0);
     return climbOutput;
   }
 
@@ -92,7 +92,7 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
   }
 
   public void setPosition(double position) {
-    climbMotorLeft.getEncoder().setPosition(position);
     climbMotorRight.getEncoder().setPosition(position);
+    climbMotorLeft.getEncoder().setPosition(position);
   }
 }
