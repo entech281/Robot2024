@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.io.RobotIO;
+import frc.robot.subsystems.LEDs.LEDSubsystem;
 import frc.robot.subsystems.climb.ClimbSubsystem;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
@@ -34,6 +35,7 @@ public class SubsystemManager {
       new InternalNoteDetectorSubsystem();
   private final NoteDetectorSubsystem noteDetectorSubsystem = new NoteDetectorSubsystem();
   private final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
+  private final LEDSubsystem ledSubsystem = new LEDSubsystem();
 
   public SubsystemManager() {
     navXSubsystem.initialize();
@@ -46,6 +48,7 @@ public class SubsystemManager {
     climbSubsystem.initialize();
     internalNoteDetectorSubsystem.initialize();
     noteDetectorSubsystem.initialize();
+    ledSubsystem.initialize();
 
     periodic();
   }
@@ -90,6 +93,10 @@ public class SubsystemManager {
     return internalNoteDetectorSubsystem;
   }
 
+  public LEDSubsystem getLedSubsystem() {
+    return ledSubsystem;
+  }
+
   public List<EntechSubsystem<?, ?>> getSubsystemList() {
     ArrayList<EntechSubsystem<?, ?>> r = new ArrayList<>();
     r.add(navXSubsystem);
@@ -101,6 +108,7 @@ public class SubsystemManager {
     r.add(noteDetectorSubsystem);
     r.add(pivotSubsystem);
     r.add(climbSubsystem);
+    r.add(ledSubsystem);
     r.add(internalNoteDetectorSubsystem);
 
     return r;
@@ -142,5 +150,8 @@ public class SubsystemManager {
       outputs.updateInternalNoteDetector(internalNoteDetectorSubsystem.getOutputs());
     }
 
+    if (ledSubsystem.isEnabled()) {
+      outputs.updateLED(ledSubsystem.getOutputs());
+    }
   }
 }

@@ -4,6 +4,7 @@ import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 import edu.wpi.first.math.geometry.Pose2d;
+import frc.robot.subsystems.LEDs.LEDOutput;
 import frc.robot.subsystems.climb.ClimbOutput;
 import frc.robot.subsystems.drive.DriveOutput;
 import frc.robot.subsystems.intake.IntakeOutput;
@@ -132,6 +133,14 @@ public class RobotIO {
     return distanceFromTarget;
   }
 
+  public LEDOutput getLEDOutput() {
+    return latestLEDOutput;
+  }
+
+  public void updateLED(LEDOutput ledo) {
+    latestLEDOutput = ledo;
+  }
+
   public void setDistanceFromTarget(Optional<Double> distance) {
     distanceFromTarget = distance;
     if (distance.isPresent()) {
@@ -152,5 +161,6 @@ public class RobotIO {
   private NoteDetectorOutput latestNoteDetectorOutput;
   private ClimbOutput latestClimbOutput;
   private Pose2d latestOdometryPose;
+  private LEDOutput latestLEDOutput;
   private Optional<Double> distanceFromTarget = Optional.empty();
 }

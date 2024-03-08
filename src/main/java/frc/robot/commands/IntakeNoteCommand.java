@@ -1,10 +1,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.util.Color;
 import entech.commands.EntechCommand;
 import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
+import frc.robot.subsystems.LEDs.LEDInput;
+import frc.robot.subsystems.LEDs.LEDSubsystem;
 import frc.robot.subsystems.intake.IntakeInput;
 import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.transfer.TransferInput;
@@ -13,8 +16,9 @@ import frc.robot.subsystems.transfer.TransferSubsystem.TransferPreset;
 
 public class IntakeNoteCommand extends EntechCommand {
 
-  private IntakeSubsystem intSubsystem;
-  private TransferSubsystem transSubsystem;
+  private final IntakeSubsystem intSubsystem;
+  private final TransferSubsystem transSubsystem;
+  private final LEDSubsystem lSubsystem;
 
   private IntakeInput iInput = new IntakeInput();
   private TransferInput tInput = new TransferInput();
@@ -25,10 +29,12 @@ public class IntakeNoteCommand extends EntechCommand {
   private boolean retracted;
   private boolean hasNote;
 
-  public IntakeNoteCommand(IntakeSubsystem iSubsystem, TransferSubsystem tSubsystem) {
-    super(iSubsystem, tSubsystem);
+  public IntakeNoteCommand(IntakeSubsystem iSubsystem, TransferSubsystem tSubsystem,
+      LEDSubsystem ledSubsystem) {
+    super(iSubsystem, tSubsystem, ledSubsystem);
     this.intSubsystem = iSubsystem;
     this.transSubsystem = tSubsystem;
+    this.lSubsystem = ledSubsystem;
   }
 
   @Override
@@ -43,6 +49,11 @@ public class IntakeNoteCommand extends EntechCommand {
     tInput.setSpeedPreset(TransferPreset.Intaking1);
     intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
+
+    LEDInput lIn = new LEDInput();
+    lIn.setColor(Color.kPurple);
+    lIn.setBlinking(true);
+    lSubsystem.updateInputs(lIn);
   }
 
   @Override
@@ -75,6 +86,11 @@ public class IntakeNoteCommand extends EntechCommand {
     tInput.setActivate(false);
     intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
+
+    LEDInput lIn = new LEDInput();
+    lIn.setColor(Color.kGreen);
+    lIn.setBlinking(false);
+    lSubsystem.updateInputs(lIn);
   }
 
   @Override

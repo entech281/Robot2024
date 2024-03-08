@@ -91,8 +91,8 @@ public class CommandFactory {
       DriverStation.reportWarning("********** I am at marker 2", false);
     }));
 
-    NamedCommands.registerCommand("intake",
-        new IntakeNoteCommand(intakeSubsystem, transferSubsystem));
+    NamedCommands.registerCommand("intake", new IntakeNoteCommand(intakeSubsystem,
+        transferSubsystem, subsystemManager.getLedSubsystem()));
     NamedCommands.registerCommand("shoot1", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
         transferSubsystem, RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING));
     NamedCommands.registerCommand("shoot2", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,

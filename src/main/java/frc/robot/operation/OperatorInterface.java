@@ -115,7 +115,7 @@ public class OperatorInterface
 
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.INTAKE)
         .whileTrue(new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
-            subsystemManager.getTransferSubsystem()));
+            subsystemManager.getTransferSubsystem(), subsystemManager.getLedSubsystem()));
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.FULL_PIVOT)
         .whileTrue(new PivotUpCommand(subsystemManager.getPivotSubsystem()));
 
@@ -137,8 +137,9 @@ public class OperatorInterface
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_AMP),
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_SPEAKER)));
 
-    operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.BUTTONS.INTAKE, new IntakeNoteCommand(
-        subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
+    operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.BUTTONS.INTAKE,
+        new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
+            subsystemManager.getTransferSubsystem(), subsystemManager.getLedSubsystem()));
     operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.BUTTONS.EJECT, new EjectNoteCommand(
         subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
 
