@@ -324,7 +324,7 @@ public final class RobotConstants {
     public static final double UPPER_SOFT_LIMIT_Inches = 25.0;
     public static final double CLIMB_CONVERSION_FACTOR = 1.0;
     public static final double CLIMB_RETRACTED = 0;
-    public static final double CLIMB_EXTENDED = 400;
+    public static final double CLIMB_EXTENDED = 250;
   }
 
 
