@@ -21,6 +21,7 @@ import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LowerClimbCommand;
+import frc.robot.commands.PivotUpCommand;
 import frc.robot.commands.RaiseClimbCommand;
 import frc.robot.commands.ResetOdometryCommand;
 import frc.robot.commands.RunTestCommand;
@@ -57,7 +58,12 @@ public class OperatorInterface
   }
 
   public void create() {
-    configureBindings();
+    xboxController = new CommandXboxController(RobotConstants.PORTS.CONTROLLER.DRIVER_CONTROLLER);
+    enableXboxBindings();
+    if (DriverControllerUtils.controllerIsPresent(RobotConstants.PORTS.CONTROLLER.TEST_JOYSTICK)) {
+      joystickController = new EntechJoystick(RobotConstants.PORTS.CONTROLLER.TEST_JOYSTICK);
+      enableJoystickBindings();
+    }
     operatorBindings();
   }
 
@@ -110,6 +116,8 @@ public class OperatorInterface
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.INTAKE)
         .whileTrue(new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
             subsystemManager.getTransferSubsystem()));
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.FULL_PIVOT)
+        .whileTrue(new PivotUpCommand(subsystemManager.getPivotSubsystem()));
 
 
 

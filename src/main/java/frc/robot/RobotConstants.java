@@ -183,6 +183,7 @@ public final class RobotConstants {
       public static final double JOYSTICK_AXIS_THRESHOLD = 0.2;
       public static final int DRIVER_CONTROLLER = 0;
       public static final int PANEL = 1;
+      public static final int TEST_JOYSTICK = 2;
 
       public static class BUTTONS_JOYSTICK {
         public static final int TWIST = 1;
@@ -195,6 +196,7 @@ public final class RobotConstants {
       public static class BUTTONS_XBOX {
         public static final int GYRO_RESET = 7;
         public static final int INTAKE = 2;
+        public static final int FULL_PIVOT = 8;
       }
     }
 

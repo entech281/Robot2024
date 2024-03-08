@@ -102,11 +102,6 @@ public class CommandFactory {
     NamedCommands.registerCommand("120degreeStart",
         new GyroResetByAngleCommand(navXSubsystem, odometry, 120));
 
-    // NamedCommands.registerCommand("intake", Commands.none());
-    // NamedCommands.registerCommand("shoot1", Commands.none());
-    // NamedCommands.registerCommand("shoot2", Commands.none());
-    // NamedCommands.registerCommand("shootAmp", Commands.none());
-
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
   }
@@ -114,7 +109,7 @@ public class CommandFactory {
   public Command getAutoCommand() {
     SequentialCommandGroup auto = new SequentialCommandGroup();
     auto.addCommands(new GyroReset(navXSubsystem, odometry));
-    auto.addCommands(new WaitCommand(2));
+    auto.addCommands(new WaitCommand(0.5));
     auto.addCommands(autoChooser.getSelected());
     return auto;
   }
