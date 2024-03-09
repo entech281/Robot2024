@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.168765194673247,
-        "y": 7.021880329474945
+        "x": 3.0661489894408365,
+        "y": 7.212453282049422
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.059400813782323,
-        "y": 6.004962980324932
+        "x": 1.9567846085499125,
+        "y": 6.19553593289941
       },
       "isLocked": false,
       "linkedName": "sideFlatStartPart2End"
@@ -35,7 +35,7 @@
       "minWaypointRelativePos": 0.0,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
-        "maxVelocity": 0.5,
+        "maxVelocity": 0.75,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 360.0,
         "maxAngularAcceleration": 180.0
