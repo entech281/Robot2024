@@ -6,7 +6,7 @@ import entech.subsystems.SubsystemInput;
 
 public class LEDInput implements SubsystemInput {
 
-  private Color color = Color.kWhite;
+  private Color color = Color.kGreen;
   private boolean blinking = false;
 
   @Override

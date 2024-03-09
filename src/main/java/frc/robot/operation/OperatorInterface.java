@@ -14,11 +14,15 @@ import entech.util.EntechJoystick;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
+import frc.robot.commands.ClimbJogLeftCommand;
+import frc.robot.commands.ClimbJogRightCommand;
+import frc.robot.commands.ClimbJogStopCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LowerClimbCommand;
+import frc.robot.commands.PivotUpCommand;
 import frc.robot.commands.RaiseClimbCommand;
 import frc.robot.commands.ResetOdometryCommand;
 import frc.robot.commands.RunTestCommand;
@@ -55,7 +59,12 @@ public class OperatorInterface
   }
 
   public void create() {
-    configureBindings();
+    xboxController = new CommandXboxController(RobotConstants.PORTS.CONTROLLER.DRIVER_CONTROLLER);
+    enableXboxBindings();
+    if (DriverControllerUtils.controllerIsPresent(RobotConstants.PORTS.CONTROLLER.TEST_JOYSTICK)) {
+      joystickController = new EntechJoystick(RobotConstants.PORTS.CONTROLLER.TEST_JOYSTICK);
+      enableJoystickBindings();
+    }
     operatorBindings();
   }
 
@@ -85,6 +94,16 @@ public class OperatorInterface
 
     joystickController.whenPressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.RESET_ODOMETRY,
         new ResetOdometryCommand(odometry));
+    joystickController.whilePressed(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_LEFT,
+        new ClimbJogLeftCommand(subsystemManager.getClimbSubsystem()));
+    joystickController.whenReleased(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_LEFT,
+        new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
+    joystickController.whenReleased(
+        RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_RIGHT,
+        new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
+    joystickController.whilePressed(
+        RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_RIGHT,
+        new ClimbJogRightCommand(subsystemManager.getClimbSubsystem()));
 
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
     SmartDashboard.putData("Test Chooser", testChooser);
@@ -103,7 +122,9 @@ public class OperatorInterface
 
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.INTAKE)
         .whileTrue(new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
-            subsystemManager.getTransferSubsystem()));
+            subsystemManager.getTransferSubsystem(), subsystemManager.getLedSubsystem()));
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.FULL_PIVOT)
+        .whileTrue(new PivotUpCommand(subsystemManager.getPivotSubsystem()));
 
 
 
@@ -123,8 +144,9 @@ public class OperatorInterface
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_AMP),
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_SPEAKER)));
 
-    operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.BUTTONS.INTAKE, new IntakeNoteCommand(
-        subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
+    operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.BUTTONS.INTAKE,
+        new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
+            subsystemManager.getTransferSubsystem(), subsystemManager.getLedSubsystem()));
     operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.BUTTONS.EJECT, new EjectNoteCommand(
         subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
 

@@ -18,6 +18,10 @@ public class DriverControllerUtils {
     }
   }
 
+  public static boolean controllerIsPresent(int port) {
+    return DriverStation.isJoystickConnected(port);
+  }
+
   public static Optional<EntechJoystick> findCurrentController() {
     if (DriverStation.getJoystickIsXbox(0)) {
       return Optional.of(new EntechJoystick(0));

@@ -117,7 +117,7 @@ public final class RobotConstants {
 
 
   public static interface LED {
-    public static final int PORT = 1;
+    public static final int PORT = 0;
     public static final int NUM_LEDS = 42;
     public static final double BLINK_INTERVAL = 0.25;
   }
@@ -133,7 +133,7 @@ public final class RobotConstants {
     }
 
     public static interface SHOOTER {
-      public static final double TESTING_SPEED = 5000;
+      public static final double TESTING_SPEED = 2000;
     }
 
     public static interface CLIMB {
@@ -183,17 +183,21 @@ public final class RobotConstants {
       public static final double JOYSTICK_AXIS_THRESHOLD = 0.2;
       public static final int DRIVER_CONTROLLER = 0;
       public static final int PANEL = 1;
+      public static final int TEST_JOYSTICK = 2;
 
       public static class BUTTONS_JOYSTICK {
         public static final int TWIST = 1;
         public static final int RUN_TESTS = 7;
         public static final int GYRO_RESET = 11;
         public static final int RESET_ODOMETRY = 3;
+        public static final int CLIMB_JOG_LEFT = 9;
+        public static final int CLIMB_JOG_RIGHT = 10;
       }
 
       public static class BUTTONS_XBOX {
         public static final int GYRO_RESET = 7;
         public static final int INTAKE = 2;
+        public static final int FULL_PIVOT = 8;
       }
     }
 
@@ -269,7 +273,8 @@ public final class RobotConstants {
       public static final double KI = 0.0;
       public static final double KD = 0.0;
       public static final double KFF = 0.00018;
-      public static final double MAX_SPEED = 4000;
+      public static final double SPEAKER_SPEED = 4000;
+      public static final double AMP_SPEED = 2000;
     }
 
 
@@ -300,10 +305,10 @@ public final class RobotConstants {
 
 
   public static interface PIVOT {
-    public static final double UPPER_SOFT_LIMIT_DEG = 85;
+    public static final double UPPER_SOFT_LIMIT_DEG = 85.5;
     public static final double LOWER_SOFT_LIMIT_DEG = 1;
     public static final double PIVOT_CONVERSION_FACTOR = 2.4;
-    public static final double SHOOT_AMP_POSITION_DEG = 85;
+    public static final double SHOOT_AMP_POSITION_DEG = 85.5;
     public static final double POSITION_TOLERANCE_DEG = 2;
     public static final double INITIAL_POSITION = 1;
 

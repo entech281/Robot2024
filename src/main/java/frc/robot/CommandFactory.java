@@ -15,8 +15,10 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.GyroResetByAngleCommand;
 import frc.robot.commands.IntakeNoteCommand;
+import frc.robot.commands.LEDDefaultCommand;
 import frc.robot.commands.ShootAngleCommand;
 import frc.robot.processors.OdometryProcessor;
+import frc.robot.subsystems.LEDs.LEDSubsystem;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.navx.NavXSubsystem;
@@ -35,6 +37,7 @@ public class CommandFactory {
   private final TransferSubsystem transferSubsystem;
   private final PivotSubsystem pivotSubsystem;
   private final OdometryProcessor odometry;
+  private final LEDSubsystem ledSubsystem;
 
   private final SubsystemManager subsystemManager;
   private final SendableChooser<Command> autoChooser;
@@ -50,7 +53,9 @@ public class CommandFactory {
     this.intakeSubsystem = subsystemManager.getIntakeSubsystem();
     this.odometry = odometry;
     this.subsystemManager = subsystemManager;
+    this.ledSubsystem = subsystemManager.getLedSubsystem();
 
+    ledSubsystem.setDefaultCommand(new LEDDefaultCommand(ledSubsystem));
 
     AutoBuilder.configureHolonomic(odometry::getEstimatedPose, // Robot pose supplier
         odometry::resetOdometry,
@@ -91,8 +96,8 @@ public class CommandFactory {
       DriverStation.reportWarning("********** I am at marker 2", false);
     }));
 
-    NamedCommands.registerCommand("intake",
-        new IntakeNoteCommand(intakeSubsystem, transferSubsystem));
+    NamedCommands.registerCommand("intake", new IntakeNoteCommand(intakeSubsystem,
+        transferSubsystem, subsystemManager.getLedSubsystem()));
     NamedCommands.registerCommand("shoot1", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
         transferSubsystem, RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING));
     NamedCommands.registerCommand("shoot2", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
@@ -102,11 +107,6 @@ public class CommandFactory {
     NamedCommands.registerCommand("120degreeStart",
         new GyroResetByAngleCommand(navXSubsystem, odometry, 120));
 
-    // NamedCommands.registerCommand("intake", Commands.none());
-    // NamedCommands.registerCommand("shoot1", Commands.none());
-    // NamedCommands.registerCommand("shoot2", Commands.none());
-    // NamedCommands.registerCommand("shootAmp", Commands.none());
-
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
   }
@@ -114,7 +114,7 @@ public class CommandFactory {
   public Command getAutoCommand() {
     SequentialCommandGroup auto = new SequentialCommandGroup();
     auto.addCommands(new GyroReset(navXSubsystem, odometry));
-    auto.addCommands(new WaitCommand(2));
+    auto.addCommands(new WaitCommand(0.5));
     auto.addCommands(autoChooser.getSelected());
     return auto;
   }

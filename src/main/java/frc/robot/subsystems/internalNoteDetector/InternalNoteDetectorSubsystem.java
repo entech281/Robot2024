@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestInternalNoteDetectorCommand;
+import frc.robot.io.RobotIO;
 
 public class InternalNoteDetectorSubsystem
     extends EntechSubsystem<InternalNoteDetectorInput, InternalNoteDetectorOutput> {
@@ -28,7 +29,9 @@ public class InternalNoteDetectorSubsystem
   }
 
   @Override
-  public void updateInputs(InternalNoteDetectorInput input) {}
+  public void updateInputs(InternalNoteDetectorInput input) {
+    RobotIO.processInput(input);
+  }
 
   @Override
   public Command getTestCommand() {
