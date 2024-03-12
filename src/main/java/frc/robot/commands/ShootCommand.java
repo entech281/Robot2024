@@ -50,17 +50,19 @@ public class ShootCommand extends EntechCommand {
         || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()) {
       noNote = false;
       sInput.setActivate(true);
-      sInput.setSpeed(4500);
-      sSubsystem.updateInputs(sInput);
-
       pInput.setActivate(true);
+
       if (ampSwitch.getAsBoolean()) {
         pInput.setRequestedPosition(RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG);
+        sInput.setSpeed(RobotConstants.PID.SHOOTER.AMP_SPEED);
       } else if (speakerSwitch.getAsBoolean()) {
         pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING);
+        sInput.setSpeed(RobotConstants.PID.SHOOTER.SPEAKER_SPEED);
       } else {
         pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING);
+        sInput.setSpeed(RobotConstants.PID.SHOOTER.SPEAKER_SPEED);
       }
+      sSubsystem.updateInputs(sInput);
       pSubsystem.updateInputs(pInput);
     } else {
       noNote = true;

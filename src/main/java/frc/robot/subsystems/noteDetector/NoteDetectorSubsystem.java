@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestNoteDetectorCommand;
+import frc.robot.io.RobotIO;
 
 public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, NoteDetectorOutput> {
   private static final boolean ENABLED = false;
@@ -34,7 +35,7 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
 
   @Override
   public void updateInputs(NoteDetectorInput input) {
-
+    RobotIO.processInput(input);
   }
 
   public Optional<PhotonTrackedTarget> getChosenNote() {

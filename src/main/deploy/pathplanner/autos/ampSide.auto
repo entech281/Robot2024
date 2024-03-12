@@ -28,18 +28,6 @@
           "data": {
             "pathName": "sideFlatStartPart2"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "sideFlatStartPart3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shootAmp"
-          }
         }
       ]
     }

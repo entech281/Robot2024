@@ -5,9 +5,10 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
+import frc.robot.commands.test.TestLEDCommand;
+import frc.robot.io.RobotIO;
 
 /**
  *
@@ -15,7 +16,7 @@ import frc.robot.RobotConstants;
  */
 public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
 
-  private static final boolean ENABLED = false;
+  private static final boolean ENABLED = true;
 
   private AddressableLED leds;
   private AddressableLEDBuffer buffer;
@@ -75,12 +76,13 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
 
   @Override
   public void updateInputs(LEDInput input) {
+    RobotIO.processInput(input);
     this.currentInput = input;
   }
 
   @Override
   public Command getTestCommand() {
-    return Commands.none();
+    return new TestLEDCommand(this);
   }
 
   @Override

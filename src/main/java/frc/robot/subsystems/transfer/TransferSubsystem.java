@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestTransferCommand;
+import frc.robot.io.RobotIO;
 
 public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOutput> {
 
@@ -63,6 +64,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
   @Override
   public void updateInputs(TransferInput input) {
+    RobotIO.processInput(input);
     this.currentInput = input;
   }
 

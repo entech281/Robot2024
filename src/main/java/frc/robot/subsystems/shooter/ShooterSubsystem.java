@@ -5,10 +5,13 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkPIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import entech.subsystems.EntechSubsystem;
 import entech.util.EntechUtils;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestShooterCommand;
+import frc.robot.io.RobotIO;
 
 public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutput> {
 
@@ -79,6 +82,7 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
 
   @Override
   public void updateInputs(ShooterInput input) {
+    RobotIO.processInput(input);
     this.currentInput = input;
   }
 
@@ -97,6 +101,11 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
 
   @Override
   public Command getTestCommand() {
-    return new TestShooterCommand(this);
+    SequentialCommandGroup testCommands = new SequentialCommandGroup();
+    testCommands.addCommands(new TestShooterCommand(this, RobotConstants.PID.SHOOTER.AMP_SPEED));
+    testCommands.addCommands(new WaitCommand(1.0));
+    testCommands
+        .addCommands(new TestShooterCommand(this, RobotConstants.PID.SHOOTER.SPEAKER_SPEED));
+    return testCommands;
   }
 }
