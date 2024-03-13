@@ -13,7 +13,7 @@ import frc.robot.subsystems.noteDetector.NoteDetectorOutput;
 
 public class NoteAlignmentFilter implements DriveFilterI {
   private static final double TARGETING_DRIVE_ANGLE_RANGE = 30;
-  private final PIDController controller = new PIDController(0.02, 0, 0.0);
+  private final PIDController controller = new PIDController(0.017, 0, 0.0);
   private double driveSpeed;
 
   @Override
@@ -35,7 +35,8 @@ public class NoteAlignmentFilter implements DriveFilterI {
           - Units.degreesToRadians(targetYaw);
       double driverInputAngle = Units
           .radiansToDegrees(Alliance.Blue == team ? Math.atan2(input.getYSpeed(), input.getXSpeed())
-              : Math.atan2(-input.getYSpeed(), -input.getXSpeed()));
+              : Math.atan2(-input.getYSpeed(), -input.getXSpeed()))
+          + 180;
       DriveInput adjustedDriveInput = new DriveInput(input);
       if (Math.abs(input.getLatestOdometryPose().getRotation().getDegrees()) - targetYaw >= 1.5
           && !UserPolicy.getInstance().isTwistable()) {
