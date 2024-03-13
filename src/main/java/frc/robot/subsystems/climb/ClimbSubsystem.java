@@ -18,6 +18,8 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
   private CANSparkMax climbMotorRight;
   private CANSparkMax climbMotorLeft;
 
+  private IdleMode mode;
+
   @Override
   public void initialize() {
     if (ENABLED) {
@@ -37,6 +39,7 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
 
       climbMotorRight.setIdleMode(IdleMode.kCoast);
       climbMotorLeft.setIdleMode(IdleMode.kCoast);
+      mode = IdleMode.kCoast;
 
       climbMotorRight.getEncoder().setPosition(0.0);
       climbMotorLeft.getEncoder().setPosition(0.0);
@@ -82,7 +85,7 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
   public ClimbOutput toOutputs() {
     ClimbOutput climbOutput = new ClimbOutput();
     climbOutput.setActive(climbMotorRight.getEncoder().getVelocity() != 0);
-    climbOutput.setBrakeModeEnabled(IdleMode.kBrake == climbMotorRight.getIdleMode());
+    climbOutput.setBrakeModeEnabled(IdleMode.kBrake == mode);
     climbOutput.setCurrentPosition(climbMotorRight.getEncoder().getPosition());
     climbOutput.setExtended(climbMotorRight.getEncoder().getPosition() > 0);
     return climbOutput;

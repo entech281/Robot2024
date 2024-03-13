@@ -23,6 +23,8 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   private CANSparkMax pivotLeft;
   private CANSparkMax pivotRight;
 
+  private IdleMode mode;
+
   public static double calculateMotorPositionFromDegrees(double degrees) {
     return degrees / RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR;
   }
@@ -42,6 +44,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
       pivotLeft.setIdleMode(IdleMode.kBrake);
       pivotRight.setIdleMode(IdleMode.kBrake);
+      mode = IdleMode.kBrake;
     }
   }
 
@@ -89,8 +92,8 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   public PivotOutput toOutputs() {
     PivotOutput pivotOutput = new PivotOutput();
     pivotOutput.setMoving(pivotLeft.getEncoder().getVelocity() != 0);
-    pivotOutput.setLeftBrakeModeEnabled(IdleMode.kBrake == pivotLeft.getIdleMode());
-    pivotOutput.setRightBrakeModeEnabled(IdleMode.kBrake == pivotRight.getIdleMode());
+    pivotOutput.setLeftBrakeModeEnabled(IdleMode.kBrake == mode);
+    pivotOutput.setRightBrakeModeEnabled(IdleMode.kBrake == mode);
     pivotOutput.setCurrentPosition(
         pivotLeft.getEncoder().getPosition() * RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR);
     pivotOutput.setAtRequestedPosition(EntechUtils.isWithinTolerance(1.5,

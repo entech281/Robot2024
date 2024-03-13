@@ -196,7 +196,7 @@ public final class RobotConstants {
 
       public static class BUTTONS_XBOX {
         public static final int GYRO_RESET = 7;
-        public static final int INTAKE = 2;
+        public static final int NOTE_ALIGN = 2;
         public static final int FULL_PIVOT = 8;
       }
     }

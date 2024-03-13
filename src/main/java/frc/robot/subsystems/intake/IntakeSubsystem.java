@@ -16,6 +16,7 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
   private IntakeInput currentInput = new IntakeInput();
 
   private CANSparkMax intakeMotor;
+  private IdleMode mode;
 
   @Override
   public void initialize() {
@@ -23,6 +24,7 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
       this.intakeMotor = new CANSparkMax(RobotConstants.PORTS.CAN.INTAKE, MotorType.kBrushless);
       this.intakeMotor.setInverted(false);
       this.intakeMotor.setIdleMode(IdleMode.kCoast);
+      mode = IdleMode.kCoast;
     }
   }
 
@@ -53,7 +55,7 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
     IntakeOutput intakeOutput = new IntakeOutput();
     intakeOutput.setActive(this.intakeMotor.getEncoder().getVelocity() != 0);
     intakeOutput.setCurrentSpeed(this.intakeMotor.getEncoder().getVelocity());
-    intakeOutput.setBrakeModeEnabled(IdleMode.kBrake == this.intakeMotor.getIdleMode());
+    intakeOutput.setBrakeModeEnabled(IdleMode.kBrake == mode);
     return intakeOutput;
   }
 

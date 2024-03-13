@@ -1,15 +1,11 @@
 package entech.util;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 public class StoppingCounter {
 
   private double targetCounts = 0;
   private double currentCounts = 0;
-  private String name;
 
-  public StoppingCounter(String name, double targetCounts) {
-    this.name = name;
+  public StoppingCounter(double targetCounts) {
     this.targetCounts = targetCounts;
   }
 
@@ -19,7 +15,6 @@ public class StoppingCounter {
     } else {
       currentCounts = 0;
     }
-    SmartDashboard.putNumber("StopCounter::" + name, currentCounts);
     return currentCounts > EntechUtils.getLoopsPerSecond(targetCounts);
   }
 

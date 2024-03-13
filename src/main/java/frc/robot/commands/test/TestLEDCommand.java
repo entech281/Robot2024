@@ -3,12 +3,14 @@ package frc.robot.commands.test;
 import edu.wpi.first.wpilibj.util.Color;
 import entech.commands.EntechCommand;
 import entech.util.StoppingCounter;
+import frc.robot.RobotConstants;
 import frc.robot.subsystems.LEDs.LEDInput;
 import frc.robot.subsystems.LEDs.LEDSubsystem;
 
 public class TestLEDCommand extends EntechCommand {
   private final LEDSubsystem ledSubsystem;
-  private final StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(), 1);
+  private final StoppingCounter counter =
+      new StoppingCounter(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
   private int stage = 0;
 
   public TestLEDCommand(LEDSubsystem ledSubsystem) {

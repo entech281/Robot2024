@@ -23,7 +23,7 @@ public class IntakeNoteCommand extends EntechCommand {
   private IntakeInput iInput = new IntakeInput();
   private TransferInput tInput = new TransferInput();
 
-  private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(), 0.1);
+  private StoppingCounter counter = new StoppingCounter(0.1);
 
   private boolean retracting;
   private boolean retracted;

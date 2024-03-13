@@ -12,7 +12,7 @@ import frc.robot.subsystems.drive.DriveInput;
 import frc.robot.subsystems.noteDetector.NoteDetectorOutput;
 
 public class NoteAlignmentFilter implements DriveFilterI {
-  private static final double TARGETING_DRIVE_ANGLE_RANGE = 2.5;
+  private static final double TARGETING_DRIVE_ANGLE_RANGE = 30;
   private final PIDController controller = new PIDController(0.02, 0, 0.0);
   private double driveSpeed;
 

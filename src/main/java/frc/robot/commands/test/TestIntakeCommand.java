@@ -10,8 +10,8 @@ public class TestIntakeCommand extends EntechCommand {
 
   private final IntakeSubsystem intake;
   private IntakeInput intakeI = new IntakeInput();
-  private StoppingCounter stopCounter = new StoppingCounter(getClass().getSimpleName(),
-      RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
+  private StoppingCounter stopCounter =
+      new StoppingCounter(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
 
   public TestIntakeCommand(IntakeSubsystem intakeSubsystem) {
     super(intakeSubsystem);

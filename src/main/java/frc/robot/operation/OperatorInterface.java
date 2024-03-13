@@ -14,6 +14,7 @@ import entech.util.EntechJoystick;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
+import frc.robot.commands.AlignNoteToggleCommand;
 import frc.robot.commands.ClimbJogLeftCommand;
 import frc.robot.commands.ClimbJogRightCommand;
 import frc.robot.commands.ClimbJogStopCommand;
@@ -120,13 +121,11 @@ public class OperatorInterface
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
 
-    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.INTAKE)
-        .whileTrue(new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
-            subsystemManager.getTransferSubsystem(), subsystemManager.getLedSubsystem()));
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.FULL_PIVOT)
         .whileTrue(new PivotUpCommand(subsystemManager.getPivotSubsystem()));
 
-
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.NOTE_ALIGN)
+        .whileTrue(new AlignNoteToggleCommand());
 
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
     SendableChooser<Command> testChooser = getTestCommandChooser();

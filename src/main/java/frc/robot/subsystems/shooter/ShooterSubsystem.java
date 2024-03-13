@@ -26,6 +26,8 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
 
   private ShooterInput currentInput = new ShooterInput();
 
+  private IdleMode mode;
+
   @Override
   public void initialize() {
     if (ENABLED) {
@@ -34,6 +36,7 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
 
       shooterTop.setIdleMode(IdleMode.kCoast);
       shooterBottom.setIdleMode(IdleMode.kCoast);
+      mode = IdleMode.kCoast;
 
       shooterTop.getEncoder().setVelocityConversionFactor(1);
       shooterBottom.getEncoder().setVelocityConversionFactor(1);
@@ -91,7 +94,7 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     ShooterOutput shooterOutput = new ShooterOutput();
     shooterOutput.setCurrentSpeed(getCurrentSpeed());
     shooterOutput.setActive(shooterOutput.getCurrentSpeed() != 0);
-    shooterOutput.setBrakeModeEnabled(IdleMode.kBrake == shooterTop.getIdleMode());
+    shooterOutput.setBrakeModeEnabled(IdleMode.kBrake == mode);
     shooterOutput.setIsAtSpeed(EntechUtils.isWithinTolerance(TOLERANCE,
         shooterOutput.getCurrentSpeed(), currentInput.getSpeed()));
     shooterOutput.setSpeedA(shooterTop.getEncoder().getVelocity());
