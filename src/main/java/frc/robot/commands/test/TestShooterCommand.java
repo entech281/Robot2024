@@ -11,8 +11,8 @@ public class TestShooterCommand extends EntechCommand {
   private ShooterInput input = new ShooterInput();
   private final ShooterSubsystem sSubsystem;
   private final double testSpeed;
-  private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
-      RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
+  private StoppingCounter counter =
+      new StoppingCounter(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
 
   public TestShooterCommand(ShooterSubsystem subsystem, double testSpeed) {
     super(subsystem);

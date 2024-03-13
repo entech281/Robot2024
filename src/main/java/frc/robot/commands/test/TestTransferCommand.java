@@ -11,8 +11,8 @@ public class TestTransferCommand extends EntechCommand {
 
   private TransferInput input = new TransferInput();
   private final TransferSubsystem tSubsystem;
-  private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
-      RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
+  private StoppingCounter counter =
+      new StoppingCounter(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
 
   public TestTransferCommand(TransferSubsystem subsystem) {
     super(subsystem);

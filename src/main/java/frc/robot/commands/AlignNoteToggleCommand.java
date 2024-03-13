@@ -6,12 +6,17 @@ import frc.robot.operation.UserPolicy;
 public class AlignNoteToggleCommand extends EntechCommand {
   @Override
   public void initialize() {
-    UserPolicy.getInstance().setAligningToNote(!UserPolicy.getInstance().isAligningToNote());
+    UserPolicy.getInstance().setAligningToNote(true);
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    UserPolicy.getInstance().setAligningToNote(false);
   }
 
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 
   @Override

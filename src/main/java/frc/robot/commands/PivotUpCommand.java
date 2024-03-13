@@ -10,8 +10,8 @@ public class PivotUpCommand extends EntechCommand {
 
   private PivotInput input = new PivotInput();
   private final PivotSubsystem pSubsystem;
-  private StoppingCounter counter = new StoppingCounter(getClass().getSimpleName(),
-      RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
+  private StoppingCounter counter =
+      new StoppingCounter(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
 
   public PivotUpCommand(PivotSubsystem subsystem) {
     super(subsystem);

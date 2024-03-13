@@ -17,8 +17,7 @@ public class EjectNoteCommand extends EntechCommand {
   private IntakeInput iInput = new IntakeInput();
   private TransferInput tInput = new TransferInput();
 
-  private StoppingCounter counter =
-      new StoppingCounter(getClass().getSimpleName(), RobotConstants.INTAKE.EJECTING_TIME);
+  private StoppingCounter counter = new StoppingCounter(RobotConstants.INTAKE.EJECTING_TIME);
 
   public EjectNoteCommand(IntakeSubsystem iSubsystem, TransferSubsystem tSubsystem) {
     super(iSubsystem, tSubsystem);
