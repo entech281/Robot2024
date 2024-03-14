@@ -13,10 +13,10 @@ public class HoldYawFilter implements DriveFilterI {
     DriveInput filteredInput = new DriveInput(input);
 
     if (input.getRotation() != 0.0) {
-      holdAngle = input.getGyroAngle();
+      holdAngle = input.getLatestOdometryPose().getRotation();
     } else if (holdAngle != null) {
-      filteredInput.setRotation(
-          controller.calculate(input.getGyroAngle().getDegrees(), holdAngle.getDegrees()));
+      filteredInput.setRotation(controller.calculate(
+          input.getLatestOdometryPose().getRotation().getDegrees(), holdAngle.getDegrees()));
     }
 
     return filteredInput;
