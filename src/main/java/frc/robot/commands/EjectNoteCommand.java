@@ -34,7 +34,7 @@ public class EjectNoteCommand extends EntechCommand {
   @Override
   public void initialize() {
     iInput.setActivate(true);
-    iInput.setSpeed(-1);
+    iInput.setSpeed(RobotConstants.INTAKE.EJECTING_SPEED);
     tInput.setActivate(true);
     tInput.setSpeedPreset(TransferPreset.Ejecting);
     intSubsystem.updateInputs(iInput);
