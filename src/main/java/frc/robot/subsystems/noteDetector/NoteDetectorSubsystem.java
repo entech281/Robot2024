@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import org.opencv.core.Point;
 import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import org.photonvision.targeting.TargetCorner;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -12,6 +13,7 @@ import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestNoteDetectorCommand;
 import frc.robot.io.RobotIO;
+import frc.robot.RobotConstants;
 
 public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, NoteDetectorOutput> {
   private static final boolean ENABLED = true;
@@ -20,6 +22,8 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   private PhotonTrackedTarget chosenNote;
 
   private List<PhotonTrackedTarget> notes = new ArrayList<>();
+
+  private double previousCameraResultTime = 0;
 
   @Override
   public void initialize() {
@@ -124,6 +128,12 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   }
 
   private void updateNotes() {
-    notes = colorCamera.getLatestResult().targets;
+    PhotonPipelineResult cpr = colorCamera.getLatestResult();
+    if (RobotConstants.TIME_PER_PERIODICAL_LOOP_SECONDS < Math.abs(previousCameraResultTime-cpr.getTimestampSeconds())) {
+      notes = null;
+    } else {
+      notes = cpr.targets;
+    }
+    previousCameraResultTime = cpr.getTimestampSeconds();
   }
 }
