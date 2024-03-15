@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.util.Color;
 import entech.commands.EntechCommand;
 import entech.util.StoppingCounter;
@@ -39,7 +38,6 @@ public class IntakeNoteCommand extends EntechCommand {
 
   @Override
   public void initialize() {
-    DriverStation.reportWarning("Command was called", false);
     retracted = false;
     retracting = false;
     hasNote = false;
