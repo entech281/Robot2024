@@ -20,6 +20,12 @@ public class LEDDefaultCommand extends EntechCommand {
     if (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
         || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()) {
       input.setColor(Color.kPurple);
+    } else if (RobotIO.getInstance().getNoteDetectorOutput() != null) {
+      if (RobotIO.getInstance().getNoteDetectorOutput().hasNotes()) {
+        input.setColor(Color.kOrange);
+      } else {
+        input.setColor(Color.kGreen);
+      }
     } else {
       input.setColor(Color.kGreen);
     }

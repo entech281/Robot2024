@@ -146,8 +146,9 @@ public class OperatorInterface
     operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.BUTTONS.INTAKE,
         new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
             subsystemManager.getTransferSubsystem(), subsystemManager.getLedSubsystem()));
-    operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.BUTTONS.EJECT, new EjectNoteCommand(
-        subsystemManager.getIntakeSubsystem(), subsystemManager.getTransferSubsystem()));
+    operatorPanel.whilePressed(RobotConstants.OPERATOR_PANEL.BUTTONS.EJECT,
+        new EjectNoteCommand(subsystemManager.getIntakeSubsystem(),
+            subsystemManager.getTransferSubsystem(), subsystemManager.getShooterSubsystem()));
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.CLIMB)
         .whileTrue(new RaiseClimbCommand(subsystemManager.getClimbSubsystem(),
@@ -184,16 +185,13 @@ public class OperatorInterface
     di.setKey("initialRaw");
 
     if (DriverControllerUtils.currentControllerIsXbox()) {
-
       di.setXSpeed(-this.xboxController.getLeftY());
       di.setYSpeed(-this.xboxController.getLeftX());
       di.setRotation(DriverControllerUtils.getXboxRotation(this.xboxController));
-
     } else {
       di.setXSpeed(-this.joystickController.getY());
       di.setYSpeed(-this.joystickController.getX());
       di.setRotation(-this.joystickController.getZ());
-
     }
 
     RobotIO.processInput(di);

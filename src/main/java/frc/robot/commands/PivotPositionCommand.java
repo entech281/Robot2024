@@ -1,6 +1,5 @@
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import entech.commands.EntechCommand;
 import entech.util.EntechUtils;
 import entech.util.StoppingCounter;
@@ -25,7 +24,6 @@ public class PivotPositionCommand extends EntechCommand {
     counter.reset();
     input.setActivate(true);
     input.setRequestedPosition(RobotConstants.TEST_CONSTANTS.PIVOT.TEST_POSITION_DEG);
-    DriverStation.reportWarning("PivotPositionCommand was run", false);
     pSubsystem.updateInputs(input);
   }
 

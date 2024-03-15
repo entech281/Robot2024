@@ -296,9 +296,9 @@ public final class RobotConstants {
   public static interface TRANSFER {
     public static final double SHOOTING_SPEED = 1;
     public static final double TRANSFERRING_SPEED = 0.0;
-    public static final double INTAKING_SPEED_FAST = 0.7;
+    public static final double INTAKING_SPEED_FAST = 0.6;
     public static final double INTAKING_SPEED_SLOW = 0;
-    public static final double EJECTING_SPEED = -1;
+    public static final double EJECTING_SPEED = -0.6;
     public static final double RETRACTING_SPEED = -0.2;
     public static final double TESTING_SPEED = 0.15;
   }
@@ -320,8 +320,8 @@ public final class RobotConstants {
 
     public static final double LOB_ANGLE = 10.0;
 
-    public static final double SPEAKER_BUMPER_SCORING = 15.2;
-    public static final double SPEAKER_PODIUM_SCORING = 25;
+    public static final double SPEAKER_BUMPER_SCORING = 14.5;
+    public static final double SPEAKER_PODIUM_SCORING = 24.5;
   }
 
 
@@ -334,7 +334,8 @@ public final class RobotConstants {
 
 
   public static interface INTAKE {
-    public static final double INTAKE_SPEED = 0.8;
+    public static final double INTAKE_SPEED = 0.6;
+    public static final double EJECTING_SPEED = -0.6;
     public static final int EJECTING_TIME = 2;
   }
 
