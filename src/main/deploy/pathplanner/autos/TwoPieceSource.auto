@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.5416846869729774,
-      "y": 7.025974412309185
+      "x": 0.5049725484066367,
+      "y": 4.065180438053184
     },
     "rotation": 0
   },
@@ -14,19 +14,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "sideFlatStartPart1"
+            "pathName": "SourceSide1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "shoot1"
+            "name": "subwooferShot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "sideFlatStartPart2"
+            "pathName": "SourceSide2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "podiumShot"
           }
         }
       ]

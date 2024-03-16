@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3829526758152613,
-      "y": 5.528332498106438
+      "x": 1.3535296301361848,
+      "y": 5.545221859674489
     },
     "rotation": 0
   },
@@ -14,25 +14,31 @@
         {
           "type": "named",
           "data": {
-            "name": "shoot1"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 4.0
+            "name": "subwooferShot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "1piecegrab"
+            "pathName": "ThreePieceCenter1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ThreePieceCenter2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ThreePieceCenter3"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "shoot2"
+            "name": "podiumShot"
           }
         }
       ]
