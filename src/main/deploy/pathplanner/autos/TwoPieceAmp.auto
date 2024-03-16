@@ -18,12 +18,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "subwooferShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "ThreePieceAmp2-A"

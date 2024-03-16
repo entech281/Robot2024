@@ -18,21 +18,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "subwooferShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "ThreePieceAmp2-A"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ampShot"
           }
         },
         {
@@ -45,12 +33,6 @@
           "type": "path",
           "data": {
             "pathName": "ThreePieceAmp4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "podiumShot"
           }
         }
       ]

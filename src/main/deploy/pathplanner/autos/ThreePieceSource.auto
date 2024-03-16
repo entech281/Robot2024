@@ -18,21 +18,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "subwooferShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "SourceSide2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "podiumShot"
           }
         },
         {
@@ -45,12 +33,6 @@
           "type": "path",
           "data": {
             "pathName": "SourceSide4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "podiumShot"
           }
         }
       ]

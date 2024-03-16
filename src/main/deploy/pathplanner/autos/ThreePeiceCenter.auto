@@ -12,12 +12,6 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "subwooferShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "ThreePieceCenter1"
@@ -33,12 +27,6 @@
           "type": "path",
           "data": {
             "pathName": "ThreePieceCenter3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "podiumShot"
           }
         }
       ]
