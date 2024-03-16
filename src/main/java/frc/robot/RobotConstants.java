@@ -180,7 +180,7 @@ public final class RobotConstants {
 
 
     public static class CONTROLLER {
-      public static final double JOYSTICK_AXIS_THRESHOLD = 0.2;
+      public static final double JOYSTICK_AXIS_THRESHOLD = 0.07;
       public static final int JOYSTICK = 0;
       public static final int PANEL = 1;
       
