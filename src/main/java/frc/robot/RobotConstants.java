@@ -320,7 +320,7 @@ public final class RobotConstants {
 
     public static final double LOB_ANGLE = 10.0;
 
-    public static final double SPEAKER_BUMPER_SCORING = 14.5;
+    public static final double SPEAKER_SUBWOOFER_SCORING = 14.5;
     public static final double SPEAKER_PODIUM_SCORING = 24.5;
   }
 
