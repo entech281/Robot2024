@@ -298,9 +298,9 @@ public final class RobotConstants {
   public static interface TRANSFER {
     public static final double SHOOTING_SPEED = 1;
     public static final double TRANSFERRING_SPEED = 0.0;
-    public static final double INTAKING_SPEED_FAST = 0.6;
+    public static final double INTAKING_SPEED_FAST = 0.7;
     public static final double INTAKING_SPEED_SLOW = 0;
-    public static final double EJECTING_SPEED = -0.6;
+    public static final double EJECTING_SPEED = -0.7;
     public static final double RETRACTING_SPEED = -0.2;
     public static final double TESTING_SPEED = 0.15;
   }
@@ -336,8 +336,8 @@ public final class RobotConstants {
 
 
   public static interface INTAKE {
-    public static final double INTAKE_SPEED = 0.6;
-    public static final double EJECTING_SPEED = -0.6;
+    public static final double INTAKE_SPEED = 0.7;
+    public static final double EJECTING_SPEED = -0.7;
     public static final int EJECTING_TIME = 2;
   }
 
