@@ -13,7 +13,7 @@ public class ResetOdometryCommand extends EntechCommand {
 
   @Override
   public void initialize() {
-    odometry.resetOdometry(new Pose2d(1.35, 5.6, odometry.getEstimatedPose().getRotation()));
+    odometry.resetOdometry(new Pose2d(1.38, 5.53, odometry.getEstimatedPose().getRotation()));
   }
 
   @Override

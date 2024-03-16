@@ -9,7 +9,7 @@ import frc.robot.subsystems.drive.DriveInput;
 import frc.robot.subsystems.drive.DriveSubsystem;
 
 public class MoveToNoteCommand extends EntechCommand {
-  private static final double SPEED = 0.1;
+  private static final double SPEED = 0.2275;
   private final DriveSubsystem drive;
   private DriveInput input;
   private final DriveInputSupplier inputSupplier;

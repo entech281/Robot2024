@@ -1,11 +1,15 @@
 package frc.robot;
 
+import java.util.Optional;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -20,6 +24,7 @@ import frc.robot.commands.LEDDefaultCommand;
 import frc.robot.commands.MoveToNoteCommand;
 import frc.robot.commands.ShootAngleCommand;
 import frc.robot.io.RobotIO;
+import frc.robot.operation.UserPolicy;
 import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.LEDs.LEDSubsystem;
 import frc.robot.subsystems.drive.DriveSubsystem;
@@ -123,5 +128,31 @@ public class CommandFactory {
     auto.addCommands(new WaitCommand(0.5));
     auto.addCommands(autoChooser.getSelected());
     return auto;
+  }
+
+  public static Command getTargetSpeakerCommand() {
+    return Commands.runOnce(() -> {
+      Optional<Alliance> team = DriverStation.getAlliance();
+      if (team.isPresent()) {
+        if (team.get() == Alliance.Blue) {
+          UserPolicy.getInstance().setTargetPose(new Pose2d(0.0, 5.54, new Rotation2d()));
+          return;
+        }
+      }
+      UserPolicy.getInstance().setTargetPose(new Pose2d(16.54, 5.54, new Rotation2d()));
+    });
+  }
+
+  public static Command getTargetAmpCommand() {
+    return Commands.runOnce(() -> {
+      Optional<Alliance> team = DriverStation.getAlliance();
+      if (team.isPresent()) {
+        if (team.get() == Alliance.Blue) {
+          UserPolicy.getInstance().setTargetPose(new Pose2d(1.78, 8.14, new Rotation2d()));
+          return;
+        }
+      }
+      UserPolicy.getInstance().setTargetPose(new Pose2d(14.75, 8.14, new Rotation2d()));
+    });
   }
 }
