@@ -4,8 +4,11 @@ import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import frc.robot.RobotConstants;
 import frc.robot.subsystems.LEDs.LEDOutput;
 import frc.robot.subsystems.climb.ClimbOutput;
+import frc.robot.subsystems.drive.DriveInput;
 import frc.robot.subsystems.drive.DriveOutput;
 import frc.robot.subsystems.intake.IntakeOutput;
 import frc.robot.subsystems.internalNoteDetector.InternalNoteDetectorOutput;
@@ -16,7 +19,7 @@ import frc.robot.subsystems.shooter.ShooterOutput;
 import frc.robot.subsystems.transfer.TransferOutput;
 import frc.robot.subsystems.vision.VisionOutput;
 
-public class RobotIO {
+public class RobotIO implements DriveInputSupplier {
   private static RobotIO instance = new RobotIO();
 
   public static RobotIO getInstance() {
@@ -28,6 +31,19 @@ public class RobotIO {
   }
 
   private RobotIO() {}
+
+  @Override
+  public DriveInput getDriveInput() {
+    DriveInput di = new DriveInput();
+    di.setGyroAngle(Rotation2d.fromDegrees(RobotIO.getInstance().getNavXOutput().getYaw()));
+    di.setLatestOdometryPose(latestOdometryPose);
+    di.setKey("initialRaw");
+    di.setRotation(0.0);
+    di.setXSpeed(0.0);
+    di.setYSpeed(0.0);
+    processInput(di);
+    return di;
+  }
 
   public VisionOutput getVisionOutput() {
     return latestVisionOutput;
@@ -161,7 +177,7 @@ public class RobotIO {
   private InternalNoteDetectorOutput latestInternalNoteDetectorOutput;
   private NoteDetectorOutput latestNoteDetectorOutput;
   private ClimbOutput latestClimbOutput;
-  private Pose2d latestOdometryPose;
+  private Pose2d latestOdometryPose = RobotConstants.ODOMETRY.INITIAL_POSE;
   private LEDOutput latestLEDOutput;
   private Optional<Double> distanceFromTarget = Optional.empty();
 }
