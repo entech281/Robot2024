@@ -15,7 +15,7 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 
 public final class RobotConstants {
-  public static final double TIME_PER_PERIODICAL_LOOP_SECONDS = 0.02;
+  public static final double TIME_PER_PERIODICAL_LOOP_SECONDS = 0.00;
 
   public static final class DrivetrainConstants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
@@ -231,10 +231,10 @@ public final class RobotConstants {
 
 
     public static interface Cameras {
-      public static final String LEFT = "Aducam_Bravo";
+      public static final String LEFT = "Global_Shutter_Camera";
       public static final String RIGHT = "Arducam_Alpha";
       public static final String COLOR = "Arducam_OV9782_USB_Camera";
-      public static final String MIDDLE = "Global_Shutter_Camera";
+      public static final String MIDDLE = "Aducam_Bravo";
     }
 
 

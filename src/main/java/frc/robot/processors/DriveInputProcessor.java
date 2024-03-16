@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import frc.robot.io.RobotIO;
 import frc.robot.processors.filters.DriveFilterI;
-import frc.robot.processors.filters.HoldYawFilter;
 import frc.robot.processors.filters.MaxConstraintFilter;
 import frc.robot.processors.filters.NoteAlignmentFilter;
 import frc.robot.processors.filters.SquaringFilter;

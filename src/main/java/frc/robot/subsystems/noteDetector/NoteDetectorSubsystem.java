@@ -10,16 +10,17 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import org.photonvision.targeting.TargetCorner;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
+import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestNoteDetectorCommand;
 import frc.robot.io.RobotIO;
-import frc.robot.RobotConstants;
 
 public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, NoteDetectorOutput> {
   private static final boolean ENABLED = true;
 
   private PhotonCamera colorCamera;
   private PhotonTrackedTarget chosenNote;
+  private StoppingCounter staleCounter = new StoppingCounter(0.5);
 
   private List<PhotonTrackedTarget> notes = new ArrayList<>();
 
@@ -129,10 +130,12 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
 
   private void updateNotes() {
     PhotonPipelineResult cpr = colorCamera.getLatestResult();
-    if (RobotConstants.TIME_PER_PERIODICAL_LOOP_SECONDS < Math.abs(previousCameraResultTime-cpr.getTimestampSeconds())) {
-      notes = null;
+    if (staleCounter.isFinished(RobotConstants.TIME_PER_PERIODICAL_LOOP_SECONDS >= Math
+        .abs(previousCameraResultTime - cpr.getTimestampSeconds()))) {
+      notes = new ArrayList<PhotonTrackedTarget>();
     } else {
       notes = cpr.targets;
+      staleCounter.reset();
     }
     previousCameraResultTime = cpr.getTimestampSeconds();
   }
