@@ -12,7 +12,7 @@ import frc.robot.subsystems.drive.DriveInput;
 import frc.robot.subsystems.noteDetector.NoteDetectorOutput;
 
 public class NoteAlignmentFilter implements DriveFilterI {
-  private final PIDController controller = new PIDController(0.017, 0, 0.0);
+  private final PIDController controller = new PIDController(0.0204, 0, 0.0);
   private double driveSpeed;
 
   @Override
@@ -46,7 +46,7 @@ public class NoteAlignmentFilter implements DriveFilterI {
       if (diff > 180) {
         diff = 360 - diff;
       }
-      if (diff > 90) {
+      if (diff > 135) {
         driveSpeed = -driveSpeed;
       }
       Point noteUnitVector = new Point(Math.cos(noteAngle), Math.sin(noteAngle));
