@@ -12,7 +12,6 @@ import frc.robot.subsystems.drive.DriveInput;
 import frc.robot.subsystems.noteDetector.NoteDetectorOutput;
 
 public class NoteAlignmentFilter implements DriveFilterI {
-  private static final double TARGETING_DRIVE_ANGLE_RANGE = 30;
   private final PIDController controller = new PIDController(0.017, 0, 0.0);
   private double driveSpeed;
 
@@ -35,7 +34,6 @@ public class NoteAlignmentFilter implements DriveFilterI {
           - Units.degreesToRadians(targetYaw);
       double driverInputAngle = Math.toDegrees(Math.atan2(input.getYSpeed(), input.getXSpeed()))
           * (Alliance.Blue == team ? 1 : 1);
-      System.out.println("DriverInputAngle: " + driverInputAngle);
       DriveInput adjustedDriveInput = new DriveInput(input);
       if (Math.abs(input.getLatestOdometryPose().getRotation().getDegrees()) - noteAngle >= 1.5
           && !UserPolicy.getInstance().isTwistable()) {
@@ -50,7 +48,6 @@ public class NoteAlignmentFilter implements DriveFilterI {
       }
       if (diff > 90) {
         driveSpeed = -driveSpeed;
-        System.out.println("inverted" + Units.radiansToDegrees(noteAngle));
       }
       Point noteUnitVector = new Point(Math.cos(noteAngle), Math.sin(noteAngle));
       adjustedDriveInput.setXSpeed(driveSpeed * noteUnitVector.x);
