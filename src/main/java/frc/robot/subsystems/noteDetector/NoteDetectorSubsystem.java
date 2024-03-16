@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Optional;
 import org.opencv.core.Point;
 import org.photonvision.PhotonCamera;
+import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import org.photonvision.targeting.TargetCorner;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
+import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestNoteDetectorCommand;
 import frc.robot.io.RobotIO;
@@ -18,8 +20,11 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
 
   private PhotonCamera colorCamera;
   private PhotonTrackedTarget chosenNote;
+  private StoppingCounter staleCounter = new StoppingCounter(0.5);
 
   private List<PhotonTrackedTarget> notes = new ArrayList<>();
+
+  private double previousCameraResultTime = 0;
 
   @Override
   public void initialize() {
@@ -124,6 +129,14 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   }
 
   private void updateNotes() {
-    notes = colorCamera.getLatestResult().targets;
+    PhotonPipelineResult cpr = colorCamera.getLatestResult();
+    if (staleCounter.isFinished(RobotConstants.TIME_PER_PERIODICAL_LOOP_SECONDS >= Math
+        .abs(previousCameraResultTime - cpr.getTimestampSeconds()))) {
+      notes = new ArrayList<PhotonTrackedTarget>();
+    } else {
+      notes = cpr.targets;
+      staleCounter.reset();
+    }
+    previousCameraResultTime = cpr.getTimestampSeconds();
   }
 }
