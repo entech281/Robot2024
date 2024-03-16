@@ -5,12 +5,8 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.subsystems.drive.DriveInput;
 
 public class HoldYawFilter implements DriveFilterI {
-  private final PIDController controller = new PIDController(0.0075, 0, 0.0);
+  private final PIDController controller = new PIDController(0.017, 0, 0.0);
   private Rotation2d holdAngle;
-
-  public HoldYawFilter() {
-    controller.enableContinuousInput(0, 360);
-  }
 
   @Override
   public DriveInput process(DriveInput input) {

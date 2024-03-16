@@ -11,7 +11,7 @@ import frc.robot.io.RobotIO;
 
 public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOutput> {
 
-  private static final boolean ENABLED = false;
+  private static final boolean ENABLED = true;
 
 
   public enum TransferPreset {

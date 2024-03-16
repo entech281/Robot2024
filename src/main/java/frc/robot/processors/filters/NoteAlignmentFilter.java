@@ -12,7 +12,8 @@ import frc.robot.subsystems.drive.DriveInput;
 import frc.robot.subsystems.noteDetector.NoteDetectorOutput;
 
 public class NoteAlignmentFilter implements DriveFilterI {
-  private final PIDController controller = new PIDController(0.0204, 0, 0.0);
+  private static final double TARGETING_DRIVE_ANGLE_RANGE = 30;
+  private final PIDController controller = new PIDController(0.017, 0, 0.0);
   private double driveSpeed;
 
   @Override
@@ -32,26 +33,24 @@ public class NoteAlignmentFilter implements DriveFilterI {
       targetYaw = no.getYaw();
       double noteAngle = input.getLatestOdometryPose().getRotation().getRadians()
           - Units.degreesToRadians(targetYaw);
-      double driverInputAngle = Math.toDegrees(Math.atan2(input.getYSpeed(), input.getXSpeed()))
-          * (Alliance.Blue == team ? 1 : 1);
+      double driverInputAngle = Units
+          .radiansToDegrees(Alliance.Blue == team ? Math.atan2(input.getYSpeed(), input.getXSpeed())
+              : Math.atan2(-input.getYSpeed(), -input.getXSpeed()))
+          + 180;
       DriveInput adjustedDriveInput = new DriveInput(input);
-      if (Math.abs(input.getLatestOdometryPose().getRotation().getDegrees()) - noteAngle >= 1.5
+      if (Math.abs(input.getLatestOdometryPose().getRotation().getDegrees()) - targetYaw >= 1.5
           && !UserPolicy.getInstance().isTwistable()) {
         adjustedDriveInput.setRotation(
             controller.calculate(input.getLatestOdometryPose().getRotation().getDegrees(),
-                Units.radiansToDegrees(noteAngle)));
+                input.getLatestOdometryPose().getRotation().getDegrees() - targetYaw));
       }
-      driveSpeed = Math.sqrt(Math.pow(input.getXSpeed(), 2) + Math.pow(input.getYSpeed(), 2));
-      double diff = Math.abs(driverInputAngle - Units.radiansToDegrees(noteAngle));
-      if (diff > 180) {
-        diff = 360 - diff;
+      if (Math.abs(
+          driverInputAngle - Units.radiansToDegrees(noteAngle)) < TARGETING_DRIVE_ANGLE_RANGE) {
+        driveSpeed = Math.sqrt(Math.pow(input.getXSpeed(), 2) + Math.pow(input.getYSpeed(), 2));
+        Point noteUnitVector = new Point(Math.cos(noteAngle), Math.sin(noteAngle));
+        adjustedDriveInput.setXSpeed(driveSpeed * noteUnitVector.x);
+        adjustedDriveInput.setYSpeed(driveSpeed * noteUnitVector.y);
       }
-      if (diff > 135) {
-        driveSpeed = -driveSpeed;
-      }
-      Point noteUnitVector = new Point(Math.cos(noteAngle), Math.sin(noteAngle));
-      adjustedDriveInput.setXSpeed(driveSpeed * noteUnitVector.x);
-      adjustedDriveInput.setYSpeed(driveSpeed * noteUnitVector.y);
       return adjustedDriveInput;
     }
     return new DriveInput(input);

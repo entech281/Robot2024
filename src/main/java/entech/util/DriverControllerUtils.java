@@ -3,7 +3,6 @@ package entech.util;
 import java.util.Optional;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.RobotConstants;
 import frc.robot.operation.UserPolicy;
 
@@ -23,9 +22,9 @@ public class DriverControllerUtils {
     return DriverStation.isJoystickConnected(port);
   }
 
-  public static Optional<CommandJoystick> findCurrentController() {
+  public static Optional<EntechJoystick> findCurrentController() {
     if (DriverStation.getJoystickIsXbox(0)) {
-      return Optional.of(new CommandJoystick(0));
+      return Optional.of(new EntechJoystick(0));
     } else {
       return Optional.empty();
     }
