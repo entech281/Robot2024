@@ -3,61 +3,39 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.8,
-        "y": 4.3
+        "x": 1.813652750112518,
+        "y": 4.065180438053184
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7999999999999998,
-        "y": 4.3
+        "x": 1.8227210138630805,
+        "y": 4.068375154294168
       },
       "isLocked": false,
       "linkedName": "SourceSide1E"
     },
     {
       "anchor": {
-        "x": 2.4783611105683763,
-        "y": 4.055313495242375
+        "x": 2.0584958713777075,
+        "y": 3.8
       },
       "prevControl": {
-        "x": 2.216268896089866,
-        "y": 3.9062806674016537
-      },
-      "nextControl": {
-        "x": 2.9815751939196193,
-        "y": 4.341454836755827
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.0,
-        "y": 4.3
-      },
-      "prevControl": {
-        "x": 2.0,
-        "y": 4.2921201227017844
+        "x": 2.0584958713777075,
+        "y": 3.7921201227017844
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "SourceSide2E"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 0,
-      "rotateFast": true
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [
     {
       "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.7,
-      "maxWaypointRelativePos": 2.0,
+      "minWaypointRelativePos": 0.0,
+      "maxWaypointRelativePos": 1.0,
       "constraints": {
-        "maxVelocity": 0.5,
+        "maxVelocity": 0.2,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 360.0,
         "maxAngularAcceleration": 180.0
@@ -73,11 +51,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -30.0,
-    "rotateFast": false
+    "rotation": 0.0,
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": "SourceSide",
+  "folder": null,
   "previewStartingState": {
     "rotation": -62.7004277886673,
     "velocity": 0

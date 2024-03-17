@@ -75,6 +75,6 @@ public class TestVisionCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return stage >= 2;
+    return stage >= 1;
   }
 }

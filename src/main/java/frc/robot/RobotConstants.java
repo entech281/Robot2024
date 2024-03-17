@@ -218,10 +218,10 @@ public final class RobotConstants {
       public static final int EJECT = 5;
       public static final int CLIMB = 7;
 
-      public static final int RAISE_ARM = 7;
-      public static final int LOWER_CLIMB_RIGHT = 10;
-      public static final int LOWER_CLIMB_LEFT = 9;
-      public static final int RUN_TEST = 8;
+      public static final int RAISE_ARM = 8;
+      public static final int LOWER_CLIMB_RIGHT = 11;
+      public static final int LOWER_CLIMB_LEFT = 10;
+      public static final int RUN_TEST = 9;
     }
 
     public static class SWITCHES {
@@ -245,8 +245,8 @@ public final class RobotConstants {
 
 
     public static interface Filters {
-      public static final double MAX_AMBIGUITY = 0.6;
-      public static final double MAX_DISTANCE = 6.0;
+      public static final double MAX_AMBIGUITY = 0.5;
+      public static final double MAX_DISTANCE = 3.0;
     }
 
     public static interface Resolution {
@@ -256,9 +256,9 @@ public final class RobotConstants {
 
     public static interface Transforms {
       public static final Transform3d LEFT = new Transform3d(
-          new Translation3d(Units.inchesToMeters(0.0), Units.inchesToMeters(4.25),
-              Units.inchesToMeters(19.5)),
-          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
+          new Translation3d(Units.inchesToMeters(-10), Units.inchesToMeters(6.25),
+              Units.inchesToMeters(21.5)),
+          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(5),
               Units.degreesToRadians(90)));
       public static final Transform3d RIGHT = new Transform3d(
           new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(-4.25),

@@ -18,9 +18,33 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "podiumShot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "SourceSide2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SourceSide3.1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "podiumShot"
           }
         }
       ]

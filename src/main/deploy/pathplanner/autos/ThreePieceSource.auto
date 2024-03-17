@@ -18,6 +18,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "subwooferShot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "SourceSide2"
