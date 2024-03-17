@@ -23,7 +23,7 @@ import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestVisionCommand;
 
 public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> {
-  private static final boolean ENABLED = false;
+  private static final boolean ENABLED = true;
 
   private CameraContainerI cameras;
 
@@ -70,14 +70,18 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
         throw new RuntimeException("Could not load wpilib AprilTagFields");
       }
 
-      CameraContainerI cameraBeta = new SoloCameraContainer(RobotConstants.Vision.Cameras.LEFT,
-          RobotConstants.Vision.Transforms.LEFT, photonAprilTagFieldLayout);
-      CameraContainerI cameraAlpha = new SoloCameraContainer(RobotConstants.Vision.Cameras.RIGHT,
-          RobotConstants.Vision.Transforms.RIGHT, photonAprilTagFieldLayout);
-      CameraContainerI cameraMiddle = new SoloCameraContainer(RobotConstants.Vision.Cameras.MIDDLE,
-          RobotConstants.Vision.Transforms.MIDDLE, photonAprilTagFieldLayout);
+      // CameraContainerI cameraBeta = new SoloCameraContainer(RobotConstants.Vision.Cameras.LEFT,
+      // RobotConstants.Vision.Transforms.LEFT, photonAprilTagFieldLayout);
+      // CameraContainerI cameraAlpha = new SoloCameraContainer(RobotConstants.Vision.Cameras.RIGHT,
+      // RobotConstants.Vision.Transforms.RIGHT, photonAprilTagFieldLayout);
+      // CameraContainerI cameraMiddle = new
+      // SoloCameraContainer(RobotConstants.Vision.Cameras.MIDDLE,
+      // RobotConstants.Vision.Transforms.MIDDLE, photonAprilTagFieldLayout);
 
-      this.cameras = new MultiCameraContainer(cameraAlpha, cameraBeta, cameraMiddle);
+      CameraContainerI cameraNew = new SoloCameraContainer(RobotConstants.Vision.Cameras.NEW,
+          RobotConstants.Vision.Transforms.NEW, photonAprilTagFieldLayout);
+
+      this.cameras = new MultiCameraContainer(cameraNew);
     }
   }
 

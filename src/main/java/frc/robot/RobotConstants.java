@@ -235,12 +235,13 @@ public final class RobotConstants {
       public static final String RIGHT = "Arducam_Alpha";
       public static final String COLOR = "Arducam_OV9782_USB_Camera";
       public static final String MIDDLE = "Aducam_Bravo";
+      public static final String NEW = "Arducam_OV9782_USB_Camera";
     }
 
 
     public static interface Filters {
-      public static final double MAX_AMBIGUITY = 0.4;
-      public static final double MAX_DISTANCE = 3;
+      public static final double MAX_AMBIGUITY = 0.1;
+      public static final double MAX_DISTANCE = 10;
     }
 
     public static interface Resolution {
@@ -264,6 +265,12 @@ public final class RobotConstants {
               Units.inchesToMeters(19.5)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(15),
               Units.degreesToRadians(0.0)));
+
+      public static final Transform3d NEW = new Transform3d(
+          new Translation3d(Units.inchesToMeters(0.0), Units.inchesToMeters(-11),
+              Units.inchesToMeters(0.0)),
+          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
+              Units.degreesToRadians(12)));
     }
   }
 

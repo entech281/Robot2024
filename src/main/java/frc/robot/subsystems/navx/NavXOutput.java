@@ -20,6 +20,8 @@ public class NavXOutput extends SubsystemOutput {
   private boolean isMagnetometerCalibrated;
   private boolean isMagneticDisturbance;
 
+  private boolean isFaultDetected;
+
   private ChassisSpeeds chassisSpeeds;
 
   @Override
@@ -38,6 +40,7 @@ public class NavXOutput extends SubsystemOutput {
     Logger.recordOutput("NavXOutput/isMagnetometerCalibrated", isMagnetometerCalibrated);
     Logger.recordOutput("NavXOutput/isMagneticDisturbance", isMagneticDisturbance);
     Logger.recordOutput("NavXOutput/chassisSpeeds", compassHeading);
+    Logger.recordOutput("NavXOutput/ifFaultDetected", isFaultDetected);
   }
 
 
@@ -171,5 +174,13 @@ public class NavXOutput extends SubsystemOutput {
 
   public void setChassisSpeeds(ChassisSpeeds chassisSpeeds) {
     this.chassisSpeeds = chassisSpeeds;
+  }
+
+  public boolean isFaultDetected() {
+    return this.isFaultDetected;
+  }
+
+  public void setIsFaultDetected(boolean isFaultDetected) {
+    this.isFaultDetected = isFaultDetected;
   }
 }

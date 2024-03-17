@@ -17,7 +17,10 @@ public class LEDDefaultCommand extends EntechCommand {
 
   @Override
   public void execute() {
-    if (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
+    if (RobotIO.getInstance().getNavXOutput().isFaultDetected()) {
+      input.setBlinking(true);
+      input.setColor(Color.kRed);
+    } else if (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
         || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()) {
       input.setColor(Color.kPurple);
     } else if (RobotIO.getInstance().getNoteDetectorOutput() != null) {

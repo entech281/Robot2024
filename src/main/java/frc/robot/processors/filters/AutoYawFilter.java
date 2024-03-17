@@ -8,7 +8,7 @@ import frc.robot.operation.UserPolicy;
 import frc.robot.subsystems.drive.DriveInput;
 
 public class AutoYawFilter implements DriveFilterI {
-  private final PIDController controller = new PIDController(0.03, 0, 0.0);
+  private final PIDController controller = new PIDController(0.02, 0, 0.0);
 
   @Override
   public DriveInput process(DriveInput input) {
@@ -21,7 +21,7 @@ public class AutoYawFilter implements DriveFilterI {
               calculateTargetAngle(input.getLatestOdometryPose()).getDegrees());
 
       if (Math.abs(input.getLatestOdometryPose().getRotation().getDegrees()
-          - calculateTargetAngle(input.getLatestOdometryPose()).getDegrees()) < 2) {
+          - calculateTargetAngle(input.getLatestOdometryPose()).getDegrees()) < 1) {
         calculatedRot = 0.0;
       }
 

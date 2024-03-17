@@ -9,10 +9,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import entech.subsystems.EntechSubsystem;
+import entech.util.StoppingCounter;
 
 public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
   private static final boolean ENABLED = true;
   private AHRS gyro;
+  private final StoppingCounter faultCounter = new StoppingCounter(3.5);
+  private boolean faultDetected = false;
 
   @Override
   public NavXOutput toOutputs() {
@@ -32,6 +35,7 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
     output.setIsMagnetometerCalibrated(gyro.isMagnetometerCalibrated());
     output.setIsMoving(gyro.isMoving());
     output.setIsRotating(gyro.isRotating());
+    output.setIsFaultDetected(faultDetected);
 
     return output;
   }
@@ -39,6 +43,7 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
   @Override
   public void periodic() {
     SmartDashboard.putData(gyro);
+    faultDetected = faultCounter.isFinished(gyro.isCalibrating());
   }
 
   @Override

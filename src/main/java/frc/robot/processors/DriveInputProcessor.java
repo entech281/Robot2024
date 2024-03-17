@@ -3,6 +3,7 @@ package frc.robot.processors;
 import java.util.ArrayList;
 import java.util.List;
 import frc.robot.io.RobotIO;
+import frc.robot.processors.filters.AutoYawFilter;
 import frc.robot.processors.filters.DriveFilterI;
 import frc.robot.processors.filters.MaxConstraintFilter;
 import frc.robot.processors.filters.NoteAlignmentFilter;
@@ -17,7 +18,7 @@ public class DriveInputProcessor {
     driveFilters.add(new TwistFilter());
     driveFilters.add(new SquaringFilter());
     driveFilters.add(new MaxConstraintFilter());
-    // driveFilters.add(new AutoYawFilter());
+    driveFilters.add(new AutoYawFilter());
     driveFilters.add(new NoteAlignmentFilter());
     // driveFilters.add(new HoldYawFilter());
   }
