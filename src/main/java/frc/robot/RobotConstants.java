@@ -235,13 +235,13 @@ public final class RobotConstants {
       public static final String RIGHT = "Arducam_Alpha";
       public static final String COLOR = "Arducam_OV9782_USB_Camera";
       public static final String MIDDLE = "Aducam_Bravo";
-      public static final String NEW = "Arducam_OV9782_USB_Camera";
+      public static final String NEW = "Arducam_OV9281_USB_Camera";
     }
 
 
     public static interface Filters {
-      public static final double MAX_AMBIGUITY = 0.1;
-      public static final double MAX_DISTANCE = 10;
+      public static final double MAX_AMBIGUITY = 0.6;
+      public static final double MAX_DISTANCE = 6.0;
     }
 
     public static interface Resolution {
@@ -251,10 +251,10 @@ public final class RobotConstants {
 
     public static interface Transforms {
       public static final Transform3d LEFT = new Transform3d(
-          new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(4.25),
+          new Translation3d(Units.inchesToMeters(0.0), Units.inchesToMeters(4.25),
               Units.inchesToMeters(19.5)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
-              Units.degreesToRadians(-90)));
+              Units.degreesToRadians(90)));
       public static final Transform3d RIGHT = new Transform3d(
           new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(-4.25),
               Units.inchesToMeters(19.5)),
@@ -267,13 +267,12 @@ public final class RobotConstants {
               Units.degreesToRadians(0.0)));
 
       public static final Transform3d NEW = new Transform3d(
-          new Translation3d(Units.inchesToMeters(0.0), Units.inchesToMeters(-11),
-              Units.inchesToMeters(0.0)),
+          new Translation3d(Units.inchesToMeters(13.0), Units.inchesToMeters(0.0),
+              Units.inchesToMeters(-11)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
               Units.degreesToRadians(12)));
     }
   }
-
 
   public static interface PID {
 
