@@ -22,18 +22,6 @@
           "data": {
             "pathName": "SourceSide2"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "SourceSide3"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "SourceSide4"
-          }
         }
       ]
     }

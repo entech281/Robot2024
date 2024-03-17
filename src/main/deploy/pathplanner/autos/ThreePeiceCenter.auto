@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.5049725484066367,
-      "y": 4.065180438053184
+      "x": 1.3535296301361848,
+      "y": 5.545221859674489
     },
     "rotation": 0
   },
@@ -14,25 +14,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SourceSide1"
+            "pathName": "ThreePieceCenter1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "SourceSide2"
+            "pathName": "ThreePieceCenter2"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "SourceSide3"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "SourceSide4"
+            "pathName": "ThreePieceCenter3"
           }
         }
       ]
