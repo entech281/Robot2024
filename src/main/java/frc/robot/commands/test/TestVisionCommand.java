@@ -1,7 +1,6 @@
 package frc.robot.commands.test;
 
 import java.util.List;
-import java.util.Random;
 import org.littletonrobotics.junction.Logger;
 import entech.commands.EntechCommand;
 import frc.robot.RobotConstants;
@@ -11,11 +10,11 @@ import frc.robot.subsystems.vision.VisionSubsystem;
 public class TestVisionCommand extends EntechCommand {
   private int stage = 0;
   private final VisionSubsystem vision;
-  private final Random random = new Random();
+  // private final Random random = new Random();
 
   private int leftTestTag;
-  private int rightTestTag;
-  private int middleTestTag;
+  // private int rightTestTag;
+  // private int middleTestTag;
 
   public TestVisionCommand(VisionSubsystem vision) {
     super(vision);
@@ -26,13 +25,7 @@ public class TestVisionCommand extends EntechCommand {
   public void execute() {
     switch (stage) {
       case 0:
-        testCamera(leftTestTag, RobotConstants.Vision.Cameras.LEFT, "left");
-        break;
-      case 1:
-        testCamera(rightTestTag, RobotConstants.Vision.Cameras.RIGHT, "right");
-        break;
-      case 2:
-        testCamera(middleTestTag, RobotConstants.Vision.Cameras.MIDDLE, "middle");
+        testCamera(leftTestTag, RobotConstants.Vision.Cameras.NEW, "left");
         break;
       default:
         break;
@@ -74,14 +67,14 @@ public class TestVisionCommand extends EntechCommand {
 
   @Override
   public void initialize() {
-    leftTestTag = 1 + random.nextInt(7);
-    rightTestTag = 1 + random.nextInt(7);
-    middleTestTag = 1 + random.nextInt(7);
+    leftTestTag = 1;
+    // rightTestTag = 1 + random.nextInt(7);
+    // middleTestTag = 1 + random.nextInt(7);
     stage = 0;
   }
 
   @Override
   public boolean isFinished() {
-    return stage >= 3;
+    return stage >= 2;
   }
 }
