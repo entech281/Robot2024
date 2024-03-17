@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3829526758152613,
-      "y": 5.528332498106438
+      "x": 0.5324399837988864,
+      "y": 7.025974412309185
     },
     "rotation": 0
   },
@@ -12,27 +12,27 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "shoot1"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 4.0
+            "pathName": "ThreePieceAmp1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "1piecegrab"
+            "pathName": "ThreePieceAmp2-A"
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "shoot2"
+            "pathName": "ThreePieceAmp3-A"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ThreePieceAmp4"
           }
         }
       ]
