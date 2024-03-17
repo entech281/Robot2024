@@ -217,6 +217,11 @@ public final class RobotConstants {
       public static final int INTAKE = 4;
       public static final int EJECT = 5;
       public static final int CLIMB = 7;
+
+      public static final int RAISE_ARM = 7;
+      public static final int LOWER_CLIMB_RIGHT = 10;
+      public static final int LOWER_CLIMB_LEFT = 9;
+      public static final int RUN_TEST = 8;
     }
 
     public static class SWITCHES {

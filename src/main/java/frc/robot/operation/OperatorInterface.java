@@ -119,15 +119,12 @@ public class OperatorInterface
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
 
-    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.FULL_PIVOT)
-        .whileTrue(new PivotUpCommand(subsystemManager.getPivotSubsystem()));
-
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.NOTE_ALIGN)
         .whileTrue(new AlignNoteToggleCommand());
 
-    xboxController.button(3).onTrue(CommandFactory.getTargetAmpCommand());
+    xboxController.button(3).onTrue(commandFactory.getTargetAmpCommand());
 
-    xboxController.button(1).onTrue(CommandFactory.getTargetSpeakerCommand());
+    xboxController.button(1).onTrue(commandFactory.getTargetSpeakerCommand());
 
     xboxController.button(3).onFalse(Commands.runOnce(() -> {
       UserPolicy.getInstance().setTargetPose(null);
@@ -169,6 +166,20 @@ public class OperatorInterface
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.CANCEL_CLIMB)))
         .whileFalse(new LowerClimbCommand(subsystemManager.getClimbSubsystem(),
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.CANCEL_CLIMB)));
+
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.RAISE_ARM)
+        .whileTrue(new PivotUpCommand(subsystemManager.getPivotSubsystem()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_LEFT)
+        .whileTrue(new ClimbJogLeftCommand(subsystemManager.getClimbSubsystem()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_RIGHT)
+        .whileTrue(new ClimbJogRightCommand(subsystemManager.getClimbSubsystem()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_LEFT)
+        .onFalse(new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_RIGHT)
+        .onTrue(new ClimbJogRightCommand(subsystemManager.getClimbSubsystem()));
+
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.RUN_TEST)
+        .onTrue(new RunTestCommand(testChooser));
   }
 
   private SendableChooser<Command> getTestCommandChooser() {

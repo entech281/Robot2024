@@ -29,6 +29,7 @@ public class Robot extends LoggedRobot {
   private CommandFactory commandFactory;
   private OdometryProcessor odometry;
   private OperatorInterface operatorInterface;
+  private PowerDistribution c;
 
   public void loggerInit() {
     Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
@@ -45,7 +46,9 @@ public class Robot extends LoggedRobot {
     if (isReal()) {
       // Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
       Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
-      new PowerDistribution(1, ModuleType.kRev); // Enables power distribution logging
+      c = new PowerDistribution(1, ModuleType.kRev); // Enables power distribution
+                                                     // logging
+      c.clearStickyFaults();
     } else {
       setUseTiming(false); // Run as fast as possible
       String logPath = LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or

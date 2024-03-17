@@ -130,7 +130,7 @@ public class CommandFactory {
     return auto;
   }
 
-  public static Command getTargetSpeakerCommand() {
+  public Command getTargetSpeakerCommand() {
     return Commands.runOnce(() -> {
       Optional<Alliance> team = DriverStation.getAlliance();
       if (team.isPresent()) {
@@ -143,7 +143,7 @@ public class CommandFactory {
     });
   }
 
-  public static Command getTargetAmpCommand() {
+  public Command getTargetAmpCommand() {
     return Commands.runOnce(() -> {
       Optional<Alliance> team = DriverStation.getAlliance();
       if (team.isPresent()) {
