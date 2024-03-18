@@ -20,7 +20,7 @@
         {
           "type": "named",
           "data": {
-            "name": "subwooferShot"
+            "name": "podiumShot"
           }
         },
         {
@@ -30,15 +30,21 @@
           }
         },
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "SourceSide3"
+            "name": "autoIntake"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "SourceSide4"
+            "pathName": "SourceSide3.1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "podiumShot"
           }
         }
       ]

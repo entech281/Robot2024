@@ -107,16 +107,17 @@ public class CommandFactory {
 
     NamedCommands.registerCommand("intake", new IntakeNoteCommand(intakeSubsystem,
         transferSubsystem, subsystemManager.getLedSubsystem()));
-    NamedCommands.registerCommand("shoot1", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
-        transferSubsystem, RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING));
-    NamedCommands.registerCommand("shoot2", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
-        transferSubsystem, RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING));
+    NamedCommands.registerCommand("subwooferShot", new ShootAngleCommand(shooterSubsystem,
+        pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING));
+    NamedCommands.registerCommand("podiumShot", new ShootAngleCommand(shooterSubsystem,
+        pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING));
     NamedCommands.registerCommand("shootAmp", new ShootAngleCommand(shooterSubsystem,
         pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG));
     NamedCommands.registerCommand("120degreeStart",
         new GyroResetByAngleCommand(navXSubsystem, odometry, 120));
-    NamedCommands.registerCommand("autoIntake", new ParallelRaceGroup(
-        new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance()), new WaitCommand(1.5)));
+    NamedCommands.registerCommand("autoIntake",
+        new ParallelRaceGroup(new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance()),
+            new IntakeNoteCommand(intakeSubsystem, transferSubsystem, ledSubsystem)));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -130,7 +131,7 @@ public class CommandFactory {
     return auto;
   }
 
-  public static Command getTargetSpeakerCommand() {
+  public Command getTargetSpeakerCommand() {
     return Commands.runOnce(() -> {
       Optional<Alliance> team = DriverStation.getAlliance();
       if (team.isPresent()) {
@@ -143,7 +144,7 @@ public class CommandFactory {
     });
   }
 
-  public static Command getTargetAmpCommand() {
+  public Command getTargetAmpCommand() {
     return Commands.runOnce(() -> {
       Optional<Alliance> team = DriverStation.getAlliance();
       if (team.isPresent()) {

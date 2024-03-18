@@ -11,7 +11,7 @@ import frc.robot.io.RobotIO;
 
 public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> {
 
-  private final static boolean ENABLED = false;
+  private final static boolean ENABLED = true;
 
   private IntakeInput currentInput = new IntakeInput();
 

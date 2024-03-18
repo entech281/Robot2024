@@ -14,19 +14,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "sideFlatStartPart1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shoot1"
+            "pathName": "ThreePieceAmp1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "sideFlatStartPart2"
+            "pathName": "ThreePieceAmp2-A"
           }
         }
       ]

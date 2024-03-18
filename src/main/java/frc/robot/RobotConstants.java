@@ -31,10 +31,10 @@ public final class RobotConstants {
     // 20.0; //2.0; // percent per second (1 = 100%)
 
     // Chassis configuration
-    public static final double TRACK_WIDTH_METERS = Units.inchesToMeters(21.75);
+    public static final double TRACK_WIDTH_METERS = Units.inchesToMeters(21.5);
 
     // Distance between centers of right and left wheels on robot
-    public static final double WHEEL_BASE_METERS = Units.inchesToMeters(21.75);
+    public static final double WHEEL_BASE_METERS = Units.inchesToMeters(18);
 
     // Distance to farthest module
     public static final double DRIVE_BASE_RADIUS_METERS = 0.39;
@@ -217,6 +217,11 @@ public final class RobotConstants {
       public static final int INTAKE = 4;
       public static final int EJECT = 5;
       public static final int CLIMB = 7;
+
+      public static final int RAISE_ARM = 8;
+      public static final int LOWER_CLIMB_RIGHT = 11;
+      public static final int LOWER_CLIMB_LEFT = 10;
+      public static final int RUN_TEST = 9;
     }
 
     public static class SWITCHES {
@@ -235,13 +240,13 @@ public final class RobotConstants {
       public static final String RIGHT = "Arducam_Alpha";
       public static final String COLOR = "Arducam_OV9782_USB_Camera";
       public static final String MIDDLE = "Aducam_Bravo";
-      public static final String NEW = "Arducam_OV9782_USB_Camera";
+      public static final String NEW = "Arducam_OV9281_USB_Camera";
     }
 
 
     public static interface Filters {
-      public static final double MAX_AMBIGUITY = 0.1;
-      public static final double MAX_DISTANCE = 10;
+      public static final double MAX_AMBIGUITY = 0.5;
+      public static final double MAX_DISTANCE = 3.0;
     }
 
     public static interface Resolution {
@@ -251,10 +256,10 @@ public final class RobotConstants {
 
     public static interface Transforms {
       public static final Transform3d LEFT = new Transform3d(
-          new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(4.25),
-              Units.inchesToMeters(19.5)),
-          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
-              Units.degreesToRadians(-90)));
+          new Translation3d(Units.inchesToMeters(-10), Units.inchesToMeters(6.25),
+              Units.inchesToMeters(21.5)),
+          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(5),
+              Units.degreesToRadians(90)));
       public static final Transform3d RIGHT = new Transform3d(
           new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(-4.25),
               Units.inchesToMeters(19.5)),
@@ -267,13 +272,12 @@ public final class RobotConstants {
               Units.degreesToRadians(0.0)));
 
       public static final Transform3d NEW = new Transform3d(
-          new Translation3d(Units.inchesToMeters(0.0), Units.inchesToMeters(-11),
-              Units.inchesToMeters(0.0)),
+          new Translation3d(Units.inchesToMeters(13.0), Units.inchesToMeters(0.0),
+              Units.inchesToMeters(-11)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
               Units.degreesToRadians(12)));
     }
   }
-
 
   public static interface PID {
 
