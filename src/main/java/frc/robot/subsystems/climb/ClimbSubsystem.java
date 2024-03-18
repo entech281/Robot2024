@@ -11,7 +11,7 @@ import frc.robot.commands.test.TestClimbCommand;
 import frc.robot.io.RobotIO;
 
 public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
-  private boolean ENABLED = true;
+  private boolean ENABLED = false;
 
   private ClimbInput currentInput = new ClimbInput();
 
