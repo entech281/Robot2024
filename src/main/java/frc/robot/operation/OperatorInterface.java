@@ -142,7 +142,8 @@ public class OperatorInterface
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.INTAKE)
         .whileTrue(new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
-            subsystemManager.getTransferSubsystem(), subsystemManager.getLedSubsystem()));
+            subsystemManager.getTransferSubsystem(), subsystemManager.getShooterSubsystem(),
+            subsystemManager.getLedSubsystem()));
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.EJECT)
         .whileTrue(new EjectNoteCommand(subsystemManager.getIntakeSubsystem(),

@@ -12,9 +12,21 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "subwooferShot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "TwoPieceCenter"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "podiumShot"
           }
         }
       ]

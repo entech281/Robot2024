@@ -5,6 +5,7 @@ import entech.subsystems.SubsystemInput;
 
 public class ShooterInput implements SubsystemInput {
   private boolean activate = false;
+  private boolean brakeModeEnabled = false;
   private double speed = 0;
 
   @Override
@@ -17,8 +18,9 @@ public class ShooterInput implements SubsystemInput {
   public void fromLog(LogTable table) {
     activate = table.get("activate", false);
     speed = table.get("speed", 0.0);
-
+    brakeModeEnabled = table.get("brakeModeEnabled", false);
   }
+
   public boolean getActivate() {
     return this.activate;
   }
@@ -33,5 +35,13 @@ public class ShooterInput implements SubsystemInput {
 
   public void setSpeed(double speed) {
     this.speed = speed;
+  }
+
+  public boolean isBrakeModeEnabled() {
+    return this.brakeModeEnabled;
+  }
+
+  public void setBrakeModeEnabled(boolean setBrakeModeEnabled) {
+    this.brakeModeEnabled = setBrakeModeEnabled;
   }
 }

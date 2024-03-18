@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0639495125144114,
-        "y": 7.242336023133585
+        "x": 1.9850139700279412,
+        "y": 7.044997166917411
       },
       "isLocked": false,
       "linkedName": "AmpSide2E"
@@ -17,11 +17,11 @@
     {
       "anchor": {
         "x": 2.0,
-        "y": 7.410074050917332
+        "y": 7.202868251890351
       },
       "prevControl": {
         "x": 1.9910101483691474,
-        "y": 7.42935284995405
+        "y": 7.222147050927068
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.5,
+    "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 360.0,
     "maxAngularAcceleration": 180.0
@@ -48,5 +48,5 @@
     "rotation": 0.0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

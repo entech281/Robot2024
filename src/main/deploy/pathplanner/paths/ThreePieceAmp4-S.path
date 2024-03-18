@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 2.0,
-        "y": 7.410074050917332
+        "y": 7.202868251890351
       },
       "prevControl": null,
       "nextControl": {
         "x": 2.261288368730585,
-        "y": 7.400207108106525
+        "y": 7.193001309079543
       },
       "isLocked": false,
       "linkedName": "AmpSide3-S"

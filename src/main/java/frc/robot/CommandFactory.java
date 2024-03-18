@@ -106,7 +106,7 @@ public class CommandFactory {
     }));
 
     NamedCommands.registerCommand("intake", new IntakeNoteCommand(intakeSubsystem,
-        transferSubsystem, subsystemManager.getLedSubsystem()));
+        transferSubsystem, shooterSubsystem, subsystemManager.getLedSubsystem()));
     NamedCommands.registerCommand("subwooferShot", new ShootAngleCommand(shooterSubsystem,
         pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING));
     NamedCommands.registerCommand("podiumShot", new ShootAngleCommand(shooterSubsystem,
@@ -115,9 +115,9 @@ public class CommandFactory {
         transferSubsystem, RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG));
     NamedCommands.registerCommand("120degreeStart",
         new GyroResetByAngleCommand(navXSubsystem, odometry, 120));
-    NamedCommands.registerCommand("autoIntake",
-        new ParallelRaceGroup(new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance()),
-            new IntakeNoteCommand(intakeSubsystem, transferSubsystem, ledSubsystem)));
+    NamedCommands.registerCommand("autoIntake", new ParallelRaceGroup(
+        new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance()),
+        new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -136,7 +136,7 @@ public class CommandFactory {
       Optional<Alliance> team = DriverStation.getAlliance();
       if (team.isPresent()) {
         if (team.get() == Alliance.Blue) {
-          UserPolicy.getInstance().setTargetPose(new Pose2d(0.0, 5.54, new Rotation2d()));
+          UserPolicy.getInstance().setTargetPose(new Pose2d(0.0, 5.31, new Rotation2d()));
           return;
         }
       }
