@@ -18,9 +18,21 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "subwooferShot"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "ThreePieceAmp2-A"
+            "pathName": "ThreePieceAmp2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoIntake"
           }
         },
         {
@@ -30,9 +42,33 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "ampShot"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "ThreePieceAmp4"
+            "pathName": "ThreePieceAmp4-A"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ThreePieceAmp5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "podiumShot"
           }
         }
       ]

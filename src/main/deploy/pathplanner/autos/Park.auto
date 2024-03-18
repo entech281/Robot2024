@@ -3,7 +3,7 @@
   "startingPose": {
     "position": {
       "x": 0.5049725484066367,
-      "y": 2.0
+      "y": 4.065180438053184
     },
     "rotation": 0
   },
@@ -14,7 +14,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Park"
+            "pathName": "Park1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Park2"
           }
         }
       ]

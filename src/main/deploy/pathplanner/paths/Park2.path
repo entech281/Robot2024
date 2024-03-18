@@ -3,50 +3,50 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 1.3337957445145674,
+        "y": 4.371055665188254
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0639495125144114,
-        "y": 7.242336023133585
+        "x": 1.4817998866766982,
+        "y": 3.3547605556749573
       },
       "isLocked": false,
-      "linkedName": "AmpSide2E"
+      "linkedName": "Park1"
     },
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.410074050917332
+        "x": 3.0,
+        "y": 0.5
       },
       "prevControl": {
-        "x": 1.9910101483691474,
-        "y": 7.42935284995405
+        "x": 2.142631841329547,
+        "y": 0.955870736371315
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "AmpSide3-S"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.5,
+    "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 360.0,
     "maxAngularAcceleration": 180.0
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": 45.0,
-    "rotateFast": true
+    "velocity": 0,
+    "rotation": 0,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": "Amp",
+  "folder": "Park",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": -45.0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

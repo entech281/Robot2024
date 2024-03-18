@@ -111,8 +111,8 @@ public class CommandFactory {
         pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING));
     NamedCommands.registerCommand("podiumShot", new ShootAngleCommand(shooterSubsystem,
         pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING));
-    NamedCommands.registerCommand("shootAmp", new ShootAngleCommand(shooterSubsystem,
-        pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG));
+    NamedCommands.registerCommand("ampShot", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
+        transferSubsystem, RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG));
     NamedCommands.registerCommand("120degreeStart",
         new GyroResetByAngleCommand(navXSubsystem, odometry, 120));
     NamedCommands.registerCommand("autoIntake",
