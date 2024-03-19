@@ -28,4 +28,8 @@ public class EntechCommand extends Command {
   public EntechCommand(EntechSubsystem<?, ?> subsystem, double timeout) {
     addRequirements(subsystem);
   }
+
+  public EntechCommand(EntechSubsystem<?, ?>... subsystem) {
+    addRequirements(subsystem);
+  }
 }

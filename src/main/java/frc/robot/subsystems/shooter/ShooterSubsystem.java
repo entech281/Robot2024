@@ -70,6 +70,15 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
         shooterTop.set(0.0);
       }
     }
+    if (currentInput.isBrakeModeEnabled() && mode != IdleMode.kBrake) {
+      shooterTop.setIdleMode(IdleMode.kBrake);
+      shooterBottom.setIdleMode(IdleMode.kBrake);
+      mode = IdleMode.kBrake;
+    } else if (mode != IdleMode.kCoast) {
+      shooterTop.setIdleMode(IdleMode.kCoast);
+      shooterBottom.setIdleMode(IdleMode.kCoast);
+      mode = IdleMode.kCoast;
+    }
   }
 
   private double getCurrentSpeed() {

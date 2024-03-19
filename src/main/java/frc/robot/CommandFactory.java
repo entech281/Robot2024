@@ -1,22 +1,30 @@
 package frc.robot;
 
+import java.util.Optional;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.GyroResetByAngleCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LEDDefaultCommand;
+import frc.robot.commands.MoveToNoteCommand;
 import frc.robot.commands.ShootAngleCommand;
+import frc.robot.io.RobotIO;
+import frc.robot.operation.UserPolicy;
 import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.LEDs.LEDSubsystem;
 import frc.robot.subsystems.drive.DriveSubsystem;
@@ -55,7 +63,8 @@ public class CommandFactory {
     this.subsystemManager = subsystemManager;
     this.ledSubsystem = subsystemManager.getLedSubsystem();
 
-    ledSubsystem.setDefaultCommand(new LEDDefaultCommand(ledSubsystem));
+    if (ledSubsystem.isEnabled())
+      ledSubsystem.setDefaultCommand(new LEDDefaultCommand(ledSubsystem));
 
     AutoBuilder.configureHolonomic(odometry::getEstimatedPose, // Robot pose supplier
         // Method to reset odometry (will be called if your auto has a starting pose)
@@ -98,15 +107,18 @@ public class CommandFactory {
     }));
 
     NamedCommands.registerCommand("intake", new IntakeNoteCommand(intakeSubsystem,
-        transferSubsystem, subsystemManager.getLedSubsystem()));
-    NamedCommands.registerCommand("shoot1", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
-        transferSubsystem, RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING));
-    NamedCommands.registerCommand("shoot2", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
-        transferSubsystem, RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING));
-    NamedCommands.registerCommand("shootAmp", new ShootAngleCommand(shooterSubsystem,
-        pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG));
+        transferSubsystem, shooterSubsystem, subsystemManager.getLedSubsystem()));
+    NamedCommands.registerCommand("subwooferShot", new ShootAngleCommand(shooterSubsystem,
+        pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING));
+    NamedCommands.registerCommand("podiumShot", new ShootAngleCommand(shooterSubsystem,
+        pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING));
+    NamedCommands.registerCommand("ampShot", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
+        transferSubsystem, RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG));
     NamedCommands.registerCommand("120degreeStart",
         new GyroResetByAngleCommand(navXSubsystem, odometry, 120));
+    NamedCommands.registerCommand("autoIntake", new ParallelRaceGroup(
+        new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance()),
+        new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -118,5 +130,31 @@ public class CommandFactory {
     auto.addCommands(new WaitCommand(0.5));
     auto.addCommands(autoChooser.getSelected());
     return auto;
+  }
+
+  public Command getTargetSpeakerCommand() {
+    return Commands.runOnce(() -> {
+      Optional<Alliance> team = DriverStation.getAlliance();
+      if (team.isPresent()) {
+        if (team.get() == Alliance.Blue) {
+          UserPolicy.getInstance().setTargetPose(new Pose2d(0.0, 5.31, new Rotation2d()));
+          return;
+        }
+      }
+      UserPolicy.getInstance().setTargetPose(new Pose2d(16.54, 5.54, new Rotation2d()));
+    });
+  }
+
+  public Command getTargetAmpCommand() {
+    return Commands.runOnce(() -> {
+      Optional<Alliance> team = DriverStation.getAlliance();
+      if (team.isPresent()) {
+        if (team.get() == Alliance.Blue) {
+          UserPolicy.getInstance().setTargetPose(new Pose2d(1.78, 8.14, new Rotation2d()));
+          return;
+        }
+      }
+      UserPolicy.getInstance().setTargetPose(new Pose2d(14.75, 8.14, new Rotation2d()));
+    });
   }
 }

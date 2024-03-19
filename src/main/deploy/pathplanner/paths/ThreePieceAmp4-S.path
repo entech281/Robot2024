@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.9698465111215943,
-        "y": 3.694183388366777
+        "x": 2.0,
+        "y": 7.202868251890351
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9698465111215966,
-        "y": 3.694183388366777
+        "x": 2.261288368730585,
+        "y": 7.193001309079543
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "AmpSide3-S"
     },
     {
       "anchor": {
-        "x": 4.0,
-        "y": 6.0
+        "x": 7.5,
+        "y": 7.45
       },
       "prevControl": {
-        "x": 3.0,
-        "y": 6.0
+        "x": 7.2243606025673595,
+        "y": 7.439674879349759
       },
       "nextControl": null,
       "isLocked": false,
@@ -40,12 +40,12 @@
   "goalEndState": {
     "velocity": 0,
     "rotation": 0,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": "Other",
+  "folder": "Amp",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": -135.0,
     "velocity": 0
   },
   "useDefaultConstraints": true
