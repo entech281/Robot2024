@@ -15,7 +15,7 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 
 public final class RobotConstants {
-  public static final double TIME_PER_PERIODICAL_LOOP_SECONDS = 0.02;
+  public static final double TIME_PER_PERIODICAL_LOOP_SECONDS = 0.00;
 
   public static final class DrivetrainConstants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
@@ -217,6 +217,11 @@ public final class RobotConstants {
       public static final int INTAKE = 4;
       public static final int EJECT = 5;
       public static final int CLIMB = 7;
+
+      public static final int RAISE_ARM = 8;
+      public static final int LOWER_CLIMB_RIGHT = 11;
+      public static final int LOWER_CLIMB_LEFT = 10;
+      public static final int RUN_TEST = 9;
     }
 
     public static class SWITCHES {
@@ -231,16 +236,17 @@ public final class RobotConstants {
 
 
     public static interface Cameras {
-      public static final String LEFT = "Aducam_Bravo";
+      public static final String LEFT = "Global_Shutter_Camera";
       public static final String RIGHT = "Arducam_Alpha";
       public static final String COLOR = "Arducam_OV9782_USB_Camera";
-      public static final String MIDDLE = "Global_Shutter_Camera";
+      public static final String MIDDLE = "Aducam_Bravo";
+      public static final String NEW = "Arducam_OV9281_USB_Camera";
     }
 
 
     public static interface Filters {
-      public static final double MAX_AMBIGUITY = 0.4;
-      public static final double MAX_DISTANCE = 3;
+      public static final double MAX_AMBIGUITY = 0.5;
+      public static final double MAX_DISTANCE = 3.0;
     }
 
     public static interface Resolution {
@@ -250,10 +256,10 @@ public final class RobotConstants {
 
     public static interface Transforms {
       public static final Transform3d LEFT = new Transform3d(
-          new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(4.25),
-              Units.inchesToMeters(19.5)),
-          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
-              Units.degreesToRadians(-90)));
+          new Translation3d(Units.inchesToMeters(-10), Units.inchesToMeters(6.25),
+              Units.inchesToMeters(21.5)),
+          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(5),
+              Units.degreesToRadians(90)));
       public static final Transform3d RIGHT = new Transform3d(
           new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(-4.25),
               Units.inchesToMeters(19.5)),
@@ -264,9 +270,14 @@ public final class RobotConstants {
               Units.inchesToMeters(19.5)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(15),
               Units.degreesToRadians(0.0)));
+
+      public static final Transform3d NEW = new Transform3d(
+          new Translation3d(Units.inchesToMeters(13.0), Units.inchesToMeters(0.0),
+              Units.inchesToMeters(-11)),
+          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
+              Units.degreesToRadians(12)));
     }
   }
-
 
   public static interface PID {
 
@@ -298,9 +309,9 @@ public final class RobotConstants {
   public static interface TRANSFER {
     public static final double SHOOTING_SPEED = 1;
     public static final double TRANSFERRING_SPEED = 0.0;
-    public static final double INTAKING_SPEED_FAST = 0.6;
+    public static final double INTAKING_SPEED_FAST = 0.7;
     public static final double INTAKING_SPEED_SLOW = 0;
-    public static final double EJECTING_SPEED = -0.6;
+    public static final double EJECTING_SPEED = -0.7;
     public static final double RETRACTING_SPEED = -0.2;
     public static final double TESTING_SPEED = 0.15;
   }
@@ -336,8 +347,8 @@ public final class RobotConstants {
 
 
   public static interface INTAKE {
-    public static final double INTAKE_SPEED = 0.6;
-    public static final double EJECTING_SPEED = -0.6;
+    public static final double INTAKE_SPEED = 0.7;
+    public static final double EJECTING_SPEED = -0.7;
     public static final int EJECTING_TIME = 2;
   }
 

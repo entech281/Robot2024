@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import entech.subsystems.EntechSubsystem;
 import entech.util.DriverControllerUtils;
 import frc.robot.CommandFactory;
@@ -81,25 +81,28 @@ public class OperatorInterface
 
 
   public void enableJoystickBindings() {
-    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.TWIST).whileTrue(new TwistCommand());
-    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.GYRO_RESET).onTrue(new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
+    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.TWIST)
+        .whileTrue(new TwistCommand());
+    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.GYRO_RESET)
+        .onTrue(new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
 
-    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.RUN_TESTS).onTrue(new RunTestCommand(testChooser));
+    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.RUN_TESTS)
+        .onTrue(new RunTestCommand(testChooser));
 
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
     // align to speaker or amp depending on an operator switch
 
-    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.RESET_ODOMETRY).onTrue(new ResetOdometryCommand(odometry));
-    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_LEFT).whileTrue(new ClimbJogLeftCommand(subsystemManager.getClimbSubsystem()));
-    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_LEFT).onFalse(new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
-    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_RIGHT).onFalse(new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
-    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_RIGHT).onTrue(new ClimbJogRightCommand(subsystemManager.getClimbSubsystem()));
-
-    Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
-    SmartDashboard.putData("Test Chooser", testChooser);
-
-    testChooser.addOption("All tests", getTestCommand());
+    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.RESET_ODOMETRY)
+        .onTrue(new ResetOdometryCommand(odometry));
+    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_LEFT)
+        .whileTrue(new ClimbJogLeftCommand(subsystemManager.getClimbSubsystem()));
+    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_LEFT)
+        .onFalse(new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
+    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_RIGHT)
+        .onFalse(new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
+    joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_RIGHT)
+        .onTrue(new ClimbJogRightCommand(subsystemManager.getClimbSubsystem()));
   }
 
   public void enableXboxBindings() {
@@ -111,34 +114,40 @@ public class OperatorInterface
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
 
-    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.FULL_PIVOT)
-        .whileTrue(new PivotUpCommand(subsystemManager.getPivotSubsystem()));
-
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.NOTE_ALIGN)
         .whileTrue(new AlignNoteToggleCommand());
 
-    Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
-    SendableChooser<Command> testChooser = getTestCommandChooser();
-    SmartDashboard.putData("Test Chooser", testChooser);
+    xboxController.button(3).onTrue(commandFactory.getTargetAmpCommand());
 
-    testChooser.addOption("All tests", getTestCommand());
+    xboxController.button(1).onTrue(commandFactory.getTargetSpeakerCommand());
 
+    xboxController.button(3).onFalse(Commands.runOnce(() -> {
+      UserPolicy.getInstance().setTargetPose(null);
+    }));
+
+    xboxController.button(1).onFalse(Commands.runOnce(() -> {
+      UserPolicy.getInstance().setTargetPose(null);
+    }));
+
+    xboxController.button(8).onTrue(new ResetOdometryCommand(odometry));
   }
 
   public void operatorBindings() {
 
-    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT).whileTrue(
-        new ShootCommand(subsystemManager.getShooterSubsystem(),
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT)
+        .whileTrue(new ShootCommand(subsystemManager.getShooterSubsystem(),
             subsystemManager.getPivotSubsystem(), subsystemManager.getTransferSubsystem(),
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_AMP),
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_SPEAKER)));
 
-    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.INTAKE).whileTrue(
-        new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
-            subsystemManager.getTransferSubsystem(), subsystemManager.getLedSubsystem()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.INTAKE)
+        .whileTrue(new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
+            subsystemManager.getTransferSubsystem(), subsystemManager.getShooterSubsystem(),
+            subsystemManager.getLedSubsystem()));
 
-    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.EJECT).whileTrue(new EjectNoteCommand(subsystemManager.getIntakeSubsystem(),
-        subsystemManager.getTransferSubsystem(), subsystemManager.getShooterSubsystem()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.EJECT)
+        .whileTrue(new EjectNoteCommand(subsystemManager.getIntakeSubsystem(),
+            subsystemManager.getTransferSubsystem(), subsystemManager.getShooterSubsystem()));
 
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.CLIMB)
@@ -146,6 +155,26 @@ public class OperatorInterface
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.CANCEL_CLIMB)))
         .whileFalse(new LowerClimbCommand(subsystemManager.getClimbSubsystem(),
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.CANCEL_CLIMB)));
+
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.RAISE_ARM)
+        .whileTrue(new PivotUpCommand(subsystemManager.getPivotSubsystem()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_LEFT)
+        .whileTrue(new ClimbJogLeftCommand(subsystemManager.getClimbSubsystem()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_RIGHT)
+        .whileTrue(new ClimbJogRightCommand(subsystemManager.getClimbSubsystem()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_LEFT)
+        .onFalse(new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_RIGHT)
+        .onTrue(new ClimbJogRightCommand(subsystemManager.getClimbSubsystem()));
+
+    testChooser.addOption("All tests", getTestCommand());
+    Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
+    SmartDashboard.putData("Test Chooser", testChooser);
+
+    testChooser.addOption("All tests", getTestCommand());
+
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.RUN_TEST)
+        .onTrue(new RunTestCommand(testChooser));
   }
 
   private SendableChooser<Command> getTestCommandChooser() {

@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3829526758152613,
-      "y": 5.528332498106438
+      "x": 0.5049725484066367,
+      "y": 4.065180438053184
     },
     "rotation": 0
   },
@@ -12,27 +12,39 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "shoot1"
+            "pathName": "SourceSide1"
           }
         },
         {
-          "type": "wait",
+          "type": "named",
           "data": {
-            "waitTime": 4.0
+            "name": "podiumShot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "1piecegrab"
+            "pathName": "SourceSide2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "shoot2"
+            "name": "autoIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "SourceSide3.1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "podiumShot"
           }
         }
       ]

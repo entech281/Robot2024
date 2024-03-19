@@ -14,19 +14,37 @@
         {
           "type": "path",
           "data": {
-            "pathName": "sideFlatStartPart1"
+            "pathName": "ThreePieceAmp1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "shoot1"
+            "name": "subwooferShot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "sideFlatStartPart2"
+            "pathName": "ThreePieceAmp2"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ThreePieceAmp3-S"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "podiumShot"
           }
         }
       ]
