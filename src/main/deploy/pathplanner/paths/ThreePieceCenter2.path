@@ -3,48 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
+        "x": 2.379705757984981,
         "y": 5.55
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.0276958246224197,
+        "x": 2.4074015826074002,
         "y": 5.545221859674489
       },
       "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.7,
-        "y": 5.55
-      },
-      "prevControl": {
-        "x": 2.4882280533791854,
-        "y": 5.555088802485298
-      },
-      "nextControl": {
-        "x": 2.7066072022318908,
-        "y": 5.549841231344968
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.45,
-        "y": 5.55
-      },
-      "prevControl": {
-        "x": 3.23715041239012,
-        "y": 5.55
-      },
-      "nextControl": {
-        "x": 1.6900982161375568,
-        "y": 5.55
-      },
-      "isLocked": false,
-      "linkedName": null
+      "linkedName": "Center1E"
     },
     {
       "anchor": {
@@ -61,30 +29,7 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [
-    {
-      "name": "Intake Zone",
-      "minWaypointRelativePos": 0.45,
-      "maxWaypointRelativePos": 1.0,
-      "constraints": {
-        "maxVelocity": 0.5,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 360.0,
-        "maxAngularAcceleration": 180.0
-      }
-    },
-    {
-      "name": "Shot Zone",
-      "minWaypointRelativePos": 1.9500000000000002,
-      "maxWaypointRelativePos": 2.0999999999999996,
-      "constraints": {
-        "maxVelocity": 0.1,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 360.0,
-        "maxAngularAcceleration": 180.0
-      }
-    }
-  ],
+  "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
