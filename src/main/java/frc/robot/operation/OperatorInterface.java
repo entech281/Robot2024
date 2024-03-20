@@ -165,7 +165,7 @@ public class OperatorInterface
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_LEFT)
         .onFalse(new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_RIGHT)
-        .onTrue(new ClimbJogRightCommand(subsystemManager.getClimbSubsystem()));
+        .onFalse(new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
 
     testChooser.addOption("All tests", getTestCommand());
     Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");

@@ -21,10 +21,10 @@ public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
   public NavXOutput toOutputs() {
     NavXOutput output = new NavXOutput();
 
-    output.setYaw(gyro.getAngle());
+    output.setYaw(-gyro.getAngle());
     output.setPitch(gyro.getPitch());
     output.setRoll(gyro.getRoll());
-    output.setYawRate(gyro.getRate());
+    output.setYawRate(-gyro.getRate());
     output.setChassisSpeeds(getChassisSpeeds());
     output.setZVelocity(gyro.getVelocityZ());
     output.setTemperature(gyro.getTempC());
