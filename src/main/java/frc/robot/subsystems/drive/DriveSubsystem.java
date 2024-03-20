@@ -47,6 +47,9 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
       new SlewRateLimiter(DrivetrainConstants.ROTATIONAL_SLEW_RATE);
   private double prevTime = WPIUtilJNI.now() * 1e-6;
 
+  private ChassisSpeeds lastChassisSpeeds =
+      ChassisSpeeds.fromRobotRelativeSpeeds(0.0, 0.0, 0.0, Rotation2d.fromDegrees(0.0));
+
   @Override
   public void updateInputs(DriveInput input) {
     if (ENABLED) {
@@ -113,12 +116,18 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
       double rotDelivered =
           currentRotation * DrivetrainConstants.MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
 
-      SwerveModuleState[] swerveModuleStates = DrivetrainConstants.DRIVE_KINEMATICS
-          .toSwerveModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered,
-              ySpeedDelivered, rotDelivered, input.getGyroAngle()));
+      lastChassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered,
+          rotDelivered, input.getGyroAngle());
+
+      SwerveModuleState[] swerveModuleStates =
+          DrivetrainConstants.DRIVE_KINEMATICS.toSwerveModuleStates(lastChassisSpeeds);
 
       setModuleStates(swerveModuleStates);
     }
+  }
+
+  public ChassisSpeeds getChassisSpeeds() {
+    return lastChassisSpeeds;
   }
 
   @Override

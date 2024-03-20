@@ -67,11 +67,12 @@ public class CommandFactory {
       ledSubsystem.setDefaultCommand(new LEDDefaultCommand(ledSubsystem));
 
     AutoBuilder.configureHolonomic(odometry::getEstimatedPose, // Robot pose supplier
-        odometry::resetOdometry,
         // Method to reset odometry (will be called if your auto has a starting pose)
-        () -> navXSubsystem.toOutputs().getChassisSpeeds(), // ChassisSpeeds supplier. MUST BE ROBOT
-                                                            // RELATIVE
-        driveSubsystem::pathFollowDrive, new HolonomicPathFollowerConfig(
+        odometry::resetOdometry,
+        // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE. Choose one:
+        // () -> navXSubsystem.toOutputs().getChassisSpeeds(),
+        () -> driveSubsystem.getChassisSpeeds(), driveSubsystem::pathFollowDrive,
+        new HolonomicPathFollowerConfig(
             // HolonomicPathFollowerConfig, this should likely live in your Constants
             // class
             new PIDConstants(RobotConstants.AUTONOMOUS.TRANSLATION_CONTROLLER_P, 0.0, 0.0),
