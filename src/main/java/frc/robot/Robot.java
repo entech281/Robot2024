@@ -5,6 +5,7 @@
 package frc.robot;
 
 import org.littletonrobotics.junction.LogFileUtil;
+import org.littletonrobotics.junction.LogTable;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
@@ -65,6 +66,7 @@ public class Robot extends LoggedRobot {
     // "Understanding Data Flow" page
     Logger.start(); // Start logging! No more data receivers, replay sources, or metadata values may
                     // be added.
+    LogTable.disableProtobufWarning();
   }
 
   @Override
