@@ -256,8 +256,8 @@ public final class RobotConstants {
 
     public static interface Transforms {
       public static final Transform3d LEFT = new Transform3d(
-          new Translation3d(Units.inchesToMeters(-10), Units.inchesToMeters(6.25),
-              Units.inchesToMeters(21.5)),
+          new Translation3d(Units.inchesToMeters(-10), Units.inchesToMeters(6.5),
+              Units.inchesToMeters(18.5)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(5),
               Units.degreesToRadians(90)));
       public static final Transform3d RIGHT = new Transform3d(
