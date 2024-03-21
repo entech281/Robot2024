@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3535296301361848,
-      "y": 5.545221859674489
+      "x": 0.5416846869729774,
+      "y": 7.025974412309185
     },
     "rotation": 0
   },
@@ -11,6 +11,12 @@
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ThreePieceAmp1"
+          }
+        },
         {
           "type": "named",
           "data": {
@@ -20,7 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TwoPieceCenter1"
+            "pathName": "ThreePieceAmp2"
           }
         },
         {
@@ -32,37 +38,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TwoPieceCenter2"
+            "pathName": "ThreePieceAmp3-A"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "podiumShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "ThreePieceCenter2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "autoIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "ThreePieceCenter3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "podiumShot"
+            "name": "ampShot"
           }
         }
       ]
