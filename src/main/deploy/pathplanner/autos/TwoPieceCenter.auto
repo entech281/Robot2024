@@ -20,7 +20,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TwoPieceCenter"
+            "pathName": "TwoPieceCenter1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TwoPieceCenter2"
           }
         },
         {
