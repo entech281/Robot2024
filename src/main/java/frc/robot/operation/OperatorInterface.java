@@ -66,7 +66,7 @@ public class OperatorInterface
       joystickController = new CommandJoystick(RobotConstants.PORTS.CONTROLLER.TEST_JOYSTICK);
       enableJoystickBindings();
     }
-    operatorBindings();
+    // operatorBindings();
   }
 
   public void configureBindings() {
