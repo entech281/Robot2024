@@ -1,6 +1,9 @@
 package frc.robot.processors.filters;
 
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.Optional;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.opencv.core.Point;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -21,31 +24,31 @@ public class TestNoteAlignFilter {
   private static final double[] CORRECT_Y_NEG = {0.0, -0.7071067811865476, -0.7071067811865476,
       -1.0, -1.0, -0.7071067811865476, -0.7071067811865476, 0.0, 0.0};
 
-  // @ParameterizedTest
-  // @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
-  // void testNoteAlignFilterX(int index) {
-  // DriveInput pdiRed = process(1.0, 0.0, ANGLES[index], Alliance.Red, 0.0);
-  // DriveInput ndiRed = process(-1.0, 0.0, ANGLES[index], Alliance.Red, 0.0);
-  // DriveInput pdiBlue = process(1.0, 0.0, ANGLES[index], Alliance.Blue, 0.0);
-  // DriveInput ndiBlue = process(-1.0, 0.0, ANGLES[index], Alliance.Blue, 0.0);
-  // assertEquals(CORRECT_X_POS[index], pdiRed.getXSpeed(), TOLERANCE);
-  // assertEquals(CORRECT_X_NEG[index], ndiRed.getXSpeed(), TOLERANCE);
-  // assertEquals(CORRECT_X_POS[index], pdiBlue.getXSpeed(), TOLERANCE);
-  // assertEquals(CORRECT_X_NEG[index], ndiBlue.getXSpeed(), TOLERANCE);
-  // }
+  @ParameterizedTest
+  @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
+  void testNoteAlignFilterX(int index) {
+    DriveInput pdiRed = process(1.0, 0.0, ANGLES[index], Alliance.Red, 0.0);
+    DriveInput ndiRed = process(-1.0, 0.0, ANGLES[index], Alliance.Red, 0.0);
+    DriveInput pdiBlue = process(1.0, 0.0, ANGLES[index], Alliance.Blue, 0.0);
+    DriveInput ndiBlue = process(-1.0, 0.0, ANGLES[index], Alliance.Blue, 0.0);
+    assertEquals(CORRECT_X_POS[index], pdiRed.getXSpeed(), TOLERANCE);
+    assertEquals(CORRECT_X_NEG[index], ndiRed.getXSpeed(), TOLERANCE);
+    assertEquals(CORRECT_X_POS[index], pdiBlue.getXSpeed(), TOLERANCE);
+    assertEquals(CORRECT_X_NEG[index], ndiBlue.getXSpeed(), TOLERANCE);
+  }
 
-  // @ParameterizedTest
-  // @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
-  // void testNoteAlignFilterY(int index) {
-  // DriveInput pdiRed = process(0.0, 1.0, ANGLES[index], Alliance.Red, 0.0);
-  // DriveInput ndiRed = process(0.0, -1.0, ANGLES[index], Alliance.Red, 0.0);
-  // DriveInput pdiBlue = process(0.0, 1.0, ANGLES[index], Alliance.Blue, 0.0);
-  // DriveInput ndiBlue = process(0.0, -1.0, ANGLES[index], Alliance.Blue, 0.0);
-  // assertEquals(CORRECT_Y_POS[index], pdiRed.getYSpeed(), TOLERANCE);
-  // assertEquals(CORRECT_Y_NEG[index], ndiRed.getYSpeed(), TOLERANCE);
-  // assertEquals(CORRECT_Y_POS[index], pdiBlue.getYSpeed(), TOLERANCE);
-  // assertEquals(CORRECT_Y_NEG[index], ndiBlue.getYSpeed(), TOLERANCE);
-  // }
+  @ParameterizedTest
+  @ValueSource(ints = {0, 1, 2, 3, 4, 5, 6, 7, 8})
+  void testNoteAlignFilterY(int index) {
+    DriveInput pdiRed = process(0.0, 1.0, ANGLES[index], Alliance.Red, 0.0);
+    DriveInput ndiRed = process(0.0, -1.0, ANGLES[index], Alliance.Red, 0.0);
+    DriveInput pdiBlue = process(0.0, 1.0, ANGLES[index], Alliance.Blue, 0.0);
+    DriveInput ndiBlue = process(0.0, -1.0, ANGLES[index], Alliance.Blue, 0.0);
+    assertEquals(CORRECT_Y_POS[index], pdiRed.getYSpeed(), TOLERANCE);
+    assertEquals(CORRECT_Y_NEG[index], ndiRed.getYSpeed(), TOLERANCE);
+    assertEquals(CORRECT_Y_POS[index], pdiBlue.getYSpeed(), TOLERANCE);
+    assertEquals(CORRECT_Y_NEG[index], ndiBlue.getYSpeed(), TOLERANCE);
+  }
 
   private DriveInput process(double x, double y, double angle, Alliance team, double noteYaw) {
     DriveInput di = new DriveInput();

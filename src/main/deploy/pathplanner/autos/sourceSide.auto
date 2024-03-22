@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.5049725484066367,
-      "y": 2.0
+      "x": 0.5139505774507043,
+      "y": 4.030690583903691
     },
     "rotation": 0
   },
@@ -14,7 +14,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Park"
+            "pathName": "openSpaceSideFlat"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "openSpacepPart2"
           }
         }
       ]

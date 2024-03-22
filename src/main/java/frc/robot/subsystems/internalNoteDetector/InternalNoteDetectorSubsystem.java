@@ -10,7 +10,7 @@ import frc.robot.io.RobotIO;
 public class InternalNoteDetectorSubsystem
     extends EntechSubsystem<InternalNoteDetectorInput, InternalNoteDetectorOutput> {
 
-  private boolean ENABLED = true;
+  private boolean ENABLED = false;
 
   private DigitalInput internalSensorF;
   private DigitalInput internalSensorR;

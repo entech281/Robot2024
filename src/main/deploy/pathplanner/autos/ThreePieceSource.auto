@@ -18,12 +18,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "subwooferShot"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "SourceSide2"
@@ -33,6 +27,12 @@
           "type": "path",
           "data": {
             "pathName": "SourceSide3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoIntake"
           }
         },
         {
