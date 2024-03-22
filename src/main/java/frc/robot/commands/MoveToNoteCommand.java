@@ -3,6 +3,7 @@ package frc.robot.commands;
 import org.opencv.core.Point;
 import entech.commands.EntechCommand;
 import frc.robot.io.DriveInputSupplier;
+import frc.robot.io.RobotIO;
 import frc.robot.operation.UserPolicy;
 import frc.robot.processors.filters.NoteAlignmentFilter;
 import frc.robot.subsystems.drive.DriveInput;
@@ -47,7 +48,8 @@ public class MoveToNoteCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
+        || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote());
   }
 
   @Override

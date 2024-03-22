@@ -42,8 +42,6 @@ public class Robot extends LoggedRobot {
     Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
     Logger.recordMetadata("BuildUnixTime", BuildConstants.BUILD_UNIX_TIME + "");
 
-
-
     if (isReal()) {
       Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
       Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
