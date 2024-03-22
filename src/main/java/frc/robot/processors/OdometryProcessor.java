@@ -10,6 +10,7 @@ import frc.robot.operation.UserPolicy;
 
 public class OdometryProcessor {
   private SwerveDrivePoseEstimator estimator;
+  private boolean integrateVision = false;
 
   public Pose2d getEstimatedPose() {
     return estimator.getEstimatedPosition();
@@ -28,7 +29,7 @@ public class OdometryProcessor {
     estimator.update(Rotation2d.fromDegrees(RobotIO.getInstance().getNavXOutput().getYaw()),
         RobotIO.getInstance().getDriveOutput().getModulePositions());
 
-    if (RobotIO.getInstance().getVisionOutput() != null) {
+    if (RobotIO.getInstance().getVisionOutput() != null && integrateVision) {
       Optional<Pose2d> visionPose = RobotIO.getInstance().getVisionOutput().getEstimatedPose();
       Optional<Double> visionTimeStamp = RobotIO.getInstance().getVisionOutput().getTimeStamp();
 
@@ -80,5 +81,13 @@ public class OdometryProcessor {
   public void resetOdometry(Pose2d pose, Rotation2d gyroAngle) {
     estimator.resetPosition(gyroAngle, RobotIO.getInstance().getDriveOutput().getModulePositions(),
         pose);
+  }
+
+  public boolean isIntegratingVision() {
+    return this.integrateVision;
+  }
+
+  public void setIntegrateVision(boolean integrateVision) {
+    this.integrateVision = integrateVision;
   }
 }

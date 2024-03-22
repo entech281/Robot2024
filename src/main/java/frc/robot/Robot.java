@@ -87,6 +87,7 @@ public class Robot extends LoggedRobot {
 
   @Override
   public void autonomousInit() {
+    odometry.setIntegrateVision(false);
     autonomousCommand = commandFactory.getAutoCommand();
 
     if (autonomousCommand != null) {
@@ -104,6 +105,7 @@ public class Robot extends LoggedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
+    odometry.setIntegrateVision(true);
   }
 
   @Override
