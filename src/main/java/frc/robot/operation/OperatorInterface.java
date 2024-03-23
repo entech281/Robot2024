@@ -29,6 +29,7 @@ import frc.robot.commands.ResetOdometryCommand;
 import frc.robot.commands.RunTestCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.TwistCommand;
+import frc.robot.commands.XDriveCommand;
 import frc.robot.io.DebugInput;
 import frc.robot.io.DebugInputSupplier;
 import frc.robot.io.DriveInputSupplier;
@@ -117,11 +118,11 @@ public class OperatorInterface
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.NOTE_ALIGN)
         .whileTrue(new AlignNoteToggleCommand());
 
-    xboxController.button(3).onTrue(commandFactory.getTargetAmpCommand());
+    xboxController.button(4).onTrue(commandFactory.getTargetAmpCommand());
 
     xboxController.button(1).onTrue(commandFactory.getTargetSpeakerCommand());
 
-    xboxController.button(3).onFalse(Commands.runOnce(() -> {
+    xboxController.button(4).onFalse(Commands.runOnce(() -> {
       UserPolicy.getInstance().setTargetPose(null);
     }));
 
@@ -129,6 +130,7 @@ public class OperatorInterface
       UserPolicy.getInstance().setTargetPose(null);
     }));
 
+    xboxController.button(3).whileTrue(new XDriveCommand(subsystemManager.getDriveSubsystem()));
     xboxController.button(8).onTrue(new ResetOdometryCommand(odometry));
   }
 
