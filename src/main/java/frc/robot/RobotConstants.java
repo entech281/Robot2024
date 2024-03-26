@@ -95,7 +95,7 @@ public final class RobotConstants {
     public static final double TURNING_ENCODER_POSITION_PID_MAX_INPUT_RADIANS = (2 * Math.PI);
     // radians
 
-    public static final double DRIVING_P = 0.06;
+    public static final double DRIVING_P = 0.04;
     public static final double DRIVING_I = 0;
     public static final double DRIVING_D = 0;
     public static final double DRIVING_FF = 1 / DRIVE_WHEEL_FREE_SPEED_RPS;
@@ -182,7 +182,7 @@ public final class RobotConstants {
 
 
     public static class CONTROLLER {
-      public static final double JOYSTICK_AXIS_THRESHOLD = 0.2;
+      public static final double JOYSTICK_AXIS_THRESHOLD = 0.05;
       public static final int DRIVER_CONTROLLER = 0;
       public static final int PANEL = 1;
       public static final int TEST_JOYSTICK = 2;
