@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.GyroReset;
@@ -116,7 +116,7 @@ public class CommandFactory {
         transferSubsystem, RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG));
     NamedCommands.registerCommand("120degreeStart",
         new GyroResetByAngleCommand(navXSubsystem, odometry, 120));
-    NamedCommands.registerCommand("autoIntake", new ParallelRaceGroup(
+    NamedCommands.registerCommand("autoIntake", new ParallelCommandGroup(
         new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance()),
         new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
 
