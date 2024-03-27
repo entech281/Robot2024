@@ -15,13 +15,10 @@ public class ShooterOutput extends SubsystemOutputBasics {
 
   @Override
   public void toLog() {
-    super.toLog();
     Logger.recordOutput("ShooterOutput/isAtSpeed", isAtSpeed);
     Logger.recordOutput("ShooterOutput/speedA", speedA);
     Logger.recordOutput("ShooterOutput/speedB", speedB);
   }
-
-
 
   public void setIsAtSpeed(boolean isAtSpeed) {
     this.isAtSpeed = isAtSpeed;

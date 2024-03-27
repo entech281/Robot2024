@@ -7,7 +7,7 @@ public class ClimbInput implements SubsystemInput {
 
   private boolean activate = false;
   private boolean brakeModeEnabled = false;
-  private boolean feeze = false;
+  private boolean freeze = false;
   private double speedLeft = 0.0;
   private double speedRight = 0.0;
   // private double currentRoll = 0.0;
@@ -17,7 +17,8 @@ public class ClimbInput implements SubsystemInput {
     table.put("activate", activate);
     table.put("speedLeft", speedLeft);
     table.put("speedRight", speedRight);
-    // table.put("currentRoll", currentRoll);
+    table.put("feeze", freeze);
+    table.put("brakeModeEnabled", speedLeft);
   }
 
   @Override
@@ -39,12 +40,12 @@ public class ClimbInput implements SubsystemInput {
     this.brakeModeEnabled = brakeModeEnabled;
   }
 
-  public boolean getFeeze() {
-    return this.feeze;
+  public boolean getFreeze() {
+    return this.freeze;
   }
 
-  public void setFeeze(boolean feeze) {
-    this.feeze = feeze;
+  public void setFreeze(boolean freeze) {
+    this.freeze = freeze;
   }
 
   public double getSpeedLeft() {

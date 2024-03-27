@@ -10,11 +10,13 @@ public class IntakeInput implements SubsystemInput {
   @Override
   public void toLog(LogTable table) {
     table.put("activate", activate);
+    table.put("speed", speed);
   }
 
   @Override
   public void fromLog(LogTable table) {
     activate = table.get("activate", false);
+    speed = table.get("speed", 0.0);
   }
 
   public boolean getActivate() {
