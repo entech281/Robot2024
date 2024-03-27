@@ -55,10 +55,10 @@ public class ShootCommand extends EntechCommand {
         sInput.setSpeed(RobotConstants.PID.SHOOTER.AMP_SPEED);
       } else if (speakerSwitch.getAsBoolean()) {
         pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING);
-        sInput.setSpeed(RobotConstants.PID.SHOOTER.SPEAKER_SPEED);
+        sInput.setSpeed(RobotConstants.PID.SHOOTER.PODIUM_SPEED);
       } else {
-        pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING);
-        sInput.setSpeed(RobotConstants.PID.SHOOTER.SPEAKER_SPEED);
+        pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_SUBWOOFER_SCORING);
+        sInput.setSpeed(RobotConstants.PID.SHOOTER.SUBWOOFER_SPEED);
       }
       sSubsystem.updateInputs(sInput);
       pSubsystem.updateInputs(pInput);

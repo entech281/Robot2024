@@ -109,7 +109,7 @@ public class CommandFactory {
     NamedCommands.registerCommand("intake", new IntakeNoteCommand(intakeSubsystem,
         transferSubsystem, shooterSubsystem, subsystemManager.getLedSubsystem()));
     NamedCommands.registerCommand("subwooferShot", new ShootAngleCommand(shooterSubsystem,
-        pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_BUMPER_SCORING));
+        pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_SUBWOOFER_SCORING));
     NamedCommands.registerCommand("podiumShot", new ShootAngleCommand(shooterSubsystem,
         pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING));
     NamedCommands.registerCommand("ampShot", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,

@@ -286,7 +286,8 @@ public final class RobotConstants {
       public static final double KI = 0.0;
       public static final double KD = 0.0;
       public static final double KFF = 0.00018;
-      public static final double SPEAKER_SPEED = 4500;
+      public static final double PODIUM_SPEED = 4000;
+      public static final double SUBWOOFER_SPEED = 3100;
       public static final double AMP_SPEED = 3000;
     }
 
@@ -333,8 +334,8 @@ public final class RobotConstants {
 
     public static final double LOB_ANGLE = 10.0;
 
-    public static final double SPEAKER_BUMPER_SCORING = 14.5;
-    public static final double SPEAKER_PODIUM_SCORING = 24.5;
+    public static final double SPEAKER_SUBWOOFER_SCORING = 8;
+    public static final double SPEAKER_PODIUM_SCORING = 30;
   }
 
 
@@ -347,7 +348,7 @@ public final class RobotConstants {
 
 
   public static interface INTAKE {
-    public static final double INTAKE_SPEED = 0.7;
+    public static final double INTAKE_SPEED = 0.5;
     public static final double EJECTING_SPEED = -0.7;
     public static final int EJECTING_TIME = 2;
   }
