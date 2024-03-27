@@ -15,7 +15,7 @@ import frc.robot.io.RobotIO;
 
 public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutput> {
 
-  private static final boolean ENABLED = false;
+  private static final boolean ENABLED = true;
   private static final double TOLERANCE = 75;
 
   private CANSparkMax shooterTop;
@@ -70,6 +70,15 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
         shooterTop.set(0.0);
       }
     }
+    if (currentInput.isBrakeModeEnabled() && mode != IdleMode.kBrake) {
+      shooterTop.setIdleMode(IdleMode.kBrake);
+      shooterBottom.setIdleMode(IdleMode.kBrake);
+      mode = IdleMode.kBrake;
+    } else if (mode != IdleMode.kCoast) {
+      shooterTop.setIdleMode(IdleMode.kCoast);
+      shooterBottom.setIdleMode(IdleMode.kCoast);
+      mode = IdleMode.kCoast;
+    }
   }
 
   private double getCurrentSpeed() {
@@ -107,8 +116,7 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     SequentialCommandGroup testCommands = new SequentialCommandGroup();
     testCommands.addCommands(new TestShooterCommand(this, RobotConstants.PID.SHOOTER.AMP_SPEED));
     testCommands.addCommands(new WaitCommand(1.0));
-    testCommands
-        .addCommands(new TestShooterCommand(this, RobotConstants.PID.SHOOTER.SPEAKER_SPEED));
+    testCommands.addCommands(new TestShooterCommand(this, RobotConstants.PID.SHOOTER.PODIUM_SPEED));
     return testCommands;
   }
 }

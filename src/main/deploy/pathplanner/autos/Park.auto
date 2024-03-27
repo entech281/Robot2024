@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.5139505774507043,
-      "y": 4.030690583903691
+      "x": 0.5049725484066367,
+      "y": 4.065180438053184
     },
     "rotation": 0
   },
@@ -14,13 +14,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "openSpaceSideFlat"
+            "pathName": "Park1"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferShot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "openSpacepPart2"
+            "pathName": "Park2"
           }
         }
       ]

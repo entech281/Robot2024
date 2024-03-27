@@ -15,7 +15,7 @@ import frc.robot.io.RobotIO;
 
 public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
-  private static final boolean ENABLED = false;
+  private static final boolean ENABLED = true;
   private static final boolean IS_INVERTED = false;
 
   private PivotInput currentInput = new PivotInput();

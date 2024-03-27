@@ -101,15 +101,15 @@ public class SubsystemManager {
     ArrayList<EntechSubsystem<?, ?>> r = new ArrayList<>();
     r.add(navXSubsystem);
     r.add(driveSubsystem);
-    r.add(visionSubsystem);
     r.add(intakeSubsystem);
     r.add(shooterSubsystem);
     r.add(transferSubsystem);
-    r.add(noteDetectorSubsystem);
     r.add(pivotSubsystem);
     r.add(climbSubsystem);
     r.add(ledSubsystem);
     r.add(internalNoteDetectorSubsystem);
+    r.add(visionSubsystem);
+    r.add(noteDetectorSubsystem);
 
     return r;
   }

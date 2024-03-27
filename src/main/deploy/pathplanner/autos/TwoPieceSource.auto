@@ -46,30 +46,6 @@
           "data": {
             "name": "podiumShot"
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "SourceSide4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "autoIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "SourceSide5"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "podiumShot"
-          }
         }
       ]
     }

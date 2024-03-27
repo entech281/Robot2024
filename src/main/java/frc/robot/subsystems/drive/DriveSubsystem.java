@@ -26,10 +26,10 @@ import frc.robot.commands.test.TestDriveCommand;
 public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
   private static final boolean ENABLED = true;
 
-  public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = -0.6493782167825488;
-  public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = -0.44890044829984976;
-  public static final double REAR_LEFT_VIRTUAL_OFFSET_RADIANS = -1.3180966246712007;
-  public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = -0.832907157277369;
+  public static final double FRONT_LEFT_VIRTUAL_OFFSET_RADIANS = 1.4779245720125385;
+  public static final double FRONT_RIGHT_VIRTUAL_OFFSET_RADIANS = -2.247701101404261;
+  public static final double REAR_LEFT_VIRTUAL_OFFSET_RADIANS = 0.7613908452677798;
+  public static final double REAR_RIGHT_VIRTUAL_OFFSET_RADIANS = 1.704240497731777;
 
   public static final int GYRO_ORIENTATION = 1; // might be able to merge with kGyroReversed
 
@@ -46,6 +46,9 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
   private SlewRateLimiter rotLimiter =
       new SlewRateLimiter(DrivetrainConstants.ROTATIONAL_SLEW_RATE);
   private double prevTime = WPIUtilJNI.now() * 1e-6;
+
+  private ChassisSpeeds lastChassisSpeeds =
+      ChassisSpeeds.fromRobotRelativeSpeeds(0.0, 0.0, 0.0, Rotation2d.fromDegrees(0.0));
 
   @Override
   public void updateInputs(DriveInput input) {
@@ -113,12 +116,18 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
       double rotDelivered =
           currentRotation * DrivetrainConstants.MAX_ANGULAR_SPEED_RADIANS_PER_SECOND;
 
-      SwerveModuleState[] swerveModuleStates = DrivetrainConstants.DRIVE_KINEMATICS
-          .toSwerveModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered,
-              ySpeedDelivered, rotDelivered, input.getGyroAngle()));
+      lastChassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeedDelivered, ySpeedDelivered,
+          rotDelivered, input.getGyroAngle());
+
+      SwerveModuleState[] swerveModuleStates =
+          DrivetrainConstants.DRIVE_KINEMATICS.toSwerveModuleStates(lastChassisSpeeds);
 
       setModuleStates(swerveModuleStates);
     }
+  }
+
+  public ChassisSpeeds getChassisSpeeds() {
+    return lastChassisSpeeds;
   }
 
   @Override

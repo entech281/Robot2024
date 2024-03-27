@@ -29,6 +29,7 @@ import frc.robot.commands.ResetOdometryCommand;
 import frc.robot.commands.RunTestCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.TwistCommand;
+import frc.robot.commands.XDriveCommand;
 import frc.robot.io.DebugInput;
 import frc.robot.io.DebugInputSupplier;
 import frc.robot.io.DriveInputSupplier;
@@ -103,11 +104,6 @@ public class OperatorInterface
         .onFalse(new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
     joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.CLIMB_JOG_RIGHT)
         .onTrue(new ClimbJogRightCommand(subsystemManager.getClimbSubsystem()));
-
-    Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
-    SmartDashboard.putData("Test Chooser", testChooser);
-
-    testChooser.addOption("All tests", getTestCommand());
   }
 
   public void enableXboxBindings() {
@@ -119,17 +115,14 @@ public class OperatorInterface
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
 
-    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.FULL_PIVOT)
-        .whileTrue(new PivotUpCommand(subsystemManager.getPivotSubsystem()));
-
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.NOTE_ALIGN)
         .whileTrue(new AlignNoteToggleCommand());
 
-    xboxController.button(3).onTrue(CommandFactory.getTargetAmpCommand());
+    xboxController.button(4).onTrue(commandFactory.getTargetAmpCommand());
 
-    xboxController.button(1).onTrue(CommandFactory.getTargetSpeakerCommand());
+    xboxController.button(1).onTrue(commandFactory.getTargetSpeakerCommand());
 
-    xboxController.button(3).onFalse(Commands.runOnce(() -> {
+    xboxController.button(4).onFalse(Commands.runOnce(() -> {
       UserPolicy.getInstance().setTargetPose(null);
     }));
 
@@ -137,14 +130,8 @@ public class OperatorInterface
       UserPolicy.getInstance().setTargetPose(null);
     }));
 
+    xboxController.button(3).whileTrue(new XDriveCommand(subsystemManager.getDriveSubsystem()));
     xboxController.button(8).onTrue(new ResetOdometryCommand(odometry));
-
-    Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
-    SendableChooser<Command> testChooser = getTestCommandChooser();
-    SmartDashboard.putData("Test Chooser", testChooser);
-
-    testChooser.addOption("All tests", getTestCommand());
-
   }
 
   public void operatorBindings() {
@@ -157,7 +144,8 @@ public class OperatorInterface
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.INTAKE)
         .whileTrue(new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),
-            subsystemManager.getTransferSubsystem(), subsystemManager.getLedSubsystem()));
+            subsystemManager.getTransferSubsystem(), subsystemManager.getShooterSubsystem(),
+            subsystemManager.getLedSubsystem()));
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.EJECT)
         .whileTrue(new EjectNoteCommand(subsystemManager.getIntakeSubsystem(),
@@ -169,6 +157,26 @@ public class OperatorInterface
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.CANCEL_CLIMB)))
         .whileFalse(new LowerClimbCommand(subsystemManager.getClimbSubsystem(),
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.CANCEL_CLIMB)));
+
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.RAISE_ARM)
+        .whileTrue(new PivotUpCommand(subsystemManager.getPivotSubsystem()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_LEFT)
+        .whileTrue(new ClimbJogLeftCommand(subsystemManager.getClimbSubsystem()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_RIGHT)
+        .whileTrue(new ClimbJogRightCommand(subsystemManager.getClimbSubsystem()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_LEFT)
+        .onFalse(new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_RIGHT)
+        .onFalse(new ClimbJogStopCommand(subsystemManager.getClimbSubsystem()));
+
+    testChooser.addOption("All tests", getTestCommand());
+    Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST, "No Current Test");
+    SmartDashboard.putData("Test Chooser", testChooser);
+
+    testChooser.addOption("All tests", getTestCommand());
+
+    operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.RUN_TEST)
+        .onTrue(new RunTestCommand(testChooser));
   }
 
   private SendableChooser<Command> getTestCommandChooser() {

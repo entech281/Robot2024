@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.5049725484066367,
-      "y": 4.065180438053184
+      "x": 0.5324399837988864,
+      "y": 7.025974412309185
     },
     "rotation": 0
   },
@@ -14,43 +14,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SourceSide1"
+            "pathName": "ThreePieceAmp1"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "podiumShot"
+            "name": "subwooferShot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "SourceSide2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "autoIntake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "SourceSide3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "podiumShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "SourceSide4"
+            "pathName": "ThreePieceAmp2"
           }
         },
         {
@@ -62,7 +38,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "SourceSide5"
+            "pathName": "ThreePieceAmp3-S"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "podiumShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ThreePieceAmp4-S"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "ThreePieceAmp5"
           }
         },
         {

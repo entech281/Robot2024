@@ -79,7 +79,7 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
       // RobotConstants.Vision.Transforms.MIDDLE, photonAprilTagFieldLayout);
 
       CameraContainerI cameraNew = new SoloCameraContainer(RobotConstants.Vision.Cameras.NEW,
-          RobotConstants.Vision.Transforms.NEW, photonAprilTagFieldLayout);
+          RobotConstants.Vision.Transforms.LEFT, photonAprilTagFieldLayout);
 
       this.cameras = new MultiCameraContainer(cameraNew);
     }

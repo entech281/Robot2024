@@ -41,7 +41,8 @@ public class NoteAlignmentFilter implements DriveFilterI {
             controller.calculate(input.getLatestOdometryPose().getRotation().getDegrees(),
                 Units.radiansToDegrees(noteAngle)));
       }
-      driveSpeed = Math.sqrt(Math.pow(input.getXSpeed(), 2) + Math.pow(input.getYSpeed(), 2));
+      driveSpeed =
+          Math.sqrt(Math.pow(input.getXSpeed(), 2) + Math.pow(input.getYSpeed(), 2)) * 0.75;
       double diff = Math.abs(driverInputAngle - Units.radiansToDegrees(noteAngle));
       if (diff > 180) {
         diff = 360 - diff;
