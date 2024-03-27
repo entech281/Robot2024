@@ -116,8 +116,7 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
     SequentialCommandGroup testCommands = new SequentialCommandGroup();
     testCommands.addCommands(new TestShooterCommand(this, RobotConstants.PID.SHOOTER.AMP_SPEED));
     testCommands.addCommands(new WaitCommand(1.0));
-    testCommands
-        .addCommands(new TestShooterCommand(this, RobotConstants.PID.SHOOTER.SPEAKER_SPEED));
+    testCommands.addCommands(new TestShooterCommand(this, RobotConstants.PID.SHOOTER.PODIUM_SPEED));
     return testCommands;
   }
 }
