@@ -4,18 +4,21 @@ import java.lang.Math;
 import edu.wpi.first.math.util.Units;
 
 public class AimCalculator {
-	private static final double pivotHeightInches = 18;
-	private static final double armLenInches = 15;
-	private static final double armAngleDegrees = 57;
+	// Constants
+	private static final double pivotHeightInches = 18; // The height of the center of the pivot (in inches)
+	private static final double armLenInches = 15; // The length from the center of the pivot to the point of intersection to the center of the shooter (in degrees)
+	private static final double armAngleDegrees = 57; // The angle of the shooter (in degrees)
 
 	/**
 	 * 
 	 * @param distanceToTargetMeters
-	 * @return Angle the arm needs to be at in order to hit a specific target with the note
+	 * @return Angle the arm needs to be at in order to hit a specific target with
+	 *         the note
 	 */
 	public static double getAngleDegreesFromDistance(double distanceToTargetMeters, double targetHeightInches) {
 		double distanceToTargetInches = Units.metersToInches(distanceToTargetMeters);
-		return Units.inchesToMeters(getAngleDegreesFromDistance(distanceToTargetInches, targetHeightInches, pivotHeightInches, armLenInches, armAngleDegrees));
+		return Units.inchesToMeters(getAngleDegreesFromDistance(distanceToTargetInches, targetHeightInches,
+				pivotHeightInches, armLenInches, armAngleDegrees));
 	}
 
 	private static final double getAngleDegreesFromDistance(double distanceToTarget, double heightOfTarget,
