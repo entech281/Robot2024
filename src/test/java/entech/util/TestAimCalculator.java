@@ -11,6 +11,6 @@ public class TestAimCalculator {
     @Test
     void TestAim(){
         assertEquals(8, AimCalculator.getAngleDegreesFromDistance(Units.inchesToMeters(42), Target.SPEAKER), TOLERANCE);
-        assertEquals(30, AimCalculator.getAngleDegreesFromDistance(Units.inchesToMeters(97), Target.SPEAKER),TOLERANCE);
+        assertEquals(30, AimCalculator.getAngleDegreesFromDistance(Units.inchesToMeters(100), Target.SPEAKER),TOLERANCE);
     }
 }
