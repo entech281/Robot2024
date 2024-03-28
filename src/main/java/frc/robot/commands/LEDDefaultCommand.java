@@ -15,25 +15,42 @@ public class LEDDefaultCommand extends EntechCommand {
     this.ledSubsystem = ledSubsystem;
   }
 
+  public boolean hasError() {
+    return RobotIO.getInstance().getNavXOutput().isFaultDetected();
+  }
+
+  public boolean readyToShoot() {
+    return RobotIO.getInstance().getShooterOutput().isAtSpeed()
+        && (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
+        || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote());
+  }
+
   @Override
   public void execute() {
-    if (RobotIO.getInstance().getNavXOutput().isFaultDetected()) {
+    if (hasError()) {
       input.setBlinking(true);
       input.setColor(Color.kRed);
-    } else if (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
-        || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()) {
+    } else if (readyToShoot()) {
       input.setBlinking(false);
-      input.setColor(Color.kPurple);
-    } else if (RobotIO.getInstance().getNoteDetectorOutput() != null) {
-      input.setBlinking(false);
-      if (RobotIO.getInstance().getNoteDetectorOutput().hasNotes()) {
+      input.setColor(Color.kGreen); // or rumble the controller
+    } else if (RobotIO.getInstance().getIntakeOutput().isActive()) {
+      input.setBlinking(true);
+      if (RobotIO.getInstance().getDriveOutput().getModuleStates()[0].speedMetersPerSecond != 0) {
         input.setColor(Color.kOrange);
       } else {
-        input.setColor(Color.kGreen);
+        input.setColor(Color.kPurple);
+      }
+    } else if (!(RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
+        || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote())
+        && RobotIO.getInstance().getNoteDetectorOutput() != null) {
+      if (RobotIO.getInstance().getNoteDetectorOutput().hasNotes()) {
+        input.setBlinking(false);
+        input.setColor(Color.kOrange);
       }
     } else {
       input.setBlinking(false);
       input.setColor(Color.kGreen);
+      //needs code to read oi for the wanted shooting position
     }
 
     ledSubsystem.updateInputs(input);
