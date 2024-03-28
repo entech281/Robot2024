@@ -5,9 +5,22 @@ import edu.wpi.first.math.util.Units;
 
 public class AimCalculator {
 	// Constants
-	private static final double pivotHeightInches = 18; // The height of the center of the pivot (in inches)
-	private static final double armLenInches = 15; // The length from the center of the pivot to the point of intersection to the center of the shooter (in degrees)
-	private static final double armAngleDegrees = 57; // The angle of the shooter (in degrees)
+	public static final double PIVOT_HEIGHT_INCH = 18; // The height of the center of the pivot (in inches)
+	public static final double ARM_LENGTH_INCHES = 15; // The length from the center of the pivot to the point of intersection to the center of the shooter (in degrees)
+	public static final double ARM_ANGLE_DEGREES = 57; // The angle of the shooter (in degrees)
+	public enum Target{
+		SPEAKER(85), TRAP(0);
+
+    	private int numVal;
+
+    	Target(int numVal) {
+        	this.numVal = numVal;
+    	}
+
+		public int getNumVal() {
+			return numVal;
+    	}
+	}
 
 	/**
 	 * 
@@ -15,10 +28,13 @@ public class AimCalculator {
 	 * @return Angle the arm needs to be at in order to hit a specific target with
 	 *         the note
 	 */
-	public static double getAngleDegreesFromDistance(double distanceToTargetMeters, double targetHeightInches) {
+	public static double getAngleDegreesFromDistance(double distanceToTargetMeters, Target target) {
 		double distanceToTargetInches = Units.metersToInches(distanceToTargetMeters);
-		return Units.inchesToMeters(getAngleDegreesFromDistance(distanceToTargetInches, targetHeightInches,
-				pivotHeightInches, armLenInches, armAngleDegrees));
+
+		double targetHeight = target.getNumVal();
+		
+		return getAngleDegreesFromDistance(distanceToTargetInches, targetHeight,
+				PIVOT_HEIGHT_INCH, ARM_LENGTH_INCHES, ARM_ANGLE_DEGREES);
 	}
 
 	private static final double getAngleDegreesFromDistance(double distanceToTarget, double heightOfTarget,
