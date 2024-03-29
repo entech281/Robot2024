@@ -18,7 +18,7 @@ import frc.robot.subsystems.pivot.PivotSubsystem;
 import frc.robot.subsystems.shooter.ShooterInput;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 
-public class PrepareToShoot extends EntechCommand {
+public class PrepareToShootCommand extends EntechCommand {
   private static final double ANGLE_OFFSET = 2.0;
 
   private StoppingCounter cancelCounter = new StoppingCounter(RobotConstants.SHOOTER.RESET_DELAY);
@@ -33,12 +33,14 @@ public class PrepareToShoot extends EntechCommand {
 
   private final Trigger ampSwitch;
   private final Trigger speakerSwitch;
+  private final Trigger autoSwitch;
   private final XboxController controller;
 
   private boolean noNote;
 
-  public PrepareToShoot(ShooterSubsystem shooter, PivotSubsystem pivot, IntakeSubsystem intake,
-      Trigger ampSwitch, Trigger speakerSwitch, XboxController controller) {
+  public PrepareToShootCommand(ShooterSubsystem shooter, PivotSubsystem pivot,
+      IntakeSubsystem intake, Trigger ampSwitch, Trigger speakerSwitch, Trigger autoSwitch,
+      XboxController controller) {
     super(shooter, pivot);
     this.pivot = pivot;
     this.shooter = shooter;
@@ -46,6 +48,7 @@ public class PrepareToShoot extends EntechCommand {
     this.speakerSwitch = speakerSwitch;
     this.controller = controller;
     this.intake = intake;
+    this.autoSwitch = autoSwitch;
   }
 
   @Override
@@ -62,6 +65,7 @@ public class PrepareToShoot extends EntechCommand {
 
     UserPolicy.getInstance().setReadyToShoot(false);
     controller.setRumble(RumbleType.kBothRumble, 0.0);
+    UserPolicy.getInstance().setPreparingToShoot(false);
   }
 
   @Override
@@ -69,6 +73,7 @@ public class PrepareToShoot extends EntechCommand {
     cancelCounter.reset();
     stableCounter.reset();
     controller.setRumble(RumbleType.kBothRumble, 0.0);
+    UserPolicy.getInstance().setPreparingToShoot(true);
   }
 
   @Override
@@ -83,13 +88,15 @@ public class PrepareToShoot extends EntechCommand {
       if (ampSwitch.getAsBoolean()) {
         pInput.setRequestedPosition(RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG);
         sInput.setSpeed(RobotConstants.PID.SHOOTER.AMP_SPEED);
-      } else if (speakerSwitch.getAsBoolean()) {
-        // pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING);
+      } else if (autoSwitch.getAsBoolean()) {
         sInput.setSpeed(RobotConstants.PID.SHOOTER.PODIUM_SPEED);
         Optional<Double> distance = RobotIO.getInstance().getDistanceFromTarget();
 
         pInput.setRequestedPosition(AimCalculator.getAngleDegreesFromDistance(
             distance.isPresent() ? distance.get() : 1, Target.SPEAKER) - ANGLE_OFFSET);
+      } else if (speakerSwitch.getAsBoolean()) {
+        pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING);
+        sInput.setSpeed(RobotConstants.PID.SHOOTER.PODIUM_SPEED);
       } else {
         pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_SUBWOOFER_SCORING);
         sInput.setSpeed(RobotConstants.PID.SHOOTER.SUBWOOFER_SPEED);

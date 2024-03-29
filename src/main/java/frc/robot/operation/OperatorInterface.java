@@ -25,7 +25,7 @@ import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LowerClimbCommand;
 import frc.robot.commands.PivotUpCommand;
-import frc.robot.commands.PrepareToShoot;
+import frc.robot.commands.PrepareToShootCommand;
 import frc.robot.commands.RaiseClimbCommand;
 import frc.robot.commands.ResetOdometryCommand;
 import frc.robot.commands.RunTestCommand;
@@ -141,10 +141,11 @@ public class OperatorInterface
   public void operatorBindings() {
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT)
-        .whileTrue(new PrepareToShoot(subsystemManager.getShooterSubsystem(),
+        .whileTrue(new PrepareToShootCommand(subsystemManager.getShooterSubsystem(),
             subsystemManager.getPivotSubsystem(), subsystemManager.getIntakeSubsystem(),
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_AMP),
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_SPEAKER),
+            operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.AUTO_ANGLE),
             xboxController.getHID()));
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.INTAKE)
