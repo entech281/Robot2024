@@ -49,7 +49,6 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
         setColor(currentInput.getColor());
       }
     }
-
   }
 
   private void toggleColor() {
@@ -89,6 +88,7 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
   public LEDOutput toOutputs() {
     LEDOutput output = new LEDOutput();
     output.setColor(currentInput.getColor());
+    output.setBlinking(currentInput.getBlinking());
     return output;
   }
 }

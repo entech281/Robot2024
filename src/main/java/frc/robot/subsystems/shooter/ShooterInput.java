@@ -12,6 +12,7 @@ public class ShooterInput implements SubsystemInput {
   public void toLog(LogTable table) {
     table.put("activate", activate);
     table.put("speed", speed);
+    table.put("brakeModeEnabled", brakeModeEnabled);
   }
 
   @Override

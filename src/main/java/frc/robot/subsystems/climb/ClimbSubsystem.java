@@ -55,7 +55,7 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        if (currentInput.getFeeze()) {
+        if (currentInput.getFreeze()) {
           climbMotorRight.set(0.0);
           climbMotorLeft.set(0.0);
 

@@ -145,6 +145,7 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
             rearRight.getTurningAbsoluteEncoder().getVirtualPosition()});
     output.setModuleStates(new SwerveModuleState[] {frontLeft.getState(), frontRight.getState(),
         rearLeft.getState(), rearRight.getState()});
+    output.setSpeeds(lastChassisSpeeds);
     return output;
   }
 

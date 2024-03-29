@@ -12,11 +12,13 @@ public class LEDInput implements SubsystemInput {
   @Override
   public void toLog(LogTable table) {
     table.put("Blinking", blinking);
-    table.put("Current Color", color + "");
+    table.put("CurrentColor", color + "");
   }
 
   @Override
-  public void fromLog(LogTable table) {}
+  public void fromLog(LogTable table) {
+    blinking = table.get("Blinking", false);
+  }
 
   public Color getColor() {
     return color;
