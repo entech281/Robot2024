@@ -25,7 +25,7 @@ public class TestVisionCommand extends EntechCommand {
   public void execute() {
     switch (stage) {
       case 0:
-        testCamera(leftTestTag, RobotConstants.Vision.Cameras.NEW, "left");
+        testCamera(leftTestTag, RobotConstants.Vision.Cameras.LEFT, "left");
         break;
       default:
         break;
