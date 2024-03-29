@@ -2,7 +2,9 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import entech.commands.EntechCommand;
+import entech.util.AimCalculator;
 import entech.util.StoppingCounter;
+import entech.util.AimCalculator.Target;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
 import frc.robot.subsystems.pivot.PivotInput;
@@ -25,17 +27,20 @@ public class ShootCommand extends EntechCommand {
   private final ShooterSubsystem sSubsystem;
   private final PivotSubsystem pSubsystem;
   private final TransferSubsystem tSubsystem;
+  private final Trigger autoAim;
   private final Trigger ampSwitch;
   private final Trigger speakerSwitch;
 
   private boolean noNote;
 
   public ShootCommand(ShooterSubsystem shooterSubsystem, PivotSubsystem pivotSubsystem,
-      TransferSubsystem transferSubsystem, Trigger ampSwitch, Trigger speakerSwitch) {
+      TransferSubsystem transferSubsystem, Trigger ampSwitch, Trigger speakerSwitch,
+      Trigger autoAim) {
     super(shooterSubsystem, pivotSubsystem, transferSubsystem);
     this.sSubsystem = shooterSubsystem;
     this.pSubsystem = pivotSubsystem;
     this.tSubsystem = transferSubsystem;
+    this.autoAim = autoAim;
     this.ampSwitch = ampSwitch;
     this.speakerSwitch = speakerSwitch;
   }
@@ -54,7 +59,12 @@ public class ShootCommand extends EntechCommand {
         pInput.setRequestedPosition(RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG);
         sInput.setSpeed(RobotConstants.PID.SHOOTER.AMP_SPEED);
       } else if (speakerSwitch.getAsBoolean()) {
-        pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING);
+        if (autoAim.getAsBoolean()) {
+          pInput.setRequestedPosition(AimCalculator.getAngleDegreesFromDistance(
+              RobotIO.getInstance().getDistanceFromTarget().get(), Target.SPEAKER));
+        } else {
+          pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING);
+        }
         sInput.setSpeed(RobotConstants.PID.SHOOTER.PODIUM_SPEED);
       } else {
         pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_SUBWOOFER_SCORING);
@@ -78,6 +88,15 @@ public class ShootCommand extends EntechCommand {
     } else if (!(RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
         || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote())) {
       noNote = true;
+    }
+
+    if (speakerSwitch.getAsBoolean()) {
+      if (autoAim.getAsBoolean()) {
+        pInput.setRequestedPosition(AimCalculator.getAngleDegreesFromDistance(
+            RobotIO.getInstance().getDistanceFromTarget().get(), Target.SPEAKER));
+      } else {
+        pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING);
+      }
     }
   }
 

@@ -140,7 +140,8 @@ public class OperatorInterface
         .whileTrue(new ShootCommand(subsystemManager.getShooterSubsystem(),
             subsystemManager.getPivotSubsystem(), subsystemManager.getTransferSubsystem(),
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_AMP),
-            operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_SPEAKER)));
+            operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_SPEAKER),
+            operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.AUTO_AIM)));
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.INTAKE)
         .whileTrue(new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),

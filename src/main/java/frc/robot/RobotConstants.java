@@ -227,6 +227,7 @@ public final class RobotConstants {
     public static class SWITCHES {
       public static final int PIVOT_AMP = 2;
       public static final int PIVOT_SPEAKER = 3;
+      public static final int AUTO_AIM = 4;
       public static final int CANCEL_CLIMB = 6;
     }
   }
@@ -315,6 +316,16 @@ public final class RobotConstants {
     public static final double EJECTING_SPEED = -0.7;
     public static final double RETRACTING_SPEED = -0.2;
     public static final double TESTING_SPEED = 0.15;
+  }
+
+
+  public static interface AUTO_AIM {
+    public static final double PIVOT_HEIGHT_INCH = 18; // The height of the center of the pivot (in
+                                                       // inches)
+    public static final double ARM_LENGTH_INCHES = 15; // The length from the center of the pivot to
+                                                       // the point of intersection to the center of
+                                                       // the shooter (in degrees)
+    public static final double ARM_ANGLE_DEGREES = 57; // The angle of the shooter (in degrees)
   }
 
 
