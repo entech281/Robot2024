@@ -119,23 +119,29 @@ public class OperatorInterface
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.NOTE_ALIGN)
         .whileTrue(new AlignNoteToggleCommand());
 
-    xboxController.button(4).onTrue(commandFactory.getTargetAmpCommand());
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.TARGET_AMP)
+        .onTrue(commandFactory.getTargetAmpCommand());
 
-    xboxController.button(1).onTrue(commandFactory.getTargetSpeakerCommand());
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.TARGET_SPEAKER)
+        .onTrue(commandFactory.getTargetSpeakerCommand());
 
-    xboxController.button(4).onFalse(Commands.runOnce(() -> {
-      UserPolicy.getInstance().setTargetPose(null);
-    }));
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.TARGET_AMP)
+        .onFalse(Commands.runOnce(() -> {
+          UserPolicy.getInstance().setTargetPose(null);
+        }));
 
-    xboxController.button(1).onFalse(Commands.runOnce(() -> {
-      UserPolicy.getInstance().setTargetPose(null);
-    }));
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.TARGET_SPEAKER)
+        .onFalse(Commands.runOnce(() -> {
+          UserPolicy.getInstance().setTargetPose(null);
+        }));
 
-    xboxController.button(5)
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.FEED_SHOOTER)
         .whileTrue(new FeedShooterCommand(subsystemManager.getTransferSubsystem()));
 
-    xboxController.button(3).whileTrue(new XDriveCommand(subsystemManager.getDriveSubsystem()));
-    xboxController.button(8).onTrue(new ResetOdometryCommand(odometry));
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.DRIVE_X)
+        .whileTrue(new XDriveCommand(subsystemManager.getDriveSubsystem()));
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.RESET_ODOMETRY)
+        .onTrue(new ResetOdometryCommand(odometry));
   }
 
   public void operatorBindings() {

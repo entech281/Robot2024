@@ -200,6 +200,11 @@ public final class RobotConstants {
         public static final int GYRO_RESET = 7;
         public static final int NOTE_ALIGN = 2;
         public static final int FULL_PIVOT = 8;
+        public static final int TARGET_AMP = 4;
+        public static final int TARGET_SPEAKER = 1;
+        public static final int FEED_SHOOTER = 5;
+        public static final int DRIVE_X = 3;
+        public static final int RESET_ODOMETRY = 8;
       }
     }
 
