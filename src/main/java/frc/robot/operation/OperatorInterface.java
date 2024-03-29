@@ -22,6 +22,7 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
+import frc.robot.commands.LEDDefaultCommand;
 import frc.robot.commands.LowerClimbCommand;
 import frc.robot.commands.PivotUpCommand;
 import frc.robot.commands.RaiseClimbCommand;
@@ -79,7 +80,7 @@ public class OperatorInterface
       enableJoystickBindings();
     }
   }
-
+  
 
   public void enableJoystickBindings() {
     joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.TWIST)
@@ -135,6 +136,13 @@ public class OperatorInterface
   }
 
   public void operatorBindings() {
+
+    if (subsystemManager.getLedSubsystem().isEnabled()) {
+      subsystemManager.getLedSubsystem()
+        .setDefaultCommand(new LEDDefaultCommand(subsystemManager.getLedSubsystem(),
+          operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_AMP),
+          operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_SPEAKER)));
+    }
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT)
         .whileTrue(new ShootCommand(subsystemManager.getShooterSubsystem(),

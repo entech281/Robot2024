@@ -1,7 +1,9 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import entech.commands.EntechCommand;
+import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
 import frc.robot.subsystems.LEDs.LEDInput;
 import frc.robot.subsystems.LEDs.LEDSubsystem;
@@ -9,10 +11,14 @@ import frc.robot.subsystems.LEDs.LEDSubsystem;
 public class LEDDefaultCommand extends EntechCommand {
   private final LEDSubsystem ledSubsystem;
   private final LEDInput input = new LEDInput();
+  private Trigger ampSwitch;
+  private Trigger speakerSwitch;
 
-  public LEDDefaultCommand(LEDSubsystem ledSubsystem) {
+  public LEDDefaultCommand(LEDSubsystem ledSubsystem, Trigger ampSwitch, Trigger speakerSwitch) {
     super(ledSubsystem);
     this.ledSubsystem = ledSubsystem;
+    this.ampSwitch = ampSwitch;
+    this.speakerSwitch = speakerSwitch;
   }
 
   public boolean hasError() {
@@ -49,7 +55,13 @@ public class LEDDefaultCommand extends EntechCommand {
       }
     } else {
       input.setBlinking(false);
-      input.setColor(Color.kGreen);
+      if (ampSwitch.getAsBoolean()) {
+        input.setColor(Color.kDarkGreen);
+      } else if (speakerSwitch.getAsBoolean()) {
+        input.setColor(Color.kPink);
+      } else {
+        input.setColor(Color.kMaroon);
+      }
       //needs code to read oi for the wanted shooting position
     }
 
