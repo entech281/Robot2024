@@ -8,6 +8,8 @@ public class UserPolicy {
   private boolean twistable = false;
   private boolean aligningToNote = false;
   private Pose2d targetPose = null;
+  private boolean readyToShoot = false;
+  private boolean isPreparingToShoot = false;
 
   private UserPolicy() {}
 
@@ -15,6 +17,13 @@ public class UserPolicy {
     return instance;
   }
 
+  public boolean isReadyToShoot() {
+    return this.readyToShoot;
+  }
+
+  public void setReadyToShoot(boolean readyToShoot) {
+    this.readyToShoot = readyToShoot;
+  }
 
   public boolean isTwistable() {
     return this.twistable;
@@ -38,5 +47,13 @@ public class UserPolicy {
 
   public void setAligningToNote(boolean aligningToNote) {
     this.aligningToNote = aligningToNote;
+  }
+
+  public boolean isPreparingToShoot() {
+    return this.isPreparingToShoot;
+  }
+
+  public void setPreparingToShoot(boolean isPreparingToShoot) {
+    this.isPreparingToShoot = isPreparingToShoot;
   }
 }

@@ -72,8 +72,20 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
   public void periodic() {
     double clampedPosition = clampRequestedPosition(currentInput.getRequestedPosition());
     if (ENABLED) {
-      pivotLeft.getPIDController().setReference(calculateMotorPositionFromDegrees(clampedPosition),
-          ControlType.kSmartMotion, 0);
+      if (currentInput.getActivate()) {
+        if ((pivotLeft.getEncoder().getPosition() * RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR)
+            - clampedPosition <= 0) {
+          pivotLeft.getPIDController().setReference(
+              calculateMotorPositionFromDegrees(clampedPosition), ControlType.kSmartMotion, 0);
+        } else {
+          pivotLeft.getPIDController().setReference(
+              calculateMotorPositionFromDegrees(clampedPosition), ControlType.kSmartMotion, 1);
+        }
+      } else {
+        pivotLeft.getPIDController().setReference(
+            calculateMotorPositionFromDegrees(RobotConstants.PIVOT.LOWER_SOFT_LIMIT_DEG),
+            ControlType.kSmartMotion, 1);
+      }
     }
   }
 
@@ -96,7 +108,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     pivotOutput.setRightBrakeModeEnabled(IdleMode.kBrake == mode);
     pivotOutput.setCurrentPosition(
         pivotLeft.getEncoder().getPosition() * RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR);
-    pivotOutput.setAtRequestedPosition(EntechUtils.isWithinTolerance(1.5,
+    pivotOutput.setAtRequestedPosition(EntechUtils.isWithinTolerance(2,
         pivotOutput.getCurrentPosition(), currentInput.getRequestedPosition()));
     pivotOutput.setAtLowerLimit(
         pivotLeft.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed());
