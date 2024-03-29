@@ -238,7 +238,7 @@ public final class RobotConstants {
     public static interface Cameras {
       public static final String COLOR = "Arducam_OV9782_USB_Camera";
       public static final String LEFT = "Arducam_OV9281_USB_Camera";
-      public static final String RIGHT = "Arducam_OV9281_USB_Camera";
+      public static final String RIGHT = "Arducam_Alpha";
 
     }
 
@@ -255,12 +255,12 @@ public final class RobotConstants {
 
     public static interface Transforms {
       public static final Transform3d LEFT = new Transform3d(
-          new Translation3d(Units.inchesToMeters(-10), Units.inchesToMeters(6.5),
+          new Translation3d(Units.inchesToMeters(-6), Units.inchesToMeters(6.5),
               Units.inchesToMeters(18.5)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
               Units.degreesToRadians(90)));
       public static final Transform3d RIGHT = new Transform3d(
-          new Translation3d(Units.inchesToMeters(-10), Units.inchesToMeters(-6.5),
+          new Translation3d(Units.inchesToMeters(-6), Units.inchesToMeters(-6.5),
               Units.inchesToMeters(18.5)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
               Units.degreesToRadians(-90)));

@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import entech.commands.EntechCommand;
 import frc.robot.io.RobotIO;
-import frc.robot.operation.UserPolicy;
 import frc.robot.subsystems.transfer.TransferInput;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem.TransferPreset;
@@ -27,8 +26,7 @@ public class FeedShooterCommand extends EntechCommand {
 
   @Override
   public void execute() {
-    if (UserPolicy.getInstance().isReadyToShoot()
-        && RobotIO.getInstance().getInternalNoteDetectorOutput().hasNote()) {
+    if (RobotIO.getInstance().getInternalNoteDetectorOutput().hasNote()) {
       input.setActivate(true);
       input.setSpeedPreset(TransferPreset.Shooting);
       transfer.updateInputs(input);
@@ -46,8 +44,7 @@ public class FeedShooterCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return !RobotIO.getInstance().getInternalNoteDetectorOutput().hasNote()
-        || !UserPolicy.getInstance().isReadyToShoot();
+    return !RobotIO.getInstance().getInternalNoteDetectorOutput().hasNote();
   }
 
 }

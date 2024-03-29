@@ -142,9 +142,10 @@ public class OperatorInterface
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT)
         .whileTrue(new PrepareToShoot(subsystemManager.getShooterSubsystem(),
-            subsystemManager.getPivotSubsystem(),
+            subsystemManager.getPivotSubsystem(), subsystemManager.getIntakeSubsystem(),
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_AMP),
-            operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_SPEAKER)));
+            operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_SPEAKER),
+            xboxController.getHID()));
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.INTAKE)
         .whileTrue(new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),

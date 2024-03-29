@@ -4,13 +4,17 @@ import java.util.Optional;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
-import frc.robot.operation.UserPolicy;
 
 public class OdometryProcessor {
   private SwerveDrivePoseEstimator estimator;
   private boolean integrateVision = false;
+  private Field2d field = new Field2d();
 
   public Pose2d getEstimatedPose() {
     return estimator.getEstimatedPosition();
@@ -23,6 +27,8 @@ public class OdometryProcessor {
         RobotConstants.ODOMETRY.INITIAL_POSE);
 
     estimator.setVisionMeasurementStdDevs(RobotConstants.Vision.VISION_STD_DEVS);
+    field.setRobotPose(getEstimatedPose());
+    SmartDashboard.putData(field);
   }
 
   public void update() {
@@ -40,14 +46,21 @@ public class OdometryProcessor {
     }
 
     RobotIO.getInstance().updateOdometryPose(getEstimatedPose());
+    field.setRobotPose(getEstimatedPose());
 
-    Pose2d target = UserPolicy.getInstance().getTargetPose();
-
-    if (target != null) {
-      RobotIO.getInstance().setDistanceFromTarget(Optional.of(calculateDistanceFromTarget(target)));
-    } else {
-      RobotIO.getInstance().setDistanceFromTarget(Optional.empty());
+    Pose2d target = null;
+    Optional<Alliance> team = DriverStation.getAlliance();
+    if (team.isPresent()) {
+      if (team.get() == Alliance.Blue) {
+        target = new Pose2d(0.0, 5.31, new Rotation2d());
+      }
     }
+
+    if (target == null) {
+      target = new Pose2d(16.54, 5.54, new Rotation2d());
+    }
+
+    RobotIO.getInstance().setDistanceFromTarget(Optional.of(calculateDistanceFromTarget(target)));
   }
 
   public void addVisionEstimatedPose(Pose2d visionPose, double timeStamp, Rotation2d yaw) {

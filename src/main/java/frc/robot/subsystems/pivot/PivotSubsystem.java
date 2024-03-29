@@ -108,7 +108,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     pivotOutput.setRightBrakeModeEnabled(IdleMode.kBrake == mode);
     pivotOutput.setCurrentPosition(
         pivotLeft.getEncoder().getPosition() * RobotConstants.PIVOT.PIVOT_CONVERSION_FACTOR);
-    pivotOutput.setAtRequestedPosition(EntechUtils.isWithinTolerance(1.5,
+    pivotOutput.setAtRequestedPosition(EntechUtils.isWithinTolerance(2,
         pivotOutput.getCurrentPosition(), currentInput.getRequestedPosition()));
     pivotOutput.setAtLowerLimit(
         pivotLeft.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed());
