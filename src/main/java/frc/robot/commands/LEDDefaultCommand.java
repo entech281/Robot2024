@@ -3,7 +3,6 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import entech.commands.EntechCommand;
-import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
 import frc.robot.subsystems.LEDs.LEDInput;
 import frc.robot.subsystems.LEDs.LEDSubsystem;
@@ -21,14 +20,19 @@ public class LEDDefaultCommand extends EntechCommand {
     this.speakerSwitch = speakerSwitch;
   }
 
-  public boolean hasError() {
+  private boolean hasError() {
     return RobotIO.getInstance().getNavXOutput().isFaultDetected();
   }
 
-  public boolean readyToShoot() {
+  private boolean readyToShoot() {
     return RobotIO.getInstance().getShooterOutput().isAtSpeed()
         && (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
         || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote());
+  }
+
+  private boolean shooterHasNote() {
+    return RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
+        || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote();
   }
 
   @Override
@@ -46,10 +50,8 @@ public class LEDDefaultCommand extends EntechCommand {
       } else {
         input.setColor(Color.kPurple);
       }
-    } else if (!(RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
-        || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote())
-        && RobotIO.getInstance().getNoteDetectorOutput() != null) {
-      if (RobotIO.getInstance().getNoteDetectorOutput().hasNotes()) {
+    } else if (!shooterHasNote()) {
+      if (RobotIO.getInstance().getNoteDetectorOutput() != null && RobotIO.getInstance().getNoteDetectorOutput().hasNotes()) {
         input.setBlinking(false);
         input.setColor(Color.kOrange);
       }

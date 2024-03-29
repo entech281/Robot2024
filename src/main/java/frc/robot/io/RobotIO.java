@@ -1,14 +1,11 @@
 package frc.robot.io;
 
 import java.util.Optional;
-import java.util.function.BooleanSupplier;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.RobotConstants;
-import frc.robot.RobotConstants.OPERATOR_PANEL;
 import frc.robot.subsystems.LEDs.LEDOutput;
 import frc.robot.subsystems.climb.ClimbOutput;
 import frc.robot.subsystems.drive.DriveInput;
@@ -21,7 +18,6 @@ import frc.robot.subsystems.pivot.PivotOutput;
 import frc.robot.subsystems.shooter.ShooterOutput;
 import frc.robot.subsystems.transfer.TransferOutput;
 import frc.robot.subsystems.vision.VisionOutput;
-import frc.robot.operation.OperatorInterface;
 
 public class RobotIO implements DriveInputSupplier {
   private static RobotIO instance = new RobotIO();
@@ -92,14 +88,6 @@ public class RobotIO implements DriveInputSupplier {
 
   public Pose2d getOdometryPose() {
     return latestOdometryPose;
-  }
-
-  public boolean getAmpSwitch() {
-    return ampSwitch.getAsBoolean();
-  }
-
-  public boolean getSpeakerSwitch() {
-    return speakerSwitch.getAsBoolean();
   }
 
   public void updateVision(VisionOutput vo) {
@@ -192,6 +180,4 @@ public class RobotIO implements DriveInputSupplier {
   private Pose2d latestOdometryPose = RobotConstants.ODOMETRY.INITIAL_POSE;
   private LEDOutput latestLEDOutput;
   private Optional<Double> distanceFromTarget = Optional.empty();
-  private Trigger ampSwitch;
-  private Trigger speakerSwitch;
 }
