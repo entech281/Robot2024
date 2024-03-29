@@ -20,14 +20,15 @@ import frc.robot.commands.ClimbJogRightCommand;
 import frc.robot.commands.ClimbJogStopCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.EjectNoteCommand;
+import frc.robot.commands.FeedShooterCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LowerClimbCommand;
 import frc.robot.commands.PivotUpCommand;
+import frc.robot.commands.PrepareToShoot;
 import frc.robot.commands.RaiseClimbCommand;
 import frc.robot.commands.ResetOdometryCommand;
 import frc.robot.commands.RunTestCommand;
-import frc.robot.commands.ShootCommand;
 import frc.robot.commands.TwistCommand;
 import frc.robot.commands.XDriveCommand;
 import frc.robot.io.DebugInput;
@@ -130,6 +131,9 @@ public class OperatorInterface
       UserPolicy.getInstance().setTargetPose(null);
     }));
 
+    xboxController.button(5)
+        .whileTrue(new FeedShooterCommand(subsystemManager.getTransferSubsystem()));
+
     xboxController.button(3).whileTrue(new XDriveCommand(subsystemManager.getDriveSubsystem()));
     xboxController.button(8).onTrue(new ResetOdometryCommand(odometry));
   }
@@ -137,8 +141,8 @@ public class OperatorInterface
   public void operatorBindings() {
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT)
-        .whileTrue(new ShootCommand(subsystemManager.getShooterSubsystem(),
-            subsystemManager.getPivotSubsystem(), subsystemManager.getTransferSubsystem(),
+        .whileTrue(new PrepareToShoot(subsystemManager.getShooterSubsystem(),
+            subsystemManager.getPivotSubsystem(),
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_AMP),
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_SPEAKER)));
 

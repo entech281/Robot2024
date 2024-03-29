@@ -8,6 +8,7 @@ public class UserPolicy {
   private boolean twistable = false;
   private boolean aligningToNote = false;
   private Pose2d targetPose = null;
+  private boolean readyToShoot = false;
 
   private UserPolicy() {}
 
@@ -15,6 +16,13 @@ public class UserPolicy {
     return instance;
   }
 
+  public boolean isReadyToShoot() {
+    return this.readyToShoot;
+  }
+
+  public void setReadyToShoot(boolean readyToShoot) {
+    this.readyToShoot = readyToShoot;
+  }
 
   public boolean isTwistable() {
     return this.twistable;
