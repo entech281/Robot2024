@@ -20,15 +20,16 @@ import frc.robot.commands.ClimbJogRightCommand;
 import frc.robot.commands.ClimbJogStopCommand;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.EjectNoteCommand;
+import frc.robot.commands.FeedShooterCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LEDDefaultCommand;
 import frc.robot.commands.LowerClimbCommand;
 import frc.robot.commands.PivotUpCommand;
+import frc.robot.commands.PrepareToShootCommand;
 import frc.robot.commands.RaiseClimbCommand;
 import frc.robot.commands.ResetOdometryCommand;
 import frc.robot.commands.RunTestCommand;
-import frc.robot.commands.ShootCommand;
 import frc.robot.commands.TwistCommand;
 import frc.robot.commands.XDriveCommand;
 import frc.robot.io.DebugInput;
@@ -119,20 +120,29 @@ public class OperatorInterface
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.NOTE_ALIGN)
         .whileTrue(new AlignNoteToggleCommand());
 
-    xboxController.button(4).onTrue(commandFactory.getTargetAmpCommand());
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.TARGET_AMP)
+        .onTrue(commandFactory.getTargetAmpCommand());
 
-    xboxController.button(1).onTrue(commandFactory.getTargetSpeakerCommand());
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.TARGET_SPEAKER)
+        .onTrue(commandFactory.getTargetSpeakerCommand());
 
-    xboxController.button(4).onFalse(Commands.runOnce(() -> {
-      UserPolicy.getInstance().setTargetPose(null);
-    }));
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.TARGET_AMP)
+        .onFalse(Commands.runOnce(() -> {
+          UserPolicy.getInstance().setTargetPose(null);
+        }));
 
-    xboxController.button(1).onFalse(Commands.runOnce(() -> {
-      UserPolicy.getInstance().setTargetPose(null);
-    }));
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.TARGET_SPEAKER)
+        .onFalse(Commands.runOnce(() -> {
+          UserPolicy.getInstance().setTargetPose(null);
+        }));
 
-    xboxController.button(3).whileTrue(new XDriveCommand(subsystemManager.getDriveSubsystem()));
-    xboxController.button(8).onTrue(new ResetOdometryCommand(odometry));
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.FEED_SHOOTER)
+        .whileTrue(new FeedShooterCommand(subsystemManager.getTransferSubsystem()));
+
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.DRIVE_X)
+        .whileTrue(new XDriveCommand(subsystemManager.getDriveSubsystem()));
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.RESET_ODOMETRY)
+        .onTrue(new ResetOdometryCommand(odometry));
   }
 
   public void operatorBindings() {
@@ -145,10 +155,12 @@ public class OperatorInterface
     }
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT)
-        .whileTrue(new ShootCommand(subsystemManager.getShooterSubsystem(),
-            subsystemManager.getPivotSubsystem(), subsystemManager.getTransferSubsystem(),
+        .whileTrue(new PrepareToShootCommand(subsystemManager.getShooterSubsystem(),
+            subsystemManager.getPivotSubsystem(), subsystemManager.getIntakeSubsystem(),
             operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_AMP),
-            operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_SPEAKER)));
+            operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_SPEAKER),
+            operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.AUTO_ANGLE),
+            xboxController.getHID()));
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.INTAKE)
         .whileTrue(new IntakeNoteCommand(subsystemManager.getIntakeSubsystem(),

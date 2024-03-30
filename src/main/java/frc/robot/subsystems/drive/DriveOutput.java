@@ -20,7 +20,7 @@ public class DriveOutput extends SubsystemOutput {
     Logger.recordOutput("DriveOutput/rawAbsoluteEncoders", rawAbsoluteEncoders);
     Logger.recordOutput("DriveOutput/virtualAbsoluteEncoders", virtualAbsoluteEncoders);
     Logger.recordOutput("DriveOutput/moduleStates", moduleStates);
-    Logger.recordOutput("DriverOutput/chassisSpeed", speeds);
+    Logger.recordOutput("DriveOutput/chassisSpeed", speeds);
   }
 
   public SwerveModulePosition[] getModulePositions() {
