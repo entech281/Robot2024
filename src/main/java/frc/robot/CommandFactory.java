@@ -114,7 +114,10 @@ public class CommandFactory {
     NamedCommands.registerCommand("ampShot", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
         transferSubsystem, RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG));
     NamedCommands.registerCommand("autoIntake", new ParallelCommandGroup(
-        new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance()),
+        new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance(), 0.4),
+        new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
+    NamedCommands.registerCommand("autoIntakeSlow", new ParallelCommandGroup(
+        new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance(), 0.05),
         new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
 
     autoChooser = AutoBuilder.buildAutoChooser();

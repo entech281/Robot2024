@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.7203485191985245,
+      "y": 4.380246017632023
+    },
+    "rotation": -59.62241372911214
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "subwooferShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Disrupt1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Disrupt2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Disrupt3"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "podiumShot"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
