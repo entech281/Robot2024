@@ -21,9 +21,9 @@ public class TestAimCalculator {
 
     @Test
     void TestJohnAim() {
-        assertEquals(15, AimCalculator.getPivotAngleFromDistance(48 - HALF_FRAME), TOLERANCE);
-        assertEquals(25, AimCalculator.getPivotAngleFromDistance(72 - HALF_FRAME), TOLERANCE);
-        assertEquals(30, AimCalculator.getPivotAngleFromDistance(96 - HALF_FRAME), TOLERANCE);
-        assertEquals(34, AimCalculator.getPivotAngleFromDistance(120 - HALF_FRAME), TOLERANCE);
+        assertEquals(8, AimCalculator.getPivotAngleFromDistance(1.22), TOLERANCE);
+        assertEquals(18, AimCalculator.getPivotAngleFromDistance(1.83), TOLERANCE);
+        assertEquals(26, AimCalculator.getPivotAngleFromDistance(2.44), TOLERANCE);
+        assertEquals(32, AimCalculator.getPivotAngleFromDistance(3), TOLERANCE);
     }
 }
