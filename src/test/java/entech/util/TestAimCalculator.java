@@ -3,12 +3,10 @@ package entech.util;
 import static org.junit.jupiter.api.Assertions.*;
 import edu.wpi.first.math.util.Units;
 import entech.util.AimCalculator.Target;
-import frc.robot.RobotConstants;
 import org.junit.jupiter.api.Test;
 
 public class TestAimCalculator {
     private static final double TOLERANCE = 1.25;
-    private static final double HALF_FRAME = RobotConstants.AUTO_AIM.DISTANCE_FROM_REAR_TO_CENTER;
 
     @Test
     void TestSadraAim() {
