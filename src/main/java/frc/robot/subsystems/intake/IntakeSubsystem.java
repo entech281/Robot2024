@@ -13,6 +13,8 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
 
   private final static boolean ENABLED = true;
 
+  private final static double TOLERANCE_SPEED = 0.01;
+
   private IntakeInput currentInput = new IntakeInput();
 
   private CANSparkMax intakeMotor;
@@ -53,7 +55,8 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
   @Override
   public IntakeOutput toOutputs() {
     IntakeOutput intakeOutput = new IntakeOutput();
-    intakeOutput.setActive(this.intakeMotor.getEncoder().getVelocity() != 0);
+    intakeOutput
+        .setActive(Math.abs(this.intakeMotor.getEncoder().getVelocity()) >= TOLERANCE_SPEED);
     intakeOutput.setCurrentSpeed(this.intakeMotor.getEncoder().getVelocity());
     intakeOutput.setBrakeModeEnabled(IdleMode.kBrake == mode);
     return intakeOutput;

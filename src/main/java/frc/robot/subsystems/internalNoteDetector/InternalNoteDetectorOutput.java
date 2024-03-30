@@ -32,7 +32,7 @@ public class InternalNoteDetectorOutput extends SubsystemOutput {
   public void toLog() {
     Logger.recordOutput("InternalNoteDetectorOutput/ForwardInternalSensor", forwardNoteSensor);
     Logger.recordOutput("InternalNoteDetectorOutput/RearInternalSensor", rearNoteSensor);
-    Logger.recordOutput("InternalNoteDetectorOutput/HasNot", hasNote());
+    Logger.recordOutput("InternalNoteDetectorOutput/HasNote", hasNote());
   }
 
 }

@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import entech.commands.EntechCommand;
 import entech.util.AimCalculator;
-import entech.util.AimCalculator.Target;
 import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
@@ -19,7 +18,6 @@ import frc.robot.subsystems.shooter.ShooterInput;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 
 public class PrepareToShootCommand extends EntechCommand {
-  private static final double ANGLE_OFFSET = 2.0;
 
   private StoppingCounter cancelCounter = new StoppingCounter(RobotConstants.SHOOTER.RESET_DELAY);
   private StoppingCounter stableCounter = new StoppingCounter(RobotConstants.SHOOTER.SHOOT_DELAY);
@@ -92,8 +90,8 @@ public class PrepareToShootCommand extends EntechCommand {
         sInput.setSpeed(RobotConstants.PID.SHOOTER.PODIUM_SPEED);
         Optional<Double> distance = RobotIO.getInstance().getDistanceFromTarget();
 
-        pInput.setRequestedPosition(AimCalculator.getAngleDegreesFromDistance(
-            distance.isPresent() ? distance.get() : 1, Target.SPEAKER) - ANGLE_OFFSET);
+        pInput.setRequestedPosition(
+            AimCalculator.getPivotAngleFromDistance(distance.isPresent() ? distance.get() : 1));
       } else if (speakerSwitch.getAsBoolean()) {
         pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING);
         sInput.setSpeed(RobotConstants.PID.SHOOTER.PODIUM_SPEED);

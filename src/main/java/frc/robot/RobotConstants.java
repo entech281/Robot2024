@@ -215,6 +215,16 @@ public final class RobotConstants {
     }
   }
 
+  public interface AUTO_AIM {
+    public static final double DISTANCE_FROM_REAR_TO_CENTER = 17.75;
+
+    public static final double PIVOT_HEIGHT_INCH = 18; // The height of the center of the pivot (in
+                                                       // inches)
+    public static final double ARM_LENGTH_INCHES = 15; // The length from the center of the pivot to
+                                                       // the point of intersection to the center of
+                                                       // the shooter (in degrees)
+    public static final double ARM_ANGLE_DEGREES = 57; // The angle of the shooter (in degrees)
+  }
 
   public interface OPERATOR_PANEL {
     public static class BUTTONS {
