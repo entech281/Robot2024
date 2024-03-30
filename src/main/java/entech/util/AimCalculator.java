@@ -60,4 +60,9 @@ public class AimCalculator {
 		double angleTheta = 180 - (angleC + angleE);
 		return angleTheta;
 	}
+
+	public static double getPivotAngleFromDistance(double currentDistance) {
+		double pivotAngle = (-0.0016 * Math.pow(currentDistance, 2)) + (0.5394 * currentDistance) - 6.5;
+		return pivotAngle;
+	}
 }

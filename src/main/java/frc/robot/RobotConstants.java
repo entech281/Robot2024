@@ -215,6 +215,9 @@ public final class RobotConstants {
     }
   }
 
+  public interface AUTO_AIM {
+    public static final double DISTANCE_FROM_REAR_TO_CENTER = 1;
+  }
 
   public interface OPERATOR_PANEL {
     public static class BUTTONS {
