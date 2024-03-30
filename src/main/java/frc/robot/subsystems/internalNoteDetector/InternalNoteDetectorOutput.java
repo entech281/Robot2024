@@ -24,10 +24,15 @@ public class InternalNoteDetectorOutput extends SubsystemOutput {
     this.rearNoteSensor = rearNoteSensor;
   }
 
+  public boolean hasNote() {
+    return forwardNoteSensor || rearNoteSensor;
+  }
+
   @Override
   public void toLog() {
     Logger.recordOutput("InternalNoteDetectorOutput/ForwardInternalSensor", forwardNoteSensor);
     Logger.recordOutput("InternalNoteDetectorOutput/RearInternalSensor", rearNoteSensor);
+    Logger.recordOutput("InternalNoteDetectorOutput/HasNot", hasNote());
   }
 
 }

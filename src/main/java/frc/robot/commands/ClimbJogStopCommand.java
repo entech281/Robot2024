@@ -19,7 +19,7 @@ public class ClimbJogStopCommand extends EntechCommand {
   public void initialize() {
     cInput.setActivate(false);
     cInput.setBothSpeed(0);
-    cInput.setFeeze(true);
+    cInput.setFreeze(true);
     cSubsystem.updateInputs(cInput);
     cSubsystem.setPosition(RobotConstants.CLIMB.CLIMB_RETRACTED);
   }

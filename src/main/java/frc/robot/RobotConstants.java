@@ -20,14 +20,14 @@ public final class RobotConstants {
   public static final class DrivetrainConstants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
     // the robot, rather the allowed maximum speeds
-    public static final double MAX_SPEED_METERS_PER_SECOND = 4.0; // 4.42; //4.8;
-    public static final double MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 2 * Math.PI;
+    public static final double MAX_SPEED_METERS_PER_SECOND = 4.8; // 4.42; //4.8;
+    public static final double MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 4 * Math.PI;
     // radians per second
 
     public static final double DIRECTION_SLEW_RATE = 1.2; // radians per second
-    public static final double MAGNITUDE_SLEW_RATE = 1.8;
+    public static final double MAGNITUDE_SLEW_RATE = 2.5;
     // 2.0; //1.8; // percent per second (1 = 100%)
-    public static final double ROTATIONAL_SLEW_RATE = 2.0;
+    public static final double ROTATIONAL_SLEW_RATE = 3.5;
     // 20.0; //2.0; // percent per second (1 = 100%)
 
     // Chassis configuration
@@ -95,7 +95,7 @@ public final class RobotConstants {
     public static final double TURNING_ENCODER_POSITION_PID_MAX_INPUT_RADIANS = (2 * Math.PI);
     // radians
 
-    public static final double DRIVING_P = 0.04;
+    public static final double DRIVING_P = 0.07;
     public static final double DRIVING_I = 0;
     public static final double DRIVING_D = 0;
     public static final double DRIVING_FF = 1 / DRIVE_WHEEL_FREE_SPEED_RPS;
@@ -236,11 +236,10 @@ public final class RobotConstants {
 
 
     public static interface Cameras {
-      public static final String LEFT = "Global_Shutter_Camera";
-      public static final String RIGHT = "Arducam_Alpha";
       public static final String COLOR = "Arducam_OV9782_USB_Camera";
-      public static final String MIDDLE = "Aducam_Bravo";
-      public static final String NEW = "Arducam_OV9281_USB_Camera";
+      public static final String LEFT = "Arducam_OV9281_USB_Camera";
+      public static final String RIGHT = "Arducam_OV9281_USB_Camera";
+
     }
 
 
@@ -258,24 +257,13 @@ public final class RobotConstants {
       public static final Transform3d LEFT = new Transform3d(
           new Translation3d(Units.inchesToMeters(-10), Units.inchesToMeters(6.5),
               Units.inchesToMeters(18.5)),
-          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(5),
+          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
               Units.degreesToRadians(90)));
       public static final Transform3d RIGHT = new Transform3d(
-          new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(-4.25),
-              Units.inchesToMeters(19.5)),
+          new Translation3d(Units.inchesToMeters(-10), Units.inchesToMeters(-6.5),
+              Units.inchesToMeters(18.5)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
-              Units.degreesToRadians(90)));
-      public static final Transform3d MIDDLE = new Transform3d(
-          new Translation3d(Units.inchesToMeters(17.875), Units.inchesToMeters(1.25),
-              Units.inchesToMeters(19.5)),
-          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(15),
-              Units.degreesToRadians(0.0)));
-
-      public static final Transform3d NEW = new Transform3d(
-          new Translation3d(Units.inchesToMeters(13.0), Units.inchesToMeters(0.0),
-              Units.inchesToMeters(-11)),
-          new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
-              Units.degreesToRadians(12)));
+              Units.degreesToRadians(-90)));
     }
   }
 

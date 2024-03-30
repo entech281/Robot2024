@@ -2,6 +2,7 @@ package frc.robot.subsystems.drive;
 
 
 import org.littletonrobotics.junction.Logger;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import entech.subsystems.SubsystemOutput;
@@ -11,6 +12,7 @@ public class DriveOutput extends SubsystemOutput {
   private double[] rawAbsoluteEncoders;
   private double[] virtualAbsoluteEncoders;
   private SwerveModuleState[] moduleStates;
+  private ChassisSpeeds speeds;
 
   @Override
   public void toLog() {
@@ -18,6 +20,7 @@ public class DriveOutput extends SubsystemOutput {
     Logger.recordOutput("DriveOutput/rawAbsoluteEncoders", rawAbsoluteEncoders);
     Logger.recordOutput("DriveOutput/virtualAbsoluteEncoders", virtualAbsoluteEncoders);
     Logger.recordOutput("DriveOutput/moduleStates", moduleStates);
+    Logger.recordOutput("DriverOutput/chassisSpeed", speeds);
   }
 
   public SwerveModulePosition[] getModulePositions() {
@@ -50,5 +53,14 @@ public class DriveOutput extends SubsystemOutput {
 
   public void setModuleStates(SwerveModuleState[] moduleStates) {
     this.moduleStates = moduleStates;
+  }
+
+
+  public ChassisSpeeds getSpeeds() {
+    return this.speeds;
+  }
+
+  public void setSpeeds(ChassisSpeeds speeds) {
+    this.speeds = speeds;
   }
 }

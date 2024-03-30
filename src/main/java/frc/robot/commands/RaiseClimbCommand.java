@@ -26,13 +26,13 @@ public class RaiseClimbCommand extends EntechCommand {
 
     cInput.setActivate(true);
     cInput.setBothSpeed(1);
-    cInput.setFeeze(!freeze.getAsBoolean());
+    cInput.setFreeze(!freeze.getAsBoolean());
     cSubsystem.updateInputs(cInput);
   }
 
   @Override
   public void execute() {
-    cInput.setFeeze(!freeze.getAsBoolean());
+    cInput.setFreeze(!freeze.getAsBoolean());
     cSubsystem.updateInputs(cInput);
   }
 
