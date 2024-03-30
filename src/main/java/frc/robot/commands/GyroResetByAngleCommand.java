@@ -16,7 +16,6 @@ public class GyroResetByAngleCommand extends EntechCommand {
   private final Runnable set;
   private final Runnable correctOdometry;
   private final double angle;
-  private double angleForOdometry = 0.0;
 
   public GyroResetByAngleCommand(NavXSubsystem navx, OdometryProcessor odometry, String auto) {
     angle = PathPlannerAuto.getStaringPoseFromAutoFile(auto).getRotation().getDegrees();
