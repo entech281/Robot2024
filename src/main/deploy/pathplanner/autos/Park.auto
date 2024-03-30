@@ -2,21 +2,15 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.5049725484066367,
-      "y": 4.065180438053184
+      "x": 0.6650255229334852,
+      "y": 4.371055665188254
     },
-    "rotation": 0
+    "rotation": -59.46312688115512
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Park1"
-          }
-        },
         {
           "type": "named",
           "data": {
