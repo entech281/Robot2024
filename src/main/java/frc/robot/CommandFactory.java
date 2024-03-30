@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.GyroReset;
 import frc.robot.commands.GyroResetByAngleCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LEDDefaultCommand;
@@ -114,8 +113,6 @@ public class CommandFactory {
         pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING));
     NamedCommands.registerCommand("ampShot", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
         transferSubsystem, RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG));
-    NamedCommands.registerCommand("120degreeStart",
-        new GyroResetByAngleCommand(navXSubsystem, odometry, 120));
     NamedCommands.registerCommand("autoIntake", new ParallelCommandGroup(
         new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance()),
         new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
@@ -126,7 +123,8 @@ public class CommandFactory {
 
   public Command getAutoCommand() {
     SequentialCommandGroup auto = new SequentialCommandGroup();
-    auto.addCommands(new GyroReset(navXSubsystem, odometry));
+    auto.addCommands(
+        new GyroResetByAngleCommand(navXSubsystem, odometry, autoChooser.getSelected().getName()));
     auto.addCommands(new WaitCommand(0.5));
     auto.addCommands(autoChooser.getSelected());
     return auto;
