@@ -200,6 +200,11 @@ public final class RobotConstants {
         public static final int GYRO_RESET = 7;
         public static final int NOTE_ALIGN = 2;
         public static final int FULL_PIVOT = 8;
+        public static final int TARGET_AMP = 4;
+        public static final int TARGET_SPEAKER = 1;
+        public static final int FEED_SHOOTER = 5;
+        public static final int DRIVE_X = 3;
+        public static final int RESET_ODOMETRY = 8;
       }
     }
 
@@ -225,6 +230,7 @@ public final class RobotConstants {
     }
 
     public static class SWITCHES {
+      public static final int AUTO_ANGLE = 00; // TODO: value needed
       public static final int PIVOT_AMP = 2;
       public static final int PIVOT_SPEAKER = 3;
       public static final int CANCEL_CLIMB = 6;
@@ -238,7 +244,7 @@ public final class RobotConstants {
     public static interface Cameras {
       public static final String COLOR = "Arducam_OV9782_USB_Camera";
       public static final String LEFT = "Arducam_OV9281_USB_Camera";
-      public static final String RIGHT = "Arducam_OV9281_USB_Camera";
+      public static final String RIGHT = "Arducam_Alpha";
 
     }
 
@@ -255,12 +261,12 @@ public final class RobotConstants {
 
     public static interface Transforms {
       public static final Transform3d LEFT = new Transform3d(
-          new Translation3d(Units.inchesToMeters(-10), Units.inchesToMeters(6.5),
+          new Translation3d(Units.inchesToMeters(-6), Units.inchesToMeters(6.5),
               Units.inchesToMeters(18.5)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
               Units.degreesToRadians(90)));
       public static final Transform3d RIGHT = new Transform3d(
-          new Translation3d(Units.inchesToMeters(-10), Units.inchesToMeters(-6.5),
+          new Translation3d(Units.inchesToMeters(-6), Units.inchesToMeters(-6.5),
               Units.inchesToMeters(18.5)),
           new Rotation3d(Units.degreesToRadians(0), Units.degreesToRadians(10),
               Units.degreesToRadians(-90)));

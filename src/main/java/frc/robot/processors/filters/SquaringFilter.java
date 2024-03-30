@@ -7,9 +7,12 @@ public class SquaringFilter implements DriveFilterI {
   public DriveInput process(DriveInput input) {
     DriveInput processedInput = new DriveInput(input);
 
-    processedInput.setXSpeed(Math.copySign(input.getXSpeed() * input.getXSpeed(), input.getXSpeed()));
-    processedInput.setYSpeed(Math.copySign(input.getYSpeed() * input.getYSpeed(), input.getYSpeed()));
-    processedInput.setRotation(Math.copySign(input.getRotation() * input.getRotation(), input.getRotation()));
+    processedInput
+        .setXSpeed(Math.copySign(input.getXSpeed() * input.getXSpeed(), input.getXSpeed()));
+    processedInput
+        .setYSpeed(Math.copySign(input.getYSpeed() * input.getYSpeed(), input.getYSpeed()));
+    processedInput.setRotation(Math.copySign(
+        input.getRotation() * input.getRotation() * input.getRotation(), input.getRotation()));
 
     return processedInput;
   }
