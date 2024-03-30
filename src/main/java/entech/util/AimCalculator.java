@@ -1,15 +1,9 @@
 package entech.util;
 
 import edu.wpi.first.math.util.Units;
+import frc.robot.RobotConstants;
 
 public class AimCalculator {
-	// Constants
-	public static final double PIVOT_HEIGHT_INCH = 18; // The height of the center of the pivot (in
-																											// inches)
-	public static final double ARM_LENGTH_INCHES = 15; // The length from the center of the pivot to
-																											// the point of intersection to the center of
-																											// the shooter (in degrees)
-	public static final double ARM_ANGLE_DEGREES = 57; // The angle of the shooter (in degrees)
 
 	public enum Target {
 		SPEAKER(85), TRAP(0);
@@ -26,7 +20,7 @@ public class AimCalculator {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param distanceToTargetMeters
 	 * @return Angle the arm needs to be at in order to hit a specific target with the note
 	 */
@@ -35,8 +29,9 @@ public class AimCalculator {
 
 		double targetHeight = target.getNumVal();
 
-		return getAngleDegreesFromDistance(distanceToTargetInches, targetHeight, PIVOT_HEIGHT_INCH,
-				ARM_LENGTH_INCHES, ARM_ANGLE_DEGREES);
+		return getAngleDegreesFromDistance(distanceToTargetInches, targetHeight,
+				RobotConstants.AUTO_AIM.PIVOT_HEIGHT_INCH, RobotConstants.AUTO_AIM.ARM_LENGTH_INCHES,
+				RobotConstants.AUTO_AIM.ARM_ANGLE_DEGREES);
 	}
 
 	private static final double getAngleDegreesFromDistance(double distanceToTarget,
