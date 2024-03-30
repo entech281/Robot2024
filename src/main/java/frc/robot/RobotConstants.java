@@ -240,7 +240,7 @@ public final class RobotConstants {
     }
 
     public static class SWITCHES {
-      public static final int AUTO_ANGLE = 00; // TODO: value needed
+      public static final int AUTO_ANGLE = 12;
       public static final int PIVOT_AMP = 2;
       public static final int PIVOT_SPEAKER = 3;
       public static final int CANCEL_CLIMB = 6;
