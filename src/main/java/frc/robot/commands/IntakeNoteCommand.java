@@ -58,6 +58,12 @@ public class IntakeNoteCommand extends EntechCommand {
     LEDInput lIn = new LEDInput();
     lIn.setColor(Color.kPurple);
     lIn.setBlinking(true);
+    if (RobotIO.getInstance().getNoteDetectorOutput() != null
+        && RobotIO.getInstance().getNoteDetectorOutput().hasNotes()) {
+      lIn.setSecondaryColor(Color.kOrange);
+    } else {
+      lIn.setSecondaryColor(Color.kBlack);
+    }
     lSubsystem.updateInputs(lIn);
   }
 

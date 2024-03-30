@@ -23,6 +23,7 @@ import frc.robot.commands.EjectNoteCommand;
 import frc.robot.commands.FeedShooterCommand;
 import frc.robot.commands.GyroReset;
 import frc.robot.commands.IntakeNoteCommand;
+import frc.robot.commands.LEDDefaultCommand;
 import frc.robot.commands.LowerClimbCommand;
 import frc.robot.commands.PivotUpCommand;
 import frc.robot.commands.PrepareToShootCommand;

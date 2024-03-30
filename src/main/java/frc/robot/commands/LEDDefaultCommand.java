@@ -8,29 +8,30 @@ import frc.robot.subsystems.LEDs.LEDSubsystem;
 
 public class LEDDefaultCommand extends EntechCommand {
   private final LEDSubsystem ledSubsystem;
-  private final LEDInput input = new LEDInput();
+  private LEDInput input = new LEDInput();
 
   public LEDDefaultCommand(LEDSubsystem ledSubsystem) {
     super(ledSubsystem);
     this.ledSubsystem = ledSubsystem;
   }
 
+  private boolean hasError() {
+    return RobotIO.getInstance().getNavXOutput().isFaultDetected();
+  }
+
   @Override
   public void execute() {
-    if (RobotIO.getInstance().getNavXOutput().isFaultDetected()) {
+    if (hasError()) {
       input.setBlinking(true);
       input.setColor(Color.kRed);
-    } else if (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
-        || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()) {
+      input.setSecondaryColor(Color.kBlack);
+    } else if (RobotIO.getInstance().getInternalNoteDetectorOutput().hasNote()) {
       input.setBlinking(false);
       input.setColor(Color.kPurple);
-    } else if (RobotIO.getInstance().getNoteDetectorOutput() != null) {
+    } else if (RobotIO.getInstance().getNoteDetectorOutput() != null
+        && RobotIO.getInstance().getNoteDetectorOutput().hasNotes()) {
       input.setBlinking(false);
-      if (RobotIO.getInstance().getNoteDetectorOutput().hasNotes()) {
-        input.setColor(Color.kOrange);
-      } else {
-        input.setColor(Color.kGreen);
-      }
+      input.setColor(Color.kOrange);
     } else {
       input.setBlinking(false);
       input.setColor(Color.kGreen);
