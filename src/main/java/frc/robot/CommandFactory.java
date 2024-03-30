@@ -63,6 +63,11 @@ public class CommandFactory {
     this.subsystemManager = subsystemManager;
     this.ledSubsystem = subsystemManager.getLedSubsystem();
 
+    if (subsystemManager.getLedSubsystem().isEnabled()) {
+      subsystemManager.getLedSubsystem()
+          .setDefaultCommand(new LEDDefaultCommand(subsystemManager.getLedSubsystem()));
+    }
+
     AutoBuilder.configureHolonomic(odometry::getEstimatedPose, // Robot pose supplier
         // Method to reset odometry (will be called if your auto has a starting pose)
         odometry::resetOdometry,
