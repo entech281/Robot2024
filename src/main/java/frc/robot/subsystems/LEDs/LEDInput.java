@@ -7,7 +7,16 @@ import entech.subsystems.SubsystemInput;
 public class LEDInput implements SubsystemInput {
 
   private Color color = Color.kGreen;
+  private Color secondaryColor = Color.kBlack;
   private boolean blinking = false;
+
+  public Color getSecondaryColor() {
+    return secondaryColor;
+  }
+
+  public void setSecondaryColor(Color secondaryColor) {
+    this.secondaryColor = secondaryColor;
+  }
 
   @Override
   public void toLog(LogTable table) {

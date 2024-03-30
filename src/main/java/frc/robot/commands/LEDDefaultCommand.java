@@ -40,31 +40,23 @@ public class LEDDefaultCommand extends EntechCommand {
     if (hasError()) {
       input.setBlinking(true);
       input.setColor(Color.kRed);
+      input.setSecondaryColor(Color.kBlack);
     } else if (readyToShoot()) {
-      input.setBlinking(false);
-      input.setColor(Color.kGreen); // or rumble the controller
+      //rumble code
     } else if (RobotIO.getInstance().getIntakeOutput().isActive()) {
       input.setBlinking(true);
-      if (RobotIO.getInstance().getDriveOutput().getModuleStates()[0].speedMetersPerSecond != 0) {
-        input.setColor(Color.kOrange);
-      } else {
-        input.setColor(Color.kPurple);
-      }
-    } else if (!shooterHasNote()) {
+      input.setColor(Color.kPurple);
       if (RobotIO.getInstance().getNoteDetectorOutput() != null && RobotIO.getInstance().getNoteDetectorOutput().hasNotes()) {
-        input.setBlinking(false);
-        input.setColor(Color.kOrange);
+        input.setSecondaryColor(Color.kOrange);
+      } else {
+        input.setSecondaryColor(Color.kBlack);
       }
+    } else if (shooterHasNote()) {
+      input.setBlinking(false);
+      input.setColor(Color.kPurple);
     } else {
       input.setBlinking(false);
-      if (ampSwitch.getAsBoolean()) {
-        input.setColor(Color.kDarkGreen);
-      } else if (speakerSwitch.getAsBoolean()) {
-        input.setColor(Color.kPink);
-      } else {
-        input.setColor(Color.kMaroon);
-      }
-      //needs code to read oi for the wanted shooting position
+      input.setColor(Color.kGreen);
     }
 
     ledSubsystem.updateInputs(input);
