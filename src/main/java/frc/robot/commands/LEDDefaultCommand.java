@@ -10,14 +10,10 @@ import frc.robot.subsystems.LEDs.LEDSubsystem;
 public class LEDDefaultCommand extends EntechCommand {
   private final LEDSubsystem ledSubsystem;
   private final LEDInput input = new LEDInput();
-  private Trigger ampSwitch;
-  private Trigger speakerSwitch;
-
-  public LEDDefaultCommand(LEDSubsystem ledSubsystem, Trigger ampSwitch, Trigger speakerSwitch) {
+  
+  public LEDDefaultCommand(LEDSubsystem ledSubsystem) {
     super(ledSubsystem);
     this.ledSubsystem = ledSubsystem;
-    this.ampSwitch = ampSwitch;
-    this.speakerSwitch = speakerSwitch;
   }
 
   private boolean hasError() {
