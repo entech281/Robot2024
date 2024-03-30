@@ -139,9 +139,7 @@ public class OperatorInterface
 
     if (subsystemManager.getLedSubsystem().isEnabled()) {
       subsystemManager.getLedSubsystem()
-        .setDefaultCommand(new LEDDefaultCommand(subsystemManager.getLedSubsystem(),
-          operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_AMP),
-          operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.PIVOT_SPEAKER)));
+        .setDefaultCommand(new LEDDefaultCommand(subsystemManager.getLedSubsystem()));
     }
 
     operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.SHOOT)
