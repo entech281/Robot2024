@@ -11,7 +11,10 @@ public class GyroReset extends EntechCommand {
   private final Runnable correctOdomtry;
 
   public GyroReset(NavXSubsystem navx, OdometryProcessor odometry) {
-    reset = navx::zeroYaw;
+    reset = () -> {
+      navx.setAngleAdjustment(0.0);
+      navx.zeroYaw();
+    };
     correctOdomtry = () -> odometry.resetOdometry(
         new Pose2d(odometry.getEstimatedPose().getTranslation(), Rotation2d.fromDegrees(0)));
   }

@@ -3,25 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7072088052763746,
-        "y": 4.354361564449415
+        "x": 8.5,
+        "y": 7.578939729308031
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.8552129474385058,
-        "y": 3.3380664549361185
+        "x": 6.159294604303494,
+        "y": 7.652237018759752
       },
       "isLocked": false,
-      "linkedName": "Park1"
+      "linkedName": "disrupt2end"
     },
     {
       "anchor": {
-        "x": 2.6703436264070812,
-        "y": 0.7036539787311569
+        "x": 6.364527014768315,
+        "y": 1.7004971152799455
       },
       "prevControl": {
-        "x": 1.8129754677366283,
-        "y": 1.159524715102472
+        "x": 7.141478282956566,
+        "y": 2.0816430204288987
+      },
+      "nextControl": {
+        "x": 5.587575746580065,
+        "y": 1.3193512101309923
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.171922058129831,
+        "y": 3.7528212199281548
+      },
+      "prevControl": {
+        "x": 2.274538263362242,
+        "y": 3.313037483217824
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +55,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -42.3974377975002,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Park",
+  "folder": "Disrupt",
   "previewStartingState": {
-    "rotation": -59.23728046576114,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true

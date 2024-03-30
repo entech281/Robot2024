@@ -2,31 +2,25 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.5049725484066367,
-      "y": 4.065180438053184
+      "x": 0.732363293298016,
+      "y": 4.384673761825228
     },
-    "rotation": 0
+    "rotation": -59.40552744905015
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "subwooferShot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "SourceSide1"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "podiumShot"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "SourceSide2"
           }
         },
         {

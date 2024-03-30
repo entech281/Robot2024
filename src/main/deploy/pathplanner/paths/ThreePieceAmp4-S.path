@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5972713088283323,
-        "y": 6.8928771000399145
+        "x": 2.576523095903338,
+        "y": 7.367843535687072
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8585596775589175,
-        "y": 6.883010157229107
+        "x": 2.837811464633923,
+        "y": 7.357976592876264
       },
       "isLocked": false,
       "linkedName": "AmpSide3-S"
     },
     {
       "anchor": {
-        "x": 7.5,
-        "y": 7.45
+        "x": 7.024202619833812,
+        "y": 7.241772197830111
       },
       "prevControl": {
-        "x": 7.2243606025673595,
-        "y": 7.439674879349759
+        "x": 6.748563222401171,
+        "y": 7.23144707717987
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,10 +32,10 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 360.0,
-    "maxAngularAcceleration": 180.0
+    "maxVelocity": 4.8,
+    "maxAcceleration": 4.8,
+    "maxAngularVelocity": 480.0,
+    "maxAngularAcceleration": 480.0
   },
   "goalEndState": {
     "velocity": 0,

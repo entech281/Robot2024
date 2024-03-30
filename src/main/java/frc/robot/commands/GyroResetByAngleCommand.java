@@ -1,11 +1,13 @@
 package frc.robot.commands;
 
 import java.util.Optional;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import entech.commands.EntechCommand;
+import frc.robot.io.RobotIO;
 import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.navx.NavXSubsystem;
 
@@ -14,22 +16,27 @@ public class GyroResetByAngleCommand extends EntechCommand {
   private final Runnable set;
   private final Runnable correctOdometry;
   private final double angle;
-  private double angleForOdometry = 0.0;
 
-  public GyroResetByAngleCommand(NavXSubsystem navx, OdometryProcessor odometry,
-      double operatorForwardAngleOffset) {
-    angle = operatorForwardAngleOffset;
+  public GyroResetByAngleCommand(NavXSubsystem navx, OdometryProcessor odometry, String auto) {
+    angle = PathPlannerAuto.getStaringPoseFromAutoFile(auto).getRotation().getDegrees();
     reset = navx::zeroYaw;
-    set = () -> navx.setAngleAdjustment(angle);
     Optional<Alliance> teamOpt = DriverStation.getAlliance();
     if (teamOpt.isPresent()) {
-      angleForOdometry = teamOpt.get() == Alliance.Blue ? 0.0 : 180.0;
+      if (teamOpt.get() == Alliance.Blue) {
+        set = () -> navx
+            .setAngleAdjustment(RobotIO.getInstance().getNavXOutput().getAngleAdjustment() + angle);
+      } else {
+        set = () -> navx.setAngleAdjustment(
+            RobotIO.getInstance().getNavXOutput().getAngleAdjustment() + (180 - angle));
+      }
+    } else {
+      set = () -> navx
+          .setAngleAdjustment(RobotIO.getInstance().getNavXOutput().getAngleAdjustment() + angle);
     }
-    angleForOdometry += angle;
     correctOdometry = () -> {
-      Pose2d pose = new Pose2d(odometry.getEstimatedPose().getTranslation(),
-          Rotation2d.fromDegrees(angleForOdometry));
-      odometry.resetOdometry(pose, Rotation2d.fromDegrees(angle));
+      Pose2d pose =
+          new Pose2d(odometry.getEstimatedPose().getTranslation(), Rotation2d.fromDegrees(angle));
+      odometry.resetOdometry(pose, Rotation2d.fromDegrees(0.0));
     };
   }
 

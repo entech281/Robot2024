@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 1.9080518161036326,
+        "y": 6.992561413694256
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8962114847306633,
-        "y": 7.084464938160646
+        "x": 1.8042633008342959,
+        "y": 7.077026351854902
       },
       "isLocked": false,
       "linkedName": "AmpSide2E"
     },
     {
       "anchor": {
-        "x": 1.8582096592764619,
-        "y": 7.9483580681447075
+        "x": 0.7059762690977388,
+        "y": 6.702304147461333
       },
       "prevControl": {
-        "x": 1.9241550296287424,
-        "y": 7.589363519386379
+        "x": 0.7719216394500195,
+        "y": 6.343309598703004
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,10 +32,10 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 0.6,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 360.0,
-    "maxAngularAcceleration": 180.0
+    "maxVelocity": 4.8,
+    "maxAcceleration": 4.8,
+    "maxAngularVelocity": 480.0,
+    "maxAngularAcceleration": 480.0
   },
   "goalEndState": {
     "velocity": 0,
@@ -48,5 +48,5 @@
     "rotation": 0.0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }

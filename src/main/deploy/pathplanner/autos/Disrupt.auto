@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7294314017199468,
-      "y": 6.737486846402264
+      "x": 0.7203485191985245,
+      "y": 4.380246017632023
     },
-    "rotation": 60.989675034563085
+    "rotation": -59.62241372911214
   },
   "command": {
     "type": "sequential",
@@ -20,19 +20,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "ThreePieceAmp2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "autoIntake"
+            "pathName": "Disrupt1"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "ThreePieceAmp3-S"
+            "pathName": "Disrupt2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Disrupt3"
           }
         },
         {

@@ -10,21 +10,22 @@ import frc.robot.subsystems.drive.DriveInput;
 import frc.robot.subsystems.drive.DriveSubsystem;
 
 public class MoveToNoteCommand extends EntechCommand {
-  private static final double SPEED = 0.75;
+  private final double speed;
   private final DriveSubsystem drive;
   private DriveInput input;
   private final DriveInputSupplier inputSupplier;
   private final double xSpeed, ySpeed;
   private final NoteAlignmentFilter filter = new NoteAlignmentFilter();
 
-  public MoveToNoteCommand(DriveSubsystem drive, double roughRobotAngle,
-      DriveInputSupplier inputs) {
+  public MoveToNoteCommand(DriveSubsystem drive, double roughRobotAngle, DriveInputSupplier inputs,
+      double speed) {
     super(drive);
+    this.speed = speed;
     this.inputSupplier = inputs;
     this.drive = drive;
     Point noteUnitVector = new Point(Math.cos(roughRobotAngle), Math.sin(roughRobotAngle));
-    xSpeed = SPEED * noteUnitVector.x;
-    ySpeed = SPEED * noteUnitVector.y;
+    xSpeed = this.speed * noteUnitVector.x;
+    ySpeed = this.speed * noteUnitVector.y;
   }
 
   @Override

@@ -2,21 +2,15 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.5324399837988864,
-      "y": 7.025974412309185
+      "x": 0.6864463096423217,
+      "y": 6.730143910738272
     },
-    "rotation": 0
+    "rotation": 59.86822941547164
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
-        {
-          "type": "path",
-          "data": {
-            "pathName": "ThreePieceAmp1"
-          }
-        },
         {
           "type": "named",
           "data": {

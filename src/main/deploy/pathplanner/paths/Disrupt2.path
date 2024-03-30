@@ -1,0 +1,68 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.5,
+        "y": 0.6303566892848077
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.457936344946331,
+        "y": 1.4952647048151242
+      },
+      "isLocked": false,
+      "linkedName": "disrupt1end"
+    },
+    {
+      "anchor": {
+        "x": 8.5,
+        "y": 7.578939729308031
+      },
+      "prevControl": {
+        "x": 8.481557335273235,
+        "y": 6.986697630538119
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "disrupt2end"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.25,
+      "rotationDegrees": -135.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -90.0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 0.7,
+      "rotationDegrees": -45.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.8,
+    "maxAcceleration": 4.8,
+    "maxAngularVelocity": 480.0,
+    "maxAngularAcceleration": 480.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0,
+    "rotateFast": true
+  },
+  "reversed": false,
+  "folder": "Disrupt",
+  "previewStartingState": {
+    "rotation": 180.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}
