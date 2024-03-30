@@ -216,7 +216,7 @@ public final class RobotConstants {
   }
 
   public interface AUTO_AIM {
-    public static final double DISTANCE_FROM_REAR_TO_CENTER = 1;
+    public static final double DISTANCE_FROM_REAR_TO_CENTER = 17.75;
 
     public static final double PIVOT_HEIGHT_INCH = 18; // The height of the center of the pivot (in
                                                        // inches)

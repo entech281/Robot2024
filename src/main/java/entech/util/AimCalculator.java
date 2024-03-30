@@ -57,7 +57,11 @@ public class AimCalculator {
 	}
 
 	public static double getPivotAngleFromDistance(double currentDistance) {
-		double pivotAngle = (-0.0016 * Math.pow(currentDistance, 2)) + (0.5394 * currentDistance) - 6.5;
+		double pivotAngle = (-0.0016 * Math.pow((Units.metersToInches(currentDistance)
+				- RobotConstants.AUTO_AIM.DISTANCE_FROM_REAR_TO_CENTER), 2))
+				+ (0.5394 * (Units.metersToInches(currentDistance)
+						- RobotConstants.AUTO_AIM.DISTANCE_FROM_REAR_TO_CENTER))
+				- 7.5;
 		return pivotAngle;
 	}
 }
