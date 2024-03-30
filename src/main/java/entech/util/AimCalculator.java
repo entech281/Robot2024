@@ -61,7 +61,7 @@ public class AimCalculator {
 				- RobotConstants.AUTO_AIM.DISTANCE_FROM_REAR_TO_CENTER), 2))
 				+ (0.5394 * (Units.metersToInches(currentDistance)
 						- RobotConstants.AUTO_AIM.DISTANCE_FROM_REAR_TO_CENTER))
-				- 7.5;
+				- 6.5;
 		return pivotAngle;
 	}
 }
