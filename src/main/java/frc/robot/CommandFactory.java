@@ -17,12 +17,16 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.FeedShooterCommand;
 import frc.robot.commands.GyroResetByAngleCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LEDDefaultCommand;
 import frc.robot.commands.MoveToNoteCommand;
+import frc.robot.commands.PrepareToShootCommand;
 import frc.robot.commands.ShootAngleCommand;
 import frc.robot.io.RobotIO;
+import frc.robot.operation.OperatorInterface;
 import frc.robot.operation.UserPolicy;
 import frc.robot.processors.OdometryProcessor;
 import frc.robot.subsystems.LEDs.LEDSubsystem;
@@ -110,17 +114,19 @@ public class CommandFactory {
     NamedCommands.registerCommand("intake", new IntakeNoteCommand(intakeSubsystem,
         transferSubsystem, shooterSubsystem, subsystemManager.getLedSubsystem()));
     NamedCommands.registerCommand("subwooferShot", new ShootAngleCommand(shooterSubsystem,
-        pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_SUBWOOFER_SCORING));
+        pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_SUBWOOFER_SCORING, false));
     NamedCommands.registerCommand("podiumShot", new ShootAngleCommand(shooterSubsystem,
-        pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING));
+        pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING, false));
     NamedCommands.registerCommand("ampShot", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
-        transferSubsystem, RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG));
+        transferSubsystem, RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG, false));
     NamedCommands.registerCommand("autoIntake", new ParallelCommandGroup(
         new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance(), 0.4),
         new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
     NamedCommands.registerCommand("autoIntakeSlow", new ParallelCommandGroup(
         new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance(), 0.05),
         new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
+    NamedCommands.registerCommand("autoShot", new ShootAngleCommand(shooterSubsystem,
+        pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING, true));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);

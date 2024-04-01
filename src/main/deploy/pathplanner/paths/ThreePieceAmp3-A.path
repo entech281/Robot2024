@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8042633008342959,
-        "y": 7.077026351854902
+        "x": 1.9554131415955156,
+        "y": 7.005529395674177
       },
       "isLocked": false,
       "linkedName": "AmpSide2E"
     },
     {
       "anchor": {
-        "x": 0.7059762690977388,
-        "y": 6.702304147461333
+        "x": 2.5868974814872723,
+        "y": 6.992561413694256
       },
       "prevControl": {
-        "x": 0.7719216394500195,
-        "y": 6.343309598703004
+        "x": 2.330356968406246,
+        "y": 6.975928567241751
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,7 +39,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0,
+    "rotation": -153.43494882292202,
     "rotateFast": true
   },
   "reversed": false,

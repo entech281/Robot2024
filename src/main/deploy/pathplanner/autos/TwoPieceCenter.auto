@@ -30,15 +30,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "TwoPieceCenter2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "podiumShot"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "TwoPieceCenter2"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "autoShot"
+                }
+              }
+            ]
           }
         }
       ]

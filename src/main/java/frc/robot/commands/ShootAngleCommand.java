@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import entech.commands.EntechCommand;
+import entech.util.AimCalculator;
 import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
@@ -25,32 +26,33 @@ public class ShootAngleCommand extends EntechCommand {
   private final PivotSubsystem pSubsystem;
   private final TransferSubsystem tSubsystem;
   private final double angle;
+  private final boolean auto;
 
   private boolean noNote;
 
   public ShootAngleCommand(ShooterSubsystem shooterSubsystem, PivotSubsystem pivotSubsystem,
-      TransferSubsystem transferSubsystem, double angle) {
+      TransferSubsystem transferSubsystem, double angle, boolean auto) {
     super(shooterSubsystem, pivotSubsystem, transferSubsystem);
     this.sSubsystem = shooterSubsystem;
     this.pSubsystem = pivotSubsystem;
     this.tSubsystem = transferSubsystem;
     this.angle = angle;
+    this.auto = auto;
   }
 
   @Override
   public void initialize() {
     cancelCounter.reset();
     shootingCounter.reset();
+
     if (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
         || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()) {
       noNote = false;
       sInput.setActivate(true);
       sInput.setSpeed(4500);
-      sSubsystem.updateInputs(sInput);
-
       pInput.setActivate(true);
-      pInput.setRequestedPosition(angle);
       pSubsystem.updateInputs(pInput);
+      sSubsystem.updateInputs(sInput);
     } else {
       noNote = true;
     }
@@ -58,7 +60,14 @@ public class ShootAngleCommand extends EntechCommand {
 
   @Override
   public void execute() {
+    if (auto) {
+      pInput.setRequestedPosition(AimCalculator
+          .getPivotAngleFromDistance(RobotIO.getInstance().getDistanceFromTarget().get()));
+    } else {
+      pInput.setRequestedPosition(angle);
+    }
     if (shootingCounter.isFinished(RobotIO.getInstance().getShooterOutput().isAtSpeed()
+        && RobotIO.getInstance().getPivotOutput().isAtRequestedPosition()
         && (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
             || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()))) {
       tInput.setActivate(true);
@@ -71,7 +80,7 @@ public class ShootAngleCommand extends EntechCommand {
   }
 
   @Override
-  public void end(boolean interupted) {
+  public void end(boolean interrupted) {
 
     pInput.setRequestedPosition(0);
     pSubsystem.updateInputs(pInput);
