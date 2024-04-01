@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.AutoPrepareToShootCommand;
+import frc.robot.commands.AutoShootCommand;
 import frc.robot.commands.GyroResetByAngleCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LEDDefaultCommand;
@@ -121,6 +123,10 @@ public class CommandFactory {
     NamedCommands.registerCommand("autoIntakeSlow", new ParallelCommandGroup(
         new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance(), 0.05),
         new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
+    NamedCommands.registerCommand("prepareToShoot", Commands.runOnce(
+        () -> new AutoPrepareToShootCommand(shooterSubsystem, pivotSubsystem, intakeSubsystem, 4000)
+            .schedule()));
+    NamedCommands.registerCommand("feedShooter", new AutoShootCommand(transferSubsystem));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);

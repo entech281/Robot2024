@@ -30,6 +30,12 @@
           }
         },
         {
+          "type": "named",
+          "data": {
+            "name": "prepareToShoot"
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "TwoPieceCenter2"
@@ -38,7 +44,7 @@
         {
           "type": "named",
           "data": {
-            "name": "podiumShot"
+            "name": "feedShooter"
           }
         }
       ]
