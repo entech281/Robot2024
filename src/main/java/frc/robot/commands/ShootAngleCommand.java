@@ -49,7 +49,7 @@ public class ShootAngleCommand extends EntechCommand {
         || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()) {
       noNote = false;
       sInput.setActivate(true);
-      sInput.setSpeed(4500);
+      sInput.setSpeed(RobotConstants.PID.SHOOTER.PODIUM_SPEED);
       pInput.setActivate(true);
       pSubsystem.updateInputs(pInput);
       sSubsystem.updateInputs(sInput);
