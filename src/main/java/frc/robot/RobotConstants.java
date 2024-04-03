@@ -315,7 +315,7 @@ public final class RobotConstants {
     public static final double SHOOTING_SPEED = 1;
     public static final double TRANSFERRING_SPEED = 0.0;
     public static final double INTAKING_SPEED_FAST = 0.7;
-    public static final double INTAKING_SPEED_SLOW = 0;
+    public static final double INTAKING_SPEED_SLOW = 0.05;
     public static final double EJECTING_SPEED = -0.7;
     public static final double RETRACTING_SPEED = -0.2;
     public static final double TESTING_SPEED = 0.15;
