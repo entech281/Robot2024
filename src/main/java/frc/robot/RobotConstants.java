@@ -255,7 +255,6 @@ public final class RobotConstants {
       public static final String COLOR = "Arducam_OV9782_USB_Camera";
       public static final String LEFT = "Arducam_OV9281_USB_Camera";
       public static final String RIGHT = "Arducam_Alpha";
-
     }
 
 
@@ -263,7 +262,7 @@ public final class RobotConstants {
       public static final double MAX_AMBIGUITY = 0.5;
       public static final double MAX_DISTANCE = 3.0;
       public static final int[] ALLOWED_TAGS =
-          new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16};
+          new int[] {1, 2, 5, 6, 9, 10, 11, 12, 13, 14, 15, 16};
     }
 
     public static interface Resolution {
