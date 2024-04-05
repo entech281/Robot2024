@@ -30,7 +30,12 @@ public class MoveToNoteCommand extends EntechCommand {
 
   @Override
   public void end(boolean interrupted) {
-
+    DriveInput stop = new DriveInput(inputSupplier.getDriveInput());
+    stop.setRotation(0.0);
+    stop.setXSpeed(0.0);
+    stop.setYSpeed(0.0);
+    drive.updateInputs(stop);
+    UserPolicy.getInstance().setAligningToNote(false);
   }
 
   @Override
@@ -53,8 +58,8 @@ public class MoveToNoteCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-    return Math.abs(RobotIO.getInstance().getDriveOutput().getSpeeds().vxMetersPerSecond) < 0.05
-        && Math.abs(RobotIO.getInstance().getDriveOutput().getSpeeds().vyMetersPerSecond) < 0.05;
+    return Math.abs(RobotIO.getInstance().getDriveOutput().getSpeeds().vxMetersPerSecond) < 0.1
+        && Math.abs(RobotIO.getInstance().getDriveOutput().getSpeeds().vyMetersPerSecond) < 0.1;
   }
 
   @Override
