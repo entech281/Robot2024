@@ -107,7 +107,7 @@ public class IntakeNoteCommand extends EntechCommand {
       return true;
     } else {
       if (counter.isFinished(hasNote) && hasNote) {
-        if (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()) {
+        if (RobotIO.getInstance().getInternalNoteDetectorOutput().hasNote()) {
           return true;
         } else {
           retracting = true;
