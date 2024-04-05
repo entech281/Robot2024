@@ -16,6 +16,7 @@ public class NoteDetectorOutput extends SubsystemOutput {
   private Optional<Point> midpoint;
   private double yaw;
   private double latency;
+  private boolean driverMode;
 
   public double getYaw() {
     return yaw;
@@ -67,6 +68,8 @@ public class NoteDetectorOutput extends SubsystemOutput {
 
     Logger.recordOutput("NoteDetectorOutput/yaw", yaw);
     Logger.recordOutput("NoteDetectorOutput/latency", latency);
+
+    Logger.recordOutput("NoteDetectorOutput/isDriverMode", driverMode);
   }
 
   public boolean hasNotes() {
@@ -99,5 +102,13 @@ public class NoteDetectorOutput extends SubsystemOutput {
 
   public void setLatency(double latency) {
     this.latency = latency;
+  }
+
+  public boolean isDriverMode() {
+    return this.driverMode;
+  }
+
+  public void setDriverMode(boolean driverMode) {
+    this.driverMode = driverMode;
   }
 }

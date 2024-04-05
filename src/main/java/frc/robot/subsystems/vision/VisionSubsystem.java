@@ -47,6 +47,7 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
     output.setNumberOfTargets(targets.size());
     output.setTimeStamp(getTimeStamp());
     output.setTargets(targets);
+    output.setDriverMode(cameras.isDriverMode());
 
     if (ENABLED) {
       output.setTargetsData(cameras.getTargetData());
@@ -102,6 +103,7 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
   public void periodic() {
     if (ENABLED) {
       updateVisionData();
+      cameras.setDriverMode(false);
     }
   }
 

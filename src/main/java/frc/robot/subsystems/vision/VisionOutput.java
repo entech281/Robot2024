@@ -16,6 +16,7 @@ public class VisionOutput extends SubsystemOutput {
   private boolean hasTargets;
   private List<PhotonTrackedTarget> targets;
   private List<EntechTargetData> targetsData;
+  private boolean driverMode;
 
   @Override
   public void toLog() {
@@ -27,6 +28,7 @@ public class VisionOutput extends SubsystemOutput {
     Logger.recordOutput("VisionOutput/latency", latency);
     Logger.recordOutput("VisionOutput/numberOfTargets", numberOfTargets);
     Logger.recordOutput("VisionOutput/hasTargets", hasTargets);
+    Logger.recordOutput("VisionOutput/isDriveMode", driverMode);
     for (int i = 0; i < numberOfTargets; i++) {
       Logger.recordOutput("VisionOutput/target" + i, targets.get(i));
     }
@@ -98,5 +100,13 @@ public class VisionOutput extends SubsystemOutput {
 
   public void setTargetsData(List<EntechTargetData> targetsData) {
     this.targetsData = targetsData;
+  }
+
+  public boolean isDriverMode() {
+    return this.driverMode;
+  }
+
+  public void setDriverMode(boolean driverMode) {
+    this.driverMode = driverMode;
   }
 }
