@@ -25,7 +25,7 @@ public final class RobotConstants {
     // radians per second
 
     public static final double DIRECTION_SLEW_RATE = 1.2; // radians per second
-    public static final double MAGNITUDE_SLEW_RATE = 2.5;
+    public static final double MAGNITUDE_SLEW_RATE = 4.0;
     // 2.0; //1.8; // percent per second (1 = 100%)
     public static final double ROTATIONAL_SLEW_RATE = 3.5;
     // 20.0; //2.0; // percent per second (1 = 100%)
@@ -248,7 +248,7 @@ public final class RobotConstants {
   }
 
   public static interface Vision {
-    public static final Matrix<N3, N1> VISION_STD_DEVS = VecBuilder.fill(10, 10, 1000000);
+    public static final Matrix<N3, N1> VISION_STD_DEVS = VecBuilder.fill(5, 5, 1000000);
 
 
     public static interface Cameras {
