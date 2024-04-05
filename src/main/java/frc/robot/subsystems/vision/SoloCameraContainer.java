@@ -47,16 +47,16 @@ public class SoloCameraContainer implements CameraContainerI {
       if (Math
           .abs(target.getBestCameraToTarget().getX()) > RobotConstants.Vision.Filters.MAX_DISTANCE)
         continue;
-      // boolean allowed = false;
-      // for (int id : RobotConstants.Vision.Filters.ALLOWED_TAGS) {
-      // if (target.getFiducialId() == id) {
-      // allowed = true;
-      // break;
-      // }
-      // }
-      // if (!allowed) {
-      // continue;
-      // }
+      boolean allowed = false;
+      for (int id : RobotConstants.Vision.Filters.ALLOWED_TAGS) {
+        if (target.getFiducialId() == id) {
+          allowed = true;
+          break;
+        }
+      }
+      if (!allowed) {
+        continue;
+      }
 
       filteredTargets.add(target);
     }
