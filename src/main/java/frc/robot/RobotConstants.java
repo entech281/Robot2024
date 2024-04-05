@@ -291,7 +291,7 @@ public final class RobotConstants {
       public static final double KI = 0.0;
       public static final double KD = 0.0;
       public static final double KFF = 0.00018;
-      public static final double PODIUM_SPEED = 4000;
+      public static final double PODIUM_SPEED = 4500;
       public static final double SUBWOOFER_SPEED = 3100;
       public static final double AMP_SPEED = 3000 - 350;
     }
