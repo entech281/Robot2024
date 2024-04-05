@@ -18,7 +18,7 @@ import frc.robot.subsystems.shooter.ShooterInput;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 
 public class PrepareToShootCommand extends EntechCommand {
-
+  private static final double OFFSET = -2.0;
   private StoppingCounter cancelCounter =
       new StoppingCounter(RobotConstants.SHOOTER.RESET_DELAY + 1);
   private StoppingCounter stableCounter = new StoppingCounter(RobotConstants.SHOOTER.SHOOT_DELAY);
@@ -92,7 +92,8 @@ public class PrepareToShootCommand extends EntechCommand {
         Optional<Double> distance = RobotIO.getInstance().getDistanceFromTarget();
 
         pInput.setRequestedPosition(
-            AimCalculator.getPivotAngleFromDistance(distance.isPresent() ? distance.get() : 1));
+            AimCalculator.getPivotAngleFromDistance(distance.isPresent() ? distance.get() : 1)
+                + OFFSET);
       } else if (speakerSwitch.getAsBoolean()) {
         pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING);
         sInput.setSpeed(RobotConstants.PID.SHOOTER.PODIUM_SPEED);

@@ -20,12 +20,12 @@ public final class RobotConstants {
   public static final class DrivetrainConstants {
     // Driving Parameters - Note that these are not the maximum capable speeds of
     // the robot, rather the allowed maximum speeds
-    public static final double MAX_SPEED_METERS_PER_SECOND = 4.8; // 4.42; //4.8;
+    public static final double MAX_SPEED_METERS_PER_SECOND = 6.0; // 4.42; //4.8;
     public static final double MAX_ANGULAR_SPEED_RADIANS_PER_SECOND = 4 * Math.PI;
     // radians per second
 
     public static final double DIRECTION_SLEW_RATE = 1.2; // radians per second
-    public static final double MAGNITUDE_SLEW_RATE = 4.0;
+    public static final double MAGNITUDE_SLEW_RATE = 4.75;
     // 2.0; //1.8; // percent per second (1 = 100%)
     public static final double ROTATIONAL_SLEW_RATE = 3.5;
     // 20.0; //2.0; // percent per second (1 = 100%)
