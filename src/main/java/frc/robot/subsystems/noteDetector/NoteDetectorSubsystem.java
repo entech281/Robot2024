@@ -99,7 +99,6 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
     if (ENABLED) {
       updateNotes();
       updateNoteDetectorData();
-      colorCamera.setDriverMode(false);
     }
   }
 
