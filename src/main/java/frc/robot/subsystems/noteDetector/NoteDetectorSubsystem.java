@@ -30,6 +30,7 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
   public void initialize() {
     if (ENABLED) {
       colorCamera = new PhotonCamera(RobotConstants.Vision.Cameras.COLOR);
+      colorCamera.setDriverMode(false);
     }
   }
 
@@ -67,6 +68,7 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
     output.setSelectedNote(getChosenNote());
     output.setNotes(notes);
     output.setMidpoint(getCenterOfClosestNote());
+    output.setDriverMode(colorCamera.getDriverMode());
     Optional<PhotonTrackedTarget> note = getChosenNote();
     if (note.isPresent()) {
       output.setYaw(note.get().getYaw());

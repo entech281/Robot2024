@@ -39,7 +39,7 @@ public class NavXOutput extends SubsystemOutput {
     Logger.recordOutput("NavXOutput/isMoving", isRotating);
     Logger.recordOutput("NavXOutput/isMagnetometerCalibrated", isMagnetometerCalibrated);
     Logger.recordOutput("NavXOutput/isMagneticDisturbance", isMagneticDisturbance);
-    Logger.recordOutput("NavXOutput/chassisSpeeds", compassHeading);
+    Logger.recordOutput("NavXOutput/chassisSpeeds", chassisSpeeds);
     Logger.recordOutput("NavXOutput/ifFaultDetected", isFaultDetected);
   }
 

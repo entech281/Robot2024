@@ -13,7 +13,7 @@ public class TestVisionCommand extends EntechCommand {
   // private final Random random = new Random();
 
   private int leftTestTag;
-  // private int rightTestTag;
+  private int rightTestTag;
   // private int middleTestTag;
 
   public TestVisionCommand(VisionSubsystem vision) {
@@ -26,6 +26,9 @@ public class TestVisionCommand extends EntechCommand {
     switch (stage) {
       case 0:
         testCamera(leftTestTag, RobotConstants.Vision.Cameras.LEFT, "left");
+        break;
+      case 1:
+        testCamera(rightTestTag, RobotConstants.Vision.Cameras.RIGHT, "right");
         break;
       default:
         break;
@@ -68,13 +71,13 @@ public class TestVisionCommand extends EntechCommand {
   @Override
   public void initialize() {
     leftTestTag = 1;
-    // rightTestTag = 1 + random.nextInt(7);
+    rightTestTag = 1;
     // middleTestTag = 1 + random.nextInt(7);
     stage = 0;
   }
 
   @Override
   public boolean isFinished() {
-    return stage >= 1;
+    return stage >= 2;
   }
 }

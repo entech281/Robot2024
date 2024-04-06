@@ -26,8 +26,8 @@ public class GyroResetByAngleCommand extends EntechCommand {
         set = () -> navx
             .setAngleAdjustment(RobotIO.getInstance().getNavXOutput().getAngleAdjustment() + angle);
       } else {
-        set = () -> navx.setAngleAdjustment(
-            RobotIO.getInstance().getNavXOutput().getAngleAdjustment() + (180 - angle));
+        set = () -> navx
+            .setAngleAdjustment(RobotIO.getInstance().getNavXOutput().getAngleAdjustment() - angle);
       }
     } else {
       set = () -> navx

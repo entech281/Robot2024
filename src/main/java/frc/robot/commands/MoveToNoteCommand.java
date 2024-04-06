@@ -40,17 +40,26 @@ public class MoveToNoteCommand extends EntechCommand {
 
   @Override
   public void execute() {
-    input = new DriveInput(inputSupplier.getDriveInput());
-    input.setRotation(0.0);
-    input.setXSpeed(xSpeed);
-    input.setYSpeed(ySpeed);
-    drive.updateInputs(filter.process(input));
+    if (!RobotIO.getInstance().getInternalNoteDetectorOutput().hasNote()) {
+      input = new DriveInput(inputSupplier.getDriveInput());
+      input.setRotation(0.0);
+      input.setXSpeed(xSpeed);
+      input.setYSpeed(ySpeed);
+      drive.updateInputs(filter.process(input));
+    } else {
+      DriveInput stop = new DriveInput(inputSupplier.getDriveInput());
+      stop.setRotation(0.0);
+      stop.setXSpeed(0.0);
+      stop.setYSpeed(0.0);
+      drive.updateInputs(stop);
+      UserPolicy.getInstance().setAligningToNote(false);
+    }
   }
 
   @Override
   public boolean isFinished() {
-    return (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
-        || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote());
+    return Math.abs(RobotIO.getInstance().getDriveOutput().getSpeeds().vxMetersPerSecond) < 0.1
+        && Math.abs(RobotIO.getInstance().getDriveOutput().getSpeeds().vyMetersPerSecond) < 0.1;
   }
 
   @Override

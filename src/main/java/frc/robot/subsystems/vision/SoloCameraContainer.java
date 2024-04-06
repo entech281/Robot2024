@@ -25,6 +25,7 @@ public class SoloCameraContainer implements CameraContainerI {
     estimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
         camera, robotToCamera);
     estimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+    camera.setDriverMode(false);
   }
 
   public SoloCameraContainer(String cameraName, Transform3d robotToCamera,
@@ -33,6 +34,7 @@ public class SoloCameraContainer implements CameraContainerI {
     estimator = new PhotonPoseEstimator(fieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
         camera, robotToCamera);
     estimator.setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+    camera.setDriverMode(false);
   }
 
   @Override
@@ -47,6 +49,16 @@ public class SoloCameraContainer implements CameraContainerI {
       if (Math
           .abs(target.getBestCameraToTarget().getX()) > RobotConstants.Vision.Filters.MAX_DISTANCE)
         continue;
+      boolean allowed = false;
+      for (int id : RobotConstants.Vision.Filters.ALLOWED_TAGS) {
+        if (target.getFiducialId() == id) {
+          allowed = true;
+          break;
+        }
+      }
+      if (!allowed) {
+        continue;
+      }
 
       filteredTargets.add(target);
     }
@@ -94,5 +106,20 @@ public class SoloCameraContainer implements CameraContainerI {
     List<EntechTargetData> data = new ArrayList<>();
     data.add(new EntechTargetData(targetIds, camera.getName()));
     return data;
+  }
+
+  @Override
+  public boolean isDriverMode() {
+    return camera.getDriverMode();
+  }
+
+  @Override
+  public void setDriverMode(boolean enabled) {
+    camera.setDriverMode(enabled);
+  }
+
+  @Override
+  public boolean isConnected() {
+    return camera.isConnected();
   }
 }

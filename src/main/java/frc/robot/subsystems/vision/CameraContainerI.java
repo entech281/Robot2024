@@ -17,4 +17,10 @@ public interface CameraContainerI {
   int getTargetCount();
 
   List<EntechTargetData> getTargetData();
+
+  boolean isDriverMode();
+
+  void setDriverMode(boolean enabled);
+
+  boolean isConnected();
 }

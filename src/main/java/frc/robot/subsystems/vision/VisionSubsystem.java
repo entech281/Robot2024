@@ -47,6 +47,8 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
     output.setNumberOfTargets(targets.size());
     output.setTimeStamp(getTimeStamp());
     output.setTargets(targets);
+    output.setDriverMode(cameras.isDriverMode());
+    output.setConnected(cameras.isConnected());
 
     if (ENABLED) {
       output.setTargetsData(cameras.getTargetData());
