@@ -117,4 +117,9 @@ public class SoloCameraContainer implements CameraContainerI {
   public void setDriverMode(boolean enabled) {
     camera.setDriverMode(enabled);
   }
+
+  @Override
+  public boolean isConnected() {
+    return camera.isConnected();
+  }
 }

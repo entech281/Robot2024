@@ -116,4 +116,15 @@ public class MultiCameraContainer implements CameraContainerI {
       cameraContainer.setDriverMode(enabled);
     }
   }
+
+  @Override
+  public boolean isConnected() {
+    boolean isConnected = true;
+
+    for (CameraContainerI cameraContainer : cameraContainers) {
+      isConnected = isConnected && cameraContainer.isConnected();
+    }
+
+    return isConnected;
+  }
 }

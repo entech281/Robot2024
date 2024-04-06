@@ -21,4 +21,6 @@ public interface CameraContainerI {
   boolean isDriverMode();
 
   void setDriverMode(boolean enabled);
+
+  boolean isConnected();
 }
