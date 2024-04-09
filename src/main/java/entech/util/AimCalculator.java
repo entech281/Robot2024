@@ -51,17 +51,16 @@ public class AimCalculator {
 
 		double angleE = Math.toDegrees(Math.acos(
 				(Math.pow(sideA, 2) + Math.pow(sideD, 2) - Math.pow(sideE, 2)) / (2 * sideA * sideD)));
-
-		double angleTheta = 180 - (angleC + angleE);
-		return angleTheta;
+		return 180 - (angleC + angleE);
 	}
 
 	public static double getPivotAngleFromDistance(double currentDistance) {
-		double pivotAngle = (-0.0016 * Math.pow((Units.metersToInches(currentDistance)
+		return (-0.0016 * Math.pow((Units.metersToInches(currentDistance)
 				- RobotConstants.AUTO_AIM.DISTANCE_FROM_REAR_TO_CENTER), 2))
 				+ (0.5394 * (Units.metersToInches(currentDistance)
 						- RobotConstants.AUTO_AIM.DISTANCE_FROM_REAR_TO_CENTER))
 				- 6.5;
-		return pivotAngle;
 	}
+
+	private AimCalculator() {}
 }

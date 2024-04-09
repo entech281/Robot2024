@@ -20,7 +20,7 @@ public class FeedShooterCommand extends EntechCommand {
   @Override
   public void end(boolean interrupted) {
     input.setActivate(false);
-    input.setSpeedPreset(TransferPreset.Off);
+    input.setSpeedPreset(TransferPreset.OFF);
     transfer.updateInputs(input);
   }
 
@@ -30,7 +30,7 @@ public class FeedShooterCommand extends EntechCommand {
     if (RobotIO.getInstance().getInternalNoteDetectorOutput().hasNote()
         && UserPolicy.getInstance().isPreparingToShoot()) {
       input.setActivate(true);
-      input.setSpeedPreset(TransferPreset.Shooting);
+      input.setSpeedPreset(TransferPreset.SHOOTING);
       transfer.updateInputs(input);
     }
   }
@@ -39,7 +39,7 @@ public class FeedShooterCommand extends EntechCommand {
   @Override
   public void initialize() {
     input.setActivate(false);
-    input.setSpeedPreset(TransferPreset.Off);
+    input.setSpeedPreset(TransferPreset.OFF);
     transfer.updateInputs(input);
   }
 

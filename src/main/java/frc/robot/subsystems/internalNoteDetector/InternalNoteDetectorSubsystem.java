@@ -1,4 +1,4 @@
-package frc.robot.subsystems.internalNoteDetector;
+package frc.robot.subsystems.internalnotedetector;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -10,7 +10,7 @@ import frc.robot.io.RobotIO;
 public class InternalNoteDetectorSubsystem
     extends EntechSubsystem<InternalNoteDetectorInput, InternalNoteDetectorOutput> {
 
-  private boolean ENABLED = true;
+  private static final boolean ENABLED = true;
 
   private DigitalInput internalSensorF;
   private DigitalInput internalSensorR;

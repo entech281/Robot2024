@@ -110,8 +110,6 @@ public class OperatorInterface
   public void enableXboxBindings() {
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.GYRO_RESET)
         .onTrue(new GyroReset(subsystemManager.getNavXSubsystem(), odometry));
-    // driveJoystick.whenPressed(RobotConstants.Ports.CONTROLLER.BUTTONS.GYRO_RESET,new
-    // GyroReset(subsystemManager.getNavXSubsystem(), odometry));
 
     subsystemManager.getDriveSubsystem()
         .setDefaultCommand(new DriveCommand(subsystemManager.getDriveSubsystem(), this));
@@ -126,14 +124,10 @@ public class OperatorInterface
         .onTrue(commandFactory.getTargetSpeakerCommand());
 
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.TARGET_AMP)
-        .onFalse(Commands.runOnce(() -> {
-          UserPolicy.getInstance().setTargetPose(null);
-        }));
+        .onFalse(Commands.runOnce(() -> UserPolicy.getInstance().setTargetPose(null)));
 
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.TARGET_SPEAKER)
-        .onFalse(Commands.runOnce(() -> {
-          UserPolicy.getInstance().setTargetPose(null);
-        }));
+        .onFalse(Commands.runOnce(() -> UserPolicy.getInstance().setTargetPose(null)));
 
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.FEED_SHOOTER)
         .whileTrue(new FeedShooterCommand(subsystemManager.getTransferSubsystem()));

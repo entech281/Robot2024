@@ -6,18 +6,18 @@ import org.littletonrobotics.junction.inputs.LoggableInputs;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.RobotConstants;
-import frc.robot.subsystems.LEDs.LEDOutput;
 import frc.robot.subsystems.climb.ClimbOutput;
 import frc.robot.subsystems.drive.DriveInput;
 import frc.robot.subsystems.drive.DriveOutput;
 import frc.robot.subsystems.intake.IntakeOutput;
-import frc.robot.subsystems.internalNoteDetector.InternalNoteDetectorOutput;
+import frc.robot.subsystems.internalnotedetector.InternalNoteDetectorOutput;
+import frc.robot.subsystems.led.LEDOutput;
 import frc.robot.subsystems.navx.NavXOutput;
-import frc.robot.subsystems.noteDetector.NoteDetectorOutput;
 import frc.robot.subsystems.pivot.PivotOutput;
 import frc.robot.subsystems.shooter.ShooterOutput;
 import frc.robot.subsystems.transfer.TransferOutput;
 import frc.robot.subsystems.vision.VisionOutput;
+import frc.robot.subsystems.visionnotedetector.NoteDetectorOutput;
 
 public class RobotIO implements DriveInputSupplier {
   private static RobotIO instance = new RobotIO();

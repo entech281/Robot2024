@@ -1,5 +1,6 @@
 package frc.robot.subsystems.shooter;
 
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
@@ -63,8 +64,8 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        shooterTopPID.setReference(currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
-        shooterBottomPID.setReference(currentInput.getSpeed(), CANSparkMax.ControlType.kVelocity);
+        shooterTopPID.setReference(currentInput.getSpeed(), ControlType.kVelocity);
+        shooterBottomPID.setReference(currentInput.getSpeed(), ControlType.kVelocity);
       } else {
         shooterBottom.set(0.0);
         shooterTop.set(0.0);
@@ -82,9 +83,7 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
   }
 
   private double getCurrentSpeed() {
-    double currentSpeed =
-        (shooterTop.getEncoder().getVelocity() + shooterBottom.getEncoder().getVelocity()) / 2;
-    return currentSpeed;
+    return (shooterTop.getEncoder().getVelocity() + shooterBottom.getEncoder().getVelocity()) / 2;
   }
 
   @Override

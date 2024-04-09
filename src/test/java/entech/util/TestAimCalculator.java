@@ -1,11 +1,11 @@
 package entech.util;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 import edu.wpi.first.math.util.Units;
 import entech.util.AimCalculator.Target;
-import org.junit.jupiter.api.Test;
 
-public class TestAimCalculator {
+class TestAimCalculator {
     private static final double TOLERANCE = 1.25;
 
     @Test

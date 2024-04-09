@@ -6,7 +6,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.subsystems.drive.DriveInput;
-import frc.robot.subsystems.noteDetector.NoteDetectorOutput;
+import frc.robot.subsystems.visionnotedetector.NoteDetectorOutput;
 
 public class TestNoteAlignFilter {
   public static final double TOLERANCE = 0.00001;

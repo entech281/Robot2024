@@ -1,4 +1,4 @@
-package frc.robot.subsystems.internalNoteDetector;
+package frc.robot.subsystems.internalnotedetector;
 
 import org.littletonrobotics.junction.Logger;
 import entech.subsystems.SubsystemOutput;

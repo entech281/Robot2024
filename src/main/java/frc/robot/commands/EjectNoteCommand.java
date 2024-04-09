@@ -36,7 +36,7 @@ public class EjectNoteCommand extends EntechCommand {
     iInput.setActivate(true);
     iInput.setSpeed(RobotConstants.INTAKE.EJECTING_SPEED);
     tInput.setActivate(true);
-    tInput.setSpeedPreset(TransferPreset.Ejecting);
+    tInput.setSpeedPreset(TransferPreset.EJECTING);
     intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
     counter.reset();
@@ -50,7 +50,7 @@ public class EjectNoteCommand extends EntechCommand {
     iInput.setActivate(false);
     iInput.setSpeed(0);
     tInput.setActivate(false);
-    tInput.setSpeedPreset(TransferPreset.Off);
+    tInput.setSpeedPreset(TransferPreset.OFF);
     intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
     sInput.setActivate(false);

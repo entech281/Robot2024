@@ -5,10 +5,10 @@ import entech.commands.EntechCommand;
 import entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
-import frc.robot.subsystems.LEDs.LEDInput;
-import frc.robot.subsystems.LEDs.LEDSubsystem;
 import frc.robot.subsystems.intake.IntakeInput;
 import frc.robot.subsystems.intake.IntakeSubsystem;
+import frc.robot.subsystems.led.LEDInput;
+import frc.robot.subsystems.led.LEDSubsystem;
 import frc.robot.subsystems.shooter.ShooterInput;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 import frc.robot.subsystems.transfer.TransferInput;
@@ -50,7 +50,7 @@ public class IntakeNoteCommand extends EntechCommand {
     iInput.setActivate(true);
     iInput.setSpeed(RobotConstants.INTAKE.INTAKE_SPEED);
     tInput.setActivate(true);
-    tInput.setSpeedPreset(TransferPreset.Intaking1);
+    tInput.setSpeedPreset(TransferPreset.INTAKING1);
     intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
     shooterSubsystem.updateInputs(sInput);
@@ -70,7 +70,7 @@ public class IntakeNoteCommand extends EntechCommand {
   @Override
   public void execute() {
     if (retracting) {
-      tInput.setSpeedPreset(TransferPreset.Retracting);
+      tInput.setSpeedPreset(TransferPreset.RETRACTING);
       transSubsystem.updateInputs(tInput);
       if (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()) {
         retracted = true;
@@ -84,7 +84,7 @@ public class IntakeNoteCommand extends EntechCommand {
         if (RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()) {
           iInput.setActivate(false);
           intSubsystem.updateInputs(iInput);
-          tInput.setSpeedPreset(TransferPreset.Intaking2);
+          tInput.setSpeedPreset(TransferPreset.INTAKING2);
           transSubsystem.updateInputs(tInput);
         }
       }

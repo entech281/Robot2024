@@ -9,11 +9,10 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.io.RobotIO;
 import frc.robot.operation.UserPolicy;
 import frc.robot.subsystems.drive.DriveInput;
-import frc.robot.subsystems.noteDetector.NoteDetectorOutput;
+import frc.robot.subsystems.visionnotedetector.NoteDetectorOutput;
 
 public class NoteAlignmentFilter implements DriveFilterI {
   private final PIDController controller = new PIDController(0.009, 0, 0.0);
-  private double driveSpeed;
 
   @Override
   public DriveInput process(DriveInput input) {
@@ -32,8 +31,7 @@ public class NoteAlignmentFilter implements DriveFilterI {
       targetYaw = no.getYaw();
       double noteAngle = input.getLatestOdometryPose().getRotation().getRadians()
           - Units.degreesToRadians(targetYaw);
-      double driverInputAngle = Math.toDegrees(Math.atan2(input.getYSpeed(), input.getXSpeed()))
-          * (Alliance.Blue == team ? 1 : 1);
+      double driverInputAngle = Math.toDegrees(Math.atan2(input.getYSpeed(), input.getXSpeed()));
       DriveInput adjustedDriveInput = new DriveInput(input);
       if (Math.abs(input.getLatestOdometryPose().getRotation().getDegrees()) - noteAngle >= 1.5
           && !UserPolicy.getInstance().isTwistable()) {
@@ -41,7 +39,7 @@ public class NoteAlignmentFilter implements DriveFilterI {
             controller.calculate(input.getLatestOdometryPose().getRotation().getDegrees(),
                 Units.radiansToDegrees(noteAngle)));
       }
-      driveSpeed =
+      double driveSpeed =
           Math.sqrt(Math.pow(input.getXSpeed(), 2) + Math.pow(input.getYSpeed(), 2)) * 0.75;
       double diff = Math.abs(driverInputAngle - Units.radiansToDegrees(noteAngle));
       if (diff > 180) {

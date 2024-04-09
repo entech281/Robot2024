@@ -7,18 +7,20 @@ package frc.robot;
 import java.util.ArrayList;
 import java.util.List;
 import entech.subsystems.EntechSubsystem;
+import entech.subsystems.SubsystemInput;
+import entech.subsystems.SubsystemOutput;
 import frc.robot.io.RobotIO;
-import frc.robot.subsystems.LEDs.LEDSubsystem;
 import frc.robot.subsystems.climb.ClimbSubsystem;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
-import frc.robot.subsystems.internalNoteDetector.InternalNoteDetectorSubsystem;
+import frc.robot.subsystems.internalnotedetector.InternalNoteDetectorSubsystem;
+import frc.robot.subsystems.led.LEDSubsystem;
 import frc.robot.subsystems.navx.NavXSubsystem;
-import frc.robot.subsystems.noteDetector.NoteDetectorSubsystem;
 import frc.robot.subsystems.pivot.PivotSubsystem;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 import frc.robot.subsystems.vision.VisionSubsystem;
+import frc.robot.subsystems.visionnotedetector.NoteDetectorSubsystem;
 
 /**
  * Manages the subsystems and the interactions between them.
@@ -97,7 +99,7 @@ public class SubsystemManager {
     return ledSubsystem;
   }
 
-  public List<EntechSubsystem<?, ?>> getSubsystemList() {
+  public List<EntechSubsystem<? extends SubsystemInput, ? extends SubsystemOutput>> getSubsystemList() {
     ArrayList<EntechSubsystem<?, ?>> r = new ArrayList<>();
     r.add(navXSubsystem);
     r.add(driveSubsystem);

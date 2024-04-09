@@ -54,7 +54,7 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
       output.setTargetsData(cameras.getTargetData());
       output.setLatency(cameras.getLatency());
     } else {
-      output.setTargetsData(new ArrayList<EntechTargetData>());
+      output.setTargetsData(new ArrayList<>());
       output.setLatency(-1);
     }
 
@@ -71,14 +71,6 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
       } catch (IOException e) {
         throw new RuntimeException("Could not load wpilib AprilTagFields");
       }
-
-      // CameraContainerI cameraBeta = new SoloCameraContainer(RobotConstants.Vision.Cameras.LEFT,
-      // RobotConstants.Vision.Transforms.LEFT, photonAprilTagFieldLayout);
-      // CameraContainerI cameraAlpha = new SoloCameraContainer(RobotConstants.Vision.Cameras.RIGHT,
-      // RobotConstants.Vision.Transforms.RIGHT, photonAprilTagFieldLayout);
-      // CameraContainerI cameraMiddle = new
-      // SoloCameraContainer(RobotConstants.Vision.Cameras.MIDDLE,
-      // RobotConstants.Vision.Transforms.MIDDLE, photonAprilTagFieldLayout);
 
       CameraContainerI cameraLeft = new SoloCameraContainer(RobotConstants.Vision.Cameras.LEFT,
           RobotConstants.Vision.Transforms.LEFT, photonAprilTagFieldLayout);

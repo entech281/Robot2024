@@ -10,10 +10,9 @@ import frc.robot.commands.test.TestIntakeCommand;
 import frc.robot.io.RobotIO;
 
 public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> {
+  private static final boolean ENABLED = true;
 
-  private final static boolean ENABLED = true;
-
-  private final static double TOLERANCE_SPEED = 0.01;
+  private static final double TOLERANCE_SPEED = 0.01;
 
   private IntakeInput currentInput = new IntakeInput();
 

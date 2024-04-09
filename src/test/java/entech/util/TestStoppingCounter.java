@@ -3,7 +3,7 @@ package entech.util;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-public class TestStoppingCounter {
+class TestStoppingCounter {
 
   @Test
   void testStopperStopsAllSuccess() {

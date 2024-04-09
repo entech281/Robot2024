@@ -25,9 +25,9 @@ import frc.robot.commands.ShootAngleCommand;
 import frc.robot.io.RobotIO;
 import frc.robot.operation.UserPolicy;
 import frc.robot.processors.OdometryProcessor;
-import frc.robot.subsystems.LEDs.LEDSubsystem;
 import frc.robot.subsystems.drive.DriveSubsystem;
 import frc.robot.subsystems.intake.IntakeSubsystem;
+import frc.robot.subsystems.led.LEDSubsystem;
 import frc.robot.subsystems.navx.NavXSubsystem;
 import frc.robot.subsystems.pivot.PivotSubsystem;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
@@ -72,7 +72,7 @@ public class CommandFactory {
         odometry::resetOdometry,
         // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE. Choose one:
         // () -> navXSubsystem.toOutputs().getChassisSpeeds(),
-        () -> driveSubsystem.getChassisSpeeds(), driveSubsystem::pathFollowDrive,
+        driveSubsystem::getChassisSpeeds, driveSubsystem::pathFollowDrive,
         new HolonomicPathFollowerConfig(
             // HolonomicPathFollowerConfig, this should likely live in your Constants
             // class
@@ -99,13 +99,6 @@ public class CommandFactory {
           }
           return false;
         }, driveSubsystem);
-
-
-    NamedCommands.registerCommand("Marker 1", Commands.print("Passed marker 1"));
-    // NamedCommands.registerCommand("Marker 2", Commands.print("Passed marker 2"));
-    NamedCommands.registerCommand("Marker 2", Commands.run(() -> {
-      DriverStation.reportWarning("********** I am at marker 2", false);
-    }));
 
     NamedCommands.registerCommand("intake", new IntakeNoteCommand(intakeSubsystem,
         transferSubsystem, shooterSubsystem, subsystemManager.getLedSubsystem()));
@@ -138,11 +131,9 @@ public class CommandFactory {
   public Command getTargetSpeakerCommand() {
     return Commands.runOnce(() -> {
       Optional<Alliance> team = DriverStation.getAlliance();
-      if (team.isPresent()) {
-        if (team.get() == Alliance.Blue) {
-          UserPolicy.getInstance().setTargetPose(new Pose2d(0.0, 5.31, new Rotation2d()));
-          return;
-        }
+      if (team.isPresent() && team.get() == Alliance.Blue) {
+        UserPolicy.getInstance().setTargetPose(new Pose2d(0.0, 5.31, new Rotation2d()));
+        return;
       }
       UserPolicy.getInstance().setTargetPose(new Pose2d(16.54, 5.54, new Rotation2d()));
     });
@@ -151,11 +142,9 @@ public class CommandFactory {
   public Command getTargetAmpCommand() {
     return Commands.runOnce(() -> {
       Optional<Alliance> team = DriverStation.getAlliance();
-      if (team.isPresent()) {
-        if (team.get() == Alliance.Blue) {
-          UserPolicy.getInstance().setTargetPose(new Pose2d(1.78, 8.14, new Rotation2d()));
-          return;
-        }
+      if (team.isPresent() && team.get() == Alliance.Blue) {
+        UserPolicy.getInstance().setTargetPose(new Pose2d(1.78, 8.14, new Rotation2d()));
+        return;
       }
       UserPolicy.getInstance().setTargetPose(new Pose2d(14.75, 8.14, new Rotation2d()));
     });

@@ -1,4 +1,4 @@
-package frc.robot.subsystems.noteDetector;
+package frc.robot.subsystems.visionnotedetector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,8 +104,7 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
 
 
   private Point getNoteMidpoint(Point bottomLeft, Point topRight) {
-    Point midpoint = new Point((bottomLeft.x + topRight.x) / 2, (bottomLeft.y + topRight.y) / 2);
-    return midpoint;
+    return new Point((bottomLeft.x + topRight.x) / 2, (bottomLeft.y + topRight.y) / 2);
   }
 
   private static Point transformedPoint(Point p) {
@@ -134,7 +133,7 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
     PhotonPipelineResult cpr = colorCamera.getLatestResult();
     if (staleCounter.isFinished(RobotConstants.TIME_PER_PERIODICAL_LOOP_SECONDS >= Math
         .abs(previousCameraResultTime - cpr.getTimestampSeconds()))) {
-      notes = new ArrayList<PhotonTrackedTarget>();
+      notes = new ArrayList<>();
     } else {
       notes = cpr.targets;
       staleCounter.reset();
