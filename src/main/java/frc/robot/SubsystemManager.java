@@ -7,8 +7,6 @@ package frc.robot;
 import java.util.ArrayList;
 import java.util.List;
 import entech.subsystems.EntechSubsystem;
-import entech.subsystems.SubsystemInput;
-import entech.subsystems.SubsystemOutput;
 import frc.robot.io.RobotIO;
 import frc.robot.subsystems.climb.ClimbSubsystem;
 import frc.robot.subsystems.drive.DriveSubsystem;
@@ -99,7 +97,7 @@ public class SubsystemManager {
     return ledSubsystem;
   }
 
-  public List<EntechSubsystem<? extends SubsystemInput, ? extends SubsystemOutput>> getSubsystemList() {
+  public List<EntechSubsystem<?, ?>> getSubsystemList() {
     ArrayList<EntechSubsystem<?, ?>> r = new ArrayList<>();
     r.add(navXSubsystem);
     r.add(driveSubsystem);
