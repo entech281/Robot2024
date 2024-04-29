@@ -50,10 +50,8 @@ public class OdometryProcessor {
 
     Pose2d target = null;
     Optional<Alliance> team = DriverStation.getAlliance();
-    if (team.isPresent()) {
-      if (team.get() == Alliance.Blue) {
-        target = new Pose2d(0.0, 5.31, new Rotation2d());
-      }
+    if (team.isPresent() && team.get() == Alliance.Blue) {
+      target = new Pose2d(0.0, 5.31, new Rotation2d());
     }
 
     if (target == null) {

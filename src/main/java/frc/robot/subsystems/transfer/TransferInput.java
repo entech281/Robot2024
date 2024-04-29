@@ -5,7 +5,7 @@ import entech.subsystems.SubsystemInput;
 
 public class TransferInput implements SubsystemInput {
   private boolean activate = false;
-  private TransferSubsystem.TransferPreset speedPreset = TransferSubsystem.TransferPreset.Off;
+  private TransferSubsystem.TransferPreset speedPreset = TransferSubsystem.TransferPreset.OFF;
 
   @Override
   public void toLog(LogTable table) {
@@ -16,7 +16,7 @@ public class TransferInput implements SubsystemInput {
   @Override
   public void fromLog(LogTable table) {
     activate = table.get("activate", false);
-    speedPreset = table.get("currentMode", TransferSubsystem.TransferPreset.Off);
+    speedPreset = table.get("currentMode", TransferSubsystem.TransferPreset.OFF);
   }
 
   public boolean getActivate() {

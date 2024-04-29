@@ -11,7 +11,7 @@ import frc.robot.commands.test.TestClimbCommand;
 import frc.robot.io.RobotIO;
 
 public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
-  private boolean ENABLED = true;
+  private static final boolean ENABLED = true;
 
   private ClimbInput currentInput = new ClimbInput();
 
@@ -52,6 +52,7 @@ public class ClimbSubsystem extends EntechSubsystem<ClimbInput, ClimbOutput> {
     pIDController.setI(RobotConstants.PID.CLIMB.KD);
   }
 
+  @Override
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {

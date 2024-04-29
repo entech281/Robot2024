@@ -12,9 +12,9 @@ import frc.robot.subsystems.drive.DriveSubsystem;
 public class MoveToNoteCommand extends EntechCommand {
   private final double speed;
   private final DriveSubsystem drive;
-  private DriveInput input;
   private final DriveInputSupplier inputSupplier;
-  private final double xSpeed, ySpeed;
+  private final double xSpeed;
+  private final double ySpeed;
   private final NoteAlignmentFilter filter = new NoteAlignmentFilter();
 
   public MoveToNoteCommand(DriveSubsystem drive, double roughRobotAngle, DriveInputSupplier inputs,
@@ -41,7 +41,7 @@ public class MoveToNoteCommand extends EntechCommand {
   @Override
   public void execute() {
     if (!RobotIO.getInstance().getInternalNoteDetectorOutput().hasNote()) {
-      input = new DriveInput(inputSupplier.getDriveInput());
+      DriveInput input = new DriveInput(inputSupplier.getDriveInput());
       input.setRotation(0.0);
       input.setXSpeed(xSpeed);
       input.setYSpeed(ySpeed);

@@ -9,7 +9,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 /**
  * @author aheitkamp
  */
-public class TestEntechGeometryUtils {
+class TestEntechGeometryUtils {
   @Test
   void testAveragePose2dCase1() {
     Pose2d a = new Pose2d(new Translation2d(1.0, 1.0), Rotation2d.fromDegrees(360));

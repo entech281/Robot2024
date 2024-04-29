@@ -62,7 +62,7 @@ public class ShootAngleCommand extends EntechCommand {
         && (RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
             || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote()))) {
       tInput.setActivate(true);
-      tInput.setSpeedPreset(TransferPreset.Shooting);
+      tInput.setSpeedPreset(TransferPreset.SHOOTING);
       tSubsystem.updateInputs(tInput);
     } else if (!(RobotIO.getInstance().getInternalNoteDetectorOutput().rearSensorHasNote()
         || RobotIO.getInstance().getInternalNoteDetectorOutput().forwardSensorHasNote())) {
@@ -81,7 +81,7 @@ public class ShootAngleCommand extends EntechCommand {
 
     if (RobotIO.getInstance().getTransferOutput().isActive()) {
       tInput.setActivate(false);
-      tInput.setSpeedPreset(TransferPreset.Off);
+      tInput.setSpeedPreset(TransferPreset.OFF);
       tSubsystem.updateInputs(tInput);
     }
   }

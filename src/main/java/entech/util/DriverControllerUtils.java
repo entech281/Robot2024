@@ -2,8 +2,8 @@ package entech.util;
 
 import java.util.Optional;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.RobotConstants;
 import frc.robot.operation.UserPolicy;
 
@@ -12,11 +12,7 @@ public class DriverControllerUtils {
   public static final double TRIGGER_THRESHOLD = 0.2;
 
   public static boolean currentControllerIsXbox() {
-    if (DriverStation.getJoystickIsXbox(RobotConstants.PORTS.CONTROLLER.DRIVER_CONTROLLER)) {
-      return true;
-    } else {
-      return false;
-    }
+    return DriverStation.getJoystickIsXbox(RobotConstants.PORTS.CONTROLLER.DRIVER_CONTROLLER);
   }
 
   public static boolean controllerIsPresent(int port) {
@@ -44,4 +40,5 @@ public class DriverControllerUtils {
     }
   }
 
+  private DriverControllerUtils() {}
 }

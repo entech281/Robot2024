@@ -11,8 +11,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.util.WPIUtilJNI;
-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
@@ -53,57 +51,17 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
   @Override
   public void updateInputs(DriveInput input) {
     if (ENABLED) {
-      SmartDashboard.putNumberArray("Input Data",
-          new Double[] {input.getXSpeed(), input.getYSpeed(), input.getRotation()});
       double xSpeedCommanded;
       double ySpeedCommanded;
       double currentRotation;
 
       if (RobotConstants.DrivetrainConstants.RATE_LIMITING) {
-        // Convert XY to polar for rate limiting
-        double inputTranslationDir = Math.atan2(input.getYSpeed(), input.getXSpeed());
-        double inputTranslationMag =
-            Math.sqrt(Math.pow(input.getXSpeed(), 2) + Math.pow(input.getYSpeed(), 2));
+        double[] limitedInputs =
+            calculateSlewRateLimiting(input.getXSpeed(), input.getYSpeed(), input.getRotation());
 
-        // Calculate the direction slew rate based on an estimate of the lateral
-        // acceleration
-        double directionSlewRate;
-
-        if (currentTranslationMag != 0.0) {
-          directionSlewRate =
-              Math.abs(DrivetrainConstants.DIRECTION_SLEW_RATE / currentTranslationMag);
-        } else {
-          directionSlewRate = 500.0; // some high number that means the slew rate is effectively
-                                     // instantaneous
-        }
-
-        double currentTime = WPIUtilJNI.now() * 1e-6;
-        double elapsedTime = currentTime - prevTime;
-        double angleDif = SwerveUtils.angleDifference(inputTranslationDir, currentTranslationDir);
-
-        if (angleDif < 0.45 * Math.PI) {
-          currentTranslationDir = SwerveUtils.stepTowardsCircular(currentTranslationDir,
-              inputTranslationDir, directionSlewRate * elapsedTime);
-          currentTranslationMag = magLimiter.calculate(inputTranslationMag);
-        } else if (angleDif > 0.85 * Math.PI) {
-          if (currentTranslationMag > 1e-4) {
-            currentTranslationMag = magLimiter.calculate(0.0);
-          } else {
-            currentTranslationDir = SwerveUtils.wrapAngle(currentTranslationDir + Math.PI);
-            currentTranslationMag = magLimiter.calculate(inputTranslationMag);
-          }
-        } else {
-          currentTranslationDir = SwerveUtils.stepTowardsCircular(currentTranslationDir,
-              inputTranslationDir, directionSlewRate * elapsedTime);
-          currentTranslationMag = magLimiter.calculate(0.0);
-        }
-
-        prevTime = currentTime;
-
-        xSpeedCommanded = currentTranslationMag * Math.cos(currentTranslationDir);
-        ySpeedCommanded = currentTranslationMag * Math.sin(currentTranslationDir);
-        currentRotation = rotLimiter.calculate(input.getRotation());
-
+        xSpeedCommanded = limitedInputs[0];
+        ySpeedCommanded = limitedInputs[1];
+        currentRotation = limitedInputs[2];
       } else {
         xSpeedCommanded = input.getXSpeed();
         ySpeedCommanded = input.getYSpeed();
@@ -124,6 +82,49 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
 
       setModuleStates(swerveModuleStates);
     }
+  }
+
+  private double[] calculateSlewRateLimiting(double xSpeed, double ySpeed, double rotSpeed) {
+    // Convert XY to polar for rate limiting
+    double inputTranslationDir = Math.atan2(ySpeed, xSpeed);
+    double inputTranslationMag = Math.sqrt(Math.pow(xSpeed, 2) + Math.pow(ySpeed, 2));
+
+    // Calculate the direction slew rate based on an estimate of the lateral
+    // acceleration
+    double directionSlewRate;
+
+    if (currentTranslationMag != 0.0) {
+      directionSlewRate = Math.abs(DrivetrainConstants.DIRECTION_SLEW_RATE / currentTranslationMag);
+    } else {
+      directionSlewRate = 500.0; // some high number that means the slew rate is effectively
+                                 // instantaneous
+    }
+
+    double currentTime = WPIUtilJNI.now() * 1e-6;
+    double elapsedTime = currentTime - prevTime;
+    double angleDif = SwerveUtils.angleDifference(inputTranslationDir, currentTranslationDir);
+
+    if (angleDif < 0.45 * Math.PI) {
+      currentTranslationDir = SwerveUtils.stepTowardsCircular(currentTranslationDir,
+          inputTranslationDir, directionSlewRate * elapsedTime);
+      currentTranslationMag = magLimiter.calculate(inputTranslationMag);
+    } else if (angleDif > 0.85 * Math.PI) {
+      if (currentTranslationMag > 1e-4) {
+        currentTranslationMag = magLimiter.calculate(0.0);
+      } else {
+        currentTranslationDir = SwerveUtils.wrapAngle(currentTranslationDir + Math.PI);
+        currentTranslationMag = magLimiter.calculate(inputTranslationMag);
+      }
+    } else {
+      currentTranslationDir = SwerveUtils.stepTowardsCircular(currentTranslationDir,
+          inputTranslationDir, directionSlewRate * elapsedTime);
+      currentTranslationMag = magLimiter.calculate(0.0);
+    }
+
+    prevTime = currentTime;
+
+    return new double[] {currentTranslationMag * Math.cos(currentTranslationDir),
+        currentTranslationMag * Math.sin(currentTranslationDir), rotLimiter.calculate(rotSpeed)};
   }
 
   public ChassisSpeeds getChassisSpeeds() {
@@ -152,14 +153,6 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
   private SwerveModulePosition[] getModulePositions() {
     return new SwerveModulePosition[] {frontLeft.getPosition(), frontRight.getPosition(),
         rearLeft.getPosition(), rearRight.getPosition()};
-  }
-
-  Field2d field = new Field2d();
-
-  @Override
-  public void periodic() {
-    if (ENABLED) {
-    }
   }
 
   public void pathFollowDrive(ChassisSpeeds speeds) {

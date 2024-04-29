@@ -23,14 +23,14 @@ public class TestTransferCommand extends EntechCommand {
   public void initialize() {
     counter.reset();
     input.setActivate(true);
-    input.setSpeedPreset(TransferPreset.Testing);
+    input.setSpeedPreset(TransferPreset.TESTING);
     tSubsystem.updateInputs(input);
   }
 
   @Override
   public void end(boolean interupted) {
     input.setActivate(false);
-    input.setSpeedPreset(TransferPreset.Off);
+    input.setSpeedPreset(TransferPreset.OFF);
     tSubsystem.updateInputs(input);
   }
 

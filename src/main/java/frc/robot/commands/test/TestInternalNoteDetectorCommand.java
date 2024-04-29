@@ -3,7 +3,7 @@ package frc.robot.commands.test;
 import org.littletonrobotics.junction.Logger;
 import entech.commands.EntechCommand;
 import frc.robot.RobotConstants;
-import frc.robot.subsystems.internalNoteDetector.InternalNoteDetectorSubsystem;
+import frc.robot.subsystems.internalnotedetector.InternalNoteDetectorSubsystem;
 
 public class TestInternalNoteDetectorCommand extends EntechCommand {
   private final InternalNoteDetectorSubsystem detector;

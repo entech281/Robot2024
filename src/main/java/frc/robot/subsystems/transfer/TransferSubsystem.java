@@ -15,7 +15,7 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
 
 
   public enum TransferPreset {
-    Shooting, Transferring, Intaking1, Intaking2, Retracting, Ejecting, Testing, Off
+    SHOOTING, TRANSFERRING, INTAKING1, INTAKING2, RETRACTING, EJECTING, TESTING, OFF
   }
 
   private TransferInput currentInput = new TransferInput();
@@ -38,19 +38,19 @@ public class TransferSubsystem extends EntechSubsystem<TransferInput, TransferOu
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getActivate()) {
-        if (currentInput.getSpeedPreset() == TransferPreset.Shooting) {
+        if (currentInput.getSpeedPreset() == TransferPreset.SHOOTING) {
           transferMotor.set(RobotConstants.TRANSFER.SHOOTING_SPEED);
-        } else if (currentInput.getSpeedPreset() == TransferPreset.Transferring) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.TRANSFERRING) {
           transferMotor.set(RobotConstants.TRANSFER.TRANSFERRING_SPEED);
-        } else if (currentInput.getSpeedPreset() == TransferPreset.Intaking1) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.INTAKING1) {
           transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED_FAST);
-        } else if (currentInput.getSpeedPreset() == TransferPreset.Intaking2) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.INTAKING2) {
           transferMotor.set(RobotConstants.TRANSFER.INTAKING_SPEED_SLOW);
-        } else if (currentInput.getSpeedPreset() == TransferPreset.Ejecting) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.EJECTING) {
           transferMotor.set(RobotConstants.TRANSFER.EJECTING_SPEED);
-        } else if (currentInput.getSpeedPreset() == TransferPreset.Retracting) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.RETRACTING) {
           transferMotor.set(RobotConstants.TRANSFER.RETRACTING_SPEED);
-        } else if (currentInput.getSpeedPreset() == TransferPreset.Testing) {
+        } else if (currentInput.getSpeedPreset() == TransferPreset.TESTING) {
           transferMotor.set(RobotConstants.TRANSFER.TESTING_SPEED);
         }
       } else {

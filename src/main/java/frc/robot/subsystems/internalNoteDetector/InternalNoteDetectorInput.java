@@ -1,14 +1,17 @@
-package frc.robot.subsystems.internalNoteDetector;
+package frc.robot.subsystems.internalnotedetector;
 
+import org.ejml.simple.UnsupportedOperation;
 import org.littletonrobotics.junction.LogTable;
 import entech.subsystems.SubsystemInput;
 
 public class InternalNoteDetectorInput implements SubsystemInput {
+  @Override
+  public void toLog(LogTable table) {
+    throw new UnsupportedOperation();
+  }
 
   @Override
-  public void toLog(LogTable table) {}
-
-  @Override
-  public void fromLog(LogTable table) {}
-
+  public void fromLog(LogTable table) {
+    throw new UnsupportedOperation();
+  }
 }

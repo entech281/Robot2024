@@ -48,12 +48,6 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
     }
   }
 
-  // private void setUpPIDConstants(SparkPIDController pIDController) {
-  // pIDController.setP(RobotConstants.PID.PIVOT.KP);
-  // pIDController.setD(RobotConstants.PID.PIVOT.KI);
-  // pIDController.setI(RobotConstants.PID.PIVOT.KD);
-  // }
-
   private double clampRequestedPosition(double position) {
     if (position < 0) {
       DriverStation.reportWarning("Pivot tried to go to " + currentInput.getRequestedPosition()

@@ -1,4 +1,4 @@
-package frc.robot.subsystems.noteDetector;
+package frc.robot.subsystems.visionnotedetector;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,8 +36,7 @@ public class NoteDetectorOutput extends SubsystemOutput {
 
 
   private Point getNoteMidpoint(TargetCorner bottomLeft, TargetCorner topRight) {
-    Point midpoint = new Point((bottomLeft.x + topRight.x) / 2, (bottomLeft.y + topRight.y) / 2);
-    return midpoint;
+    return new Point((bottomLeft.x + topRight.x) / 2, (bottomLeft.y + topRight.y) / 2);
   }
 
   public Point getCenterOfClosestNote(PhotonTrackedTarget closestNote) {

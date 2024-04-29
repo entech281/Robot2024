@@ -1,4 +1,4 @@
-package frc.robot.subsystems.LEDs;
+package frc.robot.subsystems.led;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
@@ -21,7 +21,6 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
   private AddressableLED leds;
   private AddressableLEDBuffer buffer;
   private Color currentColor;
-  private Color secondaryColor;
 
   private LEDInput currentInput = new LEDInput();
   private Timer blinkTimer = new Timer();
@@ -39,11 +38,12 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
     blinkTimer.start();
   }
 
+  @Override
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getBlinking()) {
         if (blinkTimer.hasElapsed(0.25)) {
-          toggleColor(currentInput.getSecondaryColor());
+          toggleColor();
           blinkTimer.restart();
         }
       } else {
@@ -52,13 +52,13 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
     }
   }
 
-  private void toggleColor(Color secondaryColor) {
-    if (currentColor == secondaryColor) {
+  private void toggleColor() {
+    if (currentColor == currentInput.getSecondaryColor()) {
       setColor(currentInput.getColor());
       currentColor = currentInput.getColor();
     } else {
-      setColor(secondaryColor);
-      currentColor = secondaryColor;
+      setColor(currentInput.getSecondaryColor());
+      currentColor = currentInput.getSecondaryColor();
     }
   }
 

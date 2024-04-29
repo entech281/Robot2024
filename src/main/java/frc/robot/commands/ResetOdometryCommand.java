@@ -17,11 +17,9 @@ public class ResetOdometryCommand extends EntechCommand {
   @Override
   public void initialize() {
     Optional<Alliance> team = DriverStation.getAlliance();
-    if (team.isPresent()) {
-      if (team.get() == Alliance.Blue) {
-        odometry.resetOdometry(new Pose2d(1.38, 5.53, odometry.getEstimatedPose().getRotation()));
-        return;
-      }
+    if (team.isPresent() && team.get() == Alliance.Blue) {
+      odometry.resetOdometry(new Pose2d(1.38, 5.53, odometry.getEstimatedPose().getRotation()));
+      return;
     }
     odometry.resetOdometry(new Pose2d(15.17, 5.53, odometry.getEstimatedPose().getRotation()));
   }
