@@ -15,7 +15,6 @@ import frc.robot.commands.test.TestShooterCommand;
 import frc.robot.io.RobotIO;
 
 public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutput> {
-
   private static final boolean ENABLED = true;
   private static final double TOLERANCE = 75;
 
