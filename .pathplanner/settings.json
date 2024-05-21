@@ -3,14 +3,17 @@
   "robotLength": 0.9,
   "holonomicMode": true,
   "pathFolders": [
-    "Amp",
-    "Center",
-    "Disrupt",
-    "Other",
-    "Park",
-    "Source"
+    "Amp2024",
+    "Amp2024Offseason",
+    "Center2024",
+    "Center2024Offseason",
+    "Other2024",
+    "Source2024"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "2024 Offseason",
+    "Robot2024"
+  ],
   "defaultMaxVel": 4.8,
   "defaultMaxAccel": 4.8,
   "defaultMaxAngVel": 480.0,

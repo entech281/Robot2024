@@ -3,49 +3,49 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.9,
-        "y": 7.0
+        "x": 2.4783611105683763,
+        "y": 6.285242570485141
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8850139700279414,
-        "y": 7.044997166917411
+        "x": 2.4783611105683763,
+        "y": 6.265508684863524
       },
       "isLocked": false,
-      "linkedName": "AmpSide2E"
+      "linkedName": "Center2"
     },
     {
       "anchor": {
-        "x": 2.576523095903338,
-        "y": 7.367843535687072
+        "x": 2.4783611105683763,
+        "y": 5.9892342861608805
       },
       "prevControl": {
-        "x": 2.5675332442724854,
-        "y": 7.38712233472379
+        "x": 2.4783611105683763,
+        "y": 5.9596334577284535
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "AmpSide3-S"
+      "linkedName": "Center3"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.5,
+    "maxVelocity": 0.25,
     "maxAcceleration": 4.8,
     "maxAngularVelocity": 480.0,
     "maxAngularAcceleration": 480.0
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": 33.17851165939247,
-    "rotateFast": true
+    "velocity": 0.25,
+    "rotation": -45.0,
+    "rotateFast": false
   },
   "reversed": false,
-  "folder": "Amp2024",
+  "folder": "Center2024Offseason",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 20.0,
     "velocity": 0
   },
   "useDefaultConstraints": false

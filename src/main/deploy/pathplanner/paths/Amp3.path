@@ -3,49 +3,49 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.9,
-        "y": 7.0
+        "x": 2.5,
+        "y": 6.156972313944628
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8850139700279414,
-        "y": 7.044997166917411
+        "x": 2.498094996189994,
+        "y": 6.1471053711338195
       },
       "isLocked": false,
-      "linkedName": "AmpSide2E"
+      "linkedName": "Amp2"
     },
     {
       "anchor": {
-        "x": 2.576523095903338,
-        "y": 7.367843535687072
+        "x": 2.5,
+        "y": 6.4
       },
       "prevControl": {
-        "x": 2.5675332442724854,
-        "y": 7.38712233472379
+        "x": 2.4783611105683763,
+        "y": 6.393778941404038
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "AmpSide3-S"
+      "linkedName": "Amp3"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.5,
+    "maxVelocity": 0.5,
     "maxAcceleration": 4.8,
     "maxAngularVelocity": 480.0,
     "maxAngularAcceleration": 480.0
   },
   "goalEndState": {
-    "velocity": 0.0,
-    "rotation": 33.17851165939247,
+    "velocity": 0.5,
+    "rotation": 55.0,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "Amp2024",
+  "folder": "Amp2024Offseason",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 17.5,
     "velocity": 0
   },
   "useDefaultConstraints": false

@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7440908596102914,
-      "y": 6.730143910738272
+      "x": 0.7023114046228107,
+      "y": 6.7
     },
-    "rotation": 59.29116469250302
+    "rotation": 57.50122348402305
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "ThreePieceAmp2"
+            "pathName": "Amp1"
           }
         },
         {
@@ -32,19 +32,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "ThreePieceAmp3-A"
+            "pathName": "Amp2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ampShot"
+            "name": "podiumShot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "ThreePieceAmp4-A"
+            "pathName": "Amp3"
           }
         },
         {
@@ -56,7 +56,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "ThreePieceAmp5"
+            "pathName": "Amp4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "podiumShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Amp6"
           }
         },
         {
@@ -68,6 +92,6 @@
       ]
     }
   },
-  "folder": "Robot2024",
+  "folder": "2024 Offseason",
   "choreoAuto": false
 }

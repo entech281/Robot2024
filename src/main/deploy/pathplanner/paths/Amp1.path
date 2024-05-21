@@ -3,48 +3,54 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 8.5,
-        "y": 7.578939729308031
+        "x": 0.7023114046228107,
+        "y": 6.7
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.159294604303494,
-        "y": 7.652237018759752
-      },
-      "isLocked": false,
-      "linkedName": "disrupt2end"
-    },
-    {
-      "anchor": {
-        "x": 6.364527014768315,
-        "y": 1.7004971152799455
-      },
-      "prevControl": {
-        "x": 7.141478282956566,
-        "y": 2.0816430204288987
-      },
-      "nextControl": {
-        "x": 5.587575746580065,
-        "y": 1.3193512101309923
+        "x": 2.014614798460368,
+        "y": 6.81805748226881
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.171922058129831,
-        "y": 3.7528212199281548
+        "x": 2.882905765811533,
+        "y": 6.275375627674332
       },
       "prevControl": {
-        "x": 2.274538263362242,
-        "y": 3.313037483217824
+        "x": 1.7358169789916222,
+        "y": 6.2364912620194195
+      },
+      "nextControl": {
+        "x": 4.629354643324673,
+        "y": 6.3345772845391854
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.5,
+        "y": 7.45
+      },
+      "prevControl": {
+        "x": 4.835653128806677,
+        "y": 7.45
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Amp1"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": 0,
+      "rotateFast": true
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
@@ -54,15 +60,15 @@
     "maxAngularAcceleration": 480.0
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -42.3974377975002,
+    "velocity": 4.8,
+    "rotation": 0.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Other2024",
+  "folder": "Amp2024Offseason",
   "previewStartingState": {
-    "rotation": 0,
-    "velocity": 0
+    "rotation": 60.0,
+    "velocity": 0.0
   },
   "useDefaultConstraints": true
 }

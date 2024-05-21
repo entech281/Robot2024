@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7440908596102914,
-      "y": 6.730143910738272
+      "x": 1.35,
+      "y": 5.55
     },
-    "rotation": 59.29116469250302
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "ThreePieceAmp2"
+            "pathName": "Center1"
           }
         },
         {
@@ -32,19 +32,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "ThreePieceAmp3-A"
+            "pathName": "Center2"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "ampShot"
+            "name": "podiumShot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "ThreePieceAmp4-A"
+            "pathName": "Center3"
           }
         },
         {
@@ -56,7 +56,31 @@
         {
           "type": "path",
           "data": {
-            "pathName": "ThreePieceAmp5"
+            "pathName": "Center4"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "podiumShot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center5"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "autoIntake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center6"
           }
         },
         {
@@ -68,6 +92,6 @@
       ]
     }
   },
-  "folder": "Robot2024",
+  "folder": "2024 Offseason",
   "choreoAuto": false
 }

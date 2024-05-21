@@ -3,35 +3,35 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.732363293298016,
-        "y": 4.384673761825228
+        "x": 2.4783611105683763,
+        "y": 5.594556573728532
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.323966507582138,
-        "y": 2.0098792829164616
+        "x": 3.5439909341357163,
+        "y": 4.894003634161114
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Center4"
     },
     {
       "anchor": {
-        "x": 7.2636792642006345,
-        "y": 0.7493906215882606
+        "x": 7.500635001270004,
+        "y": 4.1046482092964185
       },
       "prevControl": {
-        "x": 6.492876845402814,
-        "y": 0.8400732590938871
+        "x": 6.500635001270004,
+        "y": 4.1046482092964185
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "SourceSide1E"
+      "linkedName": "Center5"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.65,
-      "rotationDegrees": 0,
+      "waypointRelativePos": 0.35,
+      "rotationDegrees": -15.0,
       "rotateFast": false
     }
   ],
@@ -40,19 +40,19 @@
   "globalConstraints": {
     "maxVelocity": 4.8,
     "maxAcceleration": 4.8,
-    "maxAngularVelocity": 100.0,
+    "maxAngularVelocity": 480.0,
     "maxAngularAcceleration": 480.0
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 4.8,
     "rotation": 0.0,
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "Source2024",
+  "folder": "Center2024Offseason",
   "previewStartingState": {
-    "rotation": -58.535856369134166,
+    "rotation": 0,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }
