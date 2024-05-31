@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.35,
-      "y": 5.55
+      "x": 0.7,
+      "y": 4.39
     },
-    "rotation": 0
+    "rotation": -60.5079199164244
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center1"
+            "pathName": "Source1"
           }
         },
         {
@@ -40,7 +40,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Center2"
+                        "pathName": "Source2"
                       }
                     },
                     {
@@ -48,14 +48,14 @@
                       "data": {
                         "name": "FIRE"
                       }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "prepareShot"
-                      }
                     }
                   ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "prepareShot"
                 }
               }
             ]
@@ -64,7 +64,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center3"
+            "pathName": "Source3"
           }
         },
         {
@@ -84,7 +84,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Center4"
+                        "pathName": "Source4"
                       }
                     },
                     {
@@ -92,14 +92,14 @@
                       "data": {
                         "name": "FIRE"
                       }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "prepareShot"
-                      }
                     }
                   ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "prepareShot"
                 }
               }
             ]
@@ -108,7 +108,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center5"
+            "pathName": "Source5"
           }
         },
         {
@@ -128,7 +128,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "Center6"
+                        "pathName": "Source6"
                       }
                     },
                     {
@@ -136,14 +136,14 @@
                       "data": {
                         "name": "FIRE"
                       }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "prepareShot"
-                      }
                     }
                   ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "prepareShot"
                 }
               }
             ]

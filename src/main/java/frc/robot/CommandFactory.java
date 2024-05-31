@@ -1,6 +1,7 @@
 package frc.robot;
 
 import java.util.Optional;
+import com.fasterxml.jackson.databind.util.Named;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -17,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.AutonomousShotPrepCommand;
+import frc.robot.commands.FeedShooterCommand;
 import frc.robot.commands.GyroResetByAngleCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LEDDefaultCommand;
@@ -114,6 +117,9 @@ public class CommandFactory {
     NamedCommands.registerCommand("autoIntakeSlow", new ParallelCommandGroup(
         new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance(), 0.05),
         new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
+    NamedCommands.registerCommand("prepareShot", new AutonomousShotPrepCommand(shooterSubsystem,
+        pivotSubsystem, intakeSubsystem, RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING));
+    NamedCommands.registerCommand("FIRE", new FeedShooterCommand(transferSubsystem));
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);

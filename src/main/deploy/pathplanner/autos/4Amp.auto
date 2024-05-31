@@ -30,15 +30,35 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Amp2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "podiumShot"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Amp2"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "FIRE"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "prepareShot"
+                }
+              }
+            ]
           }
         },
         {
@@ -54,15 +74,35 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Amp4"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "podiumShot"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Amp4"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "FIRE"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "prepareShot"
+                }
+              }
+            ]
           }
         },
         {
@@ -78,15 +118,35 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Amp6"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "podiumShot"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "Amp6"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "FIRE"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "prepareShot"
+                }
+              }
+            ]
           }
         }
       ]

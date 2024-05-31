@@ -355,6 +355,7 @@ public final class RobotConstants {
   public static interface INTAKE {
     public static final double INTAKE_SPEED = 0.5;
     public static final double EJECTING_SPEED = -0.7;
+    public static final double SHOOTING_SPEED = 0.25;
     public static final int EJECTING_TIME = 2;
   }
 

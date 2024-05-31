@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.500635001270004,
-        "y": 4.1046482092964185
+        "x": 2.1724858834333065,
+        "y": 4.084914323674802
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.435005177702666,
-        "y": 8.584240245403569
+        "x": 2.0639495125144114,
+        "y": 3.8283738105937757
       },
       "isLocked": false,
-      "linkedName": "Center5"
+      "linkedName": "Source3"
     },
     {
       "anchor": {
-        "x": 2.616498309919698,
-        "y": 5.00254000508001
+        "x": 1.9356792559738978,
+        "y": 3.552099411891132
       },
       "prevControl": {
-        "x": 2.823704108946682,
-        "y": 5.712959887458236
+        "x": 2.024481741271176,
+        "y": 3.798772982161349
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Source2"
     }
   ],
   "rotationTargets": [],
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -15.0,
-    "rotateFast": false
+    "rotation": -45.0,
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": "Center2024Offseason",
+  "folder": "Source2024Offseason",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

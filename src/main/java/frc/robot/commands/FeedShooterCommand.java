@@ -11,11 +11,9 @@ public class FeedShooterCommand extends EntechCommand {
   private final TransferSubsystem transfer;
   private final TransferInput input = new TransferInput();
 
-
   public FeedShooterCommand(TransferSubsystem transfer) {
     this.transfer = transfer;
   }
-
 
   @Override
   public void end(boolean interrupted) {
@@ -23,7 +21,6 @@ public class FeedShooterCommand extends EntechCommand {
     input.setSpeedPreset(TransferPreset.OFF);
     transfer.updateInputs(input);
   }
-
 
   @Override
   public void execute() {
@@ -35,7 +32,6 @@ public class FeedShooterCommand extends EntechCommand {
     }
   }
 
-
   @Override
   public void initialize() {
     input.setActivate(false);
@@ -43,11 +39,9 @@ public class FeedShooterCommand extends EntechCommand {
     transfer.updateInputs(input);
   }
 
-
   @Override
   public boolean isFinished() {
     return !RobotIO.getInstance().getInternalNoteDetectorOutput().hasNote()
         || !UserPolicy.getInstance().isPreparingToShoot();
   }
-
 }
