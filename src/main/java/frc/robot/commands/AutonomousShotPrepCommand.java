@@ -34,7 +34,7 @@ public class AutonomousShotPrepCommand extends EntechCommand {
   private StoppingCounter cancelCounter = new StoppingCounter(RobotConstants.SHOOTER.RESET_DELAY);
   private StoppingCounter stableCounter = new StoppingCounter(RobotConstants.SHOOTER.SHOOT_DELAY);
 
-  double pviotAngle = 0.0;
+  double pviotAngle;
   boolean noNote = false;
 
   public AutonomousShotPrepCommand(ShooterSubsystem shooterSubsystem, PivotSubsystem pivotSubsystem,
