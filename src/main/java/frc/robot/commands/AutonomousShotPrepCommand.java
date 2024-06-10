@@ -42,6 +42,7 @@ public class AutonomousShotPrepCommand extends EntechCommand {
     super(shooterSubsystem, pivotSubsystem);
     this.shooter = shooterSubsystem;
     this.pivot = pivotSubsystem;
+    this.pviotAngle = pviotAngle;
     this.intake = intakeSubsystem;
   }
 
