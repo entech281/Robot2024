@@ -1,22 +1,13 @@
 package frc.robot.commands;
 
-import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
-import com.pathplanner.lib.path.PathPlannerTrajectory;
-import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import entech.commands.EntechCommand;
 import entech.util.StoppingCounter;
-import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
 import frc.robot.operation.UserPolicy;
 import frc.robot.subsystems.intake.IntakeSubsystem;
-import frc.robot.subsystems.internalnotedetector.InternalNoteDetectorOutput;
 import frc.robot.subsystems.pivot.PivotSubsystem;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
-import frc.robot.subsystems.transfer.TransferInput;
-import frc.robot.subsystems.transfer.TransferSubsystem;
-import frc.robot.subsystems.transfer.TransferSubsystem.TransferPreset;
 import frc.robot.subsystems.shooter.ShooterInput;
 import frc.robot.subsystems.pivot.PivotInput;
 import frc.robot.subsystems.intake.IntakeInput;
@@ -68,7 +59,7 @@ public class AutonomousShotPrepCommand extends EntechCommand {
 
   @Override
   public void execute() {
-    if (RobotIO.getInstance().getInstance().getInternalNoteDetectorOutput().hasNote()) {
+    if (RobotIO.getInstance().getInternalNoteDetectorOutput().hasNote()) {
       UserPolicy.getInstance().setPreparingToShoot(true);
 
       if (stableCounter.isFinished(shooter.getOutputs().isAtSpeed()
