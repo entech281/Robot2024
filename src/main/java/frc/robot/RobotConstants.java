@@ -92,8 +92,7 @@ public final class RobotConstants {
         (2 * Math.PI) / TURNING_MOTOR_REDUCTION / 60.0; // radians per second, per RPM
 
     public static final double TURNING_ENCODER_POSITION_PID_MIN_INPUT_RADIANS = 0; // radians
-    public static final double TURNING_ENCODER_POSITION_PID_MAX_INPUT_RADIANS = (2 * Math.PI);
-    // radians
+    public static final double TURNING_ENCODER_POSITION_PID_MAX_INPUT_RADIANS = (2 * Math.PI); // radians
 
     public static final double DRIVING_P = 0.07;
     public static final double DRIVING_I = 0;

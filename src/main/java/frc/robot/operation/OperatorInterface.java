@@ -124,7 +124,7 @@ public class OperatorInterface
         .onTrue(commandFactory.getTargetSpeakerCommand());
 
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.TARGET_AMP)
-        .onFalse(Commands.runOnce(() -> UserPolicy.getInstance().setTargetPose(null)));
+        .onTrue(Commands.runOnce(() -> UserPolicy.getInstance().setTargetPose(null)));
 
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.TARGET_SPEAKER)
         .onFalse(Commands.runOnce(() -> UserPolicy.getInstance().setTargetPose(null)));
