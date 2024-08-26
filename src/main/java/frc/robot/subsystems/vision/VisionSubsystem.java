@@ -56,7 +56,7 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
     } else {
       output.setTargetsData(new ArrayList<>());
       output.setLatency(-1);
-      output.setDriverMode(true);
+      output.setDriverMode(false);
       output.setConnected(true);
     }
 
