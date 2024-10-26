@@ -166,6 +166,7 @@ public class SwerveModule {
         turningEncoder.setVelocityConversionFactor(SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS
             .getTurningEncoderPositionFactorRadiansPerSecondPerRPM());
       }
+      dynamicConfigData = SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getDynamicData();
     }
   }
 

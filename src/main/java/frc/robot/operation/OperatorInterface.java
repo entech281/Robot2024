@@ -75,20 +75,21 @@ public class OperatorInterface
         .controllerIsPresent(RobotConstants.PORTS.CONTROLLER.TUNING_CONTROLLER)) {
       tuningController =
           new CommandXboxController(RobotConstants.PORTS.CONTROLLER.TUNING_CONTROLLER);
+      enableTuningControllerBindings();
     }
 
     operatorBindings();
   }
 
   public void enableTuningControllerBindings() {
-    tuningController.a().onTrue(new RunCommand(() -> {
+    tuningController.a().whileTrue(new RunCommand(() -> {
       RobotConstants.SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.setWheelDiameter(
           RobotConstants.SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getWheelDiameter() - 0.01);
-    }, null));
-    tuningController.y().onTrue(new RunCommand(() -> {
+    }));
+    tuningController.y().whileTrue(new RunCommand(() -> {
       RobotConstants.SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.setWheelDiameter(
           RobotConstants.SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getWheelDiameter() + 0.01);
-    }, null));
+    }));
   }
 
   public void configureBindings() {
@@ -155,6 +156,8 @@ public class OperatorInterface
         .whileTrue(new XDriveCommand(subsystemManager.getDriveSubsystem()));
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.RESET_ODOMETRY)
         .onTrue(new ResetOdometryCommand(odometry));
+
+    xboxController.povDown().onTrue(commandFactory.moveSixFeetForward());
   }
 
   public void operatorBindings() {
