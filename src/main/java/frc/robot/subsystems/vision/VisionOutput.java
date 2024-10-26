@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.math.geometry.Pose2d;
-import entech.subsystems.SubsystemOutput;
+import frc.entech.subsystems.SubsystemOutput;
 
 
 public class VisionOutput extends SubsystemOutput {

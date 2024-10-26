@@ -2,6 +2,7 @@ package entech.util;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+import frc.entech.util.EntechUtils;
 
 class TestEntechUtils {
   @Test

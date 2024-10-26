@@ -1,16 +1,15 @@
 package frc.robot.commands;
 
-import entech.commands.EntechCommand;
+import frc.entech.commands.EntechCommand;
 import frc.robot.subsystems.climb.ClimbInput;
-import frc.robot.subsystems.intake.IntakeInput;
-import frc.robot.subsystems.pivot.PivotInput;
-import frc.robot.subsystems.shooter.ShooterInput;
-import frc.robot.subsystems.transfer.TransferInput;
-
 import frc.robot.subsystems.climb.ClimbSubsystem;
+import frc.robot.subsystems.intake.IntakeInput;
 import frc.robot.subsystems.intake.IntakeSubsystem;
+import frc.robot.subsystems.pivot.PivotInput;
 import frc.robot.subsystems.pivot.PivotSubsystem;
+import frc.robot.subsystems.shooter.ShooterInput;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
+import frc.robot.subsystems.transfer.TransferInput;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 
 public class CoastModeCommand extends EntechCommand {

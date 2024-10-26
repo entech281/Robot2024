@@ -1,8 +1,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import entech.commands.EntechCommand;
-import entech.util.EntechUtils;
+import frc.entech.commands.EntechCommand;
+import frc.entech.util.EntechUtils;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
 import frc.robot.subsystems.climb.ClimbInput;

@@ -2,7 +2,7 @@ package frc.robot.subsystems.internalnotedetector;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
-import entech.subsystems.EntechSubsystem;
+import frc.entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestInternalNoteDetectorCommand;
 import frc.robot.io.RobotIO;

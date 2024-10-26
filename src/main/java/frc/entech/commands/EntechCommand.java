@@ -2,10 +2,10 @@
  * To change this license header, choose License Headers in Project Properties. To change this
  * template file, choose Tools | Templates and open the template in the editor.
  */
-package entech.commands;
+package frc.entech.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import entech.subsystems.EntechSubsystem;
+import frc.entech.subsystems.EntechSubsystem;
 
 public class EntechCommand extends Command {
   public static final double DEFAULT_TIMEOUT_SECONDS = 60.0;

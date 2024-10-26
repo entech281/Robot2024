@@ -2,7 +2,7 @@ package frc.robot.subsystems.navx;
 
 import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import entech.subsystems.SubsystemOutput;
+import frc.entech.subsystems.SubsystemOutput;
 
 public class NavXOutput extends SubsystemOutput {
   private double yaw;

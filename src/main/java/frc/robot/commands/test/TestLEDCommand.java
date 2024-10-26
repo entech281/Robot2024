@@ -1,8 +1,8 @@
 package frc.robot.commands.test;
 
 import edu.wpi.first.wpilibj.util.Color;
-import entech.commands.EntechCommand;
-import entech.util.StoppingCounter;
+import frc.entech.commands.EntechCommand;
+import frc.entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.led.LEDInput;
 import frc.robot.subsystems.led.LEDSubsystem;

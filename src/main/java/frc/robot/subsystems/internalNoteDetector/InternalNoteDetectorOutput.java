@@ -1,7 +1,7 @@
 package frc.robot.subsystems.internalnotedetector;
 
 import org.littletonrobotics.junction.Logger;
-import entech.subsystems.SubsystemOutput;
+import frc.entech.subsystems.SubsystemOutput;
 
 public class InternalNoteDetectorOutput extends SubsystemOutput {
 

@@ -1,7 +1,7 @@
 package frc.robot.subsystems.pivot;
 
 import org.littletonrobotics.junction.LogTable;
-import entech.subsystems.SubsystemInput;
+import frc.entech.subsystems.SubsystemInput;
 import frc.robot.RobotConstants;
 
 public class PivotInput implements SubsystemInput {

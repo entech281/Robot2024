@@ -1,7 +1,7 @@
 package frc.robot.subsystems.shooter;
 
 import org.littletonrobotics.junction.Logger;
-import entech.subsystems.SubsystemOutputBasics;
+import frc.entech.subsystems.SubsystemOutputBasics;
 
 public class ShooterOutput extends SubsystemOutputBasics {
 

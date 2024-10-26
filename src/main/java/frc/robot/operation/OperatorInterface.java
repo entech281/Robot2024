@@ -6,11 +6,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import entech.subsystems.EntechSubsystem;
-import entech.util.DriverControllerUtils;
+import frc.entech.subsystems.EntechSubsystem;
+import frc.entech.util.DriverControllerUtils;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
@@ -44,6 +45,7 @@ public class OperatorInterface
     implements DriveInputSupplier, DebugInputSupplier, OperatorInputSupplier {
   private CommandJoystick joystickController;
   private CommandXboxController xboxController;
+  private CommandXboxController tuningController;
   private final edu.wpi.first.wpilibj2.command.button.CommandJoystick operatorPanel =
       new CommandJoystick(RobotConstants.PORTS.CONTROLLER.PANEL);
 
@@ -68,7 +70,25 @@ public class OperatorInterface
       joystickController = new CommandJoystick(RobotConstants.PORTS.CONTROLLER.TEST_JOYSTICK);
       enableJoystickBindings();
     }
+
+    if (DriverControllerUtils
+        .controllerIsPresent(RobotConstants.PORTS.CONTROLLER.TUNING_CONTROLLER)) {
+      tuningController =
+          new CommandXboxController(RobotConstants.PORTS.CONTROLLER.TUNING_CONTROLLER);
+    }
+
     operatorBindings();
+  }
+
+  public void enableTuningControllerBindings() {
+    tuningController.a().onTrue(new RunCommand(() -> {
+      RobotConstants.SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.setWheelDiameter(
+          RobotConstants.SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getWheelDiameter() - 0.01);
+    }, null));
+    tuningController.y().onTrue(new RunCommand(() -> {
+      RobotConstants.SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.setWheelDiameter(
+          RobotConstants.SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getWheelDiameter() + 0.01);
+    }, null));
   }
 
   public void configureBindings() {
@@ -80,7 +100,6 @@ public class OperatorInterface
       enableJoystickBindings();
     }
   }
-
 
   public void enableJoystickBindings() {
     joystickController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_JOYSTICK.TWIST)

@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import entech.commands.EntechCommand;
+import frc.entech.commands.EntechCommand;
 import frc.robot.subsystems.drive.DriveSubsystem;
 
 public class ResetTurningEncoderCommand extends EntechCommand {

@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import entech.commands.EntechCommand;
+import frc.entech.commands.EntechCommand;
 import frc.robot.operation.UserPolicy;
 
 public class AlignNoteToggleCommand extends EntechCommand {

@@ -3,7 +3,7 @@ package frc.robot.subsystems.drive;
 import org.littletonrobotics.junction.LogTable;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import entech.subsystems.SubsystemInput;
+import frc.entech.subsystems.SubsystemInput;
 import frc.robot.RobotConstants;
 
 public class DriveInput implements SubsystemInput {
@@ -14,8 +14,7 @@ public class DriveInput implements SubsystemInput {
   private Pose2d latestOdometryPose;
   private String key = "driveInput";
 
-  public DriveInput() {
-  }
+  public DriveInput() {}
 
   public DriveInput(DriveInput template) {
     xSpeed = template.getXSpeed();

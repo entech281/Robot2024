@@ -1,4 +1,4 @@
-package entech.sensors;
+package frc.entech.sensors;
 
 import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
