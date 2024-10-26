@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.util.Color;
-import entech.commands.EntechCommand;
+import frc.entech.commands.EntechCommand;
 import frc.robot.io.RobotIO;
 import frc.robot.subsystems.led.LEDInput;
 import frc.robot.subsystems.led.LEDSubsystem;

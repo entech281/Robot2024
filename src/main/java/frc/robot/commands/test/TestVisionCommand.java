@@ -2,7 +2,7 @@ package frc.robot.commands.test;
 
 import java.util.List;
 import org.littletonrobotics.junction.Logger;
-import entech.commands.EntechCommand;
+import frc.entech.commands.EntechCommand;
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.vision.EntechTargetData;
 import frc.robot.subsystems.vision.VisionSubsystem;

@@ -1,7 +1,7 @@
 package frc.robot.subsystems.pivot;
 
 import org.littletonrobotics.junction.Logger;
-import entech.subsystems.SubsystemOutput;
+import frc.entech.subsystems.SubsystemOutput;
 
 public class PivotOutput extends SubsystemOutput {
   private boolean moving = false;

@@ -1,4 +1,4 @@
-package entech.subsystems;
+package frc.entech.subsystems;
 
 import org.littletonrobotics.junction.inputs.LoggableInputs;
 

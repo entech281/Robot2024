@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import entech.commands.EntechCommand;
+import frc.entech.commands.EntechCommand;
 import frc.robot.io.RobotIO;
 import frc.robot.operation.UserPolicy;
 import frc.robot.subsystems.transfer.TransferInput;

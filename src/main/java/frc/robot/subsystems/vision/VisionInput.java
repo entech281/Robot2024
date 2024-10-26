@@ -2,7 +2,7 @@ package frc.robot.subsystems.vision;
 
 import org.ejml.simple.UnsupportedOperation;
 import org.littletonrobotics.junction.LogTable;
-import entech.subsystems.SubsystemInput;
+import frc.entech.subsystems.SubsystemInput;
 
 
 public class VisionInput implements SubsystemInput {

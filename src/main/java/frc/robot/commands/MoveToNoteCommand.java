@@ -1,7 +1,7 @@
 package frc.robot.commands;
 
 import org.opencv.core.Point;
-import entech.commands.EntechCommand;
+import frc.entech.commands.EntechCommand;
 import frc.robot.io.DriveInputSupplier;
 import frc.robot.io.RobotIO;
 import frc.robot.operation.UserPolicy;

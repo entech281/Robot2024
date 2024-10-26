@@ -13,6 +13,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import frc.robot.subsystems.drive.DynamicSwerveModuleSettings;
 
 public final class RobotConstants {
   public static final double TIME_PER_PERIODICAL_LOOP_SECONDS = 0.00;
@@ -68,7 +69,7 @@ public final class RobotConstants {
 
     // Calculations required for driving motor conversion factors and feed forward
     public static final double DRIVING_MOTOR_FREE_SPEED_RPS = FREE_SPEED_RPM / 60;
-    public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(4.125); // 0.0972;
+    public static final double WHEEL_DIAMETER_METERS = Units.inchesToMeters(3.82); // 0.0972;
     public static final double WHEEL_CIRCUMFERENCE_METERS = WHEEL_DIAMETER_METERS * Math.PI;
     public static final double DRIVING_MOTOR_REDUCTION =
         (45.0 * 17 * 50) / (DRIVING_MOTOR_PINION_TEETH * 15 * 27);
@@ -115,6 +116,9 @@ public final class RobotConstants {
 
     public static final int DRIVING_MOTOR_CURRENT_LIMIT_AMPS = 40; // 50; // amps
     public static final int TURNING_MOTOR_CURRENT_LIMIT_AMPS = 20; // amps
+
+    public static final DynamicSwerveModuleSettings DYNAMIC_MODULE_SETTINGS =
+        new DynamicSwerveModuleSettings();
   }
 
 
@@ -186,6 +190,7 @@ public final class RobotConstants {
       public static final int DRIVER_CONTROLLER = 0;
       public static final int PANEL = 1;
       public static final int TEST_JOYSTICK = 2;
+      public static final int TUNING_CONTROLLER = 3;
 
       public static class BUTTONS_JOYSTICK {
         public static final int TWIST = 1;

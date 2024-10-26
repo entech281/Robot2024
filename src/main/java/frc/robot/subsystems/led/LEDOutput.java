@@ -2,7 +2,7 @@ package frc.robot.subsystems.led;
 
 import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj.util.Color;
-import entech.subsystems.SubsystemOutput;
+import frc.entech.subsystems.SubsystemOutput;
 
 public class LEDOutput extends SubsystemOutput {
 

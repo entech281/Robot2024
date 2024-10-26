@@ -1,7 +1,7 @@
 package frc.robot.commands.test;
 
-import entech.commands.EntechCommand;
-import entech.util.StoppingCounter;
+import frc.entech.commands.EntechCommand;
+import frc.entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.shooter.ShooterInput;
 import frc.robot.subsystems.shooter.ShooterSubsystem;

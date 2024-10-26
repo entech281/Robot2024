@@ -6,7 +6,7 @@ package frc.robot;
 
 import java.util.ArrayList;
 import java.util.List;
-import entech.subsystems.EntechSubsystem;
+import frc.entech.subsystems.EntechSubsystem;
 import frc.robot.io.RobotIO;
 import frc.robot.subsystems.climb.ClimbSubsystem;
 import frc.robot.subsystems.drive.DriveSubsystem;

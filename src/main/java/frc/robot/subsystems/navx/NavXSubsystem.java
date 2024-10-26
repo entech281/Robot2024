@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import entech.subsystems.EntechSubsystem;
-import entech.util.StoppingCounter;
+import frc.entech.subsystems.EntechSubsystem;
+import frc.entech.util.StoppingCounter;
 
 public class NavXSubsystem extends EntechSubsystem<NavXInput, NavXOutput> {
   private static final boolean ENABLED = true;
