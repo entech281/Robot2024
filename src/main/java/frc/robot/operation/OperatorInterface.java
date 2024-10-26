@@ -1,6 +1,7 @@
 package frc.robot.operation;
 
 import org.littletonrobotics.junction.Logger;
+import com.pathplanner.lib.commands.FollowPathCommand;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -136,6 +137,8 @@ public class OperatorInterface
         .whileTrue(new XDriveCommand(subsystemManager.getDriveSubsystem()));
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.RESET_ODOMETRY)
         .onTrue(new ResetOdometryCommand(odometry));
+    
+    xboxController.povDown().onTrue(commandFactory.moveSixFeetForward());
   }
 
   public void operatorBindings() {

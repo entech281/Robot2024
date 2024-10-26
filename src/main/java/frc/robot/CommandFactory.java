@@ -3,6 +3,8 @@ package frc.robot;
 import java.util.Optional;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.FollowPathCommand;
+import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -21,6 +23,7 @@ import frc.robot.commands.GyroResetByAngleCommand;
 import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LEDDefaultCommand;
 import frc.robot.commands.MoveToNoteCommand;
+import frc.robot.commands.ResetOdometryCommand;
 import frc.robot.commands.ShootAngleCommand;
 import frc.robot.io.RobotIO;
 import frc.robot.operation.UserPolicy;
@@ -76,7 +79,7 @@ public class CommandFactory {
         new HolonomicPathFollowerConfig(
             // HolonomicPathFollowerConfig, this should likely live in your Constants
             // class
-            new PIDConstants(RobotConstants.AUTONOMOUS.TRANSLATION_CONTROLLER_P, 0.0, 0.0),
+            new PIDConstants(3, 0.0, 0.0), //origional P = 5
             // Translation PID constants
             new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0),
             // Rotation PID constants
@@ -117,6 +120,10 @@ public class CommandFactory {
 
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
+  }
+
+  public Command moveSixFeetForward() {
+    return new SequentialCommandGroup(new ResetOdometryCommand(odometry), new WaitCommand(0.25), AutoBuilder.followPath(PathPlannerPath.fromPathFile("Straight 6ft")));
   }
 
   public Command getAutoCommand() {
