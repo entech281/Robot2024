@@ -170,6 +170,6 @@ public class DynamicSwerveModuleSettings {
   }
 
   public void setWheelDiameter(double wheelDiameter) {
-    this.wheelDiameter = wheelDiameter;
+    this.wheelDiameter = Math.max(0.000000000001, wheelDiameter);
   }
 }

@@ -84,11 +84,11 @@ public class OperatorInterface
   public void enableTuningControllerBindings() {
     tuningController.a().whileTrue(new RunCommand(() -> {
       RobotConstants.SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.setWheelDiameter(
-          RobotConstants.SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getWheelDiameter() - 0.01);
+          RobotConstants.SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getWheelDiameter() - 0.001);
     }));
     tuningController.y().whileTrue(new RunCommand(() -> {
       RobotConstants.SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.setWheelDiameter(
-          RobotConstants.SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getWheelDiameter() + 0.01);
+          RobotConstants.SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getWheelDiameter() + 0.001);
     }));
   }
 
