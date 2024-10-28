@@ -79,7 +79,7 @@ public class CommandFactory {
         new HolonomicPathFollowerConfig(
             // HolonomicPathFollowerConfig, this should likely live in your Constants
             // class
-            new PIDConstants(3, 0.0, 0.0), //origional P = 5
+            new PIDConstants(8, 0.0, 0), //origional P = 5
             // Translation PID constants
             new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0),
             // Rotation PID constants
