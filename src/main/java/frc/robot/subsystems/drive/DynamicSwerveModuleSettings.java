@@ -23,7 +23,7 @@ public class DynamicSwerveModuleSettings {
   public DynamicSwerveModuleSettings() {}
 
   public boolean isDynamicDataValid(DynamicSwerveModuleBaseData moduleData) {
-    return moduleData.equals(getDynamicData());
+    return getDynamicData().equals(moduleData);
   }
 
   public boolean isTurningPIDValid(DynamicSwerveModuleBaseData moduleData) {

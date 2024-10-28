@@ -84,6 +84,14 @@ public class DriveSubsystem extends EntechSubsystem<DriveInput, DriveOutput> {
     }
   }
 
+  @Override
+  public void periodic() {
+    frontLeft.periodicConfigurationCheck();
+    frontRight.periodicConfigurationCheck();
+    rearLeft.periodicConfigurationCheck();
+    rearRight.periodicConfigurationCheck();
+  }
+
   private double[] calculateSlewRateLimiting(double xSpeed, double ySpeed, double rotSpeed) {
     // Convert XY to polar for rate limiting
     double inputTranslationDir = Math.atan2(ySpeed, xSpeed);
