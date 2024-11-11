@@ -157,7 +157,7 @@ public class OperatorInterface
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.RESET_ODOMETRY)
         .onTrue(new ResetOdometryCommand(odometry));
 
-    xboxController.povDown().onTrue(commandFactory.moveSixFeetForward());
+    xboxController.povDown().whileTrue(commandFactory.moveSixFeetForward());
   }
 
   public void operatorBindings() {
