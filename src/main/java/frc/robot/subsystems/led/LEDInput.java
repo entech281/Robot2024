@@ -2,7 +2,7 @@ package frc.robot.subsystems.led;
 
 import org.littletonrobotics.junction.LogTable;
 import edu.wpi.first.wpilibj.util.Color;
-import entech.subsystems.SubsystemInput;
+import frc.entech.subsystems.SubsystemInput;
 
 public class LEDInput implements SubsystemInput {
 

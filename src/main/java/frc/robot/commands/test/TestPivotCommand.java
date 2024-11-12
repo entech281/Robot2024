@@ -1,8 +1,8 @@
 package frc.robot.commands.test;
 
-import entech.commands.EntechCommand;
-import entech.util.EntechUtils;
-import entech.util.StoppingCounter;
+import frc.entech.commands.EntechCommand;
+import frc.entech.util.EntechUtils;
+import frc.entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.pivot.PivotInput;
 import frc.robot.subsystems.pivot.PivotSubsystem;

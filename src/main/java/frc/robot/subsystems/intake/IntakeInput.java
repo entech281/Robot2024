@@ -1,7 +1,7 @@
 package frc.robot.subsystems.intake;
 
 import org.littletonrobotics.junction.LogTable;
-import entech.subsystems.SubsystemInput;
+import frc.entech.subsystems.SubsystemInput;
 
 public class IntakeInput implements SubsystemInput {
   private boolean activate = false;

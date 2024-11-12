@@ -3,7 +3,7 @@ package frc.robot.commands.test;
 import java.util.Optional;
 import org.littletonrobotics.junction.Logger;
 import org.opencv.core.Point;
-import entech.commands.EntechCommand;
+import frc.entech.commands.EntechCommand;
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.visionnotedetector.NoteDetectorOutput;
 import frc.robot.subsystems.visionnotedetector.NoteDetectorSubsystem;

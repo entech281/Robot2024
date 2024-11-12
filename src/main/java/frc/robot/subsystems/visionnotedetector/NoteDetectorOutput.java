@@ -6,7 +6,7 @@ import org.littletonrobotics.junction.Logger;
 import org.opencv.core.Point;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import org.photonvision.targeting.TargetCorner;
-import entech.subsystems.SubsystemOutput;
+import frc.entech.subsystems.SubsystemOutput;
 
 public class NoteDetectorOutput extends SubsystemOutput {
 

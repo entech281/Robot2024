@@ -1,7 +1,7 @@
 package frc.robot.subsystems.climb;
 
 import org.littletonrobotics.junction.LogTable;
-import entech.subsystems.SubsystemInput;
+import frc.entech.subsystems.SubsystemInput;
 
 public class ClimbInput implements SubsystemInput {
 

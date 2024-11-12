@@ -1,7 +1,7 @@
 package frc.robot.subsystems.transfer;
 
 import org.littletonrobotics.junction.Logger;
-import entech.subsystems.SubsystemOutputBasics;
+import frc.entech.subsystems.SubsystemOutputBasics;
 
 public class TransferOutput extends SubsystemOutputBasics {
   private TransferSubsystem.TransferPreset currentMode;

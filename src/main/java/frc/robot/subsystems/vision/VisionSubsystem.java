@@ -18,12 +18,12 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
-import entech.subsystems.EntechSubsystem;
+import frc.entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestVisionCommand;
 
 public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> {
-  private static final boolean ENABLED = true;
+  private static final boolean ENABLED = false;
 
   private CameraContainerI cameras;
 
@@ -47,15 +47,17 @@ public class VisionSubsystem extends EntechSubsystem<VisionInput, VisionOutput> 
     output.setNumberOfTargets(targets.size());
     output.setTimeStamp(getTimeStamp());
     output.setTargets(targets);
-    output.setDriverMode(cameras.isDriverMode());
-    output.setConnected(cameras.isConnected());
 
     if (ENABLED) {
       output.setTargetsData(cameras.getTargetData());
       output.setLatency(cameras.getLatency());
+      output.setDriverMode(cameras.isDriverMode());
+      output.setConnected(cameras.isConnected());
     } else {
       output.setTargetsData(new ArrayList<>());
       output.setLatency(-1);
+      output.setDriverMode(false);
+      output.setConnected(true);
     }
 
     return output;

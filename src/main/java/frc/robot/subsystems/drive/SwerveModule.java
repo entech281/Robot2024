@@ -30,6 +30,7 @@ public class SwerveModule {
   private final SparkPIDController drivingPIDController;
   private final SparkPIDController turningPIDController;
 
+  private DynamicSwerveModuleBaseData dynamicConfigData;
   private SwerveModuleState desiredState = new SwerveModuleState(0.0, new Rotation2d());
 
   /**
@@ -116,6 +117,7 @@ public class SwerveModule {
 
     desiredState.angle = new Rotation2d(turningEncoder.getPosition());
     drivingEncoder.setPosition(0);
+    dynamicConfigData = SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getDynamicData();
   }
 
   /**
@@ -138,6 +140,36 @@ public class SwerveModule {
         new Rotation2d(turningEncoder.getPosition()));
   }
 
+  public void periodicConfigurationCheck() {
+    if (!SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.isDynamicDataValid(dynamicConfigData)) {
+      if (!SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.isDrivePIDValid(dynamicConfigData)) {
+        drivingPIDController.setP(SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getDriveP());
+        drivingPIDController.setI(SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getDriveI());
+        drivingPIDController.setD(SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getDriveD());
+      }
+      if (!SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.isTurningPIDValid(dynamicConfigData)) {
+        turningPIDController.setP(SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getTurningP());
+        turningPIDController.setI(SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getTurningI());
+        turningPIDController.setD(SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getTurningD());
+        turningPIDController.setFF(SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getTurningFF());
+      }
+      if (!SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS
+          .isCalculationBlockValid(dynamicConfigData)) {
+        drivingPIDController
+            .setFF(SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getDriveFeedForward());
+        drivingEncoder.setPositionConversionFactor(SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS
+            .getDriveEncoderPositionFactorMetersPerRotation());
+        drivingEncoder.setVelocityConversionFactor(SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS
+            .getDriveEncoderVelocityFactorMetersPerSecondPerRPM());
+        turningEncoder.setPositionConversionFactor(SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS
+            .getTurningEncoderPositionFactorRadiansPerRotation());
+        turningEncoder.setVelocityConversionFactor(SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS
+            .getTurningEncoderPositionFactorRadiansPerSecondPerRPM());
+      }
+      dynamicConfigData = SwerveModuleConstants.DYNAMIC_MODULE_SETTINGS.getDynamicData();
+    }
+  }
+
   /**
    * Sets the desired state for the module.
    *
@@ -154,9 +186,8 @@ public class SwerveModule {
         new Rotation2d(turningEncoder.getPosition()));
 
     if (Math.abs(optimizedDesiredState.speedMetersPerSecond) < 0.001 // less than 1 mm per sec
-        && Math
-            .abs(optimizedDesiredState.angle.getRadians() - turningEncoder.getPosition()) < 0.1) // 10%
-                                                                                                   // of
+        && Math.abs(optimizedDesiredState.angle.getRadians() - turningEncoder.getPosition()) < 0.1) // 10%
+                                                                                                    // of
     // a
     // radian
     {
@@ -177,7 +208,7 @@ public class SwerveModule {
   public void resetEncoders() {
 
     drivingEncoder.setPosition(0); // arbitrarily set driving encoder to zero
-    
+
     resetTurningEncoder();
   }
 
@@ -185,8 +216,8 @@ public class SwerveModule {
     turningSparkMax.set(0); // no moving during reset of relative turning encoder
 
     turningEncoder.setPosition(turningAbsoluteEncoder.getVirtualPosition()); // set relative
-                                                                                 // position based
-                                                                                 // on
+                                                                             // position based
+                                                                             // on
     // virtual absolute position
   }
 

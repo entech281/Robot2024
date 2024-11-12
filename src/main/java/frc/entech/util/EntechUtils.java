@@ -1,4 +1,4 @@
-package entech.util;
+package frc.entech.util;
 
 public final class EntechUtils {
 

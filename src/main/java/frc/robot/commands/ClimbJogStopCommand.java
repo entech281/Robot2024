@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import entech.commands.EntechCommand;
+import frc.entech.commands.EntechCommand;
 import frc.robot.RobotConstants;
 import frc.robot.subsystems.climb.ClimbInput;
 import frc.robot.subsystems.climb.ClimbSubsystem;

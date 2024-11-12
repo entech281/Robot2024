@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-import entech.commands.EntechCommand;
+import frc.entech.commands.EntechCommand;
 import frc.robot.subsystems.pivot.PivotInput;
 import frc.robot.subsystems.pivot.PivotSubsystem;
 

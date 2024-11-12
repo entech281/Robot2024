@@ -1,4 +1,4 @@
-package entech.util;
+package frc.entech.util;
 
 import edu.wpi.first.math.util.Units;
 import frc.robot.RobotConstants;

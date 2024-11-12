@@ -3,7 +3,8 @@ package entech.util;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import edu.wpi.first.math.util.Units;
-import entech.util.AimCalculator.Target;
+import frc.entech.util.AimCalculator;
+import frc.entech.util.AimCalculator.Target;
 
 class TestAimCalculator {
     private static final double TOLERANCE = 1.25;
