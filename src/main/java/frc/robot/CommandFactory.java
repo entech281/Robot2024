@@ -3,7 +3,6 @@ package frc.robot;
 import java.util.Optional;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
@@ -79,7 +78,7 @@ public class CommandFactory {
         new HolonomicPathFollowerConfig(
             // HolonomicPathFollowerConfig, this should likely live in your Constants
             // class
-            new PIDConstants(8, 0.0, 0), //origional P = 5
+            new PIDConstants(8.5, 3, 0.1), // origional P = 5
             // Translation PID constants
             new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0),
             // Rotation PID constants
@@ -123,7 +122,8 @@ public class CommandFactory {
   }
 
   public Command moveSixFeetForward() {
-    return new SequentialCommandGroup(new ResetOdometryCommand(odometry), new WaitCommand(0.25), AutoBuilder.followPath(PathPlannerPath.fromPathFile("Straight 6ft")));
+    return new SequentialCommandGroup(new ResetOdometryCommand(odometry), new WaitCommand(0.25),
+        AutoBuilder.followPath(PathPlannerPath.fromPathFile("Straight 6ft")));
   }
 
   public Command getAutoCommand() {
