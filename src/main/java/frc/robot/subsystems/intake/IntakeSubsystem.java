@@ -47,7 +47,7 @@ public class IntakeSubsystem extends EntechSubsystem<IntakeInput, IntakeOutput> 
 
   @Override
   public void updateInputs(IntakeInput input) {
-    RobotIO.processInput(input);
+    // RobotIO.processInput(input);
     this.currentInput = input;
   }
 
