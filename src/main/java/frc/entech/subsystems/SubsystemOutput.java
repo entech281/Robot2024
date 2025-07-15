@@ -1,14 +1,14 @@
 package frc.entech.subsystems;
 
-import org.littletonrobotics.junction.Logger;
+// import org.littletonrobotics.junction.Logger;
 
 public abstract class SubsystemOutput {
   private String currentCommand;
   private String defaultCommand;
 
   public void log() {
-    Logger.recordOutput(getClass().getSimpleName() + "/CurrentCommand", currentCommand);
-    Logger.recordOutput(getClass().getSimpleName() + "/defaultCommand", defaultCommand);
+    // Logger.recordOutput(getClass().getSimpleName() + "/CurrentCommand", currentCommand);
+    // Logger.recordOutput(getClass().getSimpleName() + "/defaultCommand", defaultCommand);
     toLog();
   }
 

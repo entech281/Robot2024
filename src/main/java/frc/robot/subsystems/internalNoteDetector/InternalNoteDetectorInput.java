@@ -1,6 +1,6 @@
-// package frc.robot.subsystems.internalnotedetector;
+ package frc.robot.subsystems.internalNoteDetector;
 
-import org.ejml.simple.UnsupportedOperation;
+// import org.ejml.simple.UnsupportedOperation;
 // import org.littletonrobotics.junction.LogTable;
 import frc.entech.subsystems.SubsystemInput;
 

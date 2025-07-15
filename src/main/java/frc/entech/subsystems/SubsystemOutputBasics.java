@@ -1,6 +1,6 @@
 package frc.entech.subsystems;
 
-import org.littletonrobotics.junction.Logger;
+// import org.littletonrobotics.junction.Logger;
 
 public abstract class SubsystemOutputBasics extends SubsystemOutput {
   protected boolean active;
@@ -38,8 +38,8 @@ public abstract class SubsystemOutputBasics extends SubsystemOutput {
 
   @Override
   public void toLog() {
-    Logger.recordOutput(key + "/active", active);
-    Logger.recordOutput(key + "/currentSpeed", currentSpeed);
-    Logger.recordOutput(key + "/brakeModeEnabled", brakeModeEnabled);
+    // Logger.recordOutput(key + "/active", active);
+    // Logger.recordOutput(key + "/currentSpeed", currentSpeed);
+    // Logger.recordOutput(key + "/brakeModeEnabled", brakeModeEnabled);
   }
 }

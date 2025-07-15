@@ -2,7 +2,7 @@ package frc.robot.subsystems.visionnotedetector;
 
 import java.util.List;
 import java.util.Optional;
-import org.littletonrobotics.junction.Logger;
+// import org.littletonrobotics.junction.Logger;
 import org.opencv.core.Point;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import org.photonvision.targeting.TargetCorner;
@@ -50,25 +50,25 @@ public class NoteDetectorOutput extends SubsystemOutput {
 
   @Override
   public void toLog() {
-    Logger.recordOutput("NoteDetectorOutput/hasNotes", hasNotes);
+    // Logger.recordOutput("NoteDetectorOutput/hasNotes", hasNotes);
 
-    if (selectedNote.isPresent()) {
-      Logger.recordOutput("NoteDetectorOutput/selectedNote", selectedNote.get());
-    }
+    // if (selectedNote.isPresent()) {
+    //   Logger.recordOutput("NoteDetectorOutput/selectedNote", selectedNote.get());
+    // }
 
-    for (int i = 0; i < notes.size(); i++) {
-      Logger.recordOutput("NoteDetectorOutput/note" + i, notes.get(i));
-    }
+    // for (int i = 0; i < notes.size(); i++) {
+    //   Logger.recordOutput("NoteDetectorOutput/note" + i, notes.get(i));
+    // }
 
-    if (midpoint.isPresent()) {
-      Logger.recordOutput("NoteDetectorOutput/midpoint/x", midpoint.get().x);
-      Logger.recordOutput("NoteDetectorOutput/midpoint/y", midpoint.get().y);
-    }
+    // if (midpoint.isPresent()) {
+    //   Logger.recordOutput("NoteDetectorOutput/midpoint/x", midpoint.get().x);
+    //   Logger.recordOutput("NoteDetectorOutput/midpoint/y", midpoint.get().y);
+    // }
 
-    Logger.recordOutput("NoteDetectorOutput/yaw", yaw);
-    Logger.recordOutput("NoteDetectorOutput/latency", latency);
+    // Logger.recordOutput("NoteDetectorOutput/yaw", yaw);
+    // Logger.recordOutput("NoteDetectorOutput/latency", latency);
 
-    Logger.recordOutput("NoteDetectorOutput/isDriverMode", driverMode);
+    // Logger.recordOutput("NoteDetectorOutput/isDriverMode", driverMode);
   }
 
   public boolean hasNotes() {

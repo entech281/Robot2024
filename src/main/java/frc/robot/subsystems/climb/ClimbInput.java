@@ -1,6 +1,6 @@
 package frc.robot.subsystems.climb;
 
-import org.littletonrobotics.junction.LogTable;
+// import org.littletonrobotics.junction.LogTable;
 import frc.entech.subsystems.SubsystemInput;
 
 public class ClimbInput implements SubsystemInput {
@@ -11,23 +11,23 @@ public class ClimbInput implements SubsystemInput {
   private double speedLeft = 0.0;
   private double speedRight = 0.0;
 
-  @Override
-  public void toLog(LogTable table) {
-    table.put("activate", activate);
-    table.put("speedLeft", speedLeft);
-    table.put("speedRight", speedRight);
-    table.put("freeze", freeze);
-    table.put("brakeModeEnabled", speedLeft);
-  }
+  // @Override
+  // public void toLog(LogTable table) {
+  //   table.put("activate", activate);
+  //   table.put("speedLeft", speedLeft);
+  //   table.put("speedRight", speedRight);
+  //   table.put("freeze", freeze);
+  //   table.put("brakeModeEnabled", speedLeft);
+  // }
 
-  @Override
-  public void fromLog(LogTable table) {
-    activate = table.get("activate", false);
-    brakeModeEnabled = table.get("brakeModeEnabled", false);
-    freeze = table.get("freeze", false);
-    speedLeft = table.get("activate", 0.0);
-    speedRight = table.get("activate", 0.0);
-  }
+  // @Override
+  // public void fromLog(LogTable table) {
+  //   activate = table.get("activate", false);
+  //   brakeModeEnabled = table.get("brakeModeEnabled", false);
+  //   freeze = table.get("freeze", false);
+  //   speedLeft = table.get("activate", 0.0);
+  //   speedRight = table.get("activate", 0.0);
+  // }
 
   public boolean getActivate() {
     return this.activate;

@@ -13,7 +13,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
-import frc.robot.subsystems.drive.DynamicSwerveModuleSettings;
+// import frc.robot.subsystems.drive.DynamicSwerveModuleSettings;
 
 public final class RobotConstants {
   public static final double TIME_PER_PERIODICAL_LOOP_SECONDS = 0.00;
@@ -118,8 +118,8 @@ public final class RobotConstants {
     public static final int DRIVING_MOTOR_CURRENT_LIMIT_AMPS = 40; // 50; // amps
     public static final int TURNING_MOTOR_CURRENT_LIMIT_AMPS = 20; // amps
 
-    public static final DynamicSwerveModuleSettings DYNAMIC_MODULE_SETTINGS =
-        new DynamicSwerveModuleSettings();
+    // public static final DynamicSwerveModuleSettings DYNAMIC_MODULE_SETTINGS =
+    //     new DynamicSwerveModuleSettings();
   }
 
 

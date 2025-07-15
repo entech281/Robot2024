@@ -1,6 +1,6 @@
 package frc.robot.subsystems.shooter;
 
-import org.littletonrobotics.junction.Logger;
+// import org.littletonrobotics.junction.Logger;
 import frc.entech.subsystems.SubsystemOutputBasics;
 
 public class ShooterOutput extends SubsystemOutputBasics {
@@ -15,9 +15,9 @@ public class ShooterOutput extends SubsystemOutputBasics {
 
   @Override
   public void toLog() {
-    Logger.recordOutput("ShooterOutput/isAtSpeed", isAtSpeed);
-    Logger.recordOutput("ShooterOutput/speedA", speedA);
-    Logger.recordOutput("ShooterOutput/speedB", speedB);
+    // Logger.recordOutput("ShooterOutput/isAtSpeed", isAtSpeed);
+    // Logger.recordOutput("ShooterOutput/speedA", speedA);
+    // Logger.recordOutput("ShooterOutput/speedB", speedB);
   }
 
   public void setIsAtSpeed(boolean isAtSpeed) {

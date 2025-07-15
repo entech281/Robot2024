@@ -16,9 +16,9 @@ public class LEDDefaultCommand extends EntechCommand {
   }
 
   private boolean hasError() {
-    return RobotIO.getInstance().getNavXOutput().isFaultDetected()
-        || RobotIO.getInstance().getVisionOutput().isDriverMode()
-        || RobotIO.getInstance().getNoteDetectorOutput().isDriverMode();
+    return //RobotIO.getInstance().getNavXOutput().isFaultDetected()
+        // || RobotIO.getInstance().getVisionOutput().isDriverMode()
+         RobotIO.getInstance().getNoteDetectorOutput().isDriverMode();
   }
 
   @Override

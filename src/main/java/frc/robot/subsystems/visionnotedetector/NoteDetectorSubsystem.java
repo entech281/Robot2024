@@ -13,7 +13,7 @@ import frc.entech.subsystems.EntechSubsystem;
 import frc.entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestNoteDetectorCommand;
-import frc.robot.io.RobotIO;
+// import frc.robot.io.RobotIO;
 
 public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, NoteDetectorOutput> {
   private static final boolean ENABLED = true;
@@ -41,7 +41,7 @@ public class NoteDetectorSubsystem extends EntechSubsystem<NoteDetectorInput, No
 
   @Override
   public void updateInputs(NoteDetectorInput input) {
-    RobotIO.processInput(input);
+    // RobotIO.processInput(input);
   }
 
   public Optional<PhotonTrackedTarget> getChosenNote() {

@@ -1,23 +1,23 @@
 package frc.robot.subsystems.transfer;
 
-import org.littletonrobotics.junction.LogTable;
+// import org.littletonrobotics.junction.LogTable;
 import frc.entech.subsystems.SubsystemInput;
 
 public class TransferInput implements SubsystemInput {
   private boolean activate = false;
   private TransferSubsystem.TransferPreset speedPreset = TransferSubsystem.TransferPreset.OFF;
 
-  @Override
-  public void toLog(LogTable table) {
-    table.put("activate", activate);
-    table.put("currentMode", speedPreset);
-  }
+  // @Override
+  // public void toLog(LogTable table) {
+  //   table.put("activate", activate);
+  //   table.put("currentMode", speedPreset);
+  // }
 
-  @Override
-  public void fromLog(LogTable table) {
-    activate = table.get("activate", false);
-    speedPreset = table.get("currentMode", TransferSubsystem.TransferPreset.OFF);
-  }
+  // @Override
+  // public void fromLog(LogTable table) {
+  //   activate = table.get("activate", false);
+  //   speedPreset = table.get("currentMode", TransferSubsystem.TransferPreset.OFF);
+  // }
 
   public boolean getActivate() {
     return this.activate;

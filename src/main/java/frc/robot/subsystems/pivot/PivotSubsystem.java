@@ -11,7 +11,7 @@ import frc.entech.subsystems.EntechSubsystem;
 import frc.entech.util.EntechUtils;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestPivotCommand;
-import frc.robot.io.RobotIO;
+// import frc.robot.io.RobotIO;
 
 public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
@@ -90,7 +90,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
 
   @Override
   public void updateInputs(PivotInput input) {
-    RobotIO.processInput(input);
+    // RobotIO.processInput(input);
     this.currentInput = input;
   }
 

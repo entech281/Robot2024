@@ -1,6 +1,6 @@
 package frc.robot.subsystems.shooter;
 
-import org.littletonrobotics.junction.LogTable;
+// import org.littletonrobotics.junction.LogTable;
 import frc.entech.subsystems.SubsystemInput;
 
 public class ShooterInput implements SubsystemInput {
@@ -8,19 +8,19 @@ public class ShooterInput implements SubsystemInput {
   private boolean brakeModeEnabled = false;
   private double speed = 0;
 
-  @Override
-  public void toLog(LogTable table) {
-    table.put("activate", activate);
-    table.put("speed", speed);
-    table.put("brakeModeEnabled", brakeModeEnabled);
-  }
+  // @Override
+  // public void toLog(LogTable table) {
+  //   table.put("activate", activate);
+  //   table.put("speed", speed);
+  //   table.put("brakeModeEnabled", brakeModeEnabled);
+  // }
 
-  @Override
-  public void fromLog(LogTable table) {
-    activate = table.get("activate", false);
-    speed = table.get("speed", 0.0);
-    brakeModeEnabled = table.get("brakeModeEnabled", false);
-  }
+  // @Override
+  // public void fromLog(LogTable table) {
+  //   activate = table.get("activate", false);
+  //   speed = table.get("speed", 0.0);
+  //   brakeModeEnabled = table.get("brakeModeEnabled", false);
+  // }
 
   public boolean getActivate() {
     return this.activate;

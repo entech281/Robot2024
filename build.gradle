@@ -118,9 +118,9 @@ test {
 wpi.sim.addGui().defaultEnabled = true
 wpi.sim.addDriverstation()
 
-configurations.all {
-    exclude group: "edu.wpi.first.wpilibj"
-}
+// configurations.all {
+//     exclude group: "edu.wpi.first.wpilibj"
+// }
 
 task(checkAkitInstall, dependsOn: "classes", type: JavaExec) {
     mainClass = "org.littletonrobotics.junction.CheckInstall"

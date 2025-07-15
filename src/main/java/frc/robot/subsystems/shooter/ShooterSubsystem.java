@@ -12,7 +12,7 @@ import frc.entech.subsystems.EntechSubsystem;
 import frc.entech.util.EntechUtils;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestShooterCommand;
-import frc.robot.io.RobotIO;
+// import frc.robot.io.RobotIO;
 
 public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutput> {
   private static final boolean ENABLED = true;
@@ -92,7 +92,7 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
 
   @Override
   public void updateInputs(ShooterInput input) {
-    RobotIO.processInput(input);
+    // RobotIO.processInput(input);
     this.currentInput = input;
   }
 

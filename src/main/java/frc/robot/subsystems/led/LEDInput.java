@@ -1,7 +1,7 @@
 package frc.robot.subsystems.led;
 
 // import org.littletonrobotics.junction.LogTable;
-// import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.entech.subsystems.SubsystemInput;
 
 public class LEDInput implements SubsystemInput {
@@ -18,16 +18,16 @@ public class LEDInput implements SubsystemInput {
     this.secondaryColor = secondaryColor;
   }
 
-  @Override
-  public void toLog(LogTable table) {
-    table.put("Blinking", blinking);
-    table.put("CurrentColor", color + "");
-  }
+  // @Override
+  // public void toLog(LogTable table) {
+  //   table.put("Blinking", blinking);
+  //   table.put("CurrentColor", color + "");
+  // }
 
-  @Override
-  public void fromLog(LogTable table) {
-    blinking = table.get("Blinking", false);
-  }
+  // @Override
+  // public void fromLog(LogTable table) {
+  //   blinking = table.get("Blinking", false);
+  // }
 
   public Color getColor() {
     return color;
