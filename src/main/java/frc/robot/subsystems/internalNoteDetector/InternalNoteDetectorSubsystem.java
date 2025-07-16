@@ -1,25 +1,25 @@
 package frc.robot.subsystems.internalNoteDetector;
 
-// import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.entech.subsystems.EntechSubsystem;
 import frc.robot.RobotConstants;
 import frc.robot.commands.test.TestInternalNoteDetectorCommand;
-import frc.robot.io.RobotIO;
+// import frc.robot.io.RobotIO;
 
 public class InternalNoteDetectorSubsystem
     extends EntechSubsystem<InternalNoteDetectorInput, InternalNoteDetectorOutput> {
 
   private static final boolean ENABLED = true;
 
-  // private DigitalInput internalSensorF;
-  // private DigitalInput internalSensorR;
+  private DigitalInput internalSensorF;
+  private DigitalInput internalSensorR;
 
   @Override
   public void initialize() {
     if (ENABLED) {
-      // internalSensorF = new DigitalInput(RobotConstants.PORTS.HAS_NOTE.INTERNAL_SENSOR_FORWARD);
-      // internalSensorR = new DigitalInput(RobotConstants.PORTS.HAS_NOTE.INTERNAL_SENSOR_REAR);
+      internalSensorF = new DigitalInput(RobotConstants.PORTS.HAS_NOTE.INTERNAL_SENSOR_FORWARD);
+      internalSensorR = new DigitalInput(RobotConstants.PORTS.HAS_NOTE.INTERNAL_SENSOR_REAR);
     }
   }
 
@@ -42,8 +42,8 @@ public class InternalNoteDetectorSubsystem
   public InternalNoteDetectorOutput toOutputs() {
     InternalNoteDetectorOutput output = new InternalNoteDetectorOutput();
     if (ENABLED) {
-      // output.setForwardNoteSensor(internalSensorF.get());
-      // output.setRearNoteSensor(internalSensorR.get());
+      output.setForwardNoteSensor(internalSensorF.get());
+      output.setRearNoteSensor(internalSensorR.get());
     }
     return output;
   }

@@ -4,19 +4,20 @@
 
 package frc.robot;
 
-import org.littletonrobotics.junction.LogFileUtil;
-import org.littletonrobotics.junction.LogTable;
-import org.littletonrobotics.junction.LoggedRobot;
-import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.networktables.NT4Publisher;
-import org.littletonrobotics.junction.wpilog.WPILOGWriter;
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+// import org.littletonrobotics.junction.LogFileUtil;
+// import org.littletonrobotics.junction.LogTable;
+// import org.littletonrobotics.junction.LoggedRobot;
+// import org.littletonrobotics.junction.Logger;
+// import org.littletonrobotics.junction.networktables.NT4Publisher;
+// import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+// import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.TimedRobot;
+// import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.ResetTurningEncoderCommand;
+// import frc.robot.commands.ResetTurningEncoderCommand;
 import frc.robot.operation.OperatorInterface;
-import frc.robot.processors.OdometryProcessor;
+// import frc.robot.processors.OdometryProcessor;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -24,70 +25,70 @@ import frc.robot.processors.OdometryProcessor;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends LoggedRobot {
+public class Robot extends TimedRobot {
   private Command autonomousCommand;
   private SubsystemManager subsystemManager;
   private CommandFactory commandFactory;
-  private OdometryProcessor odometry;
+  // private OdometryProcessor odometry;
   private OperatorInterface operatorInterface;
-  private PowerDistribution powerDistribution;
+  // private PowerDistribution powerDistribution;
 
-  public void loggerInit() {
-    Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
-    Logger.recordMetadata("Version", BuildConstants.VERSION);
-    Logger.recordMetadata("GITRevision", BuildConstants.GIT_REVISION + "");
-    Logger.recordMetadata("GIT_SHA", BuildConstants.GIT_SHA);
-    Logger.recordMetadata("GIT_Date", BuildConstants.GIT_DATE);
-    Logger.recordMetadata("GIT_Branch", BuildConstants.GIT_BRANCH);
-    Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
-    Logger.recordMetadata("BuildUnixTime", BuildConstants.BUILD_UNIX_TIME + "");
+  // public void loggerInit() {
+  //   Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
+  //   Logger.recordMetadata("Version", BuildConstants.VERSION);
+  //   Logger.recordMetadata("GITRevision", BuildConstants.GIT_REVISION + "");
+  //   Logger.recordMetadata("GIT_SHA", BuildConstants.GIT_SHA);
+  //   Logger.recordMetadata("GIT_Date", BuildConstants.GIT_DATE);
+  //   Logger.recordMetadata("GIT_Branch", BuildConstants.GIT_BRANCH);
+  //   Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
+  //   Logger.recordMetadata("BuildUnixTime", BuildConstants.BUILD_UNIX_TIME + "");
 
-    if (isReal()) {
-      Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
-      Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
-      powerDistribution = new PowerDistribution(1, ModuleType.kRev); // Enables power distribution
-      // logging
-      powerDistribution.clearStickyFaults();
-    } else {
-      setUseTiming(false); // Run as fast as possible
-      String logPath = LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or
-                                                    // prompt the user)
-      Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save
-                                                                                            // outputs
-                                                                                            // to a
-                                                                                            // new
-                                                                                            // log
-      Logger.addDataReceiver(new NT4Publisher());
-    }
+  //   if (isReal()) {
+  //     Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
+  //     Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
+  //     powerDistribution = new PowerDistribution(1, ModuleType.kRev); // Enables power distribution
+  //     // logging
+  //     powerDistribution.clearStickyFaults();
+  //   } else {
+  //     setUseTiming(false); // Run as fast as possible
+  //     String logPath = LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or
+  //                                                   // prompt the user)
+  //     Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save
+  //                                                                                           // outputs
+  //                                                                                           // to a
+  //                                                                                           // new
+  //                                                                                           // log
+  //     Logger.addDataReceiver(new NT4Publisher());
+  //   }
 
-    // Logger.disableDeterministicTimestamps() // See "Deterministic Timestamps" in the
-    // "Understanding Data Flow" page
-    Logger.start(); // Start logging! No more data receivers, replay sources, or metadata values may
-                    // be added.
-    LogTable.disableProtobufWarning();
-  }
+  //   // Logger.disableDeterministicTimestamps() // See "Deterministic Timestamps" in the
+  //   // "Understanding Data Flow" page
+  //   Logger.start(); // Start logging! No more data receivers, replay sources, or metadata values may
+  //                   // be added.
+  //   LogTable.disableProtobufWarning();
+  // }
 
-  @Override
+  // @Override
   public void robotInit() {
-    loggerInit();
+    // loggerInit();
     subsystemManager = new SubsystemManager();
-    odometry = new OdometryProcessor();
-    commandFactory = new CommandFactory(subsystemManager, odometry);
-    operatorInterface = new OperatorInterface(commandFactory, subsystemManager, odometry);
+    // odometry = new OdometryProcessor();
+    commandFactory = new CommandFactory(subsystemManager);
+    operatorInterface = new OperatorInterface(commandFactory, subsystemManager);
     operatorInterface.create();
-    odometry.createEstimator();
+    // odometry.createEstimator();
   }
 
-  @Override
+  // @Override
   public void robotPeriodic() {
     subsystemManager.periodic();
     CommandScheduler.getInstance().run();
-    odometry.update();
+    // odometry.update();
   }
 
-  @Override
+  // @Override
   public void autonomousInit() {
-    odometry.setIntegrateVision(false);
+    // odometry.setIntegrateVision(false);
     autonomousCommand = commandFactory.getAutoCommand();
 
     if (autonomousCommand != null) {
@@ -95,25 +96,25 @@ public class Robot extends LoggedRobot {
     }
   }
 
-  @Override
+  // @Override
   public void disabledExit() {
-    new ResetTurningEncoderCommand(subsystemManager.getDriveSubsystem()).schedule();
+    // new ResetTurningEncoderCommand(subsystemManager.getDriveSubsystem()).schedule();
   }
 
-  @Override
+  // @Override
   public void teleopInit() {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
-    odometry.setIntegrateVision(true);
+    // odometry.setIntegrateVision(true);
   }
 
-  @Override
+  // @Override
   public void teleopPeriodic() {
     // for things that only happen in teleop
   }
 
-  @Override
+  // @Override
   public void testInit() {
     CommandScheduler.getInstance().cancelAll();
   }

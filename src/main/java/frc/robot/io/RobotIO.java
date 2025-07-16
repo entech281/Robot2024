@@ -17,7 +17,7 @@ import frc.robot.subsystems.pivot.PivotOutput;
 import frc.robot.subsystems.shooter.ShooterOutput;
 import frc.robot.subsystems.transfer.TransferOutput;
 // import frc.robot.subsystems.vision.VisionOutput;
-import frc.robot.subsystems.visionnotedetector.NoteDetectorOutput;
+// import frc.robot.subsystems.visionnotedetector.NoteDetectorOutput;
 
 public class RobotIO  {
   private static RobotIO instance = new RobotIO();
@@ -73,9 +73,9 @@ public class RobotIO  {
     return latestPivotOutput;
   }
 
-  public NoteDetectorOutput getNoteDetectorOutput() {
-    return latestNoteDetectorOutput;
-  }
+  // public NoteDetectorOutput getNoteDetectorOutput() {
+  //   return latestNoteDetectorOutput;
+  // }
 
   public ClimbOutput getClimbOutput() {
     return latestClimbOutput;
@@ -140,10 +140,10 @@ public class RobotIO  {
     // Logger.recordOutput("OdometryPose", pose);
   }
 
-  public void updateNoteDetector(NoteDetectorOutput ndo) {
-    latestNoteDetectorOutput = ndo;
-    ndo.log();
-  }
+  // public void updateNoteDetector(NoteDetectorOutput ndo) {
+  //   latestNoteDetectorOutput = ndo;
+  //   ndo.log();
+  // }
 
   public Optional<Double> getDistanceFromTarget() {
     return distanceFromTarget;
@@ -175,7 +175,7 @@ public class RobotIO  {
   private ShooterOutput latestShooterOutput;
   private PivotOutput latestPivotOutput;
   private InternalNoteDetectorOutput latestInternalNoteDetectorOutput;
-  private NoteDetectorOutput latestNoteDetectorOutput;
+  // private NoteDetectorOutput latestNoteDetectorOutput;
   private ClimbOutput latestClimbOutput;
   private Pose2d latestOdometryPose = RobotConstants.ODOMETRY.INITIAL_POSE;
   private LEDOutput latestLEDOutput;

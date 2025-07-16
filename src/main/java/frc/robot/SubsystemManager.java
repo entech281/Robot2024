@@ -18,7 +18,7 @@ import frc.robot.subsystems.pivot.PivotSubsystem;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 import frc.robot.subsystems.transfer.TransferSubsystem;
 // import frc.robot.subsystems.vision.VisionSubsystem;
-import frc.robot.subsystems.visionnotedetector.NoteDetectorSubsystem;
+// import frc.robot.subsystems.visionnotedetector.NoteDetectorSubsystem;
 
 /**
  * Manages the subsystems and the interactions between them.
@@ -33,7 +33,7 @@ public class SubsystemManager {
   private final PivotSubsystem pivotSubsystem = new PivotSubsystem();
   private final InternalNoteDetectorSubsystem internalNoteDetectorSubsystem =
       new InternalNoteDetectorSubsystem();
-  private final NoteDetectorSubsystem noteDetectorSubsystem = new NoteDetectorSubsystem();
+  // private final NoteDetectorSubsystem noteDetectorSubsystem = new NoteDetectorSubsystem();
   private final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
   private final LEDSubsystem ledSubsystem = new LEDSubsystem();
 
@@ -47,7 +47,7 @@ public class SubsystemManager {
     pivotSubsystem.initialize();
     climbSubsystem.initialize();
     internalNoteDetectorSubsystem.initialize();
-    noteDetectorSubsystem.initialize();
+    // noteDetectorSubsystem.initialize();
     ledSubsystem.initialize();
 
     periodic();
@@ -85,9 +85,9 @@ public class SubsystemManager {
     return climbSubsystem;
   }
 
-  public NoteDetectorSubsystem getNoteDetectorSubsystem() {
-    return noteDetectorSubsystem;
-  }
+  // public NoteDetectorSubsystem getNoteDetectorSubsystem() {
+  //   return noteDetectorSubsystem;
+  // }
 
   public InternalNoteDetectorSubsystem getInternalNoteDetectorSubsystem() {
     return internalNoteDetectorSubsystem;
@@ -109,7 +109,7 @@ public class SubsystemManager {
     r.add(ledSubsystem);
     r.add(internalNoteDetectorSubsystem);
     // r.add(visionSubsystem);
-    r.add(noteDetectorSubsystem);
+    // r.add(noteDetectorSubsystem);
 
     return r;
   }
@@ -144,7 +144,7 @@ public class SubsystemManager {
       outputs.updatePivot(pivotSubsystem.getOutputs());
     }
 
-    outputs.updateNoteDetector(noteDetectorSubsystem.getOutputs());
+    // outputs.updateNoteDetector(noteDetectorSubsystem.getOutputs());
 
     if (internalNoteDetectorSubsystem.isEnabled()) {
       outputs.updateInternalNoteDetector(internalNoteDetectorSubsystem.getOutputs());

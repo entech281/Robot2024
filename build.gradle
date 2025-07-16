@@ -122,11 +122,11 @@ wpi.sim.addDriverstation()
 //     exclude group: "edu.wpi.first.wpilibj"
 // }
 
-task(checkAkitInstall, dependsOn: "classes", type: JavaExec) {
-    mainClass = "org.littletonrobotics.junction.CheckInstall"
-    classpath = sourceSets.main.runtimeClasspath
-}
-compileJava.finalizedBy checkAkitInstall
+// task(checkAkitInstall, dependsOn: "classes", type: JavaExec) {
+//     mainClass = "org.littletonrobotics.junction.CheckInstall"
+//     classpath = sourceSets.main.runtimeClasspath
+// }
+// compileJava.finalizedBy checkAkitInstall
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
 // in order to make them all available at runtime. Also adding the manifest so WPILib
