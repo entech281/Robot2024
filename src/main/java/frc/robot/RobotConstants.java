@@ -204,13 +204,16 @@ public final class RobotConstants {
 
       public static class BUTTONS_XBOX {
         public static final int GYRO_RESET = 7;
-        public static final int NOTE_ALIGN = 2;
+        // public static final int NOTE_ALIGN = 2;
         public static final int FULL_PIVOT = 8;
-        public static final int TARGET_AMP = 4;
-        public static final int TARGET_SPEAKER = 1;
+        // public static final int TARGET_AMP = 4;
+        // public static final int TARGET_SPEAKER = 1;
         public static final int FEED_SHOOTER = 5;
         public static final int DRIVE_X = 3;
         public static final int RESET_ODOMETRY = 8;
+        public static final int SHOOT = 3;
+        public static final int EJECT = 2;
+        public static final int RAISE_ARM = 1;
       }
     }
 
@@ -234,15 +237,15 @@ public final class RobotConstants {
 
   public interface OPERATOR_PANEL {
     public static class BUTTONS {
-      public static final int SHOOT = 1;
-      public static final int INTAKE = 4;
-      public static final int EJECT = 5;
-      public static final int CLIMB = 7;
+      // public static final int SHOOT = 1;
+      // public static final int INTAKE = 4;
+      // public static final int EJECT = 5;
+      // public static final int CLIMB = 7;
 
-      public static final int RAISE_ARM = 8;
-      public static final int LOWER_CLIMB_RIGHT = 11;
-      public static final int LOWER_CLIMB_LEFT = 10;
-      public static final int RUN_TEST = 9;
+      // public static final int RAISE_ARM = 8;
+      // public static final int LOWER_CLIMB_RIGHT = 11;
+      // public static final int LOWER_CLIMB_LEFT = 10;
+      // public static final int RUN_TEST = 9;
     }
 
     public static class SWITCHES {

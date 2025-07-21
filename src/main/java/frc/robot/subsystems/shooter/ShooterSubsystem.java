@@ -4,7 +4,9 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.SparkPIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -79,6 +81,8 @@ public class ShooterSubsystem extends EntechSubsystem<ShooterInput, ShooterOutpu
       shooterBottom.setIdleMode(IdleMode.kCoast);
       mode = IdleMode.kCoast;
     }
+    SmartDashboard.putNumber("shooter_speed_A", shooterTop.getEncoder().getVelocity());
+    SmartDashboard.putNumber("shooter_speed_B", shooterBottom.getEncoder().getVelocity());
   }
 
   private double getCurrentSpeed() {

@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import frc.entech.subsystems.EntechSubsystem;
 import frc.robot.io.RobotIO;
-import frc.robot.subsystems.climb.ClimbSubsystem;
+// import frc.robot.subsystems.climb.ClimbSubsystem;
 // import frc.robot.subsystems.drive.DriveSubsystem;
-import frc.robot.subsystems.intake.IntakeSubsystem;
+// import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.internalNoteDetector.InternalNoteDetectorSubsystem;
 import frc.robot.subsystems.led.LEDSubsystem;
 // import frc.robot.subsystems.navx.NavXSubsystem;
@@ -27,25 +27,25 @@ public class SubsystemManager {
   // private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   // private final VisionSubsystem visionSubsystem = new VisionSubsystem();
   // private final NavXSubsystem navXSubsystem = new NavXSubsystem();
-  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
+  // private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
   private final TransferSubsystem transferSubsystem = new TransferSubsystem();
   private final PivotSubsystem pivotSubsystem = new PivotSubsystem();
   private final InternalNoteDetectorSubsystem internalNoteDetectorSubsystem =
       new InternalNoteDetectorSubsystem();
   // private final NoteDetectorSubsystem noteDetectorSubsystem = new NoteDetectorSubsystem();
-  private final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
+  // private final ClimbSubsystem climbSubsystem = new ClimbSubsystem();
   private final LEDSubsystem ledSubsystem = new LEDSubsystem();
 
   public SubsystemManager() {
     // navXSubsystem.initialize();
     // driveSubsystem.initialize();
     // visionSubsystem.initialize();
-    intakeSubsystem.initialize();
+    // intakeSubsystem.initialize();
     shooterSubsystem.initialize();
     transferSubsystem.initialize();
     pivotSubsystem.initialize();
-    climbSubsystem.initialize();
+    // climbSubsystem.initialize();
     internalNoteDetectorSubsystem.initialize();
     // noteDetectorSubsystem.initialize();
     ledSubsystem.initialize();
@@ -65,9 +65,9 @@ public class SubsystemManager {
   //   return navXSubsystem;
   // }
 
-  public IntakeSubsystem getIntakeSubsystem() {
-    return intakeSubsystem;
-  }
+  // public IntakeSubsystem getIntakeSubsystem() {
+  //   return intakeSubsystem;
+  // }
 
   public ShooterSubsystem getShooterSubsystem() {
     return shooterSubsystem;
@@ -81,9 +81,9 @@ public class SubsystemManager {
     return pivotSubsystem;
   }
 
-  public ClimbSubsystem getClimbSubsystem() {
-    return climbSubsystem;
-  }
+  // public ClimbSubsystem getClimbSubsystem() {
+  //   return climbSubsystem;
+  // }
 
   // public NoteDetectorSubsystem getNoteDetectorSubsystem() {
   //   return noteDetectorSubsystem;
@@ -101,11 +101,11 @@ public class SubsystemManager {
     ArrayList<EntechSubsystem<?, ?>> r = new ArrayList<>();
     // r.add(navXSubsystem);
     // r.add(driveSubsystem);
-    r.add(intakeSubsystem);
+    // r.add(intakeSubsystem);
     r.add(shooterSubsystem);
     r.add(transferSubsystem);
     r.add(pivotSubsystem);
-    r.add(climbSubsystem);
+    // r.add(climbSubsystem);
     r.add(ledSubsystem);
     r.add(internalNoteDetectorSubsystem);
     // r.add(visionSubsystem);
@@ -116,9 +116,9 @@ public class SubsystemManager {
 
   public void periodic() {
     RobotIO outputs = RobotIO.getInstance();
-    if (climbSubsystem.isEnabled()) {
-      outputs.updateClimb(climbSubsystem.getOutputs());
-    }
+    // if (climbSubsystem.isEnabled()) {
+    //   outputs.updateClimb(climbSubsystem.getOutputs());
+    // }
 
     // outputs.updateVision(visionSubsystem.getOutputs());
 
@@ -132,9 +132,9 @@ public class SubsystemManager {
       outputs.updateTransfer(transferSubsystem.getOutputs());
     }
 
-    if (intakeSubsystem.isEnabled()) {
-      outputs.updateIntake(intakeSubsystem.getOutputs());
-    }
+    // if (intakeSubsystem.isEnabled()) {
+    //   outputs.updateIntake(intakeSubsystem.getOutputs());
+    // }
 
     if (shooterSubsystem.isEnabled()) {
       outputs.updateShooter(shooterSubsystem.getOutputs());

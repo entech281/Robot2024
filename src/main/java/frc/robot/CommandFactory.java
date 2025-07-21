@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 // import frc.robot.commands.GyroResetByAngleCommand;
-import frc.robot.commands.IntakeNoteCommand;
+// import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LEDDefaultCommand;
 // import frc.robot.commands.MoveToNoteCommand;
 // import frc.robot.commands.ResetOdometryCommand;
@@ -28,7 +28,7 @@ import frc.robot.io.RobotIO;
 import frc.robot.operation.UserPolicy;
 // import frc.robot.processors.OdometryProcessor;
 // import frc.robot.subsystems.drive.DriveSubsystem;
-import frc.robot.subsystems.intake.IntakeSubsystem;
+// import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.led.LEDSubsystem;
 // import frc.robot.subsystems.navx.NavXSubsystem;
 import frc.robot.subsystems.pivot.PivotSubsystem;
@@ -41,7 +41,7 @@ public class CommandFactory {
   // private final DriveSubsystem driveSubsystem;
   // private final VisionSubsystem visionSubsystem;
   // private final NavXSubsystem navXSubsystem;
-  private final IntakeSubsystem intakeSubsystem;
+  // private final IntakeSubsystem intakeSubsystem;
   private final ShooterSubsystem shooterSubsystem;
   private final TransferSubsystem transferSubsystem;
   private final PivotSubsystem pivotSubsystem;
@@ -49,7 +49,7 @@ public class CommandFactory {
   private final LEDSubsystem ledSubsystem;
 
   private final SubsystemManager subsystemManager;
-  private final SendableChooser<Command> autoChooser;
+  // private final SendableChooser<Command> autoChooser;
 
 
   public CommandFactory(SubsystemManager subsystemManager) {
@@ -59,7 +59,7 @@ public class CommandFactory {
     this.shooterSubsystem = subsystemManager.getShooterSubsystem();
     this.transferSubsystem = subsystemManager.getTransferSubsystem();
     this.pivotSubsystem = subsystemManager.getPivotSubsystem();
-    this.intakeSubsystem = subsystemManager.getIntakeSubsystem();
+    // this.intakeSubsystem = subsystemManager.getIntakeSubsystem();
     // this.odometry = odometry;
     this.subsystemManager = subsystemManager;
     this.ledSubsystem = subsystemManager.getLedSubsystem();
@@ -102,23 +102,23 @@ public class CommandFactory {
     //       return false;
     //     }, driveSubsystem);
 
-    NamedCommands.registerCommand("intake", new IntakeNoteCommand(intakeSubsystem,
-        transferSubsystem, shooterSubsystem, subsystemManager.getLedSubsystem()));
+    // NamedCommands.registerCommand("intake", new IntakeNoteCommand(intakeSubsystem,
+    //     transferSubsystem, shooterSubsystem, subsystemManager.getLedSubsystem()));
     NamedCommands.registerCommand("subwooferShot", new ShootAngleCommand(shooterSubsystem,
         pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_SUBWOOFER_SCORING));
     NamedCommands.registerCommand("podiumShot", new ShootAngleCommand(shooterSubsystem,
         pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING));
     NamedCommands.registerCommand("ampShot", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
         transferSubsystem, RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG));
-    NamedCommands.registerCommand("autoIntake", new ParallelCommandGroup(
-        // new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance(), 0.4),
-        new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
-    NamedCommands.registerCommand("autoIntakeSlow", new ParallelCommandGroup(
-        // new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance(), 0.05),
-        new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
+    // NamedCommands.registerCommand("autoIntake", new ParallelCommandGroup(
+    //     // new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance(), 0.4),
+    //     new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
+    // NamedCommands.registerCommand("autoIntakeSlow", new ParallelCommandGroup(
+    //     // new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance(), 0.05),
+    //     new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
 
-    autoChooser = AutoBuilder.buildAutoChooser();
-    SmartDashboard.putData("Auto Chooser", autoChooser);
+    // autoChooser = AutoBuilder.buildAutoChooser();
+    // SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
   // public Command moveSixFeetForward() {
@@ -126,14 +126,14 @@ public class CommandFactory {
   //       AutoBuilder.followPath(PathPlannerPath.fromPathFile("Straight 6ft")));
   // }
 
-  public Command getAutoCommand() {
-    SequentialCommandGroup auto = new SequentialCommandGroup();
-    // auto.addCommands(
-    //     new GyroResetByAngleCommand(navXSubsystem, odometry, autoChooser.getSelected().getName()));
-    auto.addCommands(new WaitCommand(0.5));
-    auto.addCommands(autoChooser.getSelected());
-    return auto;
-  }
+  // public Command getAutoCommand() {
+  //   SequentialCommandGroup auto = new SequentialCommandGroup();
+  //   // auto.addCommands(
+  //   //     new GyroResetByAngleCommand(navXSubsystem, odometry, autoChooser.getSelected().getName()));
+  //   auto.addCommands(new WaitCommand(0.5));
+  //   auto.addCommands(autoChooser.getSelected());
+  //   return auto;
+  // }
 
   public Command getTargetSpeakerCommand() {
     return Commands.runOnce(() -> {

@@ -3,8 +3,8 @@ package frc.robot.commands;
 import frc.entech.commands.EntechCommand;
 import frc.entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
-import frc.robot.subsystems.intake.IntakeInput;
-import frc.robot.subsystems.intake.IntakeSubsystem;
+// import frc.robot.subsystems.intake.IntakeInput;
+// import frc.robot.subsystems.intake.IntakeSubsystem;
 import frc.robot.subsystems.shooter.ShooterInput;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 import frc.robot.subsystems.transfer.TransferInput;
@@ -13,31 +13,31 @@ import frc.robot.subsystems.transfer.TransferSubsystem.TransferPreset;
 
 public class EjectNoteCommand extends EntechCommand {
 
-  private IntakeSubsystem intSubsystem;
+  // private IntakeSubsystem intSubsystem;
   private TransferSubsystem transSubsystem;
   private ShooterSubsystem shootSubsystem;
 
-  private IntakeInput iInput = new IntakeInput();
+  // private IntakeInput iInput = new IntakeInput();
   private TransferInput tInput = new TransferInput();
   private ShooterInput sInput = new ShooterInput();
 
   private StoppingCounter counter = new StoppingCounter(RobotConstants.INTAKE.EJECTING_TIME);
 
-  public EjectNoteCommand(IntakeSubsystem iSubsystem, TransferSubsystem tSubsystem,
+  public EjectNoteCommand(TransferSubsystem tSubsystem,
       ShooterSubsystem sSubsystem) {
-    super(iSubsystem, tSubsystem);
-    this.intSubsystem = iSubsystem;
+    // super(iSubsystem, tSubsystem);
+    // this.intSubsystem = iSubsystem;
     this.transSubsystem = tSubsystem;
     this.shootSubsystem = sSubsystem;
   }
 
   @Override
   public void initialize() {
-    iInput.setActivate(true);
-    iInput.setSpeed(RobotConstants.INTAKE.EJECTING_SPEED);
+    // iInput.setActivate(true);
+    // iInput.setSpeed(RobotConstants.INTAKE.EJECTING_SPEED);
     tInput.setActivate(true);
     tInput.setSpeedPreset(TransferPreset.EJECTING);
-    intSubsystem.updateInputs(iInput);
+    // intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
     counter.reset();
     sInput.setActivate(true);
@@ -47,11 +47,11 @@ public class EjectNoteCommand extends EntechCommand {
 
   @Override
   public void end(boolean interupted) {
-    iInput.setActivate(false);
-    iInput.setSpeed(0);
+    // iInput.setActivate(false);
+    // iInput.setSpeed(0);
     tInput.setActivate(false);
     tInput.setSpeedPreset(TransferPreset.OFF);
-    intSubsystem.updateInputs(iInput);
+    // intSubsystem.updateInputs(iInput);
     transSubsystem.updateInputs(tInput);
     sInput.setActivate(false);
     sInput.setSpeed(0);

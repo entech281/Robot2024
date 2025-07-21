@@ -6,6 +6,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkLimitSwitch;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.entech.subsystems.EntechSubsystem;
 import frc.entech.util.EntechUtils;
@@ -80,6 +81,7 @@ public class PivotSubsystem extends EntechSubsystem<PivotInput, PivotOutput> {
             calculateMotorPositionFromDegrees(RobotConstants.PIVOT.LOWER_SOFT_LIMIT_DEG),
             ControlType.kSmartMotion, 1);
       }
+      SmartDashboard.putBoolean("lower_limit_switch" ,pivotLeft.getReverseLimitSwitch(SparkLimitSwitch.Type.kNormallyOpen).isPressed());
     }
   }
 

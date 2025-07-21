@@ -6,10 +6,10 @@ import java.util.Optional;
 import edu.wpi.first.math.geometry.Pose2d;
 // import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.RobotConstants;
-import frc.robot.subsystems.climb.ClimbOutput;
+// import frc.robot.subsystems.climb.ClimbOutput;
 // import frc.robot.subsystems.drive.DriveInput;
 // import frc.robot.subsystems.drive.DriveOutput;
-import frc.robot.subsystems.intake.IntakeOutput;
+// import frc.robot.subsystems.intake.IntakeOutput;
 import frc.robot.subsystems.internalNoteDetector.InternalNoteDetectorOutput;
 import frc.robot.subsystems.led.LEDOutput;
 // import frc.robot.subsystems.navx.NavXOutput;
@@ -57,9 +57,9 @@ public class RobotIO  {
   //   return latestNavXOutput;
   // }
 
-  public IntakeOutput getIntakeOutput() {
-    return latestIntakeOutput;
-  }
+  // public IntakeOutput getIntakeOutput() {
+  //   return latestIntakeOutput;
+  // }
 
   public ShooterOutput getShooterOutput() {
     return latestShooterOutput;
@@ -77,10 +77,10 @@ public class RobotIO  {
   //   return latestNoteDetectorOutput;
   // }
 
-  public ClimbOutput getClimbOutput() {
-    return latestClimbOutput;
+  // public ClimbOutput getClimbOutput() {
+  //   return latestClimbOutput;
 
-  }
+  // }
 
   public InternalNoteDetectorOutput getInternalNoteDetectorOutput() {
     return latestInternalNoteDetectorOutput;
@@ -115,20 +115,20 @@ public class RobotIO  {
     sho.log();
   }
 
-  public void updateIntake(IntakeOutput ito) {
-    latestIntakeOutput = ito;
-    ito.log();
-  }
+  // public void updateIntake(IntakeOutput ito) {
+  //   latestIntakeOutput = ito;
+  //   ito.log();
+  // }
 
   public void updatePivot(PivotOutput pio) {
     latestPivotOutput = pio;
     pio.log();
   }
 
-  public void updateClimb(ClimbOutput clo) {
-    latestClimbOutput = clo;
-    clo.log();
-  }
+  // public void updateClimb(ClimbOutput clo) {
+  //   latestClimbOutput = clo;
+  //   clo.log();
+  // }
 
   public void updateInternalNoteDetector(InternalNoteDetectorOutput hno) {
     latestInternalNoteDetectorOutput = hno;
@@ -170,13 +170,13 @@ public class RobotIO  {
   // private VisionOutput latestVisionOutput;
   // private NavXOutput latestNavXOutput;
   // private DriveOutput latestDriveOutput;
-  private IntakeOutput latestIntakeOutput;
+  // private IntakeOutput latestIntakeOutput;
   private TransferOutput latestTransferOutput;
   private ShooterOutput latestShooterOutput;
   private PivotOutput latestPivotOutput;
   private InternalNoteDetectorOutput latestInternalNoteDetectorOutput;
   // private NoteDetectorOutput latestNoteDetectorOutput;
-  private ClimbOutput latestClimbOutput;
+  // private ClimbOutput latestClimbOutput;
   private Pose2d latestOdometryPose = RobotConstants.ODOMETRY.INITIAL_POSE;
   private LEDOutput latestLEDOutput;
   private Optional<Double> distanceFromTarget = Optional.empty();

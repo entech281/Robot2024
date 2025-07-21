@@ -89,7 +89,7 @@ public class Robot extends TimedRobot {
   // @Override
   public void autonomousInit() {
     // odometry.setIntegrateVision(false);
-    autonomousCommand = commandFactory.getAutoCommand();
+    // autonomousCommand = commandFactory.getAutoCommand();
 
     if (autonomousCommand != null) {
       autonomousCommand.schedule();
