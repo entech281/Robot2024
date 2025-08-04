@@ -1,14 +1,12 @@
 package frc.robot.commands;
 
-import java.util.Optional;
 import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.entech.commands.EntechCommand;
-import frc.entech.util.AimCalculator;
 import frc.entech.util.StoppingCounter;
 import frc.robot.RobotConstants;
 import frc.robot.io.RobotIO;
+import frc.robot.livetuning.LiveTuningHandler;
 import frc.robot.operation.UserPolicy;
 // import frc.robot.subsystems.intake.IntakeInput;
 // import frc.robot.subsystems.intake.IntakeSubsystem;
@@ -24,29 +22,20 @@ public class PrepareToShootCommand extends EntechCommand {
   private StoppingCounter stableCounter = new StoppingCounter(RobotConstants.SHOOTER.SHOOT_DELAY);
   private final PivotSubsystem pivot;
   private final ShooterSubsystem shooter;
-  // private final IntakeSubsystem intake;
 
   private final ShooterInput sInput = new ShooterInput();
   private final PivotInput pInput = new PivotInput();
-  // private final IntakeInput iInput = new IntakeInput();
 
-  private final Trigger ampSwitch;
-  private final Trigger speakerSwitch;
-  private final Trigger autoSwitch;
   private final XboxController controller;
 
   private boolean noNote;
 
-  public PrepareToShootCommand(ShooterSubsystem shooter, PivotSubsystem pivot,Trigger ampSwitch, Trigger speakerSwitch, Trigger autoSwitch,
+  public PrepareToShootCommand(ShooterSubsystem shooter, PivotSubsystem pivot,
       XboxController controller) {
     super(shooter, pivot);
     this.pivot = pivot;
     this.shooter = shooter;
-    this.ampSwitch = ampSwitch;
-    this.speakerSwitch = speakerSwitch;
     this.controller = controller;
-    // this.intake = intake;
-    this.autoSwitch = autoSwitch;
   }
 
   @Override
@@ -56,10 +45,6 @@ public class PrepareToShootCommand extends EntechCommand {
 
     sInput.setActivate(false);
     shooter.updateInputs(sInput);
-
-    // iInput.setActivate(false);
-    // iInput.setSpeed(0.0);
-    // intake.updateInputs(iInput);
 
     UserPolicy.getInstance().setReadyToShoot(false);
     controller.setRumble(RumbleType.kBothRumble, 0.0);
@@ -80,29 +65,13 @@ public class PrepareToShootCommand extends EntechCommand {
       noNote = false;
       sInput.setActivate(true);
       pInput.setActivate(true);
-      // iInput.setActivate(true);
-      // iInput.setSpeed(0.25);
 
-      if (ampSwitch.getAsBoolean()) {
-        pInput.setRequestedPosition(RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG);
-        sInput.setSpeed(RobotConstants.PID.SHOOTER.AMP_SPEED);
-      } else if (autoSwitch.getAsBoolean()) {
-        sInput.setSpeed(RobotConstants.PID.SHOOTER.PODIUM_SPEED);
-        Optional<Double> distance = RobotIO.getInstance().getDistanceFromTarget();
+      pInput.setRequestedPosition(
+          LiveTuningHandler.getInstance().getValue("PivotSubsystem/selectedAngle"));
+      sInput.setSpeed(LiveTuningHandler.getInstance().getValue("ShooterSubsystem/selectedSpeed"));
 
-        pInput.setRequestedPosition(
-            AimCalculator.getPivotAngleFromDistance(distance.isPresent() ? distance.get() : 1)
-                + OFFSET);
-      } else if (speakerSwitch.getAsBoolean()) {
-        pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_PODIUM_SCORING);
-        sInput.setSpeed(RobotConstants.PID.SHOOTER.PODIUM_SPEED);
-      } else {
-        pInput.setRequestedPosition(RobotConstants.PIVOT.SPEAKER_SUBWOOFER_SCORING);
-        sInput.setSpeed(RobotConstants.PID.SHOOTER.SUBWOOFER_SPEED);
-      }
       shooter.updateInputs(sInput);
       pivot.updateInputs(pInput);
-      // intake.updateInputs(iInput);
 
       if (stableCounter.isFinished(shooter.getOutputs().isAtSpeed()
           && shooter.getOutputs().getCurrentSpeed() > RobotConstants.PID.SHOOTER.AMP_SPEED / 2

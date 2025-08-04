@@ -1,5 +1,6 @@
 package frc.robot;
 
+import java.util.Map;
 import com.revrobotics.CANSparkBase.IdleMode;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
@@ -50,7 +51,11 @@ public final class RobotConstants {
     public static final boolean GYRO_REVERSED = false;
     public static final boolean RATE_LIMITING = true;
   }
-
+  public static interface LiveTuning {
+    public static final Map<String, Double> VALUES =
+        Map.ofEntries(Map.entry("PivotSubsystem/selectedAngle", 30.0)),
+        Map.ofEntries(Map.entry("ShooterSubsystem/selectedSpeed",3000.0));
+  }
 
   public static final class SwerveModuleConstants {
     public static final double FREE_SPEED_RPM = 5676;
@@ -119,7 +124,7 @@ public final class RobotConstants {
     public static final int TURNING_MOTOR_CURRENT_LIMIT_AMPS = 20; // amps
 
     // public static final DynamicSwerveModuleSettings DYNAMIC_MODULE_SETTINGS =
-    //     new DynamicSwerveModuleSettings();
+    // new DynamicSwerveModuleSettings();
   }
 
 
