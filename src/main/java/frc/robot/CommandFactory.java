@@ -1,30 +1,23 @@
 package frc.robot;
 
 import java.util.Optional;
-import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.path.PathPlannerPath;
-import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
-import com.pathplanner.lib.util.PIDConstants;
-import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.entech.commands.InstantAnytimeCommand;
 // import frc.robot.commands.GyroResetByAngleCommand;
 // import frc.robot.commands.IntakeNoteCommand;
 import frc.robot.commands.LEDDefaultCommand;
 // import frc.robot.commands.MoveToNoteCommand;
 // import frc.robot.commands.ResetOdometryCommand;
 import frc.robot.commands.ShootAngleCommand;
-import frc.robot.io.RobotIO;
+import frc.robot.livetuning.LiveTuningHandler;
 import frc.robot.operation.UserPolicy;
 // import frc.robot.processors.OdometryProcessor;
 // import frc.robot.subsystems.drive.DriveSubsystem;
@@ -68,42 +61,47 @@ public class CommandFactory {
       subsystemManager.getLedSubsystem()
           .setDefaultCommand(new LEDDefaultCommand(subsystemManager.getLedSubsystem()));
     }
+    ShuffleboardTab tab = Shuffleboard.getTab("stuffs");
+    tab.add("Save", new InstantAnytimeCommand(() -> LiveTuningHandler.getInstance().saveToJSON()));
+    tab.add("Load", new InstantAnytimeCommand(() -> LiveTuningHandler.getInstance().resetToJSON()));
+    tab.add("Code Defaults",
+        new InstantAnytimeCommand(() -> LiveTuningHandler.getInstance().resetToDefaults()));
 
     // // AutoBuilder.configureHolonomic(odometry::getEstimatedPose, // Robot pose supplier
-    //     // Method to reset odometry (will be called if your auto has a starting pose)
-    //     // odometry::resetOdometry,
-    //     // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE. Choose one:
-    //     // () -> navXSubsystem.toOutputs().getChassisSpeeds(),
-    //     // driveSubsystem::getChassisSpeeds, driveSubsystem::pathFollowDrive,
-    //     new HolonomicPathFollowerConfig(
-    //         // HolonomicPathFollowerConfig, this should likely live in your Constants
-    //         // class
-    //         new PIDConstants(8.5, 3, 0.1), // origional P = 5
-    //         // Translation PID constants
-    //         new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0),
-    //         // Rotation PID constants
-    //         RobotConstants.AUTONOMOUS.MAX_MODULE_SPEED_METERS_PER_SECOND,
-    //         // Max module speed, in m/s
-    //         RobotConstants.DrivetrainConstants.DRIVE_BASE_RADIUS_METERS,
-    //         // Drive base radius in meters. Distance from robot center to furthest
-    //         // module.
-    //         new ReplanningConfig()
-    //     // Default path replanning config. See the API for the options here
-    //     ), () -> {
-    //       // Boolean supplier that controls when the path will be mirrored for the red
-    //       // alliance
-    //       // This will flip the path being followed to the red side of the field.
-    //       // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+    // // Method to reset odometry (will be called if your auto has a starting pose)
+    // // odometry::resetOdometry,
+    // // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE. Choose one:
+    // // () -> navXSubsystem.toOutputs().getChassisSpeeds(),
+    // // driveSubsystem::getChassisSpeeds, driveSubsystem::pathFollowDrive,
+    // new HolonomicPathFollowerConfig(
+    // // HolonomicPathFollowerConfig, this should likely live in your Constants
+    // // class
+    // new PIDConstants(8.5, 3, 0.1), // origional P = 5
+    // // Translation PID constants
+    // new PIDConstants(RobotConstants.AUTONOMOUS.ROTATION_CONTROLLER_P, 0.0, 0.0),
+    // // Rotation PID constants
+    // RobotConstants.AUTONOMOUS.MAX_MODULE_SPEED_METERS_PER_SECOND,
+    // // Max module speed, in m/s
+    // RobotConstants.DrivetrainConstants.DRIVE_BASE_RADIUS_METERS,
+    // // Drive base radius in meters. Distance from robot center to furthest
+    // // module.
+    // new ReplanningConfig()
+    // // Default path replanning config. See the API for the options here
+    // ), () -> {
+    // // Boolean supplier that controls when the path will be mirrored for the red
+    // // alliance
+    // // This will flip the path being followed to the red side of the field.
+    // // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
 
-    //       var alliance = DriverStation.getAlliance();
-    //       if (alliance.isPresent()) {
-    //         return alliance.get() == DriverStation.Alliance.Red;
-    //       }
-    //       return false;
-    //     }, driveSubsystem);
+    // var alliance = DriverStation.getAlliance();
+    // if (alliance.isPresent()) {
+    // return alliance.get() == DriverStation.Alliance.Red;
+    // }
+    // return false;
+    // }, driveSubsystem);
 
     // NamedCommands.registerCommand("intake", new IntakeNoteCommand(intakeSubsystem,
-    //     transferSubsystem, shooterSubsystem, subsystemManager.getLedSubsystem()));
+    // transferSubsystem, shooterSubsystem, subsystemManager.getLedSubsystem()));
     NamedCommands.registerCommand("subwooferShot", new ShootAngleCommand(shooterSubsystem,
         pivotSubsystem, transferSubsystem, RobotConstants.PIVOT.SPEAKER_SUBWOOFER_SCORING));
     NamedCommands.registerCommand("podiumShot", new ShootAngleCommand(shooterSubsystem,
@@ -111,28 +109,28 @@ public class CommandFactory {
     NamedCommands.registerCommand("ampShot", new ShootAngleCommand(shooterSubsystem, pivotSubsystem,
         transferSubsystem, RobotConstants.PIVOT.SHOOT_AMP_POSITION_DEG));
     // NamedCommands.registerCommand("autoIntake", new ParallelCommandGroup(
-    //     // new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance(), 0.4),
-    //     new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
+    // // new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance(), 0.4),
+    // new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
     // NamedCommands.registerCommand("autoIntakeSlow", new ParallelCommandGroup(
-    //     // new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance(), 0.05),
-    //     new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
+    // // new MoveToNoteCommand(driveSubsystem, 0, RobotIO.getInstance(), 0.05),
+    // new IntakeNoteCommand(intakeSubsystem, transferSubsystem, shooterSubsystem, ledSubsystem)));
 
     // autoChooser = AutoBuilder.buildAutoChooser();
     // SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
   // public Command moveSixFeetForward() {
-  //   return new SequentialCommandGroup(new ResetOdometryCommand(odometry), new WaitCommand(0.25),
-  //       AutoBuilder.followPath(PathPlannerPath.fromPathFile("Straight 6ft")));
+  // return new SequentialCommandGroup(new ResetOdometryCommand(odometry), new WaitCommand(0.25),
+  // AutoBuilder.followPath(PathPlannerPath.fromPathFile("Straight 6ft")));
   // }
 
   // public Command getAutoCommand() {
-  //   SequentialCommandGroup auto = new SequentialCommandGroup();
-  //   // auto.addCommands(
-  //   //     new GyroResetByAngleCommand(navXSubsystem, odometry, autoChooser.getSelected().getName()));
-  //   auto.addCommands(new WaitCommand(0.5));
-  //   auto.addCommands(autoChooser.getSelected());
-  //   return auto;
+  // SequentialCommandGroup auto = new SequentialCommandGroup();
+  // // auto.addCommands(
+  // // new GyroResetByAngleCommand(navXSubsystem, odometry, autoChooser.getSelected().getName()));
+  // auto.addCommands(new WaitCommand(0.5));
+  // auto.addCommands(autoChooser.getSelected());
+  // return auto;
   // }
 
   public Command getTargetSpeakerCommand() {

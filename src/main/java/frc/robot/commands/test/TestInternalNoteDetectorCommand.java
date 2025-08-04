@@ -22,19 +22,19 @@ public class TestInternalNoteDetectorCommand extends EntechCommand {
       case 0:
         if (detector.getOutputs().forwardSensorHasNote()) {
           stage++;
-        } 
+        }
         // else {
-        //   Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
-        //       "Trigger the forward sensor.");
+        // Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
+        // "Trigger the forward sensor.");
         // }
         break;
       case 1:
         if (detector.getOutputs().rearSensorHasNote()) {
           stage++;
-        } 
+        }
         // else {
-        //   Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
-        //       "Trigger the rear sensor.");
+        // Logger.recordOutput(RobotConstants.OperatorMessages.SUBSYSTEM_TEST,
+        // "Trigger the rear sensor.");
         // }
         break;
       default:

@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 // import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.livetuning.LiveTuningHandler;
 // import frc.robot.commands.ResetTurningEncoderCommand;
 import frc.robot.operation.OperatorInterface;
 // import frc.robot.processors.OdometryProcessor;
@@ -34,43 +35,45 @@ public class Robot extends TimedRobot {
   // private PowerDistribution powerDistribution;
 
   // public void loggerInit() {
-  //   Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
-  //   Logger.recordMetadata("Version", BuildConstants.VERSION);
-  //   Logger.recordMetadata("GITRevision", BuildConstants.GIT_REVISION + "");
-  //   Logger.recordMetadata("GIT_SHA", BuildConstants.GIT_SHA);
-  //   Logger.recordMetadata("GIT_Date", BuildConstants.GIT_DATE);
-  //   Logger.recordMetadata("GIT_Branch", BuildConstants.GIT_BRANCH);
-  //   Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
-  //   Logger.recordMetadata("BuildUnixTime", BuildConstants.BUILD_UNIX_TIME + "");
+  // Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
+  // Logger.recordMetadata("Version", BuildConstants.VERSION);
+  // Logger.recordMetadata("GITRevision", BuildConstants.GIT_REVISION + "");
+  // Logger.recordMetadata("GIT_SHA", BuildConstants.GIT_SHA);
+  // Logger.recordMetadata("GIT_Date", BuildConstants.GIT_DATE);
+  // Logger.recordMetadata("GIT_Branch", BuildConstants.GIT_BRANCH);
+  // Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
+  // Logger.recordMetadata("BuildUnixTime", BuildConstants.BUILD_UNIX_TIME + "");
 
-  //   if (isReal()) {
-  //     Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
-  //     Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
-  //     powerDistribution = new PowerDistribution(1, ModuleType.kRev); // Enables power distribution
-  //     // logging
-  //     powerDistribution.clearStickyFaults();
-  //   } else {
-  //     setUseTiming(false); // Run as fast as possible
-  //     String logPath = LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or
-  //                                                   // prompt the user)
-  //     Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save
-  //                                                                                           // outputs
-  //                                                                                           // to a
-  //                                                                                           // new
-  //                                                                                           // log
-  //     Logger.addDataReceiver(new NT4Publisher());
-  //   }
+  // if (isReal()) {
+  // Logger.addDataReceiver(new WPILOGWriter()); // Log to a USB stick ("/U/logs")
+  // Logger.addDataReceiver(new NT4Publisher()); // Publish data to NetworkTables
+  // powerDistribution = new PowerDistribution(1, ModuleType.kRev); // Enables power distribution
+  // // logging
+  // powerDistribution.clearStickyFaults();
+  // } else {
+  // setUseTiming(false); // Run as fast as possible
+  // String logPath = LogFileUtil.findReplayLog(); // Pull the replay log from AdvantageScope (or
+  // // prompt the user)
+  // Logger.addDataReceiver(new WPILOGWriter(LogFileUtil.addPathSuffix(logPath, "_sim"))); // Save
+  // // outputs
+  // // to a
+  // // new
+  // // log
+  // Logger.addDataReceiver(new NT4Publisher());
+  // }
 
-  //   // Logger.disableDeterministicTimestamps() // See "Deterministic Timestamps" in the
-  //   // "Understanding Data Flow" page
-  //   Logger.start(); // Start logging! No more data receivers, replay sources, or metadata values may
-  //                   // be added.
-  //   LogTable.disableProtobufWarning();
+  // // Logger.disableDeterministicTimestamps() // See "Deterministic Timestamps" in the
+  // // "Understanding Data Flow" page
+  // Logger.start(); // Start logging! No more data receivers, replay sources, or metadata values
+  // may
+  // // be added.
+  // LogTable.disableProtobufWarning();
   // }
 
   // @Override
   public void robotInit() {
     // loggerInit();
+    LiveTuningHandler.getInstance().init();
     subsystemManager = new SubsystemManager();
     // odometry = new OdometryProcessor();
     commandFactory = new CommandFactory(subsystemManager);

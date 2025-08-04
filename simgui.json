@@ -9,6 +9,9 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/stuffs/Code Defaults": "Command",
+      "/Shuffleboard/stuffs/Load": "Command",
+      "/Shuffleboard/stuffs/Save": "Command",
       "/SmartDashboard/Auto Chooser": "String Chooser",
       "/SmartDashboard/Test Chooser": "String Chooser",
       "/SmartDashboard/navX-Sensor[4]": "Gyro"

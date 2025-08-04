@@ -52,9 +52,10 @@ public final class RobotConstants {
     public static final boolean RATE_LIMITING = true;
   }
   public static interface LiveTuning {
-    public static final Map<String, Double> VALUES =
-        Map.ofEntries(Map.entry("PivotSubsystem/selectedAngle", 30.0)),
-        Map.ofEntries(Map.entry("ShooterSubsystem/selectedSpeed",3000.0));
+    public static final Map<String, Double> VALUES = Map.ofEntries(
+        Map.entry("PivotSubsystem/selectedAngle", 30.0),
+        Map.entry("ShooterSubsystem/selectedSpeed",3000.0)
+    );
   }
 
   public static final class SwerveModuleConstants {

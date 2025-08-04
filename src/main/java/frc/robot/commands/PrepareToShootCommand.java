@@ -16,7 +16,7 @@ import frc.robot.subsystems.shooter.ShooterInput;
 import frc.robot.subsystems.shooter.ShooterSubsystem;
 
 public class PrepareToShootCommand extends EntechCommand {
-  private static final double OFFSET = -2.0;
+  // private static final double OFFSET = -2.0;
   private StoppingCounter cancelCounter =
       new StoppingCounter(RobotConstants.SHOOTER.RESET_DELAY + 1);
   private StoppingCounter stableCounter = new StoppingCounter(RobotConstants.SHOOTER.SHOOT_DELAY);
