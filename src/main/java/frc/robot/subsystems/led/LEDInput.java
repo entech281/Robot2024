@@ -6,9 +6,9 @@ import frc.entech.subsystems.SubsystemInput;
 
 public class LEDInput implements SubsystemInput {
 
-  private Color color = Color.kGreen;
-  private Color secondaryColor = Color.kBlack;
-  private boolean blinking = false;
+  private Color color = Color.kOrange;
+  private Color secondaryColor = Color.kBlue;
+  private boolean blinking = true;
 
   public Color getSecondaryColor() {
     return secondaryColor;
