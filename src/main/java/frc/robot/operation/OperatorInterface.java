@@ -14,6 +14,7 @@ import frc.entech.util.DriverControllerUtils;
 import frc.robot.CommandFactory;
 import frc.robot.RobotConstants;
 import frc.robot.SubsystemManager;
+import frc.robot.commands.DropPuckCommand;
 // import frc.robot.commands.ClimbJogLeftCommand;
 // import frc.robot.commands.ClimbJogRightCommand;
 // import frc.robot.commands.ClimbJogStopCommand;
@@ -161,6 +162,10 @@ public class OperatorInterface {
     xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.SHOOT)
         .whileTrue(new PrepareToShootCommand(subsystemManager.getShooterSubsystem(),
             subsystemManager.getPivotSubsystem(), xboxController.getHID()));
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.RAISE_ARM)
+        .whileTrue(new PivotUpCommand(subsystemManager.getPivotSubsystem()));
+    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.DROP_PUCK)
+        .onTrue(new DropPuckCommand(subsystemManager.getPivotSubsystem(), subsystemManager.getShooterSubsystem()));
   }
 
   public void operatorBindings() {
@@ -177,8 +182,6 @@ public class OperatorInterface {
     // .whileFalse(new LowerClimbCommand(subsystemManager.getClimbSubsystem(),
     // operatorPanel.button(RobotConstants.OPERATOR_PANEL.SWITCHES.CANCEL_CLIMB)));
 
-    xboxController.button(RobotConstants.PORTS.CONTROLLER.BUTTONS_XBOX.RAISE_ARM)
-        .whileTrue(new PivotUpCommand(subsystemManager.getPivotSubsystem()));
     // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_LEFT)
     // .whileTrue(new ClimbJogLeftCommand(subsystemManager.getClimbSubsystem()));
     // operatorPanel.button(RobotConstants.OPERATOR_PANEL.BUTTONS.LOWER_CLIMB_RIGHT)

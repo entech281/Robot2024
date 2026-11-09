@@ -220,6 +220,7 @@ public final class RobotConstants {
         public static final int SHOOT = 3;
         public static final int EJECT = 2;
         public static final int RAISE_ARM = 1;
+        public static final int DROP_PUCK = 4;
       }
     }
 
@@ -343,6 +344,7 @@ public final class RobotConstants {
     public static final double LOWER_SOFT_LIMIT_DEG = 1;
     public static final double PIVOT_CONVERSION_FACTOR = 2.4;
     public static final double SHOOT_AMP_POSITION_DEG = 85.5;
+    public static final double PUCKDROP_AMP_POSITION_DEG = UPPER_SOFT_LIMIT_DEG;
     public static final double POSITION_TOLERANCE_DEG = 2;
     public static final double INITIAL_POSITION = 1;
 
@@ -377,6 +379,7 @@ public final class RobotConstants {
   public static interface SHOOTER {
     public static final double RESET_DELAY = 0.5;
     public static final double SHOOT_DELAY = 0.25;
+    public static final double PUCKDROP_SPEED = 1000.0;
   }
 
 
