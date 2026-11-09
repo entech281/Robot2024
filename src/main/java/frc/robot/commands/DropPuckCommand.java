@@ -55,12 +55,12 @@ public class DropPuckCommand extends EntechCommand {
 
   @Override
   public boolean isFinished() {
-      if (timerRunning && (timer.get() > DROP_DELAY_IN_SEC + 1.0)) {
+      if (timerRunning && (timer.get() > (DROP_DELAY_IN_SEC + 1.0))) {
         return true;
       }
       return false;
   }
-  
+
   @Override
   public void end(boolean interupted) {
     counter.reset();
