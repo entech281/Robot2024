@@ -21,6 +21,7 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
   private AddressableLED leds;
   private AddressableLEDBuffer buffer;
   private Color currentColor;
+  private int currentOffset = 0;
 
   private LEDInput currentInput = new LEDInput();
   private Timer blinkTimer = new Timer();
@@ -46,6 +47,11 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
           toggleColor();
           blinkTimer.restart();
         }
+      } else if (currentInput.getRunning()) {
+        if (blinkTimer.hasElapsed(0.1)) {
+          moveColor();
+          blinkTimer.restart();
+        }
       } else {
         setColor(currentInput.getColor());
       }
@@ -60,6 +66,18 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
       setColor(currentInput.getSecondaryColor());
       currentColor = currentInput.getSecondaryColor();
     }
+  }
+
+  private void moveColor() {
+    currentOffset = (currentOffset + 1) % currentInput.getRunningLength();
+    for (var i = 0; i < buffer.getLength(); i++) {
+      if ( ((i / currentInput.getRunningLength()) % 2) == 0 ) {
+        buffer.setLED(i, currentInput.getColor());
+      } else {
+        buffer.setLED(i, currentInput.getSecondaryColor());
+      }
+    }
+    leds.setData(buffer);
   }
 
   private void setColor(Color c) {

@@ -8,7 +8,10 @@ public class LEDInput implements SubsystemInput {
 
   private Color color = Color.kOrange;
   private Color secondaryColor = Color.kBlue;
-  private boolean blinking = true;
+  private boolean blinking = false;
+  private boolean running = true;
+  private int running_length = 10;
+  private int running_offset = 0;
 
   public Color getSecondaryColor() {
     return secondaryColor;
@@ -43,6 +46,31 @@ public class LEDInput implements SubsystemInput {
 
   public void setBlinking(boolean blinking) {
     this.blinking = blinking;
+    this.running = false;
   }
 
+  public boolean getRunning() {
+    return running;
+  }
+
+  public void setRunning(boolean running) {
+    this.running = running;
+    this.blinking = false;
+  }
+
+  public int getRunningLength() {
+    return this.running_length;
+  }
+
+  public void setRunningLength(int length) {
+    this.running_length = length;
+  }
+
+  public int getRunningOffset() {
+    return this.running_offset;
+  }
+
+  public void setRunningOffset(int offset) {
+    this.running_offset = offset;
+  }
 }
