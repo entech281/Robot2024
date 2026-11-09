@@ -17,6 +17,7 @@ public class DropPuckCommand extends EntechCommand {
   private final ShooterSubsystem sSubsystem;
   private boolean timerRunning;
   private Timer timer = new Timer();
+  private final double DROP_DELAY_IN_SEC = 2.0;
   private StoppingCounter counter =
       new StoppingCounter(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
 
@@ -44,7 +45,7 @@ public class DropPuckCommand extends EntechCommand {
         timerRunning = true;
         timer.start();
       }
-      if (timerRunning && (timer.get() > 2.0)) {
+      if (timerRunning && (timer.get() > DROP_DELAY_IN_SEC)) {
         sInput.setActivate(true);
         sInput.setSpeed(RobotConstants.SHOOTER.PUCKDROP_SPEED);
         sSubsystem.updateInputs(sInput);
@@ -52,6 +53,14 @@ public class DropPuckCommand extends EntechCommand {
 
   }
 
+  @Override
+  public boolean isFinished() {
+      if (timerRunning && (timer.get() > DROP_DELAY_IN_SEC + 1.0)) {
+        return true;
+      }
+      return false;
+  }
+  
   @Override
   public void end(boolean interupted) {
     counter.reset();
