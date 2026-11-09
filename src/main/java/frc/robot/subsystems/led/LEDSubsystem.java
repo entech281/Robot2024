@@ -71,7 +71,7 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
   private void moveColor() {
     currentOffset = (currentOffset + 1) % currentInput.getRunningLength();
     for (var i = 0; i < buffer.getLength(); i++) {
-      if ( ((i / currentInput.getRunningLength()) % 2) == 0 ) {
+      if ( (((i-currentOffset) / currentInput.getRunningLength()) % 2) == 0 ) {
         buffer.setLED(i, currentInput.getColor());
       } else {
         buffer.setLED(i, currentInput.getSecondaryColor());
