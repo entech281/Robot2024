@@ -6,10 +6,10 @@ import frc.entech.subsystems.SubsystemInput;
 
 public class LEDInput implements SubsystemInput {
 
-  private Color color = Color.kOrange;
+  private Color color = Color.kDarkOrange;
   private Color secondaryColor = Color.kBlue;
-  private boolean blinking = false;
-  private boolean running = true;
+  private boolean blinking = true;
+  private boolean running = false;
   private int running_length = 10;
   private int running_offset = 0;
 

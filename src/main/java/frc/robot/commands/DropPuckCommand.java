@@ -17,7 +17,7 @@ public class DropPuckCommand extends EntechCommand {
   private final ShooterSubsystem sSubsystem;
   private boolean timerRunning;
   private Timer timer = new Timer();
-  private final double DROP_DELAY_IN_SEC = 1.5;
+  private final double DROP_DELAY_IN_SEC = 1.0;
   private StoppingCounter counter =
       new StoppingCounter(RobotConstants.TEST_CONSTANTS.STANDARD_TEST_LENGTH);
 

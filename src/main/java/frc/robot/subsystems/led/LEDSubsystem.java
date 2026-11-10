@@ -43,7 +43,7 @@ public class LEDSubsystem extends EntechSubsystem<LEDInput, LEDOutput> {
   public void periodic() {
     if (ENABLED) {
       if (currentInput.getBlinking()) {
-        if (blinkTimer.hasElapsed(0.25)) {
+        if (blinkTimer.hasElapsed(0.5)) {
           toggleColor();
           blinkTimer.restart();
         }
